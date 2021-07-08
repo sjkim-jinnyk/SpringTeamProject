@@ -4,17 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="resources/css/product.css">
 <title>Insert title here</title>
 </head>
 <body>
 
 	<div class="layout_container">
-		<div class="footer">
-		FOOTER
-		</div>
+		<jsp:include page="../include/header.jsp" />
+			<div class="main">			
+				
+			
+			</div>
+		<jsp:include page="../include/footer.jsp" />
 	</div>
-	
+
 </body>
 </html>

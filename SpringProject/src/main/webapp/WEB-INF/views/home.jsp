@@ -7,13 +7,13 @@
 <body>
 
 	<div class="layout_container">
-		<div class="main">
-			<jsp:include page="include/header.jsp" />
-			
+		<jsp:include page="include/header.jsp" />
+			<div class="main">			
+				
 			UTBT HOME
-			
-			<jsp:include page="include/footer.jsp" />
-		</div>
+						
+			</div>
+		<jsp:include page="include/footer.jsp" />
 	</div>
 
 </body>
