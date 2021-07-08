@@ -30,7 +30,11 @@ public class ProductController {
 		return "Product/product_cont";
 	}
 	
-	
+	@RequestMapping("cart.do")
+	public String cart() {
+		
+		return "Cart/cart";
+	}
 	
 	
 	

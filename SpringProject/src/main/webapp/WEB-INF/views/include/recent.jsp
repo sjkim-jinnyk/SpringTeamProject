@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="resources/css/product.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -14,7 +13,7 @@
 		<div class="recent">
 			<p><button>X</button></p><br>
 			<div class="recent-title">
-			최근 본 상품 
+			최근 본 상품([수])
 			</div>		
 						
 			<div class="recent-pro">

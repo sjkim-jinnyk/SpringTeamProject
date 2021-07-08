@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 </head>
 <body>
@@ -61,7 +62,7 @@
 				<%-- 리뷰 --%>
 				<div class="cont-board">
 					<span class="table-title">후기</span>
-					<span class="review-star">[별점 평균]/5</span>
+					<span class="review-star">[별점 평균] / 5</span>
 					<span class="review-number">([후기 수]개 후기)</span>
 					
 					<div class="photo-only">
@@ -69,13 +70,15 @@
 						사진 후기만 보기
 					</div>
 					
+					<hr>
+					
 					<ul>
 						<li>
 							<div class="review">	
 								<div class="review-wrap">	
-								<span class="personal-star">[별점]</span> 
-								<span class="mem-id">[회원 아이디]</span> <br>
-								<span class="review-cont">[회원 후기]</span>
+									<span class="personal-star">[별점]</span> 
+									<span class="mem-id">[회원 아이디]</span> <br>
+									<span class="review-cont">[회원 후기]</span>
 								</div>
 								
 								<img src="#">
@@ -83,12 +86,15 @@
 						</li>
 					</ul>
 					
-					<button>후기 쓰기</button>
+					<button class="write">후기 쓰기</button>
+					<br>
 					
 					<%-- pagination --%>
-					<button>1</button>
-					<button>2</button>
-					<button>3</button>
+					<div class="cont-pagination">
+						<button>1</button>
+						<button>2</button>
+						<button>3</button>
+					</div>
 				</div>
 				
 				
@@ -96,10 +102,15 @@
 				<div class="cont-board">
 					<span class="table-title">질문</span>
 					
+					<hr>
+					
 					<ul>
 						<li>
 							<div class="qna-bar">
-								번호 제목 글쓴이 등록일
+								<span class="qna-no">번호</span>
+								<span class="qna-title">제목</span>
+								<span class="qna-writer">글쓴이</span>
+								<span class="qna-regdate">작성일자</span>
 							</div>
 						</li>
 					
@@ -114,12 +125,15 @@
 						</li>
 					</ul>
 					
-					<button>질문 쓰기</button>
+					<button class="write">질문 쓰기</button>
+					<br>
 					
 					<%-- pagination --%>
-					<button>1</button>
-					<button>2</button>
-					<button>3</button>
+					<div class="cont-pagination">
+						<button>1</button>
+						<button>2</button>
+						<button>3</button>
+					</div>
 				</div>
 				
 				
