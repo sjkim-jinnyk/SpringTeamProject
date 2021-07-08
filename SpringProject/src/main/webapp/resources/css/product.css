@@ -224,12 +224,77 @@
 }
 
 .product-content {
-	
+	text-align: center;
 }
 
 .content-category {
-	font-size: 
+	font-size: 15px;
+	margin: 5px 30px;
 }
+
+.product-content hr {
+	background-color: #CCC;
+	margin-bottom: 30px;
+}
+
+.content-detail {
+	margin: 5px 5px;
+	padding-bottom: 50px;
+}
+
+.content-detail img {
+	width: 100%;
+}
+
+.cont-board {
+	background-color: yellow;
+	margin: 50px 0;
+}
+
+.table-title {
+	display: inline-block;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.review-star .review-number {
+	display: inline-block
+	font-size: 10px;
+	color: #CCC;
+}
+
+.photo-only {
+	float: right;
+}
+
+.cont-board ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+.review-wrap {
+	display: inline-block;
+	width: 85%;
+}
+
+.personal-star {
+	
+}
+
+.mem-id {
+	color: #AAA;
+}
+
+.review-cont {
+	
+}
+
+.review img {
+	
+}
+
+
+
 
 
 

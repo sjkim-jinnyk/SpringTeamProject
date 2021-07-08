@@ -50,13 +50,17 @@
 					
 					<hr>
 					
+					
+				</div>
+				
+				<div class="content-detail">
 					[상품 상세설명]
 				</div>
 				
 				
 				<%-- 리뷰 --%>
-				<div class="table-title">
-					<span class="review-title">후기</span>
+				<div class="cont-board">
+					<span class="table-title">후기</span>
 					<span class="review-star">[별점 평균]/5</span>
 					<span class="review-number">([후기 수]개 후기)</span>
 					
@@ -68,9 +72,10 @@
 					<ul>
 						<li>
 							<div class="review">	
-								<div class="review-cont">	
-								[별점] [회원 아이디] <br>
-								[회원 후기]
+								<div class="review-wrap">	
+								<span class="personal-star">[별점]</span> 
+								<span class="mem-id">[회원 아이디]</span> <br>
+								<span class="review-cont">[회원 후기]</span>
 								</div>
 								
 								<img src="#">
@@ -88,7 +93,7 @@
 				
 				
 				<%-- 질문 --%>
-				<div class="cont-qna">
+				<div class="cont-board">
 					<span class="table-title">질문</span>
 					
 					<ul>
