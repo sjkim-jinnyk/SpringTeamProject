@@ -20,9 +20,9 @@
 			
 			<div class="column_right">
 				<div class="sns_group">
-					<div class="icon">●</div>
-					<div class="icon">●</div>
-					<div class="icon">●</div>
+					<div class="icon">[전화]</div>
+					<div class="icon">[메세지]</div>
+					<div class="icon">[인스타그램]</div>
 				</div>
 			</div>
 			
