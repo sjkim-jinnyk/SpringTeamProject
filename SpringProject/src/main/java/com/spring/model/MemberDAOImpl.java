@@ -11,6 +11,12 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+
+	@Override
+	public List<OrderDTO> getOrderList(MemberDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }
