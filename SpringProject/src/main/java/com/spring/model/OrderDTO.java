@@ -9,7 +9,7 @@ public class OrderDTO {
 	private String order_mem_id;
 	private String order_mem_name;
 	private String order_mem_phone;
-	private int order_mem_zip;
+	private int order_zip;
 	private String order_addr;
 	private String order_content;
 	private int coupon_no;

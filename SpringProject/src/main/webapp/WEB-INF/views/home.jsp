@@ -11,7 +11,6 @@
 			<jsp:include page="include/header.jsp" />
 			
 			UTBT HOME
-			hh
 			
 			<jsp:include page="include/footer.jsp" />
 		</div>
