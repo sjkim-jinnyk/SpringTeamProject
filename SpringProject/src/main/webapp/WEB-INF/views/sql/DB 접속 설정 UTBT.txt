@@ -1,0 +1,5 @@
+사용자 이름 : utbt
+비밀번호 : 1234
+호스트 이름 : ec2-54-180-93-185.ap-northeast-2.compute.amazonaws.com
+포트 : 1521
+SID : xe

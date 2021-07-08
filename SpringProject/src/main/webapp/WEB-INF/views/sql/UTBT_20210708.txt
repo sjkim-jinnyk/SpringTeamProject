@@ -1,0 +1,280 @@
+﻿-- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
+
+-- member Table Create SQL
+CREATE TABLE member
+(
+    mem_no       NUMBER(5)         UNIQUE NOT NULL, 
+    mem_id       VARCHAR2(20)      NOT NULL, 
+    mem_pwd      VARCHAR2(20)      NOT NULL, 
+    mem_name     VARCHAR2(20)      NOT NULL, 
+    mem_phone    VARCHAR2(20)      NOT NULL, 
+    mem_zip     NUMBER(6)         NOT NULL, 
+    mem_addr     VARCHAR2(1000)    NULL, 
+    mem_point   NUMBER(10)        NULL, 
+    mem_regdate  DATE              NULL, 
+    CONSTRAINT PK_member PRIMARY KEY (mem_id)
+);
+
+
+-- coupon Table Create SQL
+CREATE TABLE coupon
+(
+    coupon_no    NUMBER(5)        NOT NULL, 
+    coupon_code  VARCHAR2(20)     NOT NULL, 
+    coupon_type  NUMBER(5)        NOT NULL, 
+    coupon_cont  VARCHAR2(100)    NULL, 
+    CONSTRAINT PK_coupon PRIMARY KEY (coupon_no)
+);
+
+
+-- coupon_own Table Create SQL
+CREATE TABLE coupon_own
+(
+    own_coupon  NUMBER(5)       NOT NULL, 
+    own_mem     VARCHAR2(20)    NOT NULL, 
+    own_check   VARCHAR2(5)     NOT NULL, 
+    CONSTRAINT PK_coupon_own PRIMARY KEY (own_coupon)
+);
+
+ALTER TABLE coupon_own
+    ADD CONSTRAINT FK_coupon_own_own_mem FOREIGN KEY (own_mem)
+        REFERENCES member (mem_id);
+
+ALTER TABLE coupon_own
+    ADD CONSTRAINT FK_coupon_own_own_coupon FOREIGN KEY (own_coupon)
+        REFERENCES coupon (coupon_no);
+
+
+-- cate Table Create SQL
+CREATE TABLE cate
+(
+    cate_no    NUMBER(5)        NOT NULL, 
+    cate_name  VARCHAR2(100)    NOT NULL, 
+    CONSTRAINT PK_cate PRIMARY KEY (cate_no)
+);
+
+
+-- product Table Create SQL
+CREATE TABLE product
+(
+    pro_no            NUMBER(5)        NOT NULL, 
+    pro_name          VARCHAR2(200)    NOT NULL, 
+    pro_category      NUMBER(5)        NULL, 
+    pro_input_price   NUMBER(10)       NULL, 
+    pro_output_price  NUMBER(10)       NULL, 
+    pro_tag           VARCHAR2(200)    NULL, 
+    pro_check         VARCHAR2(5)      NULL, 
+    CONSTRAINT PK_product PRIMARY KEY (pro_no)
+);
+
+
+ALTER TABLE product
+    ADD CONSTRAINT FK_product_pro_category FOREIGN KEY (pro_category)
+        REFERENCES cate (cate_no);
+
+
+-- order Table Create SQL
+CREATE TABLE orderT
+(
+    order_no         NUMBER(5)         NOT NULL, 
+    order_mem_id     VARCHAR2(20)      NOT NULL, 
+    order_mem_name   VARCHAR2(20)      NOT NULL, 
+    order_mem_phone  VARCHAR2(20)      NOT NULL, 
+    order_zip        NUMBER(6)         NOT NULL, 
+    order_addr       VARCHAR2(1000)    NOT NULL, 
+    order_content    VARCHAR2(1000)    NOT NULL, 
+    coupon_no        NUMBER(5)         NULL, 
+    order_price      NUMBER(10)        NOT NULL, 
+    order_date       DATE              NOT NULL, 
+    option_day       NUMBER(1)         NOT NULL, 
+    option_term      NUMBER(1)         DEFAULT 0 NOT NULL, 
+    CONSTRAINT PK_order PRIMARY KEY (order_no)
+);
+
+ALTER TABLE orderT
+    ADD CONSTRAINT FK_orderT_order_mem_id FOREIGN KEY (order_mem_id)
+        REFERENCES member (mem_id);
+
+ALTER TABLE orderT
+    ADD CONSTRAINT FK_orderT_coupon_no FOREIGN KEY (coupon_no)
+        REFERENCES coupon_own (own_coupon);
+
+
+-- qna_category Table Create SQL
+CREATE TABLE qna_category
+(
+    cate_no    number(5)        NOT NULL, 
+    cate_name  VARCHAR2(200)    NULL, 
+    CONSTRAINT PK_qna_category PRIMARY KEY (cate_no)
+);
+
+
+-- tag Table Create SQL
+CREATE TABLE tag
+(
+    tag_no    NUMBER(5)        NOT NULL, 
+    tag_name  VARCHAR2(100)    NOT NULL, 
+    CONSTRAINT PK_tag PRIMARY KEY (tag_no)
+);
+
+
+-- review Table Create SQL
+CREATE TABLE review
+(
+    review_no      NUMBER(5)         NOT NULL, 
+    review_pro     NUMBER(5)         NOT NULL, 
+    review_title   VARCHAR2(200)     NOT NULL, 
+    review_writer  VARCHAR2(20)      NOT NULL, 
+    review_cont    VARCHAR2(1000)    NOT NULL, 
+    review_img     VARCHAR2(200)     NULL, 
+    review_star    NUMBER(5)         DEFAULT 5 NOT NULL, 
+    review_hit     NUMBER(5)         DEFAULT 0 NOT NULL, 
+    review_date    DATE              NOT NULL, 
+    CONSTRAINT PK_review PRIMARY KEY (review_no)
+);
+
+ALTER TABLE review
+    ADD CONSTRAINT FK_review_review_pro FOREIGN KEY (review_pro)
+        REFERENCES product (pro_no);
+
+ALTER TABLE review
+    ADD CONSTRAINT FK_review_review_writer FOREIGN KEY (review_writer)
+        REFERENCES member (mem_id);
+
+
+-- qna Table Create SQL
+CREATE TABLE qna
+(
+    qna_no        NUMBER(5)         NOT NULL, 
+    qna_writer    VARCHAR2(20)      NOT NULL, 
+    qna_pro       NUMBER(5)         NULL, 
+    qna_title     VARCHAR2(200)     NOT NULL, 
+    qna_cont      VARCHAR2(1000)    NOT NULL, 
+    qna_order_no  NUMBER(5)         NULL, 
+    qna_category_no  NUMBER(5)     NOT NULL, 
+    qna_pwd       VARCHAR2(20)      NOT NULL, 
+    qna_date      DATE              NOT NULL, 
+    qna_group     NUMBER(5)         NULL, 
+    qna_step      NUMBER(5)         DEFAULT 0 NULL, 
+    qna_secret    NUMBER(5)         DEFAULT 0 NOT NULL, 
+    CONSTRAINT PK_qna PRIMARY KEY (qna_no)
+);
+
+ALTER TABLE qna
+    ADD CONSTRAINT FK_qna_qna_pro FOREIGN KEY (qna_pro)
+        REFERENCES product (pro_no);
+
+ALTER TABLE qna
+    ADD CONSTRAINT FK_qna_qna_writer FOREIGN KEY (qna_writer)
+        REFERENCES member (mem_id);
+
+ALTER TABLE qna
+    ADD CONSTRAINT FK_qna_qna_category_no FOREIGN KEY (qna_category_no)
+        REFERENCES qna_category (cate_no);
+
+ALTER TABLE qna
+    ADD CONSTRAINT FK_qna_qna_order_no FOREIGN KEY (qna_order_no)
+        REFERENCES orderT (order_no);
+
+
+-- cart Table Create SQL
+CREATE TABLE cart
+(
+    cart_no      NUMBER(5)       NOT NULL, 
+    user_id      VARCHAR2(20)    NOT NULL, 
+    product_no   NUMBER(5)       NOT NULL, 
+    cart_amount  NUMBER(5)       NOT NULL, 
+    CONSTRAINT PK_cart PRIMARY KEY (cart_no)
+);
+
+ALTER TABLE cart
+    ADD CONSTRAINT FK_cart_user_id FOREIGN KEY (user_id)
+        REFERENCES member (mem_id);
+
+ALTER TABLE cart
+    ADD CONSTRAINT FK_cart_product_no FOREIGN KEY (product_no)
+        REFERENCES product (pro_no);
+
+
+-- order_detail Table Create SQL
+CREATE TABLE order_detail
+(
+    order_no          NUMBER(5)    NOT NULL, 
+    order_pro_no      NUMBER(5)    NOT NULL, 
+    order_pro_amount  NUMBER(5)    NOT NULL, 
+    CONSTRAINT PK_order_detail PRIMARY KEY (order_no)
+);
+
+ALTER TABLE order_detail
+    ADD CONSTRAINT FK_order_detail_order_no FOREIGN KEY (order_no)
+        REFERENCES orderT (order_no);
+
+ALTER TABLE order_detail
+    ADD CONSTRAINT FK_order_detail_order_pro_no FOREIGN KEY (order_pro_no)
+        REFERENCES product (pro_no);
+
+
+-- order_deliver Table Create SQL
+CREATE TABLE order_deliver
+(
+    order_no        NUMBER(5)     NOT NULL, 
+    deliver_date    DATE          NOT NULL, 
+    deliver_no      NUMBER(20)    NOT NULL, 
+    deliver_status  NUMBER(1)     DEFAULT 0 NOT NULL, 
+    CONSTRAINT PK_order_deliver PRIMARY KEY (order_no)
+);
+
+ALTER TABLE order_deliver
+    ADD CONSTRAINT FK_order_deliver_order_no FOREIGN KEY (order_no)
+        REFERENCES orderT (order_no);
+
+
+-- product_recent Table Create SQL
+CREATE TABLE product_recent
+(
+    recent_no       NUMBER(5)       NOT NULL, 
+    recent_mem      VARCHAR2(20)    NOT NULL, 
+    recent_product  NUMBER(5)       NOT NULL, 
+    recent_regdate  DATE            NOT NULL, 
+    CONSTRAINT PK_product_recent PRIMARY KEY (recent_no)
+);
+
+ALTER TABLE product_recent
+    ADD CONSTRAINT FK_product_recent_recent_pro FOREIGN KEY (recent_product)
+        REFERENCES product (pro_no);
+
+ALTER TABLE product_recent
+    ADD CONSTRAINT FK_product_recent_recent_mem FOREIGN KEY (recent_mem)
+        REFERENCES member (mem_id);
+
+
+-- product_like Table Create SQL
+CREATE TABLE product_like
+(
+    like_no       NUMBER(5)       NOT NULL, 
+    like_mem      VARCHAR2(20)    NOT NULL, 
+    like_product  NUMBER(5)       NOT NULL, 
+    like_regdate  DATE            NOT NULL, 
+    CONSTRAINT PK_product_like PRIMARY KEY (like_no)
+);
+
+ALTER TABLE product_like
+    ADD CONSTRAINT FK_product_like_like_product FOREIGN KEY (like_product)
+        REFERENCES product (pro_no);
+
+ALTER TABLE product_like
+    ADD CONSTRAINT FK_product_like_like_mem FOREIGN KEY (like_mem)
+        REFERENCES member (mem_id);
+
+
+-- board Table Create SQL
+CREATE TABLE board
+(
+    board_no     number(5)         NOT NULL, 
+    board_title  VARCHAR2(200)     NOT NULL, 
+    board_cont   VARCHAR2(2000)    NOT NULL, 
+    board_date   DATE              NOT NULL, 
+    board_hit    number(5)         DEFAULT 0 NOT NULL, 
+     PRIMARY KEY (board_no)
+);
+
