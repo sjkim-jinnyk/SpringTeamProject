@@ -14,4 +14,13 @@ public class ReviewDTO {
 	private int review_star;
 	private int review_hit;
 	private String review_date;
+	private int reviewCount;
+	
+	public ReviewDTO() { } 		// 기본생성자
+	
+	public ReviewDTO(int reviewCount) {
+		
+		this.reviewCount = reviewCount;
+		
+	}
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class OrderDTO {
 
-	private int order_co;
+	private int order_no;
 	private String order_mem_id;
 	private String order_mem_name;
 	private String order_mem_phone;
@@ -17,5 +17,6 @@ public class OrderDTO {
 	private String order_date;
 	private int option_day;
 	private int option_term;
+	
 	
 }
