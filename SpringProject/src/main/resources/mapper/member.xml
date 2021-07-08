@@ -6,12 +6,33 @@
  
 <mapper namespace="com.spring.model.MemberDAO">
 	
-	<select id="list" resultType="com.spring.model.MemberDTO">
+	<select id="memberList" resultType="com.spring.model.MemberDTO">
 		select * from member
+	</select>
+	
+	<select id="orderList" resultType="com.spring.model.OrderDTO">
+		select * from ordert where order_mem_id = #{id} order by order_no desc
 	</select>
 	
 	<select id="content" resultType="com.spring.model.MemberDTO">
 		select * from member where mem_id = #{id}
 	</select>
 	
+	<select id="couponCount" resultType="int">
+		select count(*) from coupon_own where own_mem = #{id}
+	</select>
+	
+	<select id="reviewCount" resultType="int">
+		select count(*) from review where review_writer = #{id}
+	</select>
+	
+	<select id="likeCount" resultType="int">
+		select count(*) from product_like where like_mem = #{id}
+	</select>
+	
+
+		
+	<select id="deliverList" resultType="com.spring.model.OrderDeliverDTO">
+		select * from order_deliver where order_no = #{order_no}
+	</select>
 </mapper>
