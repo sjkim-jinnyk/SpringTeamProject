@@ -2,6 +2,7 @@
 <%@ page session="false" pageEncoding="UTF-8" %>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>UTBT</title>
 </head>
 <body>

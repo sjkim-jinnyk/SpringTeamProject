@@ -4,13 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="resources/css/include.css">
 <title>Insert title here</title>
 </head>
 <body>
 
 	<div class="layout_container">
 		
-		<div class="footer_desktop">
+		<div class="footer_desktop footer">
 			
 			<div class="column_left">
 				<p class="company_info1">상호: (주)페어테이블 | 대표: 박성호 | 개인정보관리책임자: 성동현 | 전화: 070-4145-5928 | 이메일: FAIRTABLE@DAUM.NET</p>
@@ -27,7 +29,6 @@
 			</div>
 			
 		</div>
-		
 	</div>
 	
 </body>
