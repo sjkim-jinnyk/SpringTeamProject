@@ -12,5 +12,7 @@ public class ProductDTO {
 	private int pro_output_price;
 	private String pro_tag;
 	private String pro_check;
+	private String pro_img;
+	private String pro_cont;
 	
 }

@@ -63,7 +63,9 @@ CREATE TABLE product
     pro_input_price   NUMBER(10)       NULL, 
     pro_output_price  NUMBER(10)       NULL, 
     pro_tag           VARCHAR2(200)    NULL, 
-    pro_check         VARCHAR2(5)      NULL, 
+    pro_check         VARCHAR2(5)      NULL,
+    pro_img			  VARCHAR2(100)    NULL,   
+    pro_cont		  VARCHAR2(2000)   NULL,
     CONSTRAINT PK_product PRIMARY KEY (pro_no)
 );
 
