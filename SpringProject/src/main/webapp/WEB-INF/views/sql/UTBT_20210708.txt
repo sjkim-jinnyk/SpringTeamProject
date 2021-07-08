@@ -95,10 +95,6 @@ ALTER TABLE orderT
     ADD CONSTRAINT FK_orderT_order_mem_id FOREIGN KEY (order_mem_id)
         REFERENCES member (mem_id);
 
-ALTER TABLE orderT
-    ADD CONSTRAINT FK_orderT_coupon_no FOREIGN KEY (coupon_no)
-        REFERENCES coupon_own (own_coupon);
-
 
 -- qna_category Table Create SQL
 CREATE TABLE qna_category
