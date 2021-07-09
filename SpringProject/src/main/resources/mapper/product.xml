@@ -5,8 +5,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="com.spring.model.ProductDAO">
+
+	<!-- ::: product_list ::: -->
 	
-	<!-- product_list -->
 	<select id="productTotalRecord" resultType="int">
 		select count(*) from product
 	</select>
@@ -19,7 +20,8 @@
 	</select>
 	
 	
-	<!-- product_cont -->
+	<!-- ::: product_cont ::: -->
+	
 	<select id="productCont" parameterType="int" resultType="com.spring.model.ProductDTO">
 		select * from product where pro_no = #{no}
 	</select>
@@ -51,42 +53,57 @@
 	</select>
 	
 	
-	<!-- cart -->
-	<select id="memCart" parameterType="ArrayList" resultType="com.spring.model.ProductDTO">
-		select * from product where pro_no in
-			<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.value}</foreach>	
-			order by case pro_no
-			<foreach collection="list" item="item" separator=" " index="index"> when #{item} then #{index}</foreach> end
-	</select>
 	
-	<select id="cartList" parameterType="String" resultType="com.spring.model.CartDTO">
-		select * from cart where user_id = #{id} order by cart_no
-	</select>
+	<!-- ::: recent ::: -->
 	
-	<insert id="addCart" parameterType="com.spring.model.CartDTO">
-		<selectKey resultType="int" keyProperty="cart_no" order="BEFORE">
-			select max(cart_no) + 1 from cart
-		</selectKey>
+	<resultMap type="com.spring.model.ProductDTO" id="product">
+		<result column="pro_no" property="pro_no" />
+		<result column="pro_name" property="pro_name" />
+		<result column="pro_category" property="pro_category" />
+		<result column="pro_output_price" property="pro_output_price" />
+		<result column="pro_tag" property="pro_tag" />
+		<result column="pro_check" property="pro_check" />
+		<result column="pro_img" property="pro_img" />
+		<result column="pro_cont" property="pro_cont" />
+	</resultMap>
+
+	<resultMap type="com.spring.model.ProductRecentDTO" id="recent">
+		<result column="recent_no" property="recent_no" />
+		<result column="recent_mem" property="recent_mem" />
+		<result column="recent_product" property="recent_product" />
+		<result column="recent_regdate" property="recent_regdate" />
+		<collection property="productDTO" resultMap="product" />
+	</resultMap>
 		
-		insert into cart values(#{cart_no}, #{user_id}, #{product_no}, #{cart_amount})
+	<select id="recentList" parameterType="String" resultMap="recent">
+		select *
+		from product p join product_recent r
+		on p.pro_no = r.recent_product
+		where r.recent_mem = #{id}
+		order by r.recent_regdate desc
+	</select>
+	
+	<select id="recentCheck" parameterType="String" resultType="int">
+		select count(*) from product_recent where recent_mem = #{id}
+	</select>
+	
+	<insert id="addRecent" parameterType="com.spring.model.ProductRecentDTO">
+		<selectKey resultType="int" keyProperty="recent_no" order="BEFORE">
+			select max(recent_no)+1 from product_recent
+		</selectKey>
+		insert into product_recent values(#{recent_no}, #{recent_mem}, #{recent_product}, sysdate)
 	</insert>
 	
-	<select id="cartCheck" parameterType="com.spring.model.CartDTO" resultType="int">
-		select count(*) from cart where user_id = #{user_id} and product_no = #{product_no}
+	<select id="recentProCheck" parameterType="com.spring.model.ProductRecentDTO" resultType="int">
+		select count(*) from product_recent where recent_mem = #{recent_mem} and recent_product = #{recent_product} 
 	</select>
 	
-	<update id="updateAmount" parameterType="com.spring.model.CartDTO">
-		update cart set cart_amount = cart_amount + 1 where user_id = #{user_id} and product_no = #{product_no}
+	<update id="updateRecentPro" parameterType="com.spring.model.ProductRecentDTO">
+		update product_recent set recent_regdate = sysdate where recent_mem = #{recent_mem} and recent_product = #{recent_product} 
 	</update>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<delete id="deleteRecent" parameterType="com.spring.model.ProductRecentDTO">
+		delete from product_recent where recent_mem = #{recent_mem} and recent_product = #{recent_product} 
+	</delete>
 	
 </mapper>
