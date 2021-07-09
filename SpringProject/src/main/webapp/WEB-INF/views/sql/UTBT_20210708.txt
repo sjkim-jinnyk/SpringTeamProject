@@ -63,7 +63,9 @@ CREATE TABLE product
     pro_input_price   NUMBER(10)       NULL, 
     pro_output_price  NUMBER(10)       NULL, 
     pro_tag           VARCHAR2(200)    NULL, 
-    pro_check         VARCHAR2(5)      NULL, 
+    pro_check         VARCHAR2(5)      NULL,
+    pro_img			  VARCHAR2(100)    NULL,   
+    pro_cont		  VARCHAR2(2000)   NULL,
     CONSTRAINT PK_product PRIMARY KEY (pro_no)
 );
 
@@ -94,10 +96,6 @@ CREATE TABLE orderT
 ALTER TABLE orderT
     ADD CONSTRAINT FK_orderT_order_mem_id FOREIGN KEY (order_mem_id)
         REFERENCES member (mem_id);
-
-ALTER TABLE orderT
-    ADD CONSTRAINT FK_orderT_coupon_no FOREIGN KEY (coupon_no)
-        REFERENCES coupon_own (own_coupon);
 
 
 -- qna_category Table Create SQL

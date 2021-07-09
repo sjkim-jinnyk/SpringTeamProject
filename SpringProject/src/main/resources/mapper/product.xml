@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.spring.model.ProductDAO">
+	
+	<!-- product_list -->
+	<select id="productTotalRecord" resultType="int">
+		select count(*) from product
+	</select>
+	
+	<select id="productList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.ProductDTO">
+		<![CDATA[ 
+			select * from (select p.*, row_number() over(order by pro_no desc) rnum from product p where pro_check = 'y')
+			where rnum >= #{startNo} and rnum <= ${endNo}
+		]]>
+	</select>
+	
+	
+	<!-- product_cont -->
+	<select id="productCont" parameterType="int" resultType="com.spring.model.ProductDTO">
+		select * from product where pro_no = #{no}
+	</select>
+	
+	<select id="proReviewTotalRecord" parameterType="int" resultType="int">
+		select count(*) from review where review_pro = #{no}
+	</select>
+	
+	<select id="proReviewList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.ReviewDTO">
+		<![CDATA[ 
+			select * from (select r.*, row_number() over(order by review_no desc) rnum from review r where review_pro = #{no})
+			where rnum >= #{startNo} and rnum <= ${endNo}
+		]]>
+	</select>
+	
+	<select id="totalStar" parameterType="int" resultType="int">
+		select nvl(sum(review_star),0) from review where review_pro = #{no}
+	</select>
+	
+	<select id="proQnaTotalRecord" parameterType="int" resultType="int">
+		select count(*) from qna where qna_pro = #{no}
+	</select>
+	
+	<select id="proQnaList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.QnaDTO">
+		<![CDATA[ 
+			select * from (select q.*, row_number() over(order by qna_no desc) rnum from qna q where qna_pro = #{no})
+			where rnum >= #{startNo} and rnum <= ${endNo}
+		]]>
+	</select>
+	
+	
+	<!-- cart -->
+	<select id="memCart" parameterType="ArrayList" resultType="com.spring.model.ProductDTO">
+		select * from product where pro_no in
+			<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.value}</foreach>	
+			order by case pro_no
+			<foreach collection="list" item="item" separator=" " index="index"> when #{item} then #{index}</foreach> end
+	</select>
+	
+	<select id="cartList" parameterType="String" resultType="com.spring.model.CartDTO">
+		select * from cart where user_id = #{id} order by cart_no
+	</select>
+	
+	<insert id="addCart" parameterType="com.spring.model.CartDTO">
+		<selectKey resultType="int" keyProperty="cart_no" order="BEFORE">
+			select max(cart_no) + 1 from cart
+		</selectKey>
+		
+		insert into cart values(#{cart_no}, #{user_id}, #{product_no}, #{cart_amount})
+	</insert>
+	
+	<select id="cartCheck" parameterType="com.spring.model.CartDTO" resultType="int">
+		select count(*) from cart where user_id = #{user_id} and product_no = #{product_no}
+	</select>
+	
+	<update id="updateAmount" parameterType="com.spring.model.CartDTO">
+		update cart set cart_amount = cart_amount + 1 where user_id = #{user_id} and product_no = #{product_no}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

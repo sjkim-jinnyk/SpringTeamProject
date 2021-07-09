@@ -7,6 +7,8 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
+<script src="${pageContext.request.contextPath}/resources/js/member.js" defer></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <title>Member</title>
 </head>
 <body>
@@ -41,7 +43,7 @@
 								</ul>
 							</li>
 						</a>
-						<a href="<%=request.getContextPath() %>/member_coupon.do">
+						<a href="<%=request.getContextPath() %>/member_coupon.do?id=${mem.getMem_id() }">
 							<li>
 								<ul class="menu_bar">
 									<li>쿠폰 </li>
@@ -49,7 +51,7 @@
 								</ul>
 							</li>
 						</a>
-						<a href="<%=request.getContextPath() %>/member_review.do">
+						<a href="<%=request.getContextPath() %>/member_review.do?id=${mem.getMem_id() }">
 							<li>
 								<ul class="menu_bar">
 									<li>리뷰 </li>
@@ -86,51 +88,43 @@
 							<tr>
 								<th>주문번호</th><th>상품정보</th><th>주문일자</th><th>주문금액</th><th>주문상태</th>
 							</tr>
-							<tr>
-								<c:if test="${!empty order }">
-									<c:forEach items="${order }" var="dto">
-										<td>${dto.getOrder_no() }</td>
-										<td>${dto.getOrder_content() }</td>
-										<td>${dto.getOrder_date() }</td>
-										<td>${dto.getOrder_price() }</td>
-										<c:if test="${empty deliver }">
-											<td>1234</td>
-<%-- 											<c:forEach items="${deliver }" var="list">
-												<c:if test="${list.getDeliver_status() } == 0">
-													<td>배송 준비 중</td>
+							<c:if test="${!empty order }">
+								<c:forEach items="${order }" var="dto">
+								<tr>
+									<td>${dto.getOrder_no() }</td>
+									<td>${dto.getOrder_content() }</td>
+									<td>${dto.getOrder_date() }</td>
+									<td>${dto.getOrder_price() }</td>
+									<c:if test="${!empty deliver }">
+										<c:forEach items="${deliver }" var="del">
+											<c:if test="${dto.getOrder_no() == del.getOrder_no()}">
+ 												<c:if test="${del.getDeliver_status() == 0 }">
+													<td>
+														배송 준비 중
+													</td>
 												</c:if>
-												<c:if test="${list.getDeliver_status() } == 1">
-													<td>배송중</td>
+												<c:if test="${del.getDeliver_status() == 1 }">
+													<td>
+														배송중
+													</td>
 												</c:if>	
-												<c:if test="${list.getDeliver_status() } == 2">
-													<td>배송완료</td>
-												</c:if>
-											</c:forEach> --%>
-										</c:if>
-									</c:forEach>
-								</c:if>
-<%-- 								<td>${order.getOrder_no() }</td>
-								<td>${order.getOrder_content() }</td>
-								<td>${order.getOrder_date() }</td>
-								<td>${order.getOrder_price() }</td>
-								<c:if test="${deliver.getDeliver_status() } == 0">
-									<td>
-										배송 준비 중
-									</td>
-								</c:if>
-								<c:if test="${deliver.getDeliver_status() } == 1">
-									<td>
-										배송중
-									</td>
-								</c:if>	
-								<c:if test="${deliver.getDeliver_status() } == 2">
-									<td>
-										배송완료
-									</td>
-								</c:if>	 --%>
-							</tr>
+												<c:if test="${del.getDeliver_status()  == 2 }">
+													<td>
+														배송완료
+													</td>
+												</c:if> 
+											</c:if>
+										</c:forEach>
+									</c:if>
+								</tr>
+								</c:forEach>
+							</c:if>	
+							<c:if test="${empty deliver }">
+								<tr>
+								<td>오류</td>
+								</tr>
+							</c:if>
 						</table>
-					
 					</div> <!-- member_order END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->

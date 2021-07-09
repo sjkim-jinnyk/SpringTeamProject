@@ -30,9 +30,30 @@
 		select count(*) from product_like where like_mem = #{id}
 	</select>
 	
-
-		
 	<select id="deliverList" resultType="com.spring.model.OrderDeliverDTO">
-		select * from order_deliver where order_no = #{order_no}
+		select * from order_deliver
+	</select>
+	
+	<select id="couponList" resultType="com.spring.model.CouponOwnDTO">
+		select own_coupon from coupon_own where own_mem = #{id}
+	</select>
+	
+	<select id="couponInfo" parameterType="ArrayList" resultType="com.spring.model.CouponDTO">
+		select * from coupon where coupon_no in 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.own_coupon}</foreach>
+	</select>
+	
+	<select id="orderDetail" parameterType="ArrayList" resultType="com.spring.model.OrderDetailDTO">
+		select * from order_detail where order_no in 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.order_no}</foreach>
+	</select>
+
+	<select id="productInfo" parameterType="ArrayList" resultType="com.spring.model.ProductDTO">
+		select * from product where pro_no in 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.order_pro_no}</foreach>
+	</select>
+	
+	<select id="reviewList" resultType="com.spring.model.ReviewDTO">
+		select * from review where review_writer
 	</select>
 </mapper>
