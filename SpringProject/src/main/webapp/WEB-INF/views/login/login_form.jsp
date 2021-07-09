@@ -35,7 +35,7 @@
 							
 							<div class="btn_wrap">
 								<input type="button" value="회원 가입하기" class="btn_join"
-									onclick="location.href='join_form.do'">	
+									onclick="location.href='join.do'">	
 							</div>
 							
 						</div>

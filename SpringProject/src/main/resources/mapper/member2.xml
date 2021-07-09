@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+<mapper namespace="com.spring.model.Member2DAO">
+	
+	<select id="list" resultType="com.spring.model.MemberDTO">
+		select * from member order by mem_no desc
+	</select>
+	
+	<insert id="add" parameterType="com.spring.model.MemberDTO">
+		<selectKey resultType="int" keyProperty="mem_no" order="BEFORE">
+			select count(*)+1 from member
+		</selectKey>
+		insert into member values(#{mem_no}, #{mem_id}, #{mem_pwd}, #{mem_name}, 
+		#{mem_phone}, #{mem_zip}, #{mem_addr}, 0, sysdate)
+	</insert>
+	
+	<select id="idCheck" parameterType="com.spring.model.MemberDTO" resultType="int">
+		select count(*) from member where mem_id = #{mem_id}
+	</select>
+	
+	<select id="pwdCheck" parameterType="com.spring.model.MemberDTO" resultType="int">
+		select count(*) from member where mem_pwd = #{mem_pwd}
+	</select>
+	
+</mapper>
