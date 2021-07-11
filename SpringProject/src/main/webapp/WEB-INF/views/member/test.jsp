@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -5,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Insert title here</title>
 </head>
@@ -14,7 +14,7 @@
 		<c:set var="list" value="${List }" />
 		<c:if test="${!empty list }">
 	         <c:forEach items="${list }" var="dto">
-				<a href="<%=request.getContextPath() %>/member_home.do?id=${dto.getMem_id() }">[마이페이지 테스트]</a>
+				<a href="<%=request.getContextPath() %>/member_home.do?id=${dto.getMem_id() }">${dto.getMem_id() } 페이지</a>
 			</c:forEach>
 		</c:if>
 	</div>
