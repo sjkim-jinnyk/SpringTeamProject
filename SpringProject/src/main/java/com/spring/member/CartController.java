@@ -50,7 +50,7 @@ public class CartController {
 		model.addAttribute("pList", plist);
 		model.addAttribute("cList", clist);
 
-		return "Cart/cart";
+		return "cart/cart";
 	}
 
 	@RequestMapping("add_cart.do")

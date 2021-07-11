@@ -52,7 +52,7 @@ public class ProductController {
 		model.addAttribute("page", pageDTO);
 		model.addAttribute("List", list);
 
-		return "Product/product_list";
+		return "product/product_list";
 	}
 
 	@RequestMapping("product_cont.do")
@@ -114,7 +114,7 @@ public class ProductController {
 		model.addAttribute("qpage", qpageDTO);
 		model.addAttribute("qtotal", qtotalRecord);
 
-		return "Product/product_cont";
+		return "product/product_cont";
 	}
 	
 	@RequestMapping("product_recent.do")
@@ -130,7 +130,7 @@ public class ProductController {
 				model.addAttribute("list", list); 
 			}
 		 
-		return "Product/product_recent";
+		return "product/product_recent";
 	}
 	
 	@RequestMapping("recent_delete.do")
