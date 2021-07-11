@@ -10,6 +10,11 @@
 <link rel="stylesheet" href="resources/css/product.css">
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+
+
+
+</script>
 <body>
 	
 	<div class="layout_container">
@@ -39,9 +44,9 @@
 							
 							<div class="cont-amount">
 								<span>수량</span>
-								<button>-</button>
-								<input name="cart_amount" value="1">
-								<button>+</button>
+								<button onclick="count('m', this);" value="-">-</button>
+								<input type="text" class="cart_amount" name="cart_amount" value="1">
+								<button onclick="plus();" value="+">+</button>
 							</div>
 							
 							<input type="submit" value="구매하기" formaction="#">

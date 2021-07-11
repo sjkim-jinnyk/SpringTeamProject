@@ -9,4 +9,6 @@ public class ProductRecentDTO {
 	private String recent_mem;
 	private int recent_product;
 	private String recent_regdate;
+	
+	private ProductDTO productDTO; 
 }

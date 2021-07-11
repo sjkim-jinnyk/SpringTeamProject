@@ -61,34 +61,41 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public List<ProductDTO> getMemCart(List<Integer> list) {
-		
-		return this.sqlSession.selectList("memCart", list);
+	public int addRecent(ProductRecentDTO dto) {
+
+		return this.sqlSession.insert("addRecent", dto);
 	}
 
 	@Override
-	public List<CartDTO> getCartList(String id) {
+	public List<ProductRecentDTO> getRecentList(String id) {
 		
-		return this.sqlSession.selectList("cartList", id);
+		return this.sqlSession.selectList("recentList", id);
 	}
 
 	@Override
-	public int addCart(CartDTO dto) {
+	public int recentCheck(String id) {
 		
-		return this.sqlSession.insert("addCart", dto);
+		return this.sqlSession.selectOne("recentCheck", id);
 	}
 
 	@Override
-	public int checkCart(CartDTO dto) {
+	public int recentProCheck(ProductRecentDTO dto) {
 		
-		return this.sqlSession.selectOne("cartCheck", dto);
+		return this.sqlSession.selectOne("recentProCheck", dto);
 	}
 
 	@Override
-	public int updateAmount(CartDTO dto) {
+	public void updateRecentPro(ProductRecentDTO dto) {
 		
-		return this.sqlSession.update("updateAmount", dto);
+		this.sqlSession.update("updateRecentPro", dto);
 	}
 
+	@Override
+	public int deleteRecent(ProductRecentDTO dto) {
+		
+		return this.sqlSession.delete("deleteRecent", dto);
+	}
+
+	
 
 }

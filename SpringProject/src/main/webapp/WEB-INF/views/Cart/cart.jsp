@@ -10,6 +10,15 @@
 <link rel="stylesheet" href="resources/css/product.css">
 <title>Insert title here</title>
 </head>
+<script type="text/javascript">
+
+function resetCart() {
+	if(confirm("장바구니를 비우시겠습니까?")){
+        location.href="cart_reset.do";
+    }
+};
+
+</script>
 <body>
 
 	<div class="layout_container">
@@ -24,12 +33,29 @@
 					<hr>
 					<ul>
 					
+					<li>
+						<div class="history">
+							<input type="checkbox">
+							
+							<div class="pro-content">
+								상품 정보
+							</div>
+							
+							<div class="pro-btn">
+								수량
+							</div>
+							
+							<div class="pro-price">
+								가격
+							</div>
+						</div>
+					</li>
+					
 					<c:if test="${!empty cList }">
 					<c:forEach items="${cList }" var="dto" varStatus="status">
 						<li>
 							<div class="history">
 								<input type="checkbox">
-								<span class="cart-no"></span>
 								<a href="<%=request.getContextPath()%>/product_cont.do?no=${pList[status.index].getPro_no()}"><img src="resources/img/product/${pList[status.index].getPro_img() }"></a>
 								
 								<div class="pro-content">
@@ -37,17 +63,17 @@
 									<a href="<%=request.getContextPath()%>/product_cont.do?no=${pList[status.index].getPro_no()}">${pList[status.index].getPro_name() }</a>
 								</div>
 								
-								<div class="pro-price">
-									<fmt:formatNumber value="${pList[status.index].getPro_output_price() }" /> 원
-								</div>
-								
 								<div class="pro-btn">
 									
-									<input type="button" value="+">
-									<input name="amount" value="${dto.getCart_amount() }">
-									<input type="button" value="-">
+									<button onclick="count(plus)">+</button>
+									<input class="cart_amount" name="cart_amount" placeholder="${dto.getCart_amount() }">
+									<button onclick="count(minus)">-</button>
 									개
 									
+								</div>
+								
+								<div class="pro-price">
+									<fmt:formatNumber value="${pList[status.index].getPro_output_price() }" /> 원
 								</div>
 								
 								<div class="pro-cancel">
@@ -56,7 +82,7 @@
 							</div>
 						</li>
 						</c:forEach>
-						</c:if>	
+						
 						
 						<li>
 							<div class="price-amount-wrap">
@@ -64,11 +90,20 @@
 								<span class="price-amount">[총 금액] 원</span>
 							</div>
 						</li>
+						</c:if>	
+						
+						<c:if test="${empty cList }">
+						<li>
+							장바구니가 비었습니다.
+						</li>
+						</c:if>
 					</ul>
-					<button class="order-btn" onclick="#">장바구니 비우기</button>
-					<button class="order-btn" onclick="#">선택상품 삭제</button>
-					<button class="order-btn" onclick="#">전체상품 삭제</button>
-					<button class="order-btn" onclick="#">주문하기</button>
+					<c:if test="${!empty cList }">
+						<button class="order-btn" onclick="#">선택상품 삭제</button>
+						<button class="order-btn" onclick="resetCart();">전체상품 삭제</button>
+					</c:if>
+					<button class="order-btn" onclick="#">선택상품주문하기</button>
+					<button class="order-btn" onclick="#">전체상품주문하기</button>
 					
 				</div>
 				

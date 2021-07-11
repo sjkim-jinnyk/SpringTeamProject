@@ -5,4 +5,9 @@
 
  <configuration>
  
+ 	<settings> 
+	 	<setting name="cacheEnabled" value="false" /> 
+	 	<setting name="jdbcTypeForNull" value="NULL" /> 
+ 	</settings>
+ 
  </configuration>
