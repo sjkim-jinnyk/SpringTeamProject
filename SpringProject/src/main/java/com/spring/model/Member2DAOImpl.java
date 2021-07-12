@@ -16,7 +16,12 @@ public class Member2DAOImpl implements Member2DAO {
 	public List<MemberDTO> getMemberList() {
 		return this.sqlSession.selectList("list");
 	}
-
+	
+	@Override
+	public MemberDTO getMemberInfo(String id) {
+		return this.sqlSession.selectOne("memberInfo", id);
+	}
+	
 	@Override
 	public int insertMember(MemberDTO dto) {
 		return this.sqlSession.insert("add", dto);
@@ -31,6 +36,13 @@ public class Member2DAOImpl implements Member2DAO {
 	public int pwdCheck(String pwd) {
 		return this.sqlSession.selectOne("pwdCheck", pwd);
 	}
+
+	@Override
+	public int id_dup_check(String id) {
+		return this.sqlSession.selectOne("id_dup_check", id);
+	}
+
+	
 
 	
 
