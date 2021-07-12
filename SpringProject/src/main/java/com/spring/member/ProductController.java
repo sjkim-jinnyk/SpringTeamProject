@@ -48,7 +48,11 @@ public class ProductController {
 
 		PageDTO pageDTO = new PageDTO(page, rowsize, totalRecord);
 		List<ProductDTO> list = this.pdao.getProductList(pageDTO);
-
+		
+		for(int i=0; i<list.size(); i++) {
+			list.get(i).tag_split(list.get(i).getPro_tag());
+		}
+		
 		model.addAttribute("page", pageDTO);
 		model.addAttribute("List", list);
 
@@ -58,7 +62,7 @@ public class ProductController {
 	@RequestMapping("product_cont.do")
 	public String product_cont(@RequestParam("no") int pro_no, HttpSession session, HttpServletRequest request, Model model) {
 		
-		String user_id = (String) session.getAttribute("userId");
+		String user_id = (String) session.getAttribute("session_id");
 		if(user_id == null) user_id = "guest";
 		
 		ProductDTO pdto = this.pdao.getProductCont(pro_no); // 상품 상세 설명
@@ -113,6 +117,8 @@ public class ProductController {
 		model.addAttribute("qna", qlist);
 		model.addAttribute("qpage", qpageDTO);
 		model.addAttribute("qtotal", qtotalRecord);
+		
+		model.addAttribute("session_id", user_id);
 
 		return "product/product_cont";
 	}
@@ -120,7 +126,7 @@ public class ProductController {
 	@RequestMapping("product_recent.do")
 	public String product_recent(HttpSession session, Model model) {
 		
-		String user_id = (String) session.getAttribute("loginId");
+		String user_id = (String) session.getAttribute("session_id");
 		if(user_id == null) user_id = "guest"; 
 		
 		int check = this.pdao.recentCheck(user_id);	// 최근 본 상품 여부 확인
@@ -139,7 +145,7 @@ public class ProductController {
 		response.setContentType("text/html; UTF-8");
 		PrintWriter out = response.getWriter();
 		
-		String user_id = (String) session.getAttribute("loginId");
+		String user_id = (String) session.getAttribute("session_id");
 		if(user_id == null) user_id = "guest"; 
 		
 		ProductRecentDTO dto = new ProductRecentDTO();
@@ -159,7 +165,35 @@ public class ProductController {
 			out.println("histroy.back()");
 			out.println("</script>");
 		}
+	}
+	
+	@RequestMapping("product_search.do")
+	public String product_search_list(@RequestParam("keyword") String keyword, HttpServletRequest request, Model model) {
+
+		int page = 0;
+
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		} else {
+			page = 1;
+		}
+
+		rowsize = 8;
+		totalRecord = this.pdao.getSearchListCount(keyword);
+
+		String field = "";
+		PageDTO pageDTO = new PageDTO(page, rowsize, totalRecord, field, keyword);
+		List<ProductDTO> list = this.pdao.getSearchList(pageDTO);
 		
+		for(int i=0; i<list.size(); i++) {
+			list.get(i).tag_split(list.get(i).getPro_tag());
+		}
+		
+		model.addAttribute("page", pageDTO);
+		model.addAttribute("List", list);
+		model.addAttribute("keyword", keyword);
+
+		return "product/product_search_list";
 	}
 
 }

@@ -23,7 +23,10 @@ public interface ProductDAO {
 	public int recentCheck(String id);						// 최근 본 상품 수 조회
 	public int recentProCheck(ProductRecentDTO dto);		// 최근 본 상품에 해당 상품이 있는지 조회
 	public void updateRecentPro(ProductRecentDTO dto);		// 동일상품이 최근 본 상품에 있는 경우 조회일자 최신으로 변경
-	public int deleteRecent(ProductRecentDTO dto);								// 최근 본 상품 삭제
+	public int deleteRecent(ProductRecentDTO dto);			// 최근 본 상품 삭제
 	
+	// search
+	public List<ProductDTO> getSearchList(PageDTO dto);	// 검색 리스트
+	public int getSearchListCount(String keyword);		// 검색된 게시글 수
 	
 }

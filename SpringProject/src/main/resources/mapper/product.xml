@@ -76,11 +76,13 @@
 	</resultMap>
 		
 	<select id="recentList" parameterType="String" resultMap="recent">
-		select *
+		<![CDATA[ 
+		select * from
+		(select p.*, r.*, row_number() over(order by r.recent_regdate desc) rnum 
 		from product p join product_recent r
 		on p.pro_no = r.recent_product
-		where r.recent_mem = #{id}
-		order by r.recent_regdate desc
+		where r.recent_mem = #{id}) where rnum >= 1 and rnum <= 10
+		]]>
 	</select>
 	
 	<select id="recentCheck" parameterType="String" resultType="int">
@@ -105,5 +107,21 @@
 	<delete id="deleteRecent" parameterType="com.spring.model.ProductRecentDTO">
 		delete from product_recent where recent_mem = #{recent_mem} and recent_product = #{recent_product} 
 	</delete>
+	
+	
+	<!-- ::: search ::: -->
+
+	<select id="searchList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.ProductDTO">
+		<![CDATA[ 
+			select * from (select p.*, row_number() over(order by pro_no desc) rnum from product p 
+			where pro_check = 'y' and pro_name like '%' || #{keyword} || '%' or pro_tag like '%' || #{keyword} || '%' or pro_cont like '%' || #{keyword} || '%')
+			where rnum >= #{startNo} and rnum <= ${endNo}
+		]]>
+	</select>
+	
+	<select id="searchListCount" parameterType="String" resultType="int">
+		select count(*) from product p 
+			where pro_check = 'y' and pro_name like '%' || #{keyword} || '%' or pro_tag like '%' || #{keyword} || '%' or pro_cont like '%' || #{keyword} || '%'
+	</select>
 	
 </mapper>

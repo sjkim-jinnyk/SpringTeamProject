@@ -96,6 +96,18 @@ public class ProductDAOImpl implements ProductDAO {
 		return this.sqlSession.delete("deleteRecent", dto);
 	}
 
+	@Override
+	public List<ProductDTO> getSearchList(PageDTO dto) {
+		
+		return this.sqlSession.selectList("searchList", dto);
+	}
+
+	@Override
+	public int getSearchListCount(String keyword) {
+	
+		return this.sqlSession.selectOne("searchListCount", keyword);
+	}
+
 	
 
 }
