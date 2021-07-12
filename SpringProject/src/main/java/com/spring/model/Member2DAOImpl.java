@@ -37,6 +37,11 @@ public class Member2DAOImpl implements Member2DAO {
 		return this.sqlSession.selectOne("pwdCheck", pwd);
 	}
 
+	@Override
+	public int id_dup_check(String id) {
+		return this.sqlSession.selectOne("id_dup_check", id);
+	}
+
 	
 
 	

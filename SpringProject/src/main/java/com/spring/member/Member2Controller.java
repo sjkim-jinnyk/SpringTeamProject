@@ -92,7 +92,32 @@ public class Member2Controller {
 	@RequestMapping("logout.do")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		
 		return "home";
 	}
+	
+	@RequestMapping("id_dup_check.do")
+	public void id_dup(String id, HttpServletResponse response) throws IOException {
+		int result = this.dao.id_dup_check(id);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		if(result > 0) { // 중복인 경우
+			out.println("<script>");
+			out.println("alert('중복된 아이디 입니다.')");
+			out.println("history.back()");
+			out.println("</script>");
+		}else {	
+			out.println("<script>");
+			out.println("alert('사용가능한 아이디 입니다.')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+	}
+	
+	@RequestMapping("find_id.do")
+	public String find_id() {
+		return "login/find_id";
+	}
+	
 }
