@@ -57,7 +57,7 @@ a {
 	padding: 20px 0;
 	
 }
-.member_order {
+.member_order, .member_review {
 	background: #a9a9a9;
 	width: 100%;
 }
@@ -66,4 +66,12 @@ a {
 }
 .member_order .order_bar th{
 	padding: 10px;
+}
+
+.review_star .off::before{
+	content: url("star_empty.png");
+	color: white;
+}
+.review_star .on::after{
+	content: url("star_full.png");
 }

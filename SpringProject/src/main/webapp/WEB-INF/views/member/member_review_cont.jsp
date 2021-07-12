@@ -83,40 +83,27 @@
 					
 					<div class="member_order">
 						<table class="order_bar" border="1">
-						<c:set var="plist" value="${ProductInfo }"/>
-						<c:set var="odlist" value="${OrderDetail }"/> 
-						<c:set var="olist" value="${OrderInfo }"/> 
-						<c:set var="rlist" value="${ReviewList }"/>
-						
+						<c:set var="rlist" value="${ReviewCont }" />
 							<tr>
-								<th>상품정보</th><th>구매일</th><th>후기 작성</th>
+								<th>리뷰제목</th>
+								<td>${rlist.getReview_title() }</td>
 							</tr>
-							
-							
-								<c:forEach items="${olist }" var="olist" varStatus="status">
-									<tr>
-										<c:if test="${odlist[status.index].getOrder_pro_no() == plist[status.index].getPro_no()}">
-											<td>${plist[status.index].getPro_name() }</td>
-										</c:if>
-										
-										<c:if test="${odlist[status.index].getOrder_pro_no() != plist[status.index].getPro_no()}">
-											<td>XXX</td>
-										</c:if>
-										<c:if test="${olist.getOrder_no() == rlist[status.index].getOrder_no()}">
-											<td>${olist.getOrder_date() }</td>
-										</c:if>
-										<c:if test="${olist.getOrder_no() != rlist[status.index].getOrder_no()}">
-											<td>X</td>
-										</c:if>
-										<c:if test="${rlist[status.index].getReview_title() != null}">
-											<td><a href="<%=request.getContextPath()%>/member_review_cont.do?no=${rlist[status.index].getReview_no() }">${rlist[status.index].getReview_title() }</a></td>
-										</c:if>
-										<c:if test="${rlist[status.index].getReview_title() == null}">
-											<td><input type="button" value="후기작성" onclick="location.href='member_review_write.do?no=${rlist[status.index].getOrder_no()}'"></td>
-										</c:if>
-									</tr>
-								</c:forEach>
-							
+							<tr>
+								<th>리뷰내용</th>
+								<td>${rlist.getReview_cont() }</td>
+							</tr>
+							<tr>
+								<th>사진</th>
+								<td>${rlist.getReview_img() }</td>
+							</tr>	
+							<tr>
+								<th>별점</th>
+								<td>${rlist.getReview_star() }</td>
+							</tr>		
+							<tr>
+								<th>작성일</th>
+								<td>${rlist.getReview_date() }</td>
+							</tr>																									
 						</table>
 					</div> <!-- member_order END -->
 				</div> <!-- member_content END-->

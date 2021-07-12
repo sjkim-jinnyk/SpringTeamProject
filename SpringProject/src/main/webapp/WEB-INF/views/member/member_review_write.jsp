@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
-<script src="${pageContext.request.contextPath}/resources/js/member.js" defer></script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <title>Member</title>
 </head>
@@ -81,48 +81,51 @@
 						</ul>
 					</div> <!-- nav_menu END -->
 					
-					<div class="member_order">
-						<table class="order_bar" border="1">
-						<c:set var="plist" value="${ProductInfo }"/>
-						<c:set var="odlist" value="${OrderDetail }"/> 
-						<c:set var="olist" value="${OrderInfo }"/> 
-						<c:set var="rlist" value="${ReviewList }"/>
-						
-							<tr>
-								<th>상품정보</th><th>구매일</th><th>후기 작성</th>
-							</tr>
-							
-							
-								<c:forEach items="${olist }" var="olist" varStatus="status">
-									<tr>
-										<c:if test="${odlist[status.index].getOrder_pro_no() == plist[status.index].getPro_no()}">
-											<td>${plist[status.index].getPro_name() }</td>
-										</c:if>
-										
-										<c:if test="${odlist[status.index].getOrder_pro_no() != plist[status.index].getPro_no()}">
-											<td>XXX</td>
-										</c:if>
-										<c:if test="${olist.getOrder_no() == rlist[status.index].getOrder_no()}">
-											<td>${olist.getOrder_date() }</td>
-										</c:if>
-										<c:if test="${olist.getOrder_no() != rlist[status.index].getOrder_no()}">
-											<td>X</td>
-										</c:if>
-										<c:if test="${rlist[status.index].getReview_title() != null}">
-											<td><a href="<%=request.getContextPath()%>/member_review_cont.do?no=${rlist[status.index].getReview_no() }">${rlist[status.index].getReview_title() }</a></td>
-										</c:if>
-										<c:if test="${rlist[status.index].getReview_title() == null}">
-											<td><input type="button" value="후기작성" onclick="location.href='member_review_write.do?no=${rlist[status.index].getOrder_no()}'"></td>
-										</c:if>
-									</tr>
-								</c:forEach>
-							
-						</table>
-					</div> <!-- member_order END -->
+					<div class="member_review">
+						<form method="post" name="review_form" enctype="multipart/form-data" action="<%=request.getContextPath() %>/member_review_wrtie_ok.do" >
+							<c:set var="dto" value="${ReviewWrite }" />
+							<input type="hidden" name="review_star" value="">
+							<input type="hidden" name="review_no" value="${dto.getReview_no() }">
+							<h3 class="review_header">후기작성</h3>
+							<ul class="review_info">
+								<li>상품의 식별이 가능하도록 찍은 사진만 가능합니다.</li>
+								<li>이메일, 휴대전화 번호 등의 개인 정보/광고/비속어가 포함된 후기는 블라인드 처리됩니다.</li>
+								<li>내용은 최소 20자 이상 작성합니다.</li>
+								<li>후기 등록 후 삭제는 불가합니다.</li>
+							</ul>
+							<div class="review_content">
+								<div class="review_star">
+									<span>별점</span>
+									<a href="#none" id="star1" class="off" name="s1"></a>
+									<a href="#none" id="star2" class="off" name="s2"></a>
+									<a href="#none" id="star3" class="off" name="s3"></a>
+									<a href="#none" id="star4" class="off" name="s4"></a>
+									<a href="#none" id="star5" class="off" name="s5"></a>
+								</div>
+								<div class="review_img">
+									<span>사진</span>
+									<input type="file" name="review_img">
+								</div>
+								<ul class="review_text">
+									<li>
+										<span>제목</span>
+										<input type="text" name="review_title">
+									</li>
+									<li><textarea rows="7" cols="30" name="review_cont" placeholder="최소 20자 이상 입력해주세요"></textarea></li>
+									<li>0 / 5,000</li>
+								</ul>
+							</div>
+							<div>
+								<input type="submit" value="등록">
+							</div>
+						</form>
+					</div> <!-- member_review END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
 			<jsp:include page="../include/footer.jsp" />
 		</div>
 	</div>
+
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member.js"></script>
 </html>

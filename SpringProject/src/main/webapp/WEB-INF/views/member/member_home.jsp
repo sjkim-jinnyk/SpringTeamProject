@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%	HttpSession session1 = request.getSession();
+	String session_id = (String)session.getAttribute("session_id"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,7 +83,7 @@
 						</ul>
 					</div> <!-- nav_menu END -->
 					
-					<div class="member_order">
+					<div class="member_content">
 						<c:set var="order" value="${Order }" />
 						<c:set var="deliver" value="${Deliver }" />
 						<table class="order_bar" border="1">

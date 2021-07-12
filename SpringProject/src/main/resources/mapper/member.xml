@@ -46,14 +46,25 @@
 	<select id="orderDetail" parameterType="ArrayList" resultType="com.spring.model.OrderDetailDTO">
 		select * from order_detail where order_no in 
 		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.order_no}</foreach>
+		order by order_no desc
 	</select>
 
 	<select id="productInfo" parameterType="ArrayList" resultType="com.spring.model.ProductDTO">
 		select * from product where pro_no in 
 		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.order_pro_no}</foreach>
+		order by pro_no desc
 	</select>
 	
 	<select id="reviewList" resultType="com.spring.model.ReviewDTO">
-		select * from review where review_writer
+		select * from review where review_writer = #{id} order by order_no desc
 	</select>
+	
+	<select id="reviewCont" resultType="com.spring.model.ReviewDTO">
+		select * from review where review_no = #{no}
+	</select>
+	
+	<update id="updateReview" parameterType="com.spring.model.ReviewDTO">
+		update review set review_title = #{review_title}, review_cont = #{review_cont}, review_star = #{review_star}
+		where review_no = #{review_no}
+	</update>
 </mapper>

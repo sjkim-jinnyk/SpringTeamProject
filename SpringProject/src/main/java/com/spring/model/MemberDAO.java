@@ -28,6 +28,8 @@ public interface MemberDAO {
 	
 	public List<ReviewDTO> getReviewList(String id);		// 제품번호로 리뷰 리스트 호출 메서드
 	
+	public ReviewDTO getReviewCont(int no);					// 리뷰번호로 리뷰 상세내역 호출 메서드
 	
+	public int updateReview(ReviewDTO dto);   // 리뷰 수정 메서드
 
 }

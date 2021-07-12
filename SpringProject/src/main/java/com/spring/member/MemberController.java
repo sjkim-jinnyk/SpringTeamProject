@@ -1,14 +1,18 @@
 package com.spring.member;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -102,9 +106,53 @@ public class MemberController {
 		System.out.println("reviewdto : " + rdto);
 		
 		model.addAttribute("ProductInfo", pdto);
+		model.addAttribute("OrderDetail", oddto);
 		model.addAttribute("OrderInfo", odto);
 		model.addAttribute("ReviewList", rdto);
 		
 		return "member/member_review";
 	}
+	
+	@RequestMapping("member_review_cont.do")
+	public String review_cont(@RequestParam("no") int no, Model model) {
+		
+		ReviewDTO rdto = this.dao.getReviewCont(no);
+		
+		model.addAttribute("ReviewCont", rdto);
+		
+		return "member/member_review_cont";
+	}
+	
+	@RequestMapping("member_review_write.do")
+	public String review_write(@RequestParam("no") int no, Model model) {
+		
+		ReviewDTO rdto = this.dao.getReviewCont(no);
+		
+		model.addAttribute("ReviewWrite", rdto);
+		
+		return "member/member_review_write";
+	}
+
+	@RequestMapping("member_review_wrtie_ok.do")
+	public void review_write_ok(ReviewDTO dto, @RequestParam("review_no") int review_no, @RequestParam("review_star") int review_star, HttpServletResponse response) throws IOException {
+		
+		response.setContentType("text/html; charset-UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		int check = this.dao.updateReview(dto);
+		
+		if(check > 0) {
+			out.println("<script>");
+			out.println("alert('리뷰 등록 성공')");
+			out.println("location.href='review_cont.do?no='" + dto.getReview_no() + "'");
+			out.println("</script>");
+		}else {
+			out.println("<script>");
+			out.println("alert('리뷰 등록 실패')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+	}
+	
 }
