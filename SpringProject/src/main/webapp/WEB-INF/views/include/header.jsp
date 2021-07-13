@@ -18,6 +18,7 @@
 				<a href="<%=request.getContextPath()%>/about.do">ABOUT</a>
 				<a href="<%=request.getContextPath()%>/product_list.do">SHOP</a>
 				<a href="<%=request.getContextPath()%>/review_list.do">REVIEW</a>
+				<a href="<%=request.getContextPath() %>/admin_list.do">관리자</a>
 			</div>
 			
 
