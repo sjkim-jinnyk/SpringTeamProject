@@ -60,11 +60,36 @@
 	</select>
 	
 	<select id="reviewCont" resultType="com.spring.model.ReviewDTO">
-		select * from review where review_no = #{no}
+		select * from review where order_no = #{no}
 	</select>
 	
 	<update id="updateReview" parameterType="com.spring.model.ReviewDTO">
-		update review set review_title = #{review_title}, review_cont = #{review_cont}, review_star = #{review_star}
-		where review_no = #{review_no}
+		update review set review_title = #{review_title}, review_cont = #{review_cont}, review_star = #{review_star}, review_date = sysdate
+		where order_no = #{order_no}
 	</update>
+	
+	<select id="productLikeList" resultType="com.spring.model.ProductLikeDTO">
+		select * from product_like where like_mem = #{id}
+	</select>
+	
+	<select id="productLikeInfo" parameterType="ArrayList" resultType="com.spring.model.ProductDTO">
+		select * from product where pro_no in 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.like_product}</foreach>
+		order by pro_no desc
+	</select>
+	
+	<update id="updateMemberAddr" parameterType="com.spring.model.MemberDTO">
+		update member set mem_addr = #{mem_addr}, mem_zip = #{mem_zip}
+		where mem_id = #{mem_id}
+	</update>
+	
+	<update id="updateMemberPhone" parameterType="com.spring.model.MemberDTO">
+		update member set mem_phone = #{mem_phone}
+		where mem_id = #{mem_id}
+	</update>
+	
+	<delete id="deleteMember" parameterType="int">
+		delete from member where mem_id = #{id}
+	
+	</delete>
 </mapper>

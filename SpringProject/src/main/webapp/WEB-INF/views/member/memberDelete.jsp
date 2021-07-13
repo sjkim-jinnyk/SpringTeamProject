@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%	HttpSession session1 = request.getSession();
+	String session_id = (String)session.getAttribute("session_id"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,14 +10,14 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
 
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
 <title>Member</title>
 </head>
 <body>
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../include/header.jsp" />
-			<c:set var="mem" value="${Member }" />
+			<c:set var="mem" value="${Cont }" />
 			
 			<div class="member_container">
 				<!-- header_title -->
@@ -35,7 +37,7 @@
 						</li>
 					</ul>
 					<ul class="my_menu">
-						<a href="<%=request.getContextPath() %>/member_point.do">
+						<a href="">
 							<li>
 								<ul class="menu_bar">
 									<li>적립금 </li>
@@ -51,7 +53,7 @@
 								</ul>
 							</li>
 						</a>
-						<a href="<%=request.getContextPath() %>/member_review.do">
+						<a href="<%=request.getContextPath() %>/member_review.do?id=${mem.getMem_id() }">
 							<li>
 								<ul class="menu_bar">
 									<li>리뷰 </li>
@@ -59,7 +61,7 @@
 								</ul>
 							</li>
 						</a>
-						<a href="<%=request.getContextPath() %>/member_productLike.do">
+						<a href="<%=request.getContextPath() %>/member_productLike.do?id=${mem.getMem_id() }">
 							<li>
 								<ul class="menu_bar">
 									<li>찜 </li>
@@ -77,55 +79,48 @@
 							<a href="<%=request.getContextPath() %>/member_orderList.do"><li>주문내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_qna.do"><li>문의내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_recent.do"><li>최근 본 상품</li></a>
-							<a href="<%=request.getContextPath() %>/member_info.do"><li>정보관리</li></a>
+							<li>
+								<a href="#none" id="info_click">정보관리</a>
+								<ul id="info_display" class="on">
+									<a href="<%=request.getContextPath() %>/member_info_edit.do?id=${mem.getMem_id() }"><li>회원정보 수정</li></a>
+									<a href="<%=request.getContextPath() %>/member_info_delete.do?id=${mem.getMem_id() }"><li>회원 탈퇴</li></a>
+								</ul>
+							</li>
 						</ul>
 					</div> <!-- nav_menu END -->
 					
-					<div class="member_review">
-						<form method="post" name="review_form" enctype="multipart/form-data" action="<%=request.getContextPath() %>/member_review_wrtie_ok.do" >
-							<c:set var="dto" value="${ReviewWrite }" />
-							<input type="hidden" name="review_star" value="">
-							<input type="hidden" name="order_no" value="${dto.getOrder_no() }">
-							<h3 class="review_header">후기작성</h3>
-							<ul class="review_info">
-								<li>상품의 식별이 가능하도록 찍은 사진만 가능합니다.</li>
-								<li>이메일, 휴대전화 번호 등의 개인 정보/광고/비속어가 포함된 후기는 블라인드 처리됩니다.</li>
-								<li>내용은 최소 20자 이상 작성합니다.</li>
-								<li>후기 등록 후 삭제는 불가합니다.</li>
-							</ul>
-							<div class="review_content">
-								<div class="review_star">
-									<span>별점</span>
-									<a href="#none" id="star1" class="off" name="s1"></a>
-									<a href="#none" id="star2" class="off" name="s2"></a>
-									<a href="#none" id="star3" class="off" name="s3"></a>
-									<a href="#none" id="star4" class="off" name="s4"></a>
-									<a href="#none" id="star5" class="off" name="s5"></a>
-								</div>
-								<div class="review_img">
-									<span>사진</span>
-									<input type="file" name="review_im">
-								</div>
-								<ul class="review_text">
-									<li>
-										<span>제목</span>
-										<input type="text" name="review_title">
-									</li>
-									<li><textarea rows="7" cols="30" name="review_cont" placeholder="최소 20자 이상 입력해주세요"></textarea></li>
-									<li>0 / 5,000</li>
-								</ul>
+					<div class="member_order">
+						<h3>회원탈퇴 주의사항</h3>
+						<ul class="deleteInfo">
+							<li>무분별한 회원가입을 막기위해 회원탈퇴 후 6개월 동안 회원가입 하실 수 없습니다.</li>
+							<li>한 번 탈퇴하면 복구할 수 없습니다.</li>
+							<li>보유하고 있던 포인트, 쿠폰은 모두 소멸됩니다....등등</li>
+						</ul>
+						<form method="post" action="<%=request.getContextPath()%>/member_delete_ok.do">
+							<input type="hidden" name="db_pwd" value="${memberInfo.getMem_pwd() }">
+							<input type="hidden" name="delete_words" value="주의사항을 읽었습니다. 회원 탈퇴를 요청합니다.">
+							<div class="delete_words">
+								<h3>아래 문구를 동일하게 입력하세요</h3>
+								<p>주의사항을 읽었습니다. 회원 탈퇴를 요청합니다.</p>
+								<input type="text" name="delete_words_mem">
 							</div>
-							<div>
-								<input type="submit" value="등록">
+							<div class="delete_pwd">
+								<p>비밀번호를 입력하세요</p>
+								<input type="password" name="mem_pwd"><br>
 							</div>
+							<input type="submit" value="삭제">
 						</form>
-					</div> <!-- member_review END -->
+					</div> <!-- member_order END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
 			<jsp:include page="../include/footer.jsp" />
 		</div>
 	</div>
-
 </body>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/addr.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<!-- 주소 API 파일 로딩  -->
+
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </html>

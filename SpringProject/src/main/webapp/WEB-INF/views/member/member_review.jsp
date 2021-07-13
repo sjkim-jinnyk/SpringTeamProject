@@ -109,7 +109,7 @@
 											<td>X</td>
 										</c:if>
 										<c:if test="${rlist[status.index].getReview_title() != null}">
-											<td><a href="<%=request.getContextPath()%>/member_review_cont.do?no=${rlist[status.index].getReview_no() }">${rlist[status.index].getReview_title() }</a></td>
+											<td><a href="<%=request.getContextPath()%>/member_review_cont.do?no=${rlist[status.index].getOrder_no() }">${rlist[status.index].getReview_title() }</a></td>
 										</c:if>
 										<c:if test="${rlist[status.index].getReview_title() == null}">
 											<td><input type="button" value="후기작성" onclick="location.href='member_review_write.do?no=${rlist[status.index].getOrder_no()}'"></td>

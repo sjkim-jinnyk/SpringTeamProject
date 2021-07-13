@@ -57,6 +57,12 @@ a {
 	padding: 20px 0;
 	
 }
+.nav_menu .off{
+	display: none;
+}
+.nav_menu .on{
+	display: "";
+}
 .member_order, .member_review {
 	background: #a9a9a9;
 	width: 100%;
@@ -74,4 +80,20 @@ a {
 }
 .review_star .on::after{
 	content: url("star_full.png");
+}
+.likeproduct {
+	float : left;
+	padding : 0 20px;
+}
+.likeproduct img {
+	width: 250px;
+}
+
+/* member_info css */
+
+.member_order .off {
+	display: none;
+}
+.member_order .on {
+	display: "";
 }
