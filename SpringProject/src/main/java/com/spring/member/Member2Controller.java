@@ -96,8 +96,8 @@ public class Member2Controller {
 	}
 	
 	@RequestMapping("id_dup_check.do")
-	public void id_dup(String id, HttpServletResponse response) throws IOException {
-		int result = this.dao.id_dup_check(id);
+	public void id_dup(@RequestParam("mem_id") String id, HttpServletResponse response) throws IOException {
+		int result = this.dao.idCheck(id);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();

@@ -9,5 +9,4 @@ public interface Member2DAO {
 	public int insertMember(MemberDTO dto);
 	public int idCheck(String id);
 	public int pwdCheck(String pwd);
-	public int id_dup_check(String id); //아이디 중복체크
 }

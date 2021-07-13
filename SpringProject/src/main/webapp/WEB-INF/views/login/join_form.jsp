@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,9 +25,10 @@
 					
 					<div class="field_cont">
 						<div class="row">
+							
 							<span class="label">아이디 *</span>
 							<input type="text" name="mem_id" required="required">
-							<input type="button" value="중복확인">
+							<input type="button" value="중복확인" onclick="location.href='id_dup_check.do'">
 						</div>
 						<div class="row">
 							<span class="label">이름 *</span>

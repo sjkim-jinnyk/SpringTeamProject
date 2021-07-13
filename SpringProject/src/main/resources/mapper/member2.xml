@@ -29,4 +29,6 @@
 		select count(*) from member where mem_pwd = #{mem_pwd}
 	</select>
 	
+	
+	
 </mapper>
