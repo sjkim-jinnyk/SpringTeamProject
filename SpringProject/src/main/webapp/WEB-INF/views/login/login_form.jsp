@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="resources/css/main.css">
 <title>로그인</title>
 </head>
 <body>
@@ -20,9 +21,9 @@
 						<div class="title">로그인</div>
 						<div class="body">
 							<div class="label">아이디</div>
-							<input type="text" name="mem_id">
+							<input type="text" name="mem_id" required="required">
 							<div class="label">비밀번호</div>
-							<input type="password" name="mem_pwd">
+							<input type="password" name="mem_pwd" required="required">
 							
 							<div class="find">
 								<a href="<%=request.getContextPath()%>/find_id.do">아이디 찾기</a>
