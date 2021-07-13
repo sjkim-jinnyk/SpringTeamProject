@@ -50,6 +50,7 @@ public class CartController {
 			plist = this.dao.getMemCart(proList); // 상품별 상세내용 조회하여 리스트에 저장
 			
 			for(int i=0; i<clist.size(); i++) {
+				plist.get(i).tag_split();
 				total += plist.get(i).getPro_output_price() * clist.get(i).getCart_amount();
 			}
 		}
@@ -62,8 +63,7 @@ public class CartController {
 	}
 
 	@RequestMapping("add_cart.do")
-	public void add_cart(HttpSession session, HttpServletRequest request, HttpServletResponse response, CartDTO dto,
-			Model model) throws IOException {
+	public void add_cart(HttpSession session, HttpServletResponse response, CartDTO dto, Model model) throws IOException {
 
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
@@ -87,8 +87,7 @@ public class CartController {
 
 			if (result > 0) {
 				out.println("<script>");
-				out.println("alert('장바구니 담기 성공')");
-				out.println("location.href='cart.do'");
+				out.println("if(confirm('장바구니에 상품이 담겼습니다. 장바구니로 이동하시겠습니까?')){location.href='cart.do'}else{history.back()}");
 				out.println("</script>");
 			} else {
 				out.println("<script>");
@@ -98,19 +97,41 @@ public class CartController {
 			}
 
 		} else { // 동일한 상품이 장바구니에 있는 경우
-			result = this.dao.updateAmount(dto);
 
-			if (result > 0) {
 				out.println("<script>");
-				out.println("alert('장바구니 담기 성공')");
-				out.println("location.href='cart.do'");
+				out.println("if(confirm('장바구니에 동일한 상품이 있습니다. 장바구니에 추가하시겠습니까?')){location.href='cart_update_amount.do?no="+dto.getProduct_no()+"&am="+dto.getCart_amount()+"'}else{history.back()}");
 				out.println("</script>");
-			} else {
-				out.println("<script>");
-				out.println("alert('장바구니 담기 실패')");
-				out.println("histroy.back()");
-				out.println("</script>");
-			}
+		}
+	}
+	
+	@RequestMapping("cart_update_amount.do")
+	public void cart_update_amount(@RequestParam("no") int product_no, @RequestParam("am") int cart_amount, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		// 로그인한 회원은 회원 아이디로, 로그인 하지 않았으면 손님 아이디로
+		String user_id = (String) session.getAttribute("session_id");
+		if (user_id == null) user_id = "guest";
+		
+		CartDTO dto = new CartDTO();
+		dto.setProduct_no(product_no);
+		dto.setCart_amount(cart_amount);
+		dto.setUser_id(user_id);
+				
+		System.out.println("dto >> " + dto);
+
+		int result = this.dao.updateAmount(dto);
+
+		if (result > 0) {
+			out.println("<script>");
+			out.println("if(confirm('장바구니에 상품이 담겼습니다. 장바구니로 이동하시겠습니까?')){location.href='cart.do'}else{history.back()}");
+			out.println("</script>");
+		} else {
+			out.println("<script>");
+			out.println("alert('장바구니 담기 실패')");
+			out.println("histroy.back()");
+			out.println("</script>");
 		}
 	}
 

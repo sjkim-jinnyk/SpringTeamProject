@@ -37,6 +37,17 @@
 		]]>
 	</select>
 	
+	<select id="proReviewPhotoCount" parameterType="int" resultType="int">
+		select count(*) from review where review_pro = #{no} and review_img is not null
+	</select>
+	
+	<select id="proReviewPhotoList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.ReviewDTO">
+		<![CDATA[ 
+			select * from (select r.*, row_number() over(order by review_no desc) rnum from review r where review_pro = #{no} and review_img is not null)
+			where rnum >= #{startNo} and rnum <= ${endNo}
+		]]>
+	</select>	
+	
 	<select id="totalStar" parameterType="int" resultType="int">
 		select nvl(sum(review_star),0) from review where review_pro = #{no}
 	</select>
@@ -47,11 +58,29 @@
 	
 	<select id="proQnaList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.QnaDTO">
 		<![CDATA[ 
-			select * from (select q.*, row_number() over(order by qna_no desc) rnum from qna q where qna_pro = #{no})
+			select * from (select q.*, row_number() over(order by qna_group desc, qna_step) rnum from qna q where qna_pro = #{no})
 			where rnum >= #{startNo} and rnum <= ${endNo}
 		]]>
 	</select>
 	
+	<insert id="writeProQna" parameterType="com.spring.model.QnaDTO">
+		<selectKey keyProperty="qna_no" resultType="int" order="BEFORE">
+			select max(qna_no)+1 from qna
+		</selectKey>
+		insert into qna values(#{qna_no}, #{qna_writer}, #{qna_pro}, #{qna_title}, #{qna_cont}, null, #{qna_category_no}, sysdate, ${qna_no}, default, #{qna_secret})
+	</insert>
+	
+	<delete id="deleteQna" parameterType="int">
+		delete from qna where qna_no = #{no}
+	</delete>
+	
+	<select id="qnaCont" parameterType="int" resultType="com.spring.model.QnaDTO">
+		select * from qna where qna_no = #{no}
+	</select>
+	
+	<update id="updateProQna" parameterType="com.spring.model.QnaDTO">
+		update qna set qna_title = #{qna_title}, qna_cont = #{qna_cont}, qna_secret = ${qna_secret} where qna_no = ${qna_no}
+	</update>
 	
 	
 	<!-- ::: recent ::: -->
@@ -114,14 +143,36 @@
 	<select id="searchList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.ProductDTO">
 		<![CDATA[ 
 			select * from (select p.*, row_number() over(order by pro_no desc) rnum from product p 
-			where pro_check = 'y' and pro_name like '%' || #{keyword} || '%' or pro_tag like '%' || #{keyword} || '%' or pro_cont like '%' || #{keyword} || '%')
+			where pro_check = 'y' and pro_name like '%' || #{keyword} || '%' or pro_tag like '%' || #{keyword} || '%')
 			where rnum >= #{startNo} and rnum <= ${endNo}
 		]]>
 	</select>
 	
 	<select id="searchListCount" parameterType="String" resultType="int">
 		select count(*) from product p 
-			where pro_check = 'y' and pro_name like '%' || #{keyword} || '%' or pro_tag like '%' || #{keyword} || '%' or pro_cont like '%' || #{keyword} || '%'
+			where pro_check = 'y' and pro_name like '%' || #{keyword} || '%' or pro_tag like '%' || #{keyword} || '%'
 	</select>
+	
+	<select id="searchTagCount" parameterType="String" resultType="int">
+		select count(*) from product p 
+			where pro_check = 'y' and pro_tag like '%' || #{keyword} || '%'
+	</select>
+	
+	<select id="searchTagList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.ProductDTO">
+		<![CDATA[ 
+			select * from (select p.*, row_number() over(order by pro_no desc) rnum from product p 
+			where pro_check = 'y' and pro_tag like '%' || #{keyword} || '%')
+			where rnum >= #{startNo} and rnum <= ${endNo}
+		]]>
+	</select>
+	
+	<insert id="addLike" parameterType="java.util.HashMap">
+		<selectKey keyProperty="like_no" resultType="int" order="BEFORE">
+			select max(like_no)+1 from product_like
+		</selectKey>
+		insert into product_like values(#{like_no}, #{user_id}, #{product_no}, sysdate)
+	</insert>
+	
+	
 	
 </mapper>

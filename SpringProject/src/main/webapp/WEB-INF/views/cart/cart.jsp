@@ -149,27 +149,29 @@ function total(ths) {
 					<c:if test="${!empty cList }">
 					<c:forEach items="${cList }" var="dto" varStatus="status">
 						<li>
-							<div class="history" id="history-${status.count }">
-								<input id="cart-no-${status.count }" type="hidden" value="${dto.getCart_no() }">
+							<div class="history" id="history-${status.index }">
+								<input id="cart-no-${status.index }" type="hidden" value="${dto.getCart_no() }">
 								<input name="check" type="checkbox" value="${dto.getCart_no() }">
 								<a href="<%=request.getContextPath()%>/product_cont.do?no=${pList[status.index].getPro_no()}"><img src="resources/img/product/${pList[status.index].getPro_img() }"></a>
 								
 								<div class="pro-content">
-									<span>${pList[status.index].getPro_tag() }</span><br>
+									<c:forEach items="${pList[status.index].getPro_tags() }" var="tags">
+										<span><a class="cont-info-tag" href="search_tag.do?k=${tags }">${tags }</a></span> 
+									</c:forEach><br>
 									<a href="<%=request.getContextPath()%>/product_cont.do?no=${pList[status.index].getPro_no()}">${pList[status.index].getPro_name() }</a>
 								</div>
 								
 								<div class="pro-btn">
 									
-									<button type="button" name="${status.count }" onclick="count('minus', this)">-</button>
-									<input class="cart-amount" id="cart-amount-${status.count }" name="cart_amount" value="${dto.getCart_amount() }">
-									<button type="button" name="${status.count }" onclick="count('plus', this)">+</button>
+									<button type="button" name="${status.index }" onclick="count('minus', this)">-</button>
+									<input class="cart-amount" id="cart-amount-${status.index }" name="cart_amount" value="${dto.getCart_amount() }">
+									<button type="button" name="${status.index }" onclick="count('plus', this)">+</button>
 									개
 								</div>
 								
 								<div class="pro-price">
-									<input type="hidden" id="cart-price-${status.count }" value="${pList[status.index].getPro_output_price() }">
-									<span id="total-price-${status.count }"><fmt:formatNumber value="${pList[status.index].getPro_output_price() * dto.getCart_amount() }" /></span> 원
+									<input type="hidden" id="cart-price-${status.index }" value="${pList[status.index].getPro_output_price() }">
+									<span id="total-price-${status.index }"><fmt:formatNumber value="${pList[status.index].getPro_output_price() * dto.getCart_amount() }" /></span> 원
 								</div>
 								
 								<div class="pro-cancel">

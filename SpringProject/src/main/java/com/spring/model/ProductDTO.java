@@ -17,9 +17,8 @@ public class ProductDTO {
 	
 	private String[] pro_tags;
 	
-	public void tag_split(String pro_tag) {
-		if(pro_tag != null) {
-			pro_tag = this.pro_tag;
+	public void tag_split() {
+		if(this.pro_tag != null) {
 			this.pro_tags = pro_tag.split(",");
 		}
 	}

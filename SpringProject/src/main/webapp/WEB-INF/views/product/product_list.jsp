@@ -19,7 +19,7 @@
 	
 			<div class="search">
 				<form method="post" action="product_search.do">		
-					<input type="search" name="keyword" placeholder="${keyword }">
+					<input type="search" name="k" placeholder="${keyword }">
 					<input type="submit" value="검색"> 
 					</form>
 			</div>
@@ -38,7 +38,7 @@
 							<div class="product-info">
 							
 								<c:forEach items="${dto.getPro_tags() }" var="tags">
-									<a class="pro-tag" href="#">${tags }</a> 
+									<a class="pro-tag" href="search_tag.do?k=${tags }">${tags }</a> 
 								</c:forEach><br>
 								
 								<a class="pro-name" href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a><br>

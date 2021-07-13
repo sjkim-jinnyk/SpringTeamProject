@@ -2,6 +2,7 @@ package com.spring.member;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,10 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDAO;
 import com.spring.model.ProductDTO;
+import com.spring.model.ProductLikeDTO;
 import com.spring.model.ProductRecentDAO;
 import com.spring.model.ProductRecentDTO;
 import com.spring.model.QnaDTO;
@@ -50,7 +53,7 @@ public class ProductController {
 		List<ProductDTO> list = this.pdao.getProductList(pageDTO);
 		
 		for(int i=0; i<list.size(); i++) {
-			list.get(i).tag_split(list.get(i).getPro_tag());
+			list.get(i).tag_split();
 		}
 		
 		model.addAttribute("page", pageDTO);
@@ -66,6 +69,7 @@ public class ProductController {
 		if(user_id == null) user_id = "guest";
 		
 		ProductDTO pdto = this.pdao.getProductCont(pro_no); // 상품 상세 설명
+		pdto.tag_split();
 		
 		ProductRecentDTO rdto = new ProductRecentDTO();
 		rdto.setRecent_product(pro_no);
@@ -78,7 +82,7 @@ public class ProductController {
 			this.pdao.addRecent(rdto); // 최근 본 상품에 추가
 		}
 
-		// 리뷰 게시판
+		// 리뷰 게시판 - 전체
 		int rpage = 0;
 		if (request.getParameter("rpage") != null) {
 			rpage = Integer.parseInt(request.getParameter("rpage"));
@@ -93,6 +97,19 @@ public class ProductController {
 		List<ReviewDTO> rlist = this.pdao.getReviewList(rpageDTO);
 
 		int star = this.pdao.getTotalStar(pro_no);
+		
+		// 리뷰 게시판 - 사진만
+		int ppage = 0;
+		if (request.getParameter("ppage") != null) {
+			ppage = Integer.parseInt(request.getParameter("ppage"));
+		} else {
+			ppage = 1;
+		}
+
+		int ptotalRecord = this.pdao.getReviewPhotoCount(pro_no);
+
+		PageDTO ppageDTO = new PageDTO(ppage, rowsize, ptotalRecord, pro_no);
+		List<ReviewDTO> plist = this.pdao.getReviewPhotoList(ppageDTO);
 
 		// qna 게시판
 		int qpage = 0;
@@ -113,6 +130,10 @@ public class ProductController {
 		model.addAttribute("rpage", rpageDTO);
 		model.addAttribute("rtotal", totalRecord);
 		model.addAttribute("star", star);
+		
+		model.addAttribute("photo", plist);
+		model.addAttribute("ppage", ppageDTO);
+		model.addAttribute("ptotal", ptotalRecord);
 
 		model.addAttribute("qna", qlist);
 		model.addAttribute("qpage", qpageDTO);
@@ -133,6 +154,9 @@ public class ProductController {
 		
 			if(check > 0) { 	// 최근 본 상품이 있는 경우
 				List<ProductRecentDTO> list = this.pdao.getRecentList(user_id); 
+				for(int i=0; i<list.size(); i++) {
+					list.get(i).getProductDTO().tag_split();
+				}
 				model.addAttribute("list", list); 
 			}
 		 
@@ -168,7 +192,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("product_search.do")
-	public String product_search_list(@RequestParam("keyword") String keyword, HttpServletRequest request, Model model) {
+	public String product_search_list(@RequestParam("k") String keyword, HttpServletRequest request, Model model) {
 
 		int page = 0;
 
@@ -186,7 +210,7 @@ public class ProductController {
 		List<ProductDTO> list = this.pdao.getSearchList(pageDTO);
 		
 		for(int i=0; i<list.size(); i++) {
-			list.get(i).tag_split(list.get(i).getPro_tag());
+			list.get(i).tag_split();
 		}
 		
 		model.addAttribute("page", pageDTO);
@@ -195,5 +219,140 @@ public class ProductController {
 
 		return "product/product_search_list";
 	}
+	
+	@RequestMapping("search_tag.do")
+	public String tag_search(@RequestParam("k") String keyword, HttpServletRequest request, Model model) {
+		
+		int page = 0;
 
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		} else {
+			page = 1;
+		}
+
+		rowsize = 8;
+		totalRecord = this.pdao.getSearchTagCount(keyword);
+
+		String field = "";
+		PageDTO pageDTO = new PageDTO(page, rowsize, totalRecord, field, keyword);
+		List<ProductDTO> list = this.pdao.getSearchTagList(pageDTO);
+		
+		System.out.println("pageDTO >> " + pageDTO);
+		System.out.println("list >> " + list);
+		
+		for(int i=0; i<list.size(); i++) {
+			list.get(i).tag_split();
+		}
+		
+		model.addAttribute("page", pageDTO);
+		model.addAttribute("List", list);
+		model.addAttribute("keyword", keyword);
+		
+		return "product/product_search_list";
+	}
+	
+	@RequestMapping("add_like.do")
+	@ResponseBody
+	public String add_like(@RequestParam("product_no") int product_no, HttpSession session, HttpServletResponse response, Model model) throws IOException {
+		
+		model.addAttribute("product_no", product_no);
+		
+		return "product/add_like";
+	}
+	
+	@RequestMapping("product_qna_write.do")
+	public String pro_qna_write(@RequestParam("no") int product_no, Model model) {
+		
+		ProductDTO dto = this.pdao.getProductCont(product_no);
+		dto.tag_split();
+		model.addAttribute("dto", dto);
+		
+		return "product/product_qna_write";
+	}
+	
+	@RequestMapping("product_qna_write_ok.do")
+	public void pro_qna_write_ok(QnaDTO dto, HttpSession session, HttpServletResponse response) throws IOException {
+		
+		response.setContentType("text/html; UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		String user_id = (String) session.getAttribute("session_id");
+		if(user_id == null) {
+			user_id = "guest";			
+		}
+		
+		dto.setQna_writer(user_id);
+		
+		int result = this.pdao.insertProQna(dto);
+		
+		if (result > 0) {
+			out.println("<script>");
+			out.println("alert('상품 Q&A가 작성되었습니다.')");
+			out.println("window.close()");
+			out.println("</script>");
+		} else {
+			out.println("<script>");
+			out.println("alert('qna 작성 실패')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+		
+	}
+
+	@RequestMapping("qna_delete.do")
+	public void qna_delete(@RequestParam("no") int qna_no, @RequestParam("pno") int product_no, HttpServletResponse response) throws IOException {
+		
+		response.setContentType("text/html; UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		int result = this.pdao.deleteQna(qna_no);
+		
+		if (result > 0) {
+			out.println("<script>");
+			out.println("alert('삭제되었습니다.')");
+			out.println("location.href='product_cont.do?no="+product_no+"'");
+			out.println("</script>");
+		} else {
+			out.println("<script>");
+			out.println("alert('qna 삭제 실패')");
+			out.println("</script>");
+		}
+	}
+	
+	@RequestMapping("product_qna_modify.do")
+	public String pro_qna_modify(@RequestParam("no") int qna_no, @RequestParam("pno") int product_no, Model model) {
+		
+		QnaDTO qdto = this.pdao.getQnaCont(qna_no);
+		ProductDTO pdto = this.pdao.getProductCont(product_no);
+		pdto.tag_split();
+		
+		model.addAttribute("pdto", pdto);
+		model.addAttribute("qdto", qdto);
+		
+		return "product/product_qna_modify";
+	}
+	
+	@RequestMapping("product_qna_modify_ok.do")
+	public void pro_qna_modify_ok(QnaDTO dto, HttpServletResponse response) throws IOException {
+		
+		response.setContentType("text/html; UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		int result = this.pdao.updateProQna(dto);
+		
+		if (result > 0) {
+			out.println("<script>");
+			out.println("alert('수정되었습니다.')");
+			out.println("window.close()");
+			out.println("</script>");
+		} else {
+			out.println("<script>");
+			out.println("alert('qna 수정 실패')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+	}
+	
+	
 }

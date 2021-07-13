@@ -1,5 +1,6 @@
 package com.spring.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -107,6 +108,61 @@ public class ProductDAOImpl implements ProductDAO {
 	
 		return this.sqlSession.selectOne("searchListCount", keyword);
 	}
+
+	@Override
+	public int getSearchTagCount(String keyword) {
+		
+		return this.sqlSession.selectOne("searchTagCount", keyword);
+	}
+
+	@Override
+	public List<ProductDTO> getSearchTagList(PageDTO dto) {
+		 
+		return this.sqlSession.selectList("searchTagList", dto);
+	}
+
+	@Override
+	public int addLike(HashMap hm) {
+
+		return this.sqlSession.insert("addLike", hm);
+	}
+
+	@Override
+	public int getReviewPhotoCount(int no) {
+		 
+		return this.sqlSession.selectOne("proReviewPhotoCount", no);
+	}
+
+	@Override
+	public List<ReviewDTO> getReviewPhotoList(PageDTO dto) {
+		 
+		return this.sqlSession.selectList("proReviewPhotoList", dto);
+	}
+
+	@Override
+	public int insertProQna(QnaDTO dto) {
+		
+		return this.sqlSession.insert("writeProQna", dto);
+	}
+
+	@Override
+	public int deleteQna(int no) {
+		
+		return this.sqlSession.delete("deleteQna", no);
+	}
+
+	@Override
+	public QnaDTO getQnaCont(int no) {
+		
+		return this.sqlSession.selectOne("qnaCont", no);
+	}
+
+	@Override
+	public int updateProQna(QnaDTO dto) {
+		
+		return this.sqlSession.update("updateProQna", dto);
+	}
+
 
 	
 

@@ -10,7 +10,7 @@
 </head>
 <script type="text/javascript">
 
-function show(event) {
+/* function show(event) {
 	
 	var target = event.target;
 	console.log("target > " + target);
@@ -27,7 +27,7 @@ function show(event) {
 		document.getElementById('search').style.display = 'block';
 		document.getElementById('search-btn').style.display = 'none';
 	}
-}
+} */
 
 </script>
 <body>
@@ -49,7 +49,7 @@ function show(event) {
 				<a id="search-btn" href="javascript:void(0);" onclick="show(event);">검색</a>
 				<div id="search" class="search" hidden>
 					<form method="post" action="product_search.do">			
-							<input type="search" name="keyword">
+							<input type="search" name="k">
 							<input type="submit" value="검색"> 
 					
 					</form>
