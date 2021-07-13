@@ -98,6 +98,58 @@ public class MemberDAOImpl implements MemberDAO{
 		return this.sqlSession.selectList("reviewList", id);
 	}
 
+	
+	// 리뷰번호로 리뷰 상세내역 호출 메서드
+	@Override
+	public ReviewDTO getReviewCont(int no) {
+
+		return this.sqlSession.selectOne("reviewCont", no);
+	}
+
+	
+	// 리뷰 추가 메서드
+	@Override
+	public int updateReview(ReviewDTO dto) {
+		
+		return this.sqlSession.insert("updateReview", dto);
+	}
+
+	
+	// id를 통해 찜한 상품 리스트 호출 메서드
+	@Override
+	public List<ProductLikeDTO> getProductLikeList(String id) {
+
+		return this.sqlSession.selectList("productLikeList", id);
+	}
+
+	// 찜한 상품 정보 호출 메서드
+	@Override
+	public List<ProductDTO> getProductLikeInfo(List<ProductLikeDTO> list) {
+		
+		return this.sqlSession.selectList("productLikeInfo", list);
+	}
+
+	// 회원 정보 수정 메서드
+	@Override
+	public int updateMemberAddr(MemberDTO dto) {
+
+		return this.sqlSession.update("updateMemberAddr", dto);
+	}
+	
+	// 회원 연락처 수정 메서드
+	@Override
+	public int updateMemberPhone(MemberDTO dto) {
+		
+		return this.sqlSession.update("updateMemberPhone", dto);
+	}
+
+	// 회원 삭제 메서드
+	@Override
+	public int deleteMember(String id) {
+
+		return this.sqlSession.delete("deleteMember", id);
+	}
+
 
 
 }

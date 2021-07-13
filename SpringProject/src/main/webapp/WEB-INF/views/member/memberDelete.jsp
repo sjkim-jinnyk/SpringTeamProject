@@ -1,21 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%	HttpSession session1 = request.getSession();
+	String session_id = (String)session.getAttribute("session_id"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
-<script src="${pageContext.request.contextPath}/resources/js/member.js" defer></script>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+
 <title>Member</title>
 </head>
 <body>
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../include/header.jsp" />
-			<c:set var="mem" value="${Member }" />
+			<c:set var="mem" value="${Cont }" />
 			
 			<div class="member_container">
 				<!-- header_title -->
@@ -35,7 +37,7 @@
 						</li>
 					</ul>
 					<ul class="my_menu">
-						<a href="<%=request.getContextPath() %>/member_point.do">
+						<a href="">
 							<li>
 								<ul class="menu_bar">
 									<li>적립금 </li>
@@ -51,7 +53,7 @@
 								</ul>
 							</li>
 						</a>
-						<a href="<%=request.getContextPath() %>/member_review.do">
+						<a href="<%=request.getContextPath() %>/member_review.do?id=${mem.getMem_id() }">
 							<li>
 								<ul class="menu_bar">
 									<li>리뷰 </li>
@@ -59,7 +61,7 @@
 								</ul>
 							</li>
 						</a>
-						<a href="<%=request.getContextPath() %>/member_productLike.do">
+						<a href="<%=request.getContextPath() %>/member_productLike.do?id=${mem.getMem_id() }">
 							<li>
 								<ul class="menu_bar">
 									<li>찜 </li>
@@ -77,47 +79,37 @@
 							<a href="<%=request.getContextPath() %>/member_orderList.do"><li>주문내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_qna.do"><li>문의내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_recent.do"><li>최근 본 상품</li></a>
-							<a href="<%=request.getContextPath() %>/member_info.do"><li>정보관리</li></a>
+							<li>
+								<a href="#none" id="info_click">정보관리</a>
+								<ul id="info_display" class="on">
+									<a href="<%=request.getContextPath() %>/member_info_edit.do?id=${mem.getMem_id() }"><li>회원정보 수정</li></a>
+									<a href="<%=request.getContextPath() %>/member_info_delete.do?id=${mem.getMem_id() }"><li>회원 탈퇴</li></a>
+								</ul>
+							</li>
 						</ul>
 					</div> <!-- nav_menu END -->
 					
 					<div class="member_order">
-						<table class="order_bar" border="1">
-						<c:set var="plist" value="${ProductInfo }"/>
-						<c:set var="odlist" value="${OrderDetail }"/> 
-						<c:set var="olist" value="${OrderInfo }"/> 
-						<c:set var="rlist" value="${ReviewList }"/>
-						
-							<tr>
-								<th>상품정보</th><th>구매일</th><th>후기 작성</th>
-							</tr>
-							
-							
-								<c:forEach items="${olist }" var="olist" varStatus="status">
-									<tr>
-										<c:if test="${odlist[status.index].getOrder_pro_no() == plist[status.index].getPro_no()}">
-											<td>${plist[status.index].getPro_name() }</td>
-										</c:if>
-										
-										<c:if test="${odlist[status.index].getOrder_pro_no() != plist[status.index].getPro_no()}">
-											<td>XXX</td>
-										</c:if>
-										<c:if test="${olist.getOrder_no() == rlist[status.index].getOrder_no()}">
-											<td>${olist.getOrder_date() }</td>
-										</c:if>
-										<c:if test="${olist.getOrder_no() != rlist[status.index].getOrder_no()}">
-											<td>X</td>
-										</c:if>
-										<c:if test="${rlist[status.index].getReview_title() != null}">
-											<td><a href="<%=request.getContextPath()%>/member_review_cont.do?no=${rlist[status.index].getOrder_no() }">${rlist[status.index].getReview_title() }</a></td>
-										</c:if>
-										<c:if test="${rlist[status.index].getReview_title() == null}">
-											<td><input type="button" value="후기작성" onclick="location.href='member_review_write.do?no=${rlist[status.index].getOrder_no()}'"></td>
-										</c:if>
-									</tr>
-								</c:forEach>
-							
-						</table>
+						<h3>회원탈퇴 주의사항</h3>
+						<ul class="deleteInfo">
+							<li>무분별한 회원가입을 막기위해 회원탈퇴 후 6개월 동안 회원가입 하실 수 없습니다.</li>
+							<li>한 번 탈퇴하면 복구할 수 없습니다.</li>
+							<li>보유하고 있던 포인트, 쿠폰은 모두 소멸됩니다....등등</li>
+						</ul>
+						<form method="post" action="<%=request.getContextPath()%>/member_delete_ok.do">
+							<input type="hidden" name="db_pwd" value="${memberInfo.getMem_pwd() }">
+							<input type="hidden" name="delete_words" value="주의사항을 읽었습니다. 회원 탈퇴를 요청합니다.">
+							<div class="delete_words">
+								<h3>아래 문구를 동일하게 입력하세요</h3>
+								<p>주의사항을 읽었습니다. 회원 탈퇴를 요청합니다.</p>
+								<input type="text" name="delete_words_mem">
+							</div>
+							<div class="delete_pwd">
+								<p>비밀번호를 입력하세요</p>
+								<input type="password" name="mem_pwd"><br>
+							</div>
+							<input type="submit" value="삭제">
+						</form>
 					</div> <!-- member_order END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
@@ -125,4 +117,10 @@
 		</div>
 	</div>
 </body>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/addr.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<!-- 주소 API 파일 로딩  -->
+
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </html>
