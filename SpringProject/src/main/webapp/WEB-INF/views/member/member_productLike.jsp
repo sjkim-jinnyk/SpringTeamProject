@@ -9,8 +9,8 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
-<script src="${pageContext.request.contextPath}/resources/js/member.js" defer></script>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+
 <title>Member</title>
 </head>
 <body>
@@ -83,7 +83,7 @@
 						</ul>
 					</div> <!-- nav_menu END -->
 					
-					<div class="member_order">
+					<div class="member_like">
 						<ul>
 							<c:if test="${!empty ProductLikeInfo}">
 							<c:forEach items="${ProductLikeInfo }" var="dto">
@@ -93,16 +93,19 @@
 										<a class="pro-tag" href="#">${dto.getPro_tag() }</a><br>
 										<a class="pro-name" href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a><br>
 										<span class="pro-price">${dto.getPro_output_price() } 원</span>
+										<a href="<%=request.getContextPath() %>/productLike_delete.do?no=${dto.getPro_no()}&id=${ProductLike.getMem_id()}" id="heart"><i class="fas fa-heart"></i></a>
 									</div>
 								</li>
 							</c:forEach>
 							</c:if>
 						</ul>
-					</div> <!-- member_order END -->
+					</div> <!-- member_like END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
 			<jsp:include page="../include/footer.jsp" />
 		</div>
 	</div>
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member_productLike.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </html>

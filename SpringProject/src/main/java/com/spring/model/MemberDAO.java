@@ -34,6 +34,8 @@ public interface MemberDAO {
 
 	public List<ProductLikeDTO> getProductLikeList(String id);				// id로 찜한 상품 리스트 호출 메서드
 	
+	public int deleteProductLike(int no);									// 찜한 상품 취소
+	
 	public List<ProductDTO> getProductLikeInfo(List<ProductLikeDTO> list);	// 찜한 상품 리스트의 정보 호출 메서드
 	
 	public int updateMemberAddr(MemberDTO dto);								// 회원 주소 수정 메서드
@@ -41,4 +43,6 @@ public interface MemberDAO {
 	public int updateMemberPhone(MemberDTO dto);							// 회원 연락처 수정 메서드
 	
 	public int deleteMember(String id);										// 회원 삭제  메서드
+	
+	public List<QnaDTO> getQnaList(String id);								// id에 해당하는 리뷰리스트 호출 메서드
 }

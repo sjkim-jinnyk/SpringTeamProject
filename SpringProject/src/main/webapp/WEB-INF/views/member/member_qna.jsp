@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <title>Member</title>
 </head>
 <body>
@@ -28,11 +28,11 @@
 				<!-- member_header -->
 				<div class="member_header">
 					<ul>
-						<li><i class="fas fa-user-circle"></i></li>
+						<li><a href="<%=request.getContextPath()%>/member_info.do?id=${mem.getMem_id() }"><i class="fas fa-user-circle"></i></a></li>
 						<li>
 							<ul class="user_info">
-								<li>${mem.getMem_name() }님 환영합니다.</li>
-								<li>${mem.getMem_id() }</li>
+								<li><a href="<%=request.getContextPath()%>/member_info.do?id=${mem.getMem_id() }">${mem.getMem_name() }님 </a>환영합니다.</li>
+								<li><a href="<%=request.getContextPath()%>/member_info.do?id=${mem.getMem_id() }">${mem.getMem_id() }</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -77,12 +77,12 @@
 					<div class="nav_menu">
 						<ul>
 							<a href="<%=request.getContextPath() %>/member_orderList.do"><li>주문내역</li></a>
-							<a href="<%=request.getContextPath() %>/member_qna.do"><li>문의내역</li></a>
+							<a href="<%=request.getContextPath() %>/member_qna.do?id=${mem.getMem_id() }"><li>문의내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_recent.do"><li>최근 본 상품</li></a>
 							<li>
 								<a href="#none" id="info_click">정보관리</a>
 								<ul id="info_display" class="on">
-									<a href="<%=request.getContextPath() %>/member_info_edit.do?id=${mem.getMem_id() }"><li>회원정보 수정</li></a>
+									<a href="<%=request.getContextPath() %>/member_info.do?id=${mem.getMem_id() }"><li>회원정보 수정</li></a>
 									<a href="<%=request.getContextPath() %>/member_info_delete.do?id=${mem.getMem_id() }"><li>회원 탈퇴</li></a>
 								</ul>
 							</li>
@@ -90,26 +90,22 @@
 					</div> <!-- nav_menu END -->
 					
 					<div class="member_order">
-						<h3>회원탈퇴 주의사항</h3>
-						<ul class="deleteInfo">
-							<li>무분별한 회원가입을 막기위해 회원탈퇴 후 6개월 동안 회원가입 하실 수 없습니다.</li>
-							<li>한 번 탈퇴하면 복구할 수 없습니다.</li>
-							<li>보유하고 있던 포인트, 쿠폰은 모두 소멸됩니다....등등</li>
-						</ul>
-						<form method="post" action="<%=request.getContextPath()%>/member_delete_ok.do">
-							<input type="hidden" name="db_pwd" value="${memberInfo.getMem_pwd() }">
-							<input type="hidden" name="delete_words" value="주의사항을 읽었습니다. 회원 탈퇴를 요청합니다.">
-							<div class="delete_words">
-								<h3>아래 문구를 동일하게 입력하세요</h3>
-								<p>주의사항을 읽었습니다. 회원 탈퇴를 요청합니다.</p>
-								<input type="text" name="delete_words_mem">
-							</div>
-							<div class="delete_pwd">
-								<p>비밀번호를 입력하세요</p>
-								<input type="password" name="mem_pwd"><br>
-							</div>
-							<input type="submit" value="삭제">
-						</form>
+						<table class="order_bar" border="1">
+							<tr>
+								<th>상품정보</th><th>내용</th><th>문의유형</th><th>작성일</th>
+							</tr>
+							<c:if test="${!empty qnaList }">
+								<c:forEach items="${qnaList }" var="dto">
+									<tr>
+										<td>${dto.getQna_pro() }</td>
+										<td>${dto.getQna_cont() }</td>
+										<td>${dto.getQna_category_no() }</td>
+										<td>${dto.getQna_date().substring(0,10) }</td>
+									</tr>
+								</c:forEach>
+							</c:if>
+
+						</table>
 					</div> <!-- member_order END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
@@ -117,10 +113,5 @@
 		</div>
 	</div>
 </body>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/addr.js"></script>
-	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-	<!-- 주소 API 파일 로딩  -->
-
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member.js"></script>
 </html>

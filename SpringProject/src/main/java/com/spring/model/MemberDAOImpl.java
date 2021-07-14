@@ -121,6 +121,14 @@ public class MemberDAOImpl implements MemberDAO{
 
 		return this.sqlSession.selectList("productLikeList", id);
 	}
+	
+	// 찜한 상품 취소
+	@Override
+	public int deleteProductLike(int no) {
+
+		return this.sqlSession.delete("deleteProductLike", no);
+	}
+
 
 	// 찜한 상품 정보 호출 메서드
 	@Override
@@ -149,6 +157,14 @@ public class MemberDAOImpl implements MemberDAO{
 
 		return this.sqlSession.delete("deleteMember", id);
 	}
+
+	// id에 해당하는 qna 리스트 호출 메서드
+	@Override
+	public List<QnaDTO> getQnaList(String id) {
+		
+		return this.sqlSession.selectList("qnaList", id);
+	}
+
 
 
 

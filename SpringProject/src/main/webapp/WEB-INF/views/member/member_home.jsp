@@ -77,7 +77,7 @@
 					<div class="nav_menu">
 						<ul>
 							<a href="<%=request.getContextPath() %>/member_orderList.do"><li>주문내역</li></a>
-							<a href="<%=request.getContextPath() %>/member_qna.do"><li>문의내역</li></a>
+							<a href="<%=request.getContextPath() %>/member_qna.do?id=${mem.getMem_id() }"><li>문의내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_recent.do"><li>최근 본 상품</li></a>
 							<li>
 								<a href="#none" id="info_click">정보관리</a>
