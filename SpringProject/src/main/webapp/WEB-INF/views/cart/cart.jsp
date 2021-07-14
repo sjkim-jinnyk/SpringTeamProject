@@ -1,4 +1,3 @@
-<%@page import="com.spring.model.ProductDTO"%>
 <%@page import="com.spring.model.CartDTO" %>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -16,7 +15,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 
-<% List<ProductDTO> pList = (List<ProductDTO>)request.getAttribute("pList"); %>
+<% List<CartDTO> cList = (List<CartDTO>)request.getAttribute("cList"); %>
 
 function resetCart() {
 	if(confirm("장바구니를 비우시겠습니까?")){
@@ -25,89 +24,55 @@ function resetCart() {
 };
 
 function checkAll() {  /* 체크박스 전체선택 함수 */
-	$("input[name=check]").prop("checked", $("#checkAll").prop("checked"));
+	$('input[name=check]').prop('checked', $('#checkAll').prop('checked'));
 };
 
-function count(type, ths) {
-	
-	let id = $(ths).attr('name');
-	let text = document.getElementById('cart-amount-'+id).value;
-	
-	if(type == 'plus'){
-		document.getElementById('cart-amount-'+id).value = parseInt(text) + 1;
-	}else if(type == 'minus' && text > 1) {
-		document.getElementById('cart-amount-'+id).value = parseInt(text) - 1;
-	}
-	
-	total(ths);
-} 
+function count(type, index, no) {
 
-/* function count(type, ths) {
-	
-	let id = $(ths).attr('name');
-	let no = $('#cart-no-'+id).val();
-	
-	console.log("id " + id);
-	console.log("no " + no);
-	
-	if(type == 'plus'){
+	 let amount = parseInt($('#cart-amount-'+index).val());
+	 let price = parseInt($('#cart-price-'+index).val());
+	 
+	 if((type == 'p' && amount > 0) || type == 'm' && amount > 1) {
 		$.ajax({
-			type: "post",
-			url: "cart_amount_plus.do",
-			data: {"no": no},
+			type: 'post',
+			url: 'cart_amount_set.do',
+			data: {'type' : type, 'no' : no },
 			success: function(data) {
 				if(data == 1) {
-					alert('에이젝스 성공!');
-					location.reload();
+					amount += 1;
+					$('#cart-amount-'+index).attr('value', amount);
+					$('#total-price-'+index).text(String(amount*price).replace(/(.)(?=(\d{3})+$)/g,'$1,'));
+					total();
+					return false;
+				}else if(data == 2) {
+					amount -= 1;
+					$('#cart-amount-'+index).attr('value', amount);
+					$('#total-price-'+index).text(String(amount*price).replace(/(.)(?=(\d{3})+$)/g,'$1,'));
+					total();
+					return false;
 				}else {
-					alert('에이젝스 실패!')
+					console.log('data', data);
+					alert('에이젝스 실패');
 				}
 			},
 			error:function(request,status,error){
-			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);}
+		    alert('code:'+request.status+'\n'+'message:'+request.responseamount+'\n'+'error:'+error);}
 		});		
-	}else if(type == 'minus' && text > 1) {
-		$.ajax({
-			type: "post",
-			url: "cart_amount_minus.do",
-			data: {"no": no},
-			success: function(data) {
-				if(data == 1) {
-					alert('에이젝스 성공!');
-				}else {
-					alert('에이젝스 실패!')
-				}
-			},
-			error: function(){
-				alert("통신 오류입니다.");
-			}
-		});
-	}
-	
-	total(ths);
-	
-	
-	
-} */
+	 }
+} 
 
-function total(ths) {
-	
-	let id = $(ths).attr('name');
-	let price = document.getElementById('cart-price-'+id).value;
-	let amount = document.getElementById('cart-amount-'+id).value;
-	let total = String(parseInt(price) * parseInt(amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,');
-	
-	document.getElementById('total-price-'+id).innerText = total;
+
+function total() {
 	
 	let total_price = 0;
-	for(i=0; i<<%=pList.size()%>; i++) {
-		
-		let prc = document.getElementById('cart-price-'+(i+1)).value;
-		let amt = document.getElementById('cart-amount-'+(i+1)).value;
+	 
+	for(i=0; i<<%=cList.size()%>; i++) {
+		let prc = $('#cart-price-'+i).val();
+		let amt = $('#cart-amount-'+i).val();
 		total_price += parseInt(prc) * parseInt(amt);
 	}
 	
-	document.getElementById('total-price').innerText = String(total_price).replace(/(.)(?=(\d{3})+$)/g,'$1,');
+	$('#total-price').text(String(total_price).replace(/(.)(?=(\d{3})+$)/g,'$1,'));
 }
 
 </script>
@@ -120,7 +85,6 @@ function total(ths) {
 				<div class="history-title">
 				장바구니<c:if test="${!empty cList }">(${cList.size() })</c:if>
 				</div>
-				
 				
 				<div class="history-wrap">
 					<ul>
@@ -148,6 +112,7 @@ function total(ths) {
 					
 					<c:if test="${!empty cList }">
 					<c:forEach items="${cList }" var="dto" varStatus="status">
+					
 						<li>
 							<div class="history" id="history-${status.index }">
 								<input id="cart-no-${status.index }" type="hidden" value="${dto.getCart_no() }">
@@ -163,9 +128,9 @@ function total(ths) {
 								
 								<div class="pro-btn">
 									
-									<button type="button" name="${status.index }" onclick="count('minus', this)">-</button>
+									<button type="button" onclick="count('m', ${status.index }, ${dto.getCart_no() })">-</button>
 									<input class="cart-amount" id="cart-amount-${status.index }" name="cart_amount" value="${dto.getCart_amount() }">
-									<button type="button" name="${status.index }" onclick="count('plus', this)">+</button>
+									<button type="button" onclick="count('p', ${status.index }, ${dto.getCart_no() })">+</button>
 									개
 								</div>
 								

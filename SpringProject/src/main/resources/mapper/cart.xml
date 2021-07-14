@@ -48,11 +48,11 @@
 	</delete>
 	
 	<update id="plusCartAmount" parameterType="int">
-		update cart set cart_amount = cart_amount + 1 where cart_no = ${no}
+		update cart set cart_amount = cart_amount + 1 where cart_no = #{no}
 	</update>
 	
 	<update id="minusCartAmount" parameterType="int">
-		update cart set cart_amount = cart_amount - 1 where cart_no = ${no}
+		update cart set cart_amount = cart_amount - 1 where cart_no = #{no}
 	</update>
 	
 	<delete id="deleteCartSelected" parameterType="java.util.ArrayList">

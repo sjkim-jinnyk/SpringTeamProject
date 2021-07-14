@@ -19,12 +19,15 @@
 		]]>
 	</select>
 	
-	
+
 	<!-- ::: product_cont ::: -->
 	
 	<select id="productCont" parameterType="int" resultType="com.spring.model.ProductDTO">
 		select * from product where pro_no = #{no}
 	</select>
+	
+	
+	<!-- ::: product_cont - review ::: -->
 	
 	<select id="proReviewTotalRecord" parameterType="int" resultType="int">
 		select count(*) from review where review_pro = #{no}
@@ -51,6 +54,9 @@
 	<select id="totalStar" parameterType="int" resultType="int">
 		select nvl(sum(review_star),0) from review where review_pro = #{no}
 	</select>
+	
+	
+	<!-- ::: product_cont - QnA ::: -->
 	
 	<select id="proQnaTotalRecord" parameterType="int" resultType="int">
 		select count(*) from qna where qna_pro = #{no}
@@ -82,60 +88,12 @@
 		update qna set qna_title = #{qna_title}, qna_cont = #{qna_cont}, qna_secret = ${qna_secret} where qna_no = ${qna_no}
 	</update>
 	
-	
-	<!-- ::: recent ::: -->
-	
-	<resultMap type="com.spring.model.ProductDTO" id="product">
-		<result column="pro_no" property="pro_no" />
-		<result column="pro_name" property="pro_name" />
-		<result column="pro_category" property="pro_category" />
-		<result column="pro_output_price" property="pro_output_price" />
-		<result column="pro_tag" property="pro_tag" />
-		<result column="pro_check" property="pro_check" />
-		<result column="pro_img" property="pro_img" />
-		<result column="pro_cont" property="pro_cont" />
-	</resultMap>
-
-	<resultMap type="com.spring.model.ProductRecentDTO" id="recent">
-		<result column="recent_no" property="recent_no" />
-		<result column="recent_mem" property="recent_mem" />
-		<result column="recent_product" property="recent_product" />
-		<result column="recent_regdate" property="recent_regdate" />
-		<collection property="productDTO" resultMap="product" />
-	</resultMap>
-		
-	<select id="recentList" parameterType="String" resultMap="recent">
-		<![CDATA[ 
-		select * from
-		(select p.*, r.*, row_number() over(order by r.recent_regdate desc) rnum 
-		from product p join product_recent r
-		on p.pro_no = r.recent_product
-		where r.recent_mem = #{id}) where rnum >= 1 and rnum <= 10
-		]]>
-	</select>
-	
-	<select id="recentCheck" parameterType="String" resultType="int">
-		select count(*) from product_recent where recent_mem = #{id}
-	</select>
-	
-	<insert id="addRecent" parameterType="com.spring.model.ProductRecentDTO">
-		<selectKey resultType="int" keyProperty="recent_no" order="BEFORE">
-			select max(recent_no)+1 from product_recent
+	<insert id="proQnaAns" parameterType="com.spring.model.QnaDTO">
+		<selectKey keyProperty="qna_no" resultType="int" order="BEFORE">
+			select max(qna_no)+1 from qna
 		</selectKey>
-		insert into product_recent values(#{recent_no}, #{recent_mem}, #{recent_product}, sysdate)
+		insert into qna values(#{qna_no}, #{qna_writer}, #{qna_pro}, #{qna_title}, #{qna_cont}, null, #{qna_category_no}, sysdate, ${qna_group}, (select max(qna_step)+1 from qna where qna_group = #{qna_group}), #{qna_secret})
 	</insert>
-	
-	<select id="recentProCheck" parameterType="com.spring.model.ProductRecentDTO" resultType="int">
-		select count(*) from product_recent where recent_mem = #{recent_mem} and recent_product = #{recent_product} 
-	</select>
-	
-	<update id="updateRecentPro" parameterType="com.spring.model.ProductRecentDTO">
-		update product_recent set recent_regdate = sysdate where recent_mem = #{recent_mem} and recent_product = #{recent_product} 
-	</update>
-	
-	<delete id="deleteRecent" parameterType="com.spring.model.ProductRecentDTO">
-		delete from product_recent where recent_mem = #{recent_mem} and recent_product = #{recent_product} 
-	</delete>
 	
 	
 	<!-- ::: search ::: -->
@@ -165,14 +123,5 @@
 			where rnum >= #{startNo} and rnum <= ${endNo}
 		]]>
 	</select>
-	
-	<insert id="addLike" parameterType="java.util.HashMap">
-		<selectKey keyProperty="like_no" resultType="int" order="BEFORE">
-			select max(like_no)+1 from product_like
-		</selectKey>
-		insert into product_like values(#{like_no}, #{user_id}, #{product_no}, sysdate)
-	</insert>
-	
-	
 	
 </mapper>

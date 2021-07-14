@@ -58,11 +58,11 @@
 				
 		<form action="product_qna_write_ok.do">
 			<input type="hidden" name="qna_pro" value="${dto.getPro_no() }">
-			<input type="hidden" name="qna_category_no" value="7">
+
 			<table border="1">
 				<tr>
 					<th>제 목</th>
-					<td><input name="qna_title" required></td>
+					<td><input name="qna_title" value="" required></td>
 				</tr>
 				<tr>
 					<th>내 용</th>

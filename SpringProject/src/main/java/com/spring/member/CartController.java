@@ -193,26 +193,6 @@ public class CartController {
 		
 	}
 	
-	@RequestMapping("cart_amount_plus.do")
-	@ResponseBody
-	public int cart_amount_plus(@RequestParam("no") int cart_no, HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		
-		int result = this.dao.plusCartAmount(cart_no);
-		
-		return result;
-	}
-	
-	@RequestMapping("cart_amount_minus.do")
-	public int cart_amount_minus(@RequestParam("no") int cart_no) {
-		
-		int result = this.dao.minusCartAmount(cart_no);
-		
-		return result;
-	}
-	
 	@RequestMapping("cart_delete_seleted.do")
 	public void cart_delete_selected(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		response.setContentType("text/html; charset=UTF-8");
@@ -241,5 +221,24 @@ public class CartController {
 			out.println("</script>");
 		}
 	}
+	
+	@RequestMapping("cart_amount_set.do")
+	@ResponseBody
+	public int cart_amount_set(HttpServletRequest request) {
+		
+		String type = request.getParameter("type").trim();
+		int cart_no = Integer.parseInt(request.getParameter("no").trim());
+		
+		int result = 0;
+		
+		if(type.equals("p")) {
+			result = (dao.plusCartAmount(cart_no) > 0) ? 1 : 0; 	// 장바구니 수량이 증가되면 1 반환
+		}else if(type.equals("m")) {
+			result = (dao.minusCartAmount(cart_no) > 0) ? 2 : 0;  	// 장바구니 수량이 감소되면 2 반환
+		}
+		
+		return result;
+	}
+	
 
 }

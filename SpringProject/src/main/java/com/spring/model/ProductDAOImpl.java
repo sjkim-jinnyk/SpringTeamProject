@@ -27,7 +27,9 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public ProductDTO getProductCont(int no) {
-		
+		System.out.println("여기까진 오나??");
+		System.out.println("no >>> " +no);
+		System.out.println(this.sqlSession.selectOne("productCont", no));
 		return this.sqlSession.selectOne("productCont", no);
 	}
 
@@ -62,42 +64,6 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public int addRecent(ProductRecentDTO dto) {
-
-		return this.sqlSession.insert("addRecent", dto);
-	}
-
-	@Override
-	public List<ProductRecentDTO> getRecentList(String id) {
-		
-		return this.sqlSession.selectList("recentList", id);
-	}
-
-	@Override
-	public int recentCheck(String id) {
-		
-		return this.sqlSession.selectOne("recentCheck", id);
-	}
-
-	@Override
-	public int recentProCheck(ProductRecentDTO dto) {
-		
-		return this.sqlSession.selectOne("recentProCheck", dto);
-	}
-
-	@Override
-	public void updateRecentPro(ProductRecentDTO dto) {
-		
-		this.sqlSession.update("updateRecentPro", dto);
-	}
-
-	@Override
-	public int deleteRecent(ProductRecentDTO dto) {
-		
-		return this.sqlSession.delete("deleteRecent", dto);
-	}
-
-	@Override
 	public List<ProductDTO> getSearchList(PageDTO dto) {
 		
 		return this.sqlSession.selectList("searchList", dto);
@@ -119,12 +85,6 @@ public class ProductDAOImpl implements ProductDAO {
 	public List<ProductDTO> getSearchTagList(PageDTO dto) {
 		 
 		return this.sqlSession.selectList("searchTagList", dto);
-	}
-
-	@Override
-	public int addLike(HashMap hm) {
-
-		return this.sqlSession.insert("addLike", hm);
 	}
 
 	@Override
@@ -161,6 +121,12 @@ public class ProductDAOImpl implements ProductDAO {
 	public int updateProQna(QnaDTO dto) {
 		
 		return this.sqlSession.update("updateProQna", dto);
+	}
+
+	@Override
+	public int insertProQnaAns(QnaDTO dto) {
+		
+		return this.sqlSession.insert("proQnaAns", dto);
 	}
 
 

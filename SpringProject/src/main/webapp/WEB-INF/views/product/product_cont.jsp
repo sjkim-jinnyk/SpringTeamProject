@@ -1,3 +1,5 @@
+<%@page import="com.spring.model.MemberDAOImpl"%>
+<%@page import="com.spring.model.ProductDAOImpl"%>
 <%@page import="com.spring.model.ProductDTO" %>
 <%@page import="javax.servlet.http.HttpSession" %>
 <%@page import="org.springframework.context.annotation.Import"%>
@@ -17,7 +19,7 @@
 </head>
 <script type="text/javascript">
 
-<%ProductDTO dto = (ProductDTO)request.getAttribute("cont"); %>
+<%ProductDTO dto = (ProductDTO)request.getAttribute("cont");%>
 
 function count(type) {
 	let text = document.getElementById('cart_amount').value;
@@ -42,7 +44,6 @@ function total() {
 
 function show(obj) {
 	let id = $(obj).attr('class');
-	console.log('id' + id);
 	
 	if(document.getElementById('qna-detail-'+id).style.display == 'none'){
 		document.getElementById('qna-detail-'+id).style.display = 'block';
@@ -60,7 +61,7 @@ function writeQna(product_no) {
 	window.open("product_qna_write.do?no="+product_no, "질문글 작성하기", "_blank");
 }
 
-function modiftQna(qna_no, product_no) {
+function modifyQna(qna_no, product_no) {
 	window.open("product_qna_modify.do?no="+qna_no+"&pno="+product_no, "질문글 수정하기", "_blank");
 }
 
@@ -70,6 +71,10 @@ function deleteQna(qna_no, product_no){
 	}
 }
 
+function answerQna(qna_no, product_no){
+	window.open("product_qna_answer.do?no="+qna_no+"&pno="+product_no, "질문글 답변하기", "_blank");
+}
+
 function showReview(id){
 	$('#review-'+id).toggle();
 	$('#review-detail-'+id).toggle();
@@ -77,6 +82,7 @@ function showReview(id){
 	$('#reviews-detail-'+id).toggle();
 }
 
+ 
 function addLike(product_no){
 	$.ajax({
 		type : "post",
@@ -84,19 +90,22 @@ function addLike(product_no){
 		data : {"no":product_no},
 		success : function(data) {
 			if(data == 1){
-				console.log("data" + data);
 				$("#like-btn").css({"color":"red"});
 				return false;
+			}else if(data == 2){
+				$("#like-btn").css({"color":"black"});
+				return false;
 			}else {
+				console.log("data" + data);
 				alert('에이젝스 실패');
 			}
 		},
-		error: function() {
+		error: function(request,status,error) {
 			alert("통신 오류입니다.");
 		}
 	});
 }
-
+ 
 </script>
 <body>
 	<div class="layout_container">
@@ -144,7 +153,9 @@ function addLike(product_no){
 							
 							<input type="submit" value="구매하기" formaction="#">
 							<input type="submit" value="장바구니에 담기" formaction="add_cart.do">
-							<button type="button" id="like-btn" value="" onclick="addLike(${dto.getPro_no() })"><i class="fas fa-heart"></i></button>
+							<c:if test="${likeCheck eq 0 }"><button type="button" id="like-btn" onclick="addLike(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
+							<c:if test="${likeCheck > 0 }"><button type="button" id="like-btn" class="like-checked" onclick="addLike(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
+							
 							</form>
 						</div>
 					</div>
@@ -266,7 +277,7 @@ function addLike(product_no){
 											</span> 
 										<span class="mem-id">${dto.getReview_writer() }</span> <br>
 										
-										<div id="review-${status.index }">
+										<div id="reviews-${status.index }">
 											<span class="review-cont" style="white-space:pre;"><a href="javascript:void(0);" onclick="showReview(${status.index });"><c:out value="${dto.getReview_cont() }" /></a></span>
 										
 											
@@ -275,7 +286,7 @@ function addLike(product_no){
 											</c:if>
 										</div>
 									
-										<div id="review-detail-${status.index }" style="display:none;">
+										<div id="reviews-detail-${status.index }" style="display:none;">
 											<span class="review-cont" style="white-space:pre;"><a href="javascript:void(0);" onclick="showReview(${status.index });"><c:out value="${dto.getReview_cont() }" /></a></span>
 											<div class="review-img">
 												<c:if test="${!empty dto.getReview_img() }">
@@ -324,18 +335,18 @@ function addLike(product_no){
 					</div>
 				</div>
 				
-				<%-- 질문 --%>
+				<%-- 질문 Q&A --%>
 				<div id="qna" class="cont-board">
 					<span class="table-title">Q&A</span>
 					
 					<hr>
 					
 					
-					<table border="0" cellspacing="0" width="1000">
+					<table border="1" cellspacing="0" width="1200" style="text-align: center">
 						<c:if test="${!empty qna }">
 						<tr>
 							<th>번호</th>
-							<th width="600">제목</th>
+							<th width="800">제목</th>
 							<th>글쓴이</th>
 							<th>작성일자</th>
 						</tr>
@@ -365,11 +376,11 @@ function addLike(product_no){
 								
 								
 									<c:if test="${dto.getQna_writer() eq session_id }">
-										<button onclick="modiftQna(${dto.getQna_no() },${cont.getPro_no() });">수정</button>
+										<button onclick="modifyQna(${dto.getQna_no() },${cont.getPro_no() });">수정</button>
 										<button onclick="deleteQna(${dto.getQna_no() },${cont.getPro_no() });">삭제</button>
 									</c:if>
 									
-									<button onclick="modiftQna(${dto.getQna_no() },${cont.getPro_no() });">답변하기</button>
+									<c:if test="${dto.getQna_step() < 1 }"><button onclick="answerQna(${dto.getQna_no() },${cont.getPro_no() });">답변하기</button></c:if>
 							</div>
 							</td>
 							<td colspan="2"></td>
