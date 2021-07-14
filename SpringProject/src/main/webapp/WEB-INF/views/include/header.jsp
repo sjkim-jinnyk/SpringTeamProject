@@ -31,17 +31,22 @@
 				<div class="right">
 					<a href="<%=request.getContextPath()%>/search_list.do">검색</a>
 					
-					<c:if test="${empty session_id }">
+					<c:set var="id" value="${session_id }"/>
+					
+					<c:if test="${empty id }">
 						<a href="<%=request.getContextPath()%>/login.do">LOGIN</a>
+						<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
 					</c:if>
 					
-					<c:if test="${!empty session_id }">
+					<c:if test="${!empty id }">
+						<input type="hidden" name="id" value="${id }">
 						<a href="<%=request.getContextPath()%>/logout.do">LOGOUT</a>
-						<c:set var="id" value="${session_id }"  />
-							${id }님 환영합니다. 
+						<a href="<%=request.getContextPath()%>/member_home.do">MYPAGE</a>
+						<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
+						${id }님 환영합니다. 
 					</c:if>
 					
-					<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
+					
 				</div>
 			</div>
 			
