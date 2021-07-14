@@ -68,7 +68,7 @@ public class Member2Controller {
 		
 		if(idCheck == 1) { // 아이디 맞음
 			if(pwdCheck > 0) { // 비밀번호 맞음 (같은 비번인 계정이 여러개일 수 있음)
-				session.setAttribute("userId", id);
+				session.setAttribute("session_id", id);
 				out.println("<script>");
 				out.println("alert('로그인 성공')");
 				out.println("location.href='main.do'");
@@ -96,8 +96,8 @@ public class Member2Controller {
 	}
 	
 	@RequestMapping("id_dup_check.do")
-	public void id_dup(String id, HttpServletResponse response) throws IOException {
-		int result = this.dao.id_dup_check(id);
+	public void id_dup(@RequestParam("mem_id") String id, HttpServletResponse response) throws IOException {
+		int result = this.dao.idCheck(id);
 		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
