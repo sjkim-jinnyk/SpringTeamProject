@@ -15,6 +15,7 @@ public class ReviewDTO {
 	private int review_hit;
 	private String review_date;
 	private int reviewCount;
+	private int order_no;
 	
 	public ReviewDTO() { } 		// 기본생성자
 	

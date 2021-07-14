@@ -1,13 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%	HttpSession session1 = request.getSession();
+	String session_id = (String)session.getAttribute("session_id"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
-<script src="${pageContext.request.contextPath}/resources/js/member.js" defer></script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <title>Member</title>
 </head>
@@ -26,16 +28,16 @@
 				<!-- member_header -->
 				<div class="member_header">
 					<ul>
-						<li><i class="fas fa-user-circle"></i></li>
+						<li><a href="<%=request.getContextPath()%>/member_info.do?id=${mem.getMem_id() }"><i class="fas fa-user-circle"></i></a></li>
 						<li>
 							<ul class="user_info">
-								<li>${mem.getMem_name() }님 환영합니다.</li>
-								<li>${mem.getMem_id() }</li>
+								<li><a href="<%=request.getContextPath()%>/member_info.do?id=${mem.getMem_id() }">${mem.getMem_name() }님 </a>환영합니다.</li>
+								<li><a href="<%=request.getContextPath()%>/member_info.do?id=${mem.getMem_id() }">${mem.getMem_id() }</a></li>
 							</ul>
 						</li>
 					</ul>
 					<ul class="my_menu">
-						<a href="<%=request.getContextPath() %>/member_point.do">
+						<a href="">
 							<li>
 								<ul class="menu_bar">
 									<li>적립금 </li>
@@ -59,7 +61,7 @@
 								</ul>
 							</li>
 						</a>
-						<a href="<%=request.getContextPath() %>/member_productLike.do">
+						<a href="<%=request.getContextPath() %>/member_productLike.do?id=${mem.getMem_id() }">
 							<li>
 								<ul class="menu_bar">
 									<li>찜 </li>
@@ -77,7 +79,13 @@
 							<a href="<%=request.getContextPath() %>/member_orderList.do"><li>주문내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_qna.do"><li>문의내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_recent.do"><li>최근 본 상품</li></a>
-							<a href="<%=request.getContextPath() %>/member_info.do"><li>정보관리</li></a>
+							<li>
+								<a href="#none" id="info_click">정보관리</a>
+								<ul id="info_display" class="on">
+									<a href="<%=request.getContextPath() %>/member_info.do?id=${mem.getMem_id() }"><li>회원정보 수정</li></a>
+									<a href="<%=request.getContextPath() %>/member_info_delete.do?id=${mem.getMem_id() }"><li>회원 탈퇴</li></a>
+								</ul>
+							</li>
 						</ul>
 					</div> <!-- nav_menu END -->
 					
@@ -132,4 +140,5 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member.js"></script>
 </html>
