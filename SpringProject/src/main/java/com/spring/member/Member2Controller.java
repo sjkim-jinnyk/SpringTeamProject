@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,7 +57,8 @@ public class Member2Controller {
 	public void login(
 			@RequestParam("mem_id") String id,
 			@RequestParam("mem_pwd") String pwd,
-			HttpServletResponse response) throws IOException {
+			HttpServletResponse response,
+			HttpSession session) throws IOException {
 		
 		int idCheck = this.dao.idCheck(id);
 		int pwdCheck = this.dao.pwdCheck(pwd);
@@ -66,6 +68,7 @@ public class Member2Controller {
 		
 		if(idCheck == 1) { // 아이디 맞음
 			if(pwdCheck > 0) { // 비밀번호 맞음 (같은 비번인 계정이 여러개일 수 있음)
+				session.setAttribute("session_id", id);
 				out.println("<script>");
 				out.println("alert('로그인 성공')");
 				out.println("location.href='main.do'");
@@ -84,6 +87,37 @@ public class Member2Controller {
 		}
 		
 		System.out.println(idCheck+ ", " +pwdCheck);
+	}
+	
+	@RequestMapping("logout.do")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "home";
+	}
+	
+	@RequestMapping("id_dup_check.do")
+	public void id_dup(@RequestParam("mem_id") String id, HttpServletResponse response) throws IOException {
+		int result = this.dao.idCheck(id);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		if(result > 0) { // 중복인 경우
+			out.println("<script>");
+			out.println("alert('중복된 아이디 입니다.')");
+			out.println("history.back()");
+			out.println("</script>");
+		}else {	
+			out.println("<script>");
+			out.println("alert('사용가능한 아이디 입니다.')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+	}
+	
+	@RequestMapping("find_id.do")
+	public String find_id() {
+		return "login/find_id";
 	}
 	
 }

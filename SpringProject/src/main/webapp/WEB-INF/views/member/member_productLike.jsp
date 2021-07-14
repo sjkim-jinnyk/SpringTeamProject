@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%	HttpSession session1 = request.getSession();
+	String session_id = (String)session.getAttribute("session_id"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +17,7 @@
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../include/header.jsp" />
-			<c:set var="mem" value="${Member }" />
+			<c:set var="mem" value="${Cont }" />
 			
 			<div class="member_container">
 				<!-- header_title -->
@@ -51,7 +53,7 @@
 								</ul>
 							</li>
 						</a>
-						<a href="<%=request.getContextPath() %>/member_review.do">
+						<a href="<%=request.getContextPath() %>/member_review.do?id=${mem.getMem_id() }">
 							<li>
 								<ul class="menu_bar">
 									<li>리뷰 </li>
@@ -59,7 +61,7 @@
 								</ul>
 							</li>
 						</a>
-						<a href="<%=request.getContextPath() %>/member_productLike.do">
+						<a href="<%=request.getContextPath() %>/member_productLike.do?id=${mem.getMem_id() }">
 							<li>
 								<ul class="menu_bar">
 									<li>찜 </li>
@@ -82,42 +84,20 @@
 					</div> <!-- nav_menu END -->
 					
 					<div class="member_order">
-						<table class="order_bar" border="1">
-						<c:set var="plist" value="${ProductInfo }"/>
-						<c:set var="odlist" value="${OrderDetail }"/> 
-						<c:set var="olist" value="${OrderInfo }"/> 
-						<c:set var="rlist" value="${ReviewList }"/>
-						
-							<tr>
-								<th>상품정보</th><th>구매일</th><th>후기 작성</th>
-							</tr>
-							
-							
-								<c:forEach items="${olist }" var="olist" varStatus="status">
-									<tr>
-										<c:if test="${odlist[status.index].getOrder_pro_no() == plist[status.index].getPro_no()}">
-											<td>${plist[status.index].getPro_name() }</td>
-										</c:if>
-										
-										<c:if test="${odlist[status.index].getOrder_pro_no() != plist[status.index].getPro_no()}">
-											<td>XXX</td>
-										</c:if>
-										<c:if test="${olist.getOrder_no() == rlist[status.index].getOrder_no()}">
-											<td>${olist.getOrder_date() }</td>
-										</c:if>
-										<c:if test="${olist.getOrder_no() != rlist[status.index].getOrder_no()}">
-											<td>X</td>
-										</c:if>
-										<c:if test="${rlist[status.index].getReview_title() != null}">
-											<td><a href="<%=request.getContextPath()%>/member_review_cont.do?no=${rlist[status.index].getOrder_no() }">${rlist[status.index].getReview_title() }</a></td>
-										</c:if>
-										<c:if test="${rlist[status.index].getReview_title() == null}">
-											<td><input type="button" value="후기작성" onclick="location.href='member_review_write.do?no=${rlist[status.index].getOrder_no()}'"></td>
-										</c:if>
-									</tr>
-								</c:forEach>
-							
-						</table>
+						<ul>
+							<c:if test="${!empty ProductLikeInfo}">
+							<c:forEach items="${ProductLikeInfo }" var="dto">
+								<li class="likeproduct">
+									<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/product/${dto.getPro_img() }"></a>
+									<div class="product-info">
+										<a class="pro-tag" href="#">${dto.getPro_tag() }</a><br>
+										<a class="pro-name" href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a><br>
+										<span class="pro-price">${dto.getPro_output_price() } 원</span>
+									</div>
+								</li>
+							</c:forEach>
+							</c:if>
+						</ul>
 					</div> <!-- member_order END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
