@@ -39,7 +39,7 @@
 					<c:if test="${!empty session_id }">
 						<a href="<%=request.getContextPath()%>/logout.do">LOGOUT</a>
 						<c:set var="id" value="${session_id }"  />
-							${id }님 환영합니다.
+							${id }님 환영합니다. 
 					</c:if>
 					
 					<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
