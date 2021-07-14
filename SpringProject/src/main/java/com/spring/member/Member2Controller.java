@@ -68,7 +68,7 @@ public class Member2Controller {
 		
 		if(idCheck == 1) { // 아이디 맞음
 			if(pwdCheck > 0) { // 비밀번호 맞음 (같은 비번인 계정이 여러개일 수 있음)
-				session.setAttribute("userId", id);
+				session.setAttribute("session_id", id);
 				out.println("<script>");
 				out.println("alert('로그인 성공')");
 				out.println("location.href='main.do'");

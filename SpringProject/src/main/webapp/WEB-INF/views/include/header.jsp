@@ -31,13 +31,13 @@
 				<div class="right">
 					<a href="<%=request.getContextPath()%>/search_list.do">검색</a>
 					
-					<c:if test="${empty userId }">
+					<c:if test="${empty session_id }">
 						<a href="<%=request.getContextPath()%>/login.do">LOGIN</a>
 					</c:if>
 					
-					<c:if test="${!empty userId }">
+					<c:if test="${!empty session_id }">
 						<a href="<%=request.getContextPath()%>/logout.do">LOGOUT</a>
-						<c:set var="id" value="${userId }"  />
+						<c:set var="id" value="${session_id }"  />
 							${id }님 환영합니다.
 					</c:if>
 					
