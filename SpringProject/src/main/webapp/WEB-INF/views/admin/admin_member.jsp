@@ -3,8 +3,9 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<html><head>
-<title>Sidebar 02</title>
+<html>
+<head>
+<title>Admin Page</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -71,29 +72,29 @@
 				</table>
 				<br> <br>
 
-				<div class="pagination">
-					<c:if test="${page.getPage() > page.getBlock() }">
-						<a href="admin_list.do?page=1">◀◀</a>
-						<a href="admin_list.do?page=${Paging.getStartBlock() - 1 }">◀</a>
-					</c:if>
-
-					<c:forEach begin="${page.getStartBlock() }"
-						end="${page.getEndBlock() }" var="i">
-						<c:if test="${i == page.getPage() }">
-							<b><a href="product_list.do?page=${i }">${i }</a></b>
-						</c:if>
-
-						<c:if test="${i != page.getPage() }">
-							<a href="admin_list.do?page=${i }">${i }</a>
-						</c:if>
-					</c:forEach>
-
-					<c:if test="${page.getEndBlock() < page.getAllPage() }">
-						<a href="admin_list.do?page=${page.getEndBlock() +1 }">▶</a>
-						<a href="admin_list.do?page=${page.getAllPage() }">▶▶</a>
-					</c:if>
-					<br>
-				</div>
+				<%-- Pagination --%>	
+			<div class="pagination">
+				<c:if test="${page.getPage() > page.getBlock() }">
+					<a href="admin_list.do?page=1">◀◀</a>
+	   				<a href="admin_list.do?page=${Paging.getStartBlock() - 1 }">◀</a>
+				</c:if>
+				
+				<c:forEach begin="${page.getStartBlock() }" end="${page.getEndBlock() }" var="i">
+			      <c:if test="${i == page.getPage() }">
+			         <b><a href="admin_list.do?page=${i }">${i }</a></b>
+			      </c:if>
+			      
+			      <c:if test="${i != page.getPage() }">
+			         <a href="admin_list.do?page=${i }">${i }</a>
+			      </c:if>
+			   </c:forEach>
+			   
+			   <c:if test="${page.getEndBlock() < page.getAllPage() }">
+			      <a href="admin_list.do?page=${page.getEndBlock() +1 }">▶</a>
+			      <a href="admin_list.do?page=${page.getAllPage() }">▶▶</a>
+			   </c:if>
+				
+			</div>
 
 				<form method="post"
 					action="<%=request.getContextPath()%>/member_search.do">
@@ -104,9 +105,10 @@
 					</select> <input type="text" name="keyword"> <input type="submit"
 						value="검색">
 				</form>
-		<jsp:include page="../include/footer.jsp" />
+				<jsp:include page="../include/footer.jsp" />
 			</div>
 		</div>
 	</div>
 
-</body></html></html>
+</body>
+</html>
