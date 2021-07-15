@@ -234,6 +234,10 @@
 	
 }
 
+.like-checked {
+	color: red;
+}
+
 .product-content {
 	text-align: center;
 }

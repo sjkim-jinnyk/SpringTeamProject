@@ -1,5 +1,6 @@
 package com.spring.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -61,40 +62,71 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public int addRecent(ProductRecentDTO dto) {
-
-		return this.sqlSession.insert("addRecent", dto);
+	public List<ProductDTO> getSearchList(PageDTO dto) {
+		
+		return this.sqlSession.selectList("searchList", dto);
 	}
 
 	@Override
-	public List<ProductRecentDTO> getRecentList(String id) {
-		
-		return this.sqlSession.selectList("recentList", id);
+	public int getSearchListCount(String keyword) {
+	
+		return this.sqlSession.selectOne("searchListCount", keyword);
 	}
 
 	@Override
-	public int recentCheck(String id) {
+	public int getSearchTagCount(String keyword) {
 		
-		return this.sqlSession.selectOne("recentCheck", id);
+		return this.sqlSession.selectOne("searchTagCount", keyword);
 	}
 
 	@Override
-	public int recentProCheck(ProductRecentDTO dto) {
-		
-		return this.sqlSession.selectOne("recentProCheck", dto);
+	public List<ProductDTO> getSearchTagList(PageDTO dto) {
+		 
+		return this.sqlSession.selectList("searchTagList", dto);
 	}
 
 	@Override
-	public void updateRecentPro(ProductRecentDTO dto) {
-		
-		this.sqlSession.update("updateRecentPro", dto);
+	public int getReviewPhotoCount(int no) {
+		 
+		return this.sqlSession.selectOne("proReviewPhotoCount", no);
 	}
 
 	@Override
-	public int deleteRecent(ProductRecentDTO dto) {
-		
-		return this.sqlSession.delete("deleteRecent", dto);
+	public List<ReviewDTO> getReviewPhotoList(PageDTO dto) {
+		 
+		return this.sqlSession.selectList("proReviewPhotoList", dto);
 	}
+
+	@Override
+	public int insertProQna(QnaDTO dto) {
+		
+		return this.sqlSession.insert("writeProQna", dto);
+	}
+
+	@Override
+	public int deleteQna(int no) {
+		
+		return this.sqlSession.delete("deleteQna", no);
+	}
+
+	@Override
+	public QnaDTO getQnaCont(int no) {
+		
+		return this.sqlSession.selectOne("qnaCont", no);
+	}
+
+	@Override
+	public int updateProQna(QnaDTO dto) {
+		
+		return this.sqlSession.update("updateProQna", dto);
+	}
+
+	@Override
+	public int insertProQnaAns(QnaDTO dto) {
+		
+		return this.sqlSession.insert("proQnaAns", dto);
+	}
+
 
 	
 
