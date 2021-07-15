@@ -9,7 +9,7 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
 <body>
-
+<!-- 개발 중 purchase.do로 접근 --> 
 	<div class="layout_container">
 		<jsp:include page="../include/header.jsp" />
 		<div class="main" align="center">
@@ -18,7 +18,7 @@
 
 			<table>
 				<tr>
-					<th>아이디</th>
+					<th><font color="blue">아이디 - 정기 결제시 필수</font></th>
 					<td><input type="text" id="id"></td>
 				</tr>
 
