@@ -93,7 +93,7 @@
 										<a class="pro-tag" href="#">${dto.getPro_tag() }</a><br>
 										<a class="pro-name" href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a><br>
 										<span class="pro-price">${dto.getPro_output_price() } 원</span>
-										<a href="<%=request.getContextPath() %>/productLike_delete.do?no=${dto.getPro_no()}&id=${ProductLike.getMem_id()}" id="heart"><i class="fas fa-heart"></i></a>
+										<a href="<%=request.getContextPath() %>/productLike_delete.do?no=${dto.getPro_no()}&id=${session_id}" id="heart"><i class="fas fa-heart"></i></a>
 									</div>
 								</li>
 							</c:forEach>

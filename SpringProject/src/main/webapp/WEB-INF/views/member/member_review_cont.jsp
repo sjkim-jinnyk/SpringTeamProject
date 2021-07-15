@@ -14,7 +14,7 @@
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../include/header.jsp" />
-			<c:set var="mem" value="${Member }" />
+			<c:set var="mem" value="${Cont }" />
 			
 			<div class="member_container">
 				<!-- header_title -->
