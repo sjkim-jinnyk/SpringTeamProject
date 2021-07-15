@@ -1,3 +1,6 @@
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.math.BigInteger"%>
+<%@page import="java.security.SecureRandom"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -6,6 +9,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="resources/css/main.css">
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <title>로그인</title>
 </head>
 <body>
@@ -38,7 +43,19 @@
 								<input type="button" value="회원 가입하기" class="btn_join"
 									onclick="location.href='join.do'">	
 							</div>
-							
+
+							 <div id="naver_id_login"><a href="${url}">
+							<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/></a></div>
+							<script type="text/javascript">
+							         var naver_id_login = new naver_id_login("vSFvtkg3Q_t0zZ1H2L1c", "http://localhost:8585/member/login_result.do"); 
+							         var state = naver_id_login.getUniqState();
+							        
+							         naver_id_login.setButton("white", 3, 50);
+							         naver_id_login.setDomain("http://localhost:8585/member/login.do");    //  URL
+							         naver_id_login.setState(state);
+							         naver_id_login.setPopup();
+							         naver_id_login.init_naver_id_login();
+							</script>
 						</div>
 						
 					</div>

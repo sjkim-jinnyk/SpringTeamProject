@@ -16,7 +16,6 @@
 		<div class="history-title">
 			상품 Q&A 작성하기
 		</div>
-				
 				<div class="history-wrap">
 					<hr>
 					<ul>

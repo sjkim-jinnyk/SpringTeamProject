@@ -2,7 +2,6 @@ package com.spring.member;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -171,8 +170,6 @@ public class ProductController {
 		model.addAttribute("qna", qlist);
 		model.addAttribute("qpage", qpageDTO);
 		model.addAttribute("qtotal", qtotalRecord);
-
-		model.addAttribute("session_id", user_id);
 
 		return "product/product_cont";
 	}

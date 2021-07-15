@@ -58,7 +58,12 @@ function showPhoto() {
 };
 
 function writeQna(product_no) {
-	window.open("product_qna_write.do?no="+product_no, "질문글 작성하기", "_blank");
+	if('${session_id}' != ''){
+		window.open("product_qna_write.do?no="+product_no, "질문글 작성하기", "_blank");
+	}else {
+		alert('로그인 후 작성 가능합니다.');
+		window.open("login.do", "질문글 답변하기", "_blank");
+	}
 }
 
 function modifyQna(qna_no, product_no) {
@@ -84,7 +89,7 @@ function showReview(id){
 
  
 function addLike(product_no){
-	if('${session_id}' === 'guest' || '${session_id}' == ''){
+	if('${session_id}' == ''){
 		alert('로그인 후 사용가능합니다.');
 		window.open("login.do", "질문글 답변하기", "_blank");
 		return;
@@ -117,7 +122,6 @@ function addLike(product_no){
 	<div class="layout_container">
 		<jsp:include page="../include/header.jsp" />
 			<div class="main">			
-				
 				
 				<%-- 상단 제품 소개 및 주문 --%>
 				<c:set var="dto" value="${cont }" />
