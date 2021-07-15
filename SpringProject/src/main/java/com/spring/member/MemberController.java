@@ -23,6 +23,7 @@ import com.spring.model.OrderDeliverDTO;
 import com.spring.model.OrderDetailDTO;
 import com.spring.model.ProductDTO;
 import com.spring.model.ProductLikeDTO;
+import com.spring.model.QnaDTO;
 import com.spring.model.ReviewDTO;
 
 @Controller
@@ -156,9 +157,34 @@ public class MemberController {
 		List<ProductLikeDTO> plList = this.dao.getProductLikeList(id);
 		List<ProductDTO> plist = this.dao.getProductLikeInfo(plList);
 		
+		MemberDTO dto = new MemberDTO();
+		dto.setMem_id(id);
+		
 		model.addAttribute("ProductLikeInfo", plist);
-		System.out.println("찜 제품 정보 : " + plist);
+		model.addAttribute("ProductLike", dto);
+		
 		return "member/member_productLike";
+	}
+	
+	// 찜 취소 페이지
+	@RequestMapping("productLike_delete.do")
+	public void productLikeDelte(@RequestParam("no") int no, @RequestParam("id") String id, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; charset-UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		int check = this.dao.deleteProductLike(no);
+		if(check > 0) {
+			out.println("<script>");
+			out.println("alert('찜 삭제 성공')");
+			out.println("location.href='member_productLike.do?id=" + id + "'");
+			out.println("</script>");
+		}else {
+			out.println("<script>");
+			out.println("alert('찜 삭제 실패')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
 	}
 	
 
@@ -233,7 +259,7 @@ public class MemberController {
 		
 		model.addAttribute("memberInfo", dto);
 		
-		return "member/memberDelete";
+		return "member/member_delete";
 	}
 	
 	@RequestMapping("member_delete_ok.do")
@@ -261,4 +287,15 @@ public class MemberController {
 		}
 	}
 	
+	
+	// 문의내역
+	@RequestMapping("member_qna.do")
+	public String memberQnA(@RequestParam("id") String id, Model model) {
+		
+		List<QnaDTO> list = this.dao.getQnaList(id);
+		
+		model.addAttribute("qnaList", list);
+		
+		return "member/member_qna";
+	}
 }

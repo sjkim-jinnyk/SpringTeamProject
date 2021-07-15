@@ -96,11 +96,11 @@
 							<div class="review_content">
 								<div class="review_star">
 									<span>별점</span>
-									<a href="#none" id="star1" class="off" name="s1"></a>
-									<a href="#none" id="star2" class="off" name="s2"></a>
-									<a href="#none" id="star3" class="off" name="s3"></a>
-									<a href="#none" id="star4" class="off" name="s4"></a>
-									<a href="#none" id="star5" class="off" name="s5"></a>
+									<a href="#none" id="star1" class="off"></a>
+									<a href="#none" id="star2" class="off"></a>
+									<a href="#none" id="star3" class="off"></a>
+									<a href="#none" id="star4" class="off"></a>
+									<a href="#none" id="star5" class="off"></a>
 								</div>
 								<div class="review_img">
 									<span>사진</span>
