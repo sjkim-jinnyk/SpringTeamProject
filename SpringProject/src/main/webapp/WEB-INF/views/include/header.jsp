@@ -24,7 +24,7 @@ function showSearch(){
 
 $(document).mouseup(function(e){
 	var content = $("#search");
-	
+	 
 	if(content.has(e.target).length === 0){
 		content.hide();
 		$("#search-btn").show();
