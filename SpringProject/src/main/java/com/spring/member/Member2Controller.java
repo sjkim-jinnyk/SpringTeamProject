@@ -97,16 +97,89 @@ public class Member2Controller {
 		return "home";
 	}
 	
-	@ResponseBody
-	@RequestMapping("idOverlap.do")
-	public int idOverlap(String id) throws Exception {
-		int result = this.dao.idCheck(id);
-		return result;
-	}
-	
 	@RequestMapping("find_id.do")
 	public String find_id() {
 		return "login/find_id";
 	}
 	
+	@RequestMapping("find_id_ok.do")
+	public String find_id_ok(
+			@RequestParam("mem_phone") String phone,
+			HttpServletResponse response,
+			Model model) throws IOException {
+		
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
+		String id = this.dao.findId(phone);
+		
+		if (id == null) {
+			out.println("<script>");
+			out.println("alert('가입된 아이디가 없습니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			return null;
+		} else {
+			model.addAttribute("result_id", id);
+			return "login/find_id_ok";
+		}
+		
+	}
+	
+	@RequestMapping("find_pwd.do")
+	public String find_pwd() {
+		return "login/find_pwd";
+	}
+	
+	@RequestMapping("find_pwd_ok.do")
+	public String find_pwd_ok(
+			@RequestParam("mem_id") String id,
+			HttpServletResponse response,
+			Model model) throws IOException {
+		
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		
+		String pwd = this.dao.findPwd(id);
+		
+		if (id == null) {
+			out.println("<script>");
+			out.println("alert('가입된 아이디가 아닙니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			return null;
+		} else {
+			model.addAttribute("result_pwd", pwd);
+			return "login/find_pwd_ok";
+		}
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/id_check", method = RequestMethod.POST)
+	public String id_Check(MemberDTO dto) {
+		//select * from member where mem_id = #{mem_id}
+		//이 MemberDTO 객체에는 id만 값이 들어있고, 다른 것은 다 null 값이다.
+		MemberDTO m = this.dao.id_overlap(dto);
+		String message = null;
+		if(m == null) {
+			message = "success";
+		}else {
+			message = "fail";
+		}
+		return message;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/phone_check", method = RequestMethod.POST)
+	public String phone_Check(MemberDTO dto) {
+		MemberDTO m = this.dao.id_overlap(dto);
+		String message = null;
+		if(m == null) {
+			message = "success";
+		}else {
+			message = "fail";
+		}
+		return message;
+	}
 }
