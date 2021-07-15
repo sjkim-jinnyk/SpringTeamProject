@@ -22,7 +22,7 @@ public class AdminController {
 	private AdminDAO dao;
 
 	private int totalRecord = 0;
-	private final int rowsize = 3;
+	private int rowsize = 0;
 
 	@RequestMapping("admin_list.do")
 	public String list(HttpServletRequest request, Model model) {
@@ -35,14 +35,14 @@ public class AdminController {
 			page = 1;
 		}
 
+		rowsize = 4;
 		totalRecord = this.dao.getListCount();
 
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
-
 		List<AdminDTO> pagelist = this.dao.getMemberList(dto);
 
+		model.addAttribute("Page", dto);
 		model.addAttribute("List", pagelist);
-		model.addAttribute("Paging", dto);
 
 		return "admin/admin_member";
 
@@ -50,8 +50,6 @@ public class AdminController {
 
 	@RequestMapping("/member_search.do")
 	public String search(@RequestParam("field") String field, @RequestParam("keyword") String keyword, Model model, HttpServletRequest request) {
-
-		
 		
 		int page = 0;
 		if(request.getParameter("page") != null){
@@ -60,23 +58,23 @@ public class AdminController {
 			page = 1;
 		}
 		
-		int rowsize = 10;
+		rowsize = 10;
 		
 		// 인자를 하나로 모아 넘겨주기 위해 hashmap으로 모아줌
-		HashMap hm = new HashMap();
+		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put("field", field);
 		hm.put("keyword", keyword);
 		
-//		int totalRecord = this.dao.searchMemberListCount(hm); 	// 검색해서 나오는 회원의 전체 수 (select count(*))
+		// 검색해서 나오는 회원의 전체 수 (select count(*))
+		totalRecord = this.dao.searchMemberListCount(hm); 	
 		
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord, field, keyword);
-		
-//		List<AdminDTO> list = this.dao.searchMemberList(dto);
+		List<AdminDTO> list = this.dao.searchMemberList(dto);
 
-//		model.addAttribute("searchList", list);
+		model.addAttribute("searchList", list);
 		model.addAttribute("page", dto);
 
-		return "member_search";
+		return "admin/member_search";
 
 	}
 }

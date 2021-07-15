@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.model.Member2DAO;
 import com.spring.model.MemberDTO;
@@ -95,24 +97,11 @@ public class Member2Controller {
 		return "home";
 	}
 	
-	@RequestMapping("id_dup_check.do")
-	public void id_dup(@RequestParam("mem_id") String id, HttpServletResponse response) throws IOException {
+	@ResponseBody
+	@RequestMapping("idOverlap.do")
+	public int idOverlap(String id) throws Exception {
 		int result = this.dao.idCheck(id);
-		
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		
-		if(result > 0) { // 중복인 경우
-			out.println("<script>");
-			out.println("alert('중복된 아이디 입니다.')");
-			out.println("history.back()");
-			out.println("</script>");
-		}else {	
-			out.println("<script>");
-			out.println("alert('사용가능한 아이디 입니다.')");
-			out.println("history.back()");
-			out.println("</script>");
-		}
+		return result;
 	}
 	
 	@RequestMapping("find_id.do")

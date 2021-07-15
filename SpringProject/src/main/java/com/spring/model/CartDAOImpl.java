@@ -54,6 +54,30 @@ public class CartDAOImpl implements CartDAO {
 		
 		return this.sqlSession.selectOne("emptyCheck", id);
 	}
+
+	@Override
+	public int deleteCart(CartDTO dto) {
+		
+		return this.sqlSession.delete("deleteCart", dto);
+	}
+
+	@Override
+	public int plusCartAmount(int no) {
+		
+		return this.sqlSession.update("plusCartAmount", no);
+	}
+
+	@Override
+	public int minusCartAmount(int no) {
+		
+		return this.sqlSession.update("minusCartAmount", no);
+	}
+
+	@Override
+	public int deleteCartSelected(String[] checked) {
+		
+		return this.sqlSession.delete("deleteCartSelected", checked);
+	}
 	
 
 }

@@ -1,5 +1,6 @@
 package com.spring.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface AdminDAO {
@@ -14,6 +15,10 @@ public interface AdminDAO {
 
 	int deletProduct(int no); // 상품 삭제
 
-	List<AdminDTO> searchMemberList(String field, String keyword);
+	int searchMemberListCount(HashMap<String, String> hm);
+	List<AdminDTO>searchMemberList(PageDTO dto);
+	
+
+	
 
 }

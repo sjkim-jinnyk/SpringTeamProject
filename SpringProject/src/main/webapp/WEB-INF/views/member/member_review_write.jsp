@@ -35,7 +35,7 @@
 						</li>
 					</ul>
 					<ul class="my_menu">
-						<a href="<%=request.getContextPath() %>/member_point.do">
+						<a href="">
 							<li>
 								<ul class="menu_bar">
 									<li>적립금 </li>

@@ -82,7 +82,7 @@
 							<li>
 								<a href="#none" id="info_click">정보관리</a>
 								<ul id="info_display" class="on">
-									<a href="<%=request.getContextPath() %>/member_info_edit.do?id=${session_id }"><li>회원정보 수정</li></a>
+									<a href="<%=request.getContextPath() %>/member_info.do?id=${session_id }"><li>회원정보 수정</li></a>
 									<a href="<%=request.getContextPath() %>/member_info_delete.do?id=${session_id }"><li>회원 탈퇴</li></a>
 								</ul>
 							</li>
@@ -97,7 +97,7 @@
 							<li>보유하고 있던 포인트, 쿠폰은 모두 소멸됩니다....등등</li>
 						</ul>
 						<form method="post" action="<%=request.getContextPath()%>/member_delete_ok.do">
-							<input type="hidden" name="db_pwd" value="${memberInfo.getMem_pwd() }">
+							<input type="hidden" name="db_pwd" value="${mem.getMem_pwd() }">
 							<div class="delete_pwd">
 								<p>비밀번호를 입력하세요</p>
 								<input type="password" name="mem_pwd"><br>

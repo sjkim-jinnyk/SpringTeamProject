@@ -7,14 +7,30 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Admin Page</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link
+	href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900"
+	rel="stylesheet">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="resources/css/style.css">
+<link rel="stylesheet" href="resources/css/bootstarp.main.css">
+<link rel="stylesheet" href="resources/css/include.css">
+<link rel="stylesheet" href="resources/css/memberStyle.css">
+<link rel="stylesheet" href="resources/css/product.css">
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
-	<div class="layout_container">
+	<div class="wrapper d-flex align-items-stretch">
 		<jsp:include page="../include/admin_sidebar.jsp" />
-		<div class="main">
 
+		<!-- Page Content  -->
+		<div id="content" class="p-4 p-md-5 pt-5">
 			<div align="center">
 				<hr width="50%" color="red">
 				<h3>회원 목록</h3>
@@ -54,10 +70,8 @@
 					</c:if>
 
 					<tr>
-						<td colspan="4" align="right">
-							<input type="button"
-								value="회원목록" onclick="location.href='admin_list.do'">
-						</td>
+						<td colspan="4" align="right"><input type="button"
+							value="회원목록" onclick="location.href='admin_list.do'"></td>
 					</tr>
 				</table>
 				<br> <br>
@@ -86,9 +100,9 @@
 					<br>
 				</div>
 
+				<jsp:include page="../include/footer.jsp" />
 			</div>
 		</div>
-		<jsp:include page="../include/footer.jsp" />
 	</div>
 
 </body>

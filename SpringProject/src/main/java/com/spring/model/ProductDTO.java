@@ -15,4 +15,14 @@ public class ProductDTO {
 	private String pro_img;
 	private String pro_cont;
 	
+	private String[] pro_tags;
+	
+	private int like_check;
+	
+	public void tag_split() {
+		if(this.pro_tag != null) {
+			this.pro_tags = pro_tag.split(",");
+		}
+	}
+	
 }
