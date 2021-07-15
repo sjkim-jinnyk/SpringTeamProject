@@ -1,3 +1,4 @@
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
 <%@page import="com.spring.model.ProductDTO"%>
 <%@page import="com.spring.model.ProductDAOImpl"%>
 <%@page import="com.spring.model.ProductDAO"%>

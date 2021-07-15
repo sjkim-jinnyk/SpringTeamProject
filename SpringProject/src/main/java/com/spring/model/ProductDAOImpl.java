@@ -27,9 +27,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public ProductDTO getProductCont(int no) {
-		System.out.println("여기까진 오나??");
-		System.out.println("no >>> " +no);
-		System.out.println(this.sqlSession.selectOne("productCont", no));
+		
 		return this.sqlSession.selectOne("productCont", no);
 	}
 
