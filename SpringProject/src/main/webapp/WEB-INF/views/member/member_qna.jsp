@@ -91,19 +91,25 @@
 					
 					<div class="member_order">
 						<table class="order_bar" border="1">
+						<c:set var="list" value="${qnaProductList }" />
+						<c:set var="qclist" value="${qnaCategory }" />
 							<tr>
-								<th>상품정보</th><th>내용</th><th>문의유형</th><th>작성일</th>
+								<th>상품정보</th><th>문의글</th><th>문의유형</th><th>작성일</th>
 							</tr>
-							<c:if test="${!empty qnaList }">
-								<c:forEach items="${qnaList }" var="dto">
+								<c:forEach items="${qnaList }" var="dto" varStatus="status">
 									<tr>
-										<td>${dto.getQna_pro() }</td>
-										<td>${dto.getQna_cont() }</td>
-										<td>${dto.getQna_category_no() }</td>
+										<td>
+											<ul>
+												<a href="<%=request.getContextPath() %>/product_cont.do?no=${list[status.index].getPro_no()}">
+												<li class="qnaimg"><img src="resources/img/product/${list[status.index].getPro_img() }"></li>
+												<li>${list[status.index].getPro_name() }</li></a>
+											</ul>
+										</td>
+										<td><a href="<%=request.getContextPath()%>/qna_cont.do?no=${dto.getQna_group()}">${dto.getQna_title() }</a></td>
+										<td>${qclist[status.index].getCate_name() }</td>
 										<td>${dto.getQna_date().substring(0,10) }</td>
 									</tr>
 								</c:forEach>
-							</c:if>
 
 						</table>
 					</div> <!-- member_order END -->

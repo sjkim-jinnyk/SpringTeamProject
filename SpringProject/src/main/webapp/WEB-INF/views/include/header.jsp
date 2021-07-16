@@ -70,6 +70,7 @@ $(document).mouseup(function(e){
 					<c:if test="${!empty id }">
 						<input type="hidden" name="id" value="${id }">
 						<a href="<%=request.getContextPath()%>/logout.do">LOGOUT</a>
+						<c:set var="id" value="${session_id }"  />
 						<a href="<%=request.getContextPath()%>/member_home.do">MYPAGE</a>
 						<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
 						${id }님 환영합니다. 

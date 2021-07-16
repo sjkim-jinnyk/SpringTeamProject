@@ -98,4 +98,8 @@ a {
 	display: "";
 }
 
-/* member_productLike css */
+/* member_qna css */
+.qnaimg img {
+	width: 250px;
+}
+

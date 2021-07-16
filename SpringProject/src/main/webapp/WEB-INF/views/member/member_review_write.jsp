@@ -15,7 +15,7 @@
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../include/header.jsp" />
-			<c:set var="mem" value="${Member }" />
+			<c:set var="mem" value="${Cont }" />
 			
 			<div class="member_container">
 				<!-- header_title -->
@@ -35,7 +35,7 @@
 						</li>
 					</ul>
 					<ul class="my_menu">
-						<a href="<%=request.getContextPath() %>/member_point.do">
+						<a href="">
 							<li>
 								<ul class="menu_bar">
 									<li>적립금 </li>
