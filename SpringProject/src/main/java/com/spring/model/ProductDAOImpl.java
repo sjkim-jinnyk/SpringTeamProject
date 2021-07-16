@@ -127,6 +127,12 @@ public class ProductDAOImpl implements ProductDAO {
 		return this.sqlSession.insert("proQnaAns", dto);
 	}
 
+	@Override
+	public List<QnaDTO> getProQnaAnswerList(List<QnaDTO> list) {
+		
+		return this.sqlSession.selectList("proQnaAnsList", list);
+	}
+
 
 	
 

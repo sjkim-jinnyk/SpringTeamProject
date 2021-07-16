@@ -24,6 +24,7 @@ public interface ProductDAO {
 	public QnaDTO getQnaCont(int no);						// 문의글 상세내역 조회
 	public int updateProQna(QnaDTO dto);					// 문의글 수정
 	public int insertProQnaAns(QnaDTO dto);					// 문의글 답변
+	public List<QnaDTO> getProQnaAnswerList(List<QnaDTO> list);	// 특성 상품에 관한 문의 답변 리스트
 	
 	// search
 	public List<ProductDTO> getSearchList(PageDTO dto);		// 검색 리스트

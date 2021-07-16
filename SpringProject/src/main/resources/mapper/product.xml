@@ -59,14 +59,19 @@
 	<!-- ::: product_cont - QnA ::: -->
 	
 	<select id="proQnaTotalRecord" parameterType="int" resultType="int">
-		select count(*) from qna where qna_pro = #{no}
+		select count(*) from qna where qna_pro = #{no} and qna_step = 0
 	</select>
 	
 	<select id="proQnaList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.QnaDTO">
 		<![CDATA[ 
-			select * from (select q.*, row_number() over(order by qna_group desc, qna_step) rnum from qna q where qna_pro = #{no})
+			select * from (select q.*, row_number() over(order by qna_group desc, qna_step) rnum from qna q where qna_pro = #{no} and qna_step = 0)
 			where rnum >= #{startNo} and rnum <= ${endNo}
 		]]>
+	</select>
+	
+	<select id="proQnaAnsList" parameterType="ArrayList" resultType="com.spring.model.QnaDTO">
+		select * from qna where qna_step = 1 and qna_group in
+			<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.qna_group}</foreach>
 	</select>
 	
 	<insert id="writeProQna" parameterType="com.spring.model.QnaDTO">

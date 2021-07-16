@@ -153,6 +153,7 @@ public class ProductController {
 
 		PageDTO qpageDTO = new PageDTO(qpage, rowsize, qtotalRecord, pro_no);
 		List<QnaDTO> qlist = this.pdao.getProQnaList(qpageDTO);
+		List<QnaDTO> alist = this.pdao.getProQnaAnswerList(qlist);	// 답변
 
 		model.addAttribute("cont", pdto);
 
@@ -170,6 +171,7 @@ public class ProductController {
 		model.addAttribute("qna", qlist);
 		model.addAttribute("qpage", qpageDTO);
 		model.addAttribute("qtotal", qtotalRecord);
+		model.addAttribute("answer", alist);
 
 		return "product/product_cont";
 	}
@@ -221,9 +223,6 @@ public class ProductController {
 		String field = "";
 		PageDTO pageDTO = new PageDTO(page, rowsize, totalRecord, field, keyword);
 		List<ProductDTO> list = this.pdao.getSearchTagList(pageDTO);
-
-		System.out.println("pageDTO >> " + pageDTO);
-		System.out.println("list >> " + list);
 
 		for (int i = 0; i < list.size(); i++) {
 			list.get(i).tag_split();
