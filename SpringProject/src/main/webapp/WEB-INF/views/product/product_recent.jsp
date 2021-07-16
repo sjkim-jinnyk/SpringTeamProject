@@ -48,7 +48,9 @@
 									<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getProductDTO().getPro_no()}"><img src="resources/img/product/${dto.getProductDTO().getPro_img() }"></a>
 									
 									<div class="pro-content">
-										<span>${dto.getProductDTO().getPro_tag() }</span><br>
+										<c:forEach items="${dto.getProductDTO().getPro_tags() }" var="tags">
+											<a class="cont-info-tag" href="search_tag.do?k=${tags }">${tags }</a> 
+										</c:forEach><br>
 										<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getProductDTO().getPro_no()}">${dto.getProductDTO().getPro_name() }</a>
 									</div>
 									

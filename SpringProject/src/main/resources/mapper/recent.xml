@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.spring.model.RecentDAO">
+
+	<!-- ::: recent ::: -->
+	
+	<resultMap type="com.spring.model.ProductDTO" id="product">
+		<result column="pro_no" property="pro_no" />
+		<result column="pro_name" property="pro_name" />
+		<result column="pro_category" property="pro_category" />
+		<result column="pro_output_price" property="pro_output_price" />
+		<result column="pro_tag" property="pro_tag" />
+		<result column="pro_check" property="pro_check" />
+		<result column="pro_img" property="pro_img" />
+		<result column="pro_cont" property="pro_cont" />
+	</resultMap>
+
+	<resultMap type="com.spring.model.ProductRecentDTO" id="recent">
+		<result column="recent_no" property="recent_no" />
+		<result column="recent_mem" property="recent_mem" />
+		<result column="recent_product" property="recent_product" />
+		<result column="recent_regdate" property="recent_regdate" />
+		<collection property="productDTO" resultMap="product" />
+	</resultMap>
+		
+	<select id="recentList" parameterType="String" resultMap="recent">
+		<![CDATA[ 
+		select * from
+		(select p.*, r.*, row_number() over(order by r.recent_regdate desc) rnum 
+		from product p join product_recent r
+		on p.pro_no = r.recent_product
+		where r.recent_mem = #{id}) where rnum >= 1 and rnum <= 10
+		]]>
+	</select>
+	
+	<select id="recentCheck" parameterType="String" resultType="int">
+		select count(*) from product_recent where recent_mem = #{id}
+	</select>
+	
+	<insert id="addRecent" parameterType="com.spring.model.ProductRecentDTO">
+		<selectKey resultType="int" keyProperty="recent_no" order="BEFORE">
+			select max(recent_no)+1 from product_recent
+		</selectKey>
+		insert into product_recent values(#{recent_no}, #{recent_mem}, #{recent_product}, sysdate)
+	</insert>
+	
+	<select id="recentProCheck" parameterType="com.spring.model.ProductRecentDTO" resultType="int">
+		select count(*) from product_recent where recent_mem = #{recent_mem} and recent_product = #{recent_product} 
+	</select>
+	
+	<update id="updateRecentPro" parameterType="com.spring.model.ProductRecentDTO">
+		update product_recent set recent_regdate = sysdate where recent_mem = #{recent_mem} and recent_product = #{recent_product} 
+	</update>
+	
+	<delete id="deleteRecent" parameterType="com.spring.model.ProductRecentDTO">
+		delete from product_recent where recent_mem = #{recent_mem} and recent_product = #{recent_product} 
+	</delete>
+	
+</mapper>

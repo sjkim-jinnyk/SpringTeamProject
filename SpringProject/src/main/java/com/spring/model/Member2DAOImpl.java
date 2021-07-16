@@ -37,4 +37,24 @@ public class Member2DAOImpl implements Member2DAO {
 		return this.sqlSession.selectOne("pwdCheck", pwd);
 	}
 
+	@Override
+	public String findId(String phone) {
+		return this.sqlSession.selectOne("findId", phone);
+	}
+
+	@Override
+	public String findPwd(String id) {
+		return this.sqlSession.selectOne("findPwd", id);
+	}
+
+	@Override
+	public MemberDTO id_overlap(MemberDTO dto) {
+		return this.sqlSession.selectOne("id_overlap", dto);
+	}
+
+	@Override
+	public MemberDTO phone_overlap(MemberDTO dto) {
+		return this.sqlSession.selectOne("phone_overlap", dto);
+	}
+
 }

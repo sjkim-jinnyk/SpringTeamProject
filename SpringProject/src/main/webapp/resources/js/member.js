@@ -8,6 +8,8 @@ const info_click = document.querySelector('#info_click');
 const info_display = document.querySelector('#info_display'); 
 let star_score;
 
+ 
+
 star1.addEventListener('click', function() {
 	star1.classList.replace('off','on');
 	star2.classList.replace('on','off');
@@ -62,3 +64,4 @@ star5.addEventListener('click', function() {
 info_click.addEventListner('click', function() {
 	info_display.classList.replace('off','on');
 });
+

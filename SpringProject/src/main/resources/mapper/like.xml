@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.spring.model.ProductLikeDAO">
+
+	<!-- ::: like ::: -->
+	
+	<select id="checkLike" parameterType="com.spring.model.ProductLikeDTO" resultType="int">
+		select count(*) from product_like where like_mem = #{like_mem} and like_product = #{like_product}
+	</select>
+	
+	<select id="checkLike2" parameterType="com.spring.model.ProductLikeDTO" resultType="int">
+		select count(*) from product_like where like_mem = #{like_mem} and like_product = #{like_product}
+	</select>
+	
+	<insert id="addLike" parameterType="com.spring.model.ProductLikeDTO">
+		<selectKey keyProperty="like_no" resultType="int" order="BEFORE">
+			select max(like_no)+1 from product_like
+		</selectKey>
+		insert into product_like values(#{like_no}, #{like_mem}, #{like_product}, sysdate)
+	</insert>
+	
+	<delete id="removeLike" parameterType="com.spring.model.ProductLikeDTO">
+		delete from product_like where like_mem = #{like_mem} and like_product = #{like_product}
+	</delete>
+		
+	
+</mapper>

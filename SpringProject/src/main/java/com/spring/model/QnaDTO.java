@@ -12,9 +12,9 @@ public class QnaDTO {
 	private String qna_cont;
 	private int qna_order_no;
 	private int qna_category_no;
-	private String qna_pwd;
 	private String qna_date;
 	private int qna_group;
 	private int qna_step;
 	private int qna_secret;
+	
 }

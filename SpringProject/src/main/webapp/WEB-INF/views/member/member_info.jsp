@@ -91,34 +91,32 @@
 					
 					<div class="member_order">
 						
-						<c:set var="dto" value="${memberInfo }" />
-						
 						<h3>회원정보 변경</h3>
 						<ul>
 							<li>
 								<span>회원 아이디 *</span>
-								<span name="mem_id">${dto.getMem_id() }</span>
+								<span name="mem_id">${mem.getMem_id() }</span>
 							</li>
 							<li>
 								<span>회원 이름 *</span>
-								<span name="mem_name">${dto.getMem_name() }</span>
+								<span name="mem_name">${mem.getMem_name() }</span>
 							</li>
 							<li>
 								<p>자택 주소 *</p>
 								
 								<!-- 현재 주소 -->
 								<div id="addr_before" class="on">
-									<span>${dto.getMem_addr() }</span>
+									<span>${mem.getMem_addr() }</span>
 									<input type="button" value="주소 변경" id="addr_btn">
 								</div> <!-- addr_before END -->
 								
 								<!-- 수정할 주소 -->
 								<div id="addr_after" class="off"> 
 									<form method="post" action="<%=request.getContextPath()%>/member_addr_edit.do">
-										<input type="hidden" name="mem_id" value="${dto.getMem_id() }">
-										<input type="text" id="sample6_postcode" name="mem_zip" value="${dto.getMem_zip() }">
+										<input type="hidden" name="mem_id" value="${mem.getMem_id() }">
+										<input type="text" id="sample6_postcode" name="mem_zip" value="${mem.getMem_zip() }">
 										<input type="button" id="addr_edit_btn" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-										<input type="text" id="sample6_address" name="mem_addr1" value="${dto.getMem_addr() }"><br>
+										<input type="text" id="sample6_address" name="mem_addr1" value="${mem.getMem_addr() }"><br>
 										<input type="text" id="sample6_detailAddress" name="mem_addr2" placeholder="상세주소">
 										<input type="submit" id="submit_btnA" value="변경">
 									</form>
@@ -128,19 +126,19 @@
 								<p>연락처 * </p>
 								<!-- 현재 연락처 -->
 								<div id="phone_before" class="on">
-									<span>${dto.getMem_phone() }</span>
+									<span>${mem.getMem_phone() }</span>
 									<input type="button" value="연락처 변경" id="phone_btn">
 								</div> <!-- phone_before END -->
 								
 								<!-- 수정할 연락처 -->
 								<div id="phone_after" class="off">
 									<form method="post" action="<%=request.getContextPath()%>/member_phone_edit.do">
-										<input type="hidden" name="mem_id" value="${dto.getMem_id() }">
-										<input type="text" name="phone1" size="4" maxlength="4" value="${dto.getMem_phone().substring(0,3) }">
+										<input type="hidden" name="mem_id" value="${mem.getMem_id() }">
+										<input type="text" name="phone1" size="4" maxlength="4" value="${mem.getMem_phone().substring(0,3) }">
 											-
-										<input type="text" name="phone2" size="4" maxlength="4" value="${dto.getMem_phone().substring(4,8) }">
+										<input type="text" name="phone2" size="4" maxlength="4" value="${mem.getMem_phone().substring(4,8) }">
 											-
-										<input type="text" name="phone3" size="4" maxlength="4" value="${dto.getMem_phone().substring(9,13) }">
+										<input type="text" name="phone3" size="4" maxlength="4" value="${mem.getMem_phone().substring(9,13) }">
 										<input type="submit" id="submit_btnP" value="변경">
 									</form>
 								</div> <!-- phone_before END -->

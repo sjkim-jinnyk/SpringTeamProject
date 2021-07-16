@@ -63,7 +63,7 @@ a {
 .nav_menu .on{
 	display: "";
 }
-.member_order, .member_review {
+.member_order, .member_review, .member_like {
 	background: #a9a9a9;
 	width: 100%;
 }
@@ -97,3 +97,9 @@ a {
 .member_order .on {
 	display: "";
 }
+
+/* member_qna css */
+.qnaimg img {
+	width: 250px;
+}
+
