@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.spring.model.LoginDAO">
+	
+	<!-- 네이버 -->
+	<select id="naverJoinCheck" parameterType="java.util.HashMap" resultType="int">
+		select count(*) from member where mem_sns_id = #{id} and mem_sns_type = 'naver'
+	</select>
+	
+	<insert id="snsJoin" parameterType="com.spring.model.MemberDTO">
+		<selectKey resultType="int" keyProperty="mem_no" order="BEFORE">
+			select count(*)+1 from member
+		</selectKey>
+		insert into member values(#{mem_no}, #{mem_id}, #{mem_pwd}, #{mem_name}, 
+		#{mem_phone}, #{mem_zip}, #{mem_addr}, 0, sysdate, #{mem_sns_type}, #{mem_sns_id})
+	</insert>
+	
+	
+</mapper>
