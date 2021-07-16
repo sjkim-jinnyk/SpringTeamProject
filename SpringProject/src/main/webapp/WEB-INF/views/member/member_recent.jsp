@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
-
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <title>Member</title>
 </head>
@@ -88,89 +88,59 @@
 					</div> <!-- nav_menu END -->
 					
 					<div class="member_order">
-						<h3 align="left">주문내역 조회</h3>
-						<form method="post" action="<%=request.getContextPath()%>/order_search.do" name="orderForm">
-						<ul class="select_day">
-							<div class="select_button">
-								<li><a id="sevenDay" class="off" href="#none">일주일</a></li>
-								<li><a id="month" class="off" href="#none">1개월</a></li>
-								<li><a id="threeMonth" class="off" href="#none">3개월</a></li>
-								<li><a id="allDay" class="on" href="#none">전체 시기</a></li>
-							</div>
-							<li>
-								<input type="date" id="orderFirst" name="orderFirst"> - 
-				    			<input type="date" id="orderLast" name="orderLast">
-							</li>
-							<li>
-								<input type="submit" value="검색">
-							</li>
-						</ul>  
-						
-						</form>
+						<h3>최근 본 상품</h3>
 						<table class="order_bar" border="1">
-						<tr>
-							<th>주문번호</th><th>상품정보</th><th>주문일자</th><th>주문금액</th><th>주문상태</th>
-						</tr>
-						<c:if test="${!empty Order}">
-						<c:forEach items="${Order }" var="dto">
 							<tr>
-								<td>${dto.getOrder_no() }</td>
-								<td>${dto.getOrder_content() }</td>
-								<td>${dto.getOrder_date() }</td>
-								<td>${dto.getOrder_price() }</td>
-								<c:if test="${!empty Deliver }">
-									<c:forEach items="${Deliver }" var="del">
-										<c:if test="${dto.getOrder_no() == del.getOrder_no()}">
-												<c:if test="${del.getDeliver_status() == 0 }">
-												<td>
-													배송 준비 중
-												</td>
-											</c:if>
-											<c:if test="${del.getDeliver_status() == 1 }">
-												<td>
-													배송중
-												</td>
-											</c:if>	
-											<c:if test="${del.getDeliver_status()  == 2 }">
-												<td>
-													배송완료
-												</td>
-											</c:if> 
-										</c:if>
-									</c:forEach>
-								</c:if>
-								</tr>
-							</c:forEach>
-							</c:if>
-							<c:if test="${!empty OrderSearchList }">
-								<c:forEach items="${OrderSearchList }" var="dto">
+								<th>상품 정보</th><th>가격</th><th>구매</th><th></th>
+							</tr>
+							
+								<c:if test="${!empty list }">
+								<c:forEach items="${list }" var="dto">
 								<tr>
-									<td>${dto.getOrder_no() }</td>
-									<td>${dto.getOrder_content() }</td>
-									<td>${dto.getOrder_date() }</td>
-									<td>${dto.getOrder_price() }</td>
-										<c:forEach items="${DeliverS }" var="del">
-											<c:if test="${dto.getOrder_no() == del.getOrder_no()}">
-													<c:if test="${del.getDeliver_status() == 0 }">
-													<td>
-														배송 준비 중
-													</td>
-												</c:if>
-												<c:if test="${del.getDeliver_status() == 1 }">
-													<td>
-														배송중
-													</td>
-												</c:if>	
-												<c:if test="${del.getDeliver_status()  == 2 }">
-													<td>
-														배송완료
-													</td>
-												</c:if> 
-											</c:if>
-										</c:forEach>
-									</tr>
+									<td>
+									<form method="post">
+										<input type="hidden" name="product_no" value="${dto.getProductDTO().getPro_no() }">
+										<div class="history">
+											<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getProductDTO().getPro_no()}"><img src="resources/img/product/${dto.getProductDTO().getPro_img() }"></a>
+											
+											<div class="pro-content">
+												<c:forEach items="${dto.getProductDTO().getPro_tags() }" var="tags">
+													<a class="cont-info-tag" href="search_tag.do?k=${tags }">${tags }</a> 
+												</c:forEach><br>
+												<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getProductDTO().getPro_no()}">${dto.getProductDTO().getPro_name() }</a>
+											</div>
+									</td>
+									<td>	
+											<div class="pro-price">
+												<fmt:formatNumber value="${dto.getProductDTO().getPro_output_price() }" /> 원
+											</div>
+									</td>
+									<td>		
+											<div class="pro-btn">
+												<input type="submit" value="구매하기" formaction="#">
+												<input type="submit" value="장바구니에 담기" formaction="add_cart.do">
+											</div>
+									</td>
+									<td>		
+											<div class="pro-cancel">
+												<button onclick="location.href='recent_delete.do?no=${dto.getProductDTO().getPro_no() }'">X</button>
+											</div>
+									</td>
+									</div>
+									
+									</form>
+								</tr>
 								</c:forEach>
-							</c:if>
+								</c:if>
+								<c:if test="${empty list }">
+									<tr>
+									<td>
+									
+										최근 본 상품이 없습니다.
+									</td>
+									</tr>
+								</c:if>
+							
 						</table>
 					</div> <!-- member_order END -->
 				</div> <!-- member_content END-->
@@ -179,5 +149,5 @@
 		</div>
 	</div>
 </body>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member_order.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member.js"></script>
 </html>

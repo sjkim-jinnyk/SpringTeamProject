@@ -4,8 +4,6 @@ const star2 = document.querySelector('#star2');
 const star3 = document.querySelector('#star3'); 
 const star4 = document.querySelector('#star4'); 
 const star5 = document.querySelector('#star5'); 
-const info_click = document.querySelector('#info_click'); 
-const info_display = document.querySelector('#info_display'); 
 let star_score;
 
  
@@ -59,9 +57,5 @@ star5.addEventListener('click', function() {
 	star1.classList.replace('off','on');
 	star_score= 5;
 	document.review_form.review_star.value = star_score;
-});
-
-info_click.addEventListner('click', function() {
-	info_display.classList.replace('off','on');
 });
 
