@@ -2,6 +2,7 @@
 package com.spring.model;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,13 @@ public class MemberDAOImpl implements MemberDAO{
 	public List<OrderDTO> getOrderList(String id) {
 
 		return this.sqlSession.selectList("orderList", id);
+	}
+	
+	// 주문날짜로 주문리스트 호출 메서드
+	@Override
+	public List<OrderDTO> getOrderSearchList(Map map) {
+
+		return this.sqlSession.selectList("orderSearchList", map);
 	}
 	
 	// 특정 회원 정보 호출 메서드	
@@ -121,6 +129,14 @@ public class MemberDAOImpl implements MemberDAO{
 
 		return this.sqlSession.selectList("productLikeList", id);
 	}
+	
+	// 찜한 상품 취소
+	@Override
+	public int deleteProductLike(int no) {
+
+		return this.sqlSession.delete("deleteProductLike", no);
+	}
+
 
 	// 찜한 상품 정보 호출 메서드
 	@Override
@@ -149,6 +165,48 @@ public class MemberDAOImpl implements MemberDAO{
 
 		return this.sqlSession.delete("deleteMember", id);
 	}
+
+	// id에 해당하는 qna 리스트 호출 메서드
+	@Override
+	public List<QnaDTO> getQnaList(String id) {
+		
+		return this.sqlSession.selectList("qnaList", id);
+	}
+
+	// qna 정보로 상품정보 호출 메서드
+	@Override
+	public ProductDTO getQnaProductInfo(int pro_no) {
+
+		return this.sqlSession.selectOne("qnaProductInfo", pro_no);
+	}
+
+	// qna list의 카테고리 번호에 해당하는 카테고리 정보 호출 메서드
+	@Override
+	public QnaCategoryDTO getQnaCateList(int cate_no) {
+		
+		return this.sqlSession.selectOne("qnaCategorList", cate_no);
+	}
+
+	// qna 그룹번호에 해당하는 qna 리스트 호출 메서드
+	@Override
+	public QnaDTO getQnaContList(int qna_no) {
+
+		return this.sqlSession.selectOne("qnaContList", qna_no);
+	}
+
+	@Override
+	public List<QnaDTO> getQnaReplyList(int qna_no) {
+
+		return this.sqlSession.selectList("qnaReplyList", qna_no);
+	}
+
+
+	
+
+
+
+
+
 
 
 

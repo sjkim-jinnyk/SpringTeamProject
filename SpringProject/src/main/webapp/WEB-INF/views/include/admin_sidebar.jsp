@@ -28,7 +28,7 @@
 			</div>
 			<div class="p-4 pt-5">
 				<h1>
-					<a href="index.html" class="logo">관리자</a>
+					<a href="<%=request.getContextPath() %>/admin_list.do" class="logo">관리자</a>
 				</h1>
 				<ul class="list-unstyled components mb-5">
 					<li class="active"><a href="#homeSubmenu"
@@ -48,6 +48,7 @@
 							<li><a href="#">문의 사항</a></li>
 							<li><a href="#">공지사항</a></li>
 						</ul></li>
+					<li><a href="<%=request.getContextPath()%>/main.do">UTBT</a></li>
 				</ul>
 			</div>
 		</nav>

@@ -15,7 +15,7 @@
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../include/header.jsp" />
-			<c:set var="mem" value="${Member }" />
+			<c:set var="mem" value="${Cont }" />
 			
 			<div class="member_container">
 				<!-- header_title -->
@@ -35,7 +35,7 @@
 						</li>
 					</ul>
 					<ul class="my_menu">
-						<a href="<%=request.getContextPath() %>/member_point.do">
+						<a href="">
 							<li>
 								<ul class="menu_bar">
 									<li>적립금 </li>
@@ -96,11 +96,11 @@
 							<div class="review_content">
 								<div class="review_star">
 									<span>별점</span>
-									<a href="#none" id="star1" class="off" name="s1"></a>
-									<a href="#none" id="star2" class="off" name="s2"></a>
-									<a href="#none" id="star3" class="off" name="s3"></a>
-									<a href="#none" id="star4" class="off" name="s4"></a>
-									<a href="#none" id="star5" class="off" name="s5"></a>
+									<a href="#none" id="star1" class="off"></a>
+									<a href="#none" id="star2" class="off"></a>
+									<a href="#none" id="star3" class="off"></a>
+									<a href="#none" id="star4" class="off"></a>
+									<a href="#none" id="star5" class="off"></a>
 								</div>
 								<div class="review_img">
 									<span>사진</span>

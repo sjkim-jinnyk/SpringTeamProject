@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%	HttpSession session1 = request.getSession();
-	String session_id = (String)session.getAttribute("session_id"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,7 +75,7 @@
 					<div class="nav_menu">
 						<ul>
 							<a href="<%=request.getContextPath() %>/member_orderList.do"><li>주문내역</li></a>
-							<a href="<%=request.getContextPath() %>/member_qna.do"><li>문의내역</li></a>
+							<a href="<%=request.getContextPath() %>/member_qna.do?id=${mem.getMem_id() }"><li>문의내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_recent.do"><li>최근 본 상품</li></a>
 							<li>
 								<a href="#none" id="info_click">정보관리</a>

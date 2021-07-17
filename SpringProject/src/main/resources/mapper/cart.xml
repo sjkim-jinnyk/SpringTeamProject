@@ -32,7 +32,7 @@
 	</select>
 	
 	<update id="updateAmount" parameterType="com.spring.model.CartDTO">
-		update cart set cart_amount = cart_amount + 1 where user_id = #{user_id} and product_no = #{product_no}
+		update cart set cart_amount = cart_amount + ${cart_amount} where user_id = #{user_id} and product_no = #{product_no}
 	</update>
 	
 	<delete id="resetCart" parameterType="String">
@@ -42,6 +42,23 @@
 	<select id="emptyCheck" parameterType="String" resultType="int">
 		select count(*) from cart where user_id = #{id}
 	</select>
+	
+	<delete id="deleteCart" parameterType="com.spring.model.CartDTO">
+		delete from cart where user_id = #{user_id} and product_no = #{product_no}
+	</delete>
+	
+	<update id="plusCartAmount" parameterType="int">
+		update cart set cart_amount = cart_amount + 1 where cart_no = #{no}
+	</update>
+	
+	<update id="minusCartAmount" parameterType="int">
+		update cart set cart_amount = cart_amount - 1 where cart_no = #{no}
+	</update>
+	
+	<delete id="deleteCartSelected" parameterType="java.util.ArrayList">
+		delete from cart where cart_no in 
+		<foreach collection="array" item="item" open="(" close=")" separator=",">#{item}</foreach>	
+	</delete>
 	
 	
 </mapper>

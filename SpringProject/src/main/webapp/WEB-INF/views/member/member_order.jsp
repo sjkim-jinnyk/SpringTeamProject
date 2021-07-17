@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
+
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <title>Member</title>
 </head>
@@ -25,11 +26,11 @@
 				<!-- member_header -->
 				<div class="member_header">
 					<ul>
-						<li><i class="fas fa-user-circle"></i></li>
+						<li><a href="<%=request.getContextPath()%>/member_info.do?id=${mem.getMem_id() }"><i class="fas fa-user-circle"></i></a></li>
 						<li>
 							<ul class="user_info">
-								<li>${mem.getMem_name() }님 환영합니다.</li>
-								<li>${mem.getMem_id() }</li>
+								<li><a href="<%=request.getContextPath()%>/member_info.do?id=${mem.getMem_id() }">${mem.getMem_name() }님 </a>환영합니다.</li>
+								<li><a href="<%=request.getContextPath()%>/member_info.do?id=${mem.getMem_id() }">${mem.getMem_id() }</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -50,7 +51,7 @@
 								</ul>
 							</li>
 						</a>
-						<a href="<%=request.getContextPath() %>/member_review.do">
+						<a href="<%=request.getContextPath() %>/member_review.do?id=${mem.getMem_id() }">
 							<li>
 								<ul class="menu_bar">
 									<li>리뷰 </li>
@@ -58,7 +59,7 @@
 								</ul>
 							</li>
 						</a>
-						<a href="<%=request.getContextPath() %>/member_productLike.do">
+						<a href="<%=request.getContextPath() %>/member_productLike.do?id=${mem.getMem_id() }">
 							<li>
 								<ul class="menu_bar">
 									<li>찜 </li>
@@ -74,32 +75,68 @@
 					<div class="nav_menu">
 						<ul>
 							<a href="<%=request.getContextPath() %>/member_orderList.do"><li>주문내역</li></a>
-							<a href="<%=request.getContextPath() %>/member_qna.do"><li>문의내역</li></a>
+							<a href="<%=request.getContextPath() %>/member_qna.do?id=${mem.getMem_id() }"><li>문의내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_recent.do"><li>최근 본 상품</li></a>
-							<a href="<%=request.getContextPath() %>/member_info.do"><li>정보관리</li></a>
+							<li>
+								<a href="#none" id="info_click">정보관리</a>
+								<ul id="info_display" class="on">
+									<a href="<%=request.getContextPath() %>/member_info.do?id=${mem.getMem_id() }"><li>회원정보 수정</li></a>
+									<a href="<%=request.getContextPath() %>/member_info_delete.do?id=${mem.getMem_id() }"><li>회원 탈퇴</li></a>
+								</ul>
+							</li>
 						</ul>
 					</div> <!-- nav_menu END -->
 					
 					<div class="member_order">
+						<form method="post" action="<%=request.getContextPath()%>/order_search.do">
+						<ul>
+							<li>
+								주문날짜
+							</li>
+							<li>
+								<input type="date" id="orderFirst" name="orderFirst"> - 
+				    			<input type="date" id="orderLast" name="orderLast">
+							</li>
+							<li>
+								<input type="submit" value="검색">
+							</li>
+						</ul>
+						
+						</form>
 						<table class="order_bar" border="1">
-						<c:set var="clist" value="${CouponInfo }"/>
+						<tr>
+							<th>주문번호</th><th>상품정보</th><th>주문일자</th><th>주문금액</th><th>주문상태</th>
+						</tr>
+						<c:if test="${!empty OrderSearchList}">
+						<c:forEach items="${OrderSearchList }" var="dto">
 							<tr>
-									<th>쿠폰번호</th><th>쿠폰명</th><th>할인금액</th><th>적용범위</th>
-							</tr>
-							<c:if test="${!empty clist }">
-								<c:forEach items="${clist }" var="list">
-									<tr>
-										<td>${list.getCoupon_no() }</td>
-										<td>${list.getCoupon_code() }</td>
-										<td>${list.getCoupon_type() }</td>
-										<td>${list.getCoupon_cont() }</td>
-									</tr>
-								</c:forEach>
-							</c:if>
-							<c:if test="${empty clist }">
-								<tr>
-									<td>오류</td>
+								<td>${dto.getOrder_no() }</td>
+								<td>${dto.getOrder_content() }</td>
+								<td>${dto.getOrder_date() }</td>
+								<td>${dto.getOrder_price() }</td>
+								<c:if test="${!empty deliver }">
+									<c:forEach items="${Deliver }" var="del">
+										<c:if test="${dto.getOrder_no() == del.getOrder_no()}">
+												<c:if test="${del.getDeliver_status() == 0 }">
+												<td>
+													배송 준비 중
+												</td>
+											</c:if>
+											<c:if test="${del.getDeliver_status() == 1 }">
+												<td>
+													배송중
+												</td>
+											</c:if>	
+											<c:if test="${del.getDeliver_status()  == 2 }">
+												<td>
+													배송완료
+												</td>
+											</c:if> 
+										</c:if>
+									</c:forEach>
+								</c:if>
 								</tr>
+							</c:forEach>
 							</c:if>
 						</table>
 					</div> <!-- member_order END -->

@@ -22,7 +22,7 @@
 			<div class="member_container">
 				<!-- header_title -->
 				<div class="header_title">
-					<a href="<%=request.getContextPath() %>/member_home.do?id=${mem.getMem_id() }"><h3>My Page</h3></a>
+					<a href="<%=request.getContextPath() %>/member_home.do?id=${session_id }"><h3>My Page</h3></a>
 				</div> <!-- header_title END -->
 				
 				<!-- member_header -->
@@ -45,7 +45,7 @@
 								</ul>
 							</li>
 						</a>
-						<a href="<%=request.getContextPath() %>/member_coupon.do?id=${mem.getMem_id() }">
+						<a href="<%=request.getContextPath() %>/member_coupon.do?id=${session_id }">
 							<li>
 								<ul class="menu_bar">
 									<li>쿠폰 </li>
@@ -53,7 +53,7 @@
 								</ul>
 							</li>
 						</a>
-						<a href="<%=request.getContextPath() %>/member_review.do?id=${mem.getMem_id() }">
+						<a href="<%=request.getContextPath() %>/member_review.do?id=${session_id }">
 							<li>
 								<ul class="menu_bar">
 									<li>리뷰 </li>
@@ -61,7 +61,7 @@
 								</ul>
 							</li>
 						</a>
-						<a href="<%=request.getContextPath() %>/member_productLike.do?id=${mem.getMem_id() }">
+						<a href="<%=request.getContextPath() %>/member_productLike.do?id=${session_id }">
 							<li>
 								<ul class="menu_bar">
 									<li>찜 </li>
@@ -79,33 +79,39 @@
 							<a href="<%=request.getContextPath() %>/member_orderList.do"><li>주문내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_qna.do"><li>문의내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_recent.do"><li>최근 본 상품</li></a>
-							<a href="<%=request.getContextPath() %>/member_info.do"><li>정보관리</li></a>
+							<li>
+								<a href="#none" id="info_click">정보관리</a>
+								<ul id="info_display" class="on">
+									<a href="<%=request.getContextPath() %>/member_info.do?id=${session_id }"><li>회원정보 수정</li></a>
+									<a href="<%=request.getContextPath() %>/member_info_delete.do?id=${session_id }"><li>회원 탈퇴</li></a>
+								</ul>
+							</li>
 						</ul>
 					</div> <!-- nav_menu END -->
 					
-					<div class="member_like">
-						<ul>
-							<c:if test="${!empty ProductLikeInfo}">
-							<c:forEach items="${ProductLikeInfo }" var="dto">
-								<li class="likeproduct">
-									<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/product/${dto.getPro_img() }"></a>
-									<div class="product-info">
-										<a class="pro-tag" href="#">${dto.getPro_tag() }</a><br>
-										<a class="pro-name" href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a><br>
-										<span class="pro-price">${dto.getPro_output_price() } 원</span>
-										<a href="<%=request.getContextPath() %>/productLike_delete.do?no=${dto.getPro_no()}&id=${session_id}" id="heart"><i class="fas fa-heart"></i></a>
-									</div>
-								</li>
-							</c:forEach>
-							</c:if>
+					<div class="member_order">
+						<h3>회원탈퇴 주의사항</h3>
+						<ul class="deleteInfo">
+							<li>무분별한 회원가입을 막기위해 회원탈퇴 후 6개월 동안 회원가입 하실 수 없습니다.</li>
+							<li>한 번 탈퇴하면 복구할 수 없습니다.</li>
+							<li>보유하고 있던 포인트, 쿠폰은 모두 소멸됩니다....등등</li>
 						</ul>
-					</div> <!-- member_like END -->
+						<form method="post" action="<%=request.getContextPath()%>/member_delete_ok.do">
+							<input type="hidden" name="db_pwd" value="${mem.getMem_pwd() }">
+							<div class="delete_pwd">
+								<p>비밀번호를 입력하세요</p>
+								<input type="password" name="mem_pwd"><br>
+							</div>
+							<input type="submit" value="삭제">
+						</form>
+					</div> <!-- member_order END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
 			<jsp:include page="../include/footer.jsp" />
 		</div>
 	</div>
 </body>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member_productLike.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member.js"></script>
+
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </html>

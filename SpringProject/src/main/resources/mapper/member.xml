@@ -72,6 +72,10 @@
 		select * from product_like where like_mem = #{id}
 	</select>
 	
+	<delete id="deleteProductLike" parameterType="int">
+		delete from product_like where like_product = #{no}
+	</delete>
+	
 	<select id="productLikeInfo" parameterType="ArrayList" resultType="com.spring.model.ProductDTO">
 		select * from product where pro_no in 
 		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.like_product}</foreach>
@@ -88,8 +92,33 @@
 		where mem_id = #{mem_id}
 	</update>
 	
-	<delete id="deleteMember" parameterType="int">
+	<delete id="deleteMember" parameterType="String">
 		delete from member where mem_id = #{id}
-	
 	</delete>
+	
+	<select id="qnaList" resultType="com.spring.model.QnaDTO">
+		select * from qna where qna_writer = #{id} order by qna_no desc
+	</select>
+	
+	<select id="qnaProductInfo" parameterType="int" resultType="com.spring.model.ProductDTO">
+		select * from product where pro_no = #{pro_no}
+	</select>
+	
+	<select id="qnaCategorList" parameterType="int" resultType="com.spring.model.QnaCategoryDTO">
+		select * from qna_category where cate_no = #{cate_no}
+	</select>
+	
+	<select id="qnaContList" parameterType="int" resultType="com.spring.model.QnaDTO">
+		select * from qna where qna_group = #{qna_no} and qna_step = 0
+	</select>
+	
+	<select id="qnaReplyList" parameterType="int" resultType="com.spring.model.QnaDTO">
+		<![CDATA[
+			select * from qna where qna_group = #{qna_no} and qna_step > 0
+		]]>
+	</select>
+	<select id="orderSearchList" parameterType="java.util.HashMap" resultType="com.spring.model.OrderDTO">
+		select * from ordert where order_date between to_date(#{first}, 'yyyy-mm-dd') and to_date(#{last}, 'yyyy-mm-dd')+1 and order_mem_id = #{id}
+		order by order_no desc
+	</select>
 </mapper>
