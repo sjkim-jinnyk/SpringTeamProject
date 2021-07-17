@@ -65,12 +65,14 @@ public class Member2Controller {
 		int idCheck = this.dao.idCheck(id);
 		int pwdCheck = this.dao.pwdCheck(pwd);
 		
+		MemberDTO login_info = this.dao.getMemberInfo(id);
+		
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
 		if(idCheck == 1) { // 아이디 맞음
 			if(pwdCheck > 0) { // 비밀번호 맞음 (같은 비번인 계정이 여러개일 수 있음)
-				session.setAttribute("session_id", id);
+				session.setAttribute("session_id", login_info);
 				out.println("<script>");
 				out.println("alert('로그인 성공')");
 				out.println("location.href='main.do'");
@@ -157,13 +159,18 @@ public class Member2Controller {
 	
 	@ResponseBody
 	@RequestMapping(value = "/id_check", method = RequestMethod.POST)
-	public String id_Check(MemberDTO dto) {
+	public String id_Check(MemberDTO dto,
+			@RequestParam("mem_id") String id) {
 		//select * from member where mem_id = #{mem_id}
 		//이 MemberDTO 객체에는 id만 값이 들어있고, 다른 것은 다 null 값이다.
 		MemberDTO m = this.dao.id_overlap(dto);
 		String message = null;
 		if(m == null) {
-			message = "success";
+			if (id.length()>4 && id.length()<15) {
+				message = "success";
+			}else {
+				message = "fail";
+			}
 		}else {
 			message = "fail";
 		}
