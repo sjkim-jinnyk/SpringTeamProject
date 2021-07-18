@@ -5,6 +5,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
+<script src="${pageContext.request.contextPath}/resources/js/login.js" defer></script>
 <title>아이디 찾기</title>
 </head>
 <body>
@@ -33,27 +34,6 @@
 			<jsp:include page="../include/footer.jsp" />
 		</div>
 	</div>
-	
-	<script type="text/javascript">
-			
-	// 전화번호 형식 검사 000-0000-0000
-	// 참고 : https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=irene-fts&logNo=221898756777
-	function phoneCheck(){
-		
-		var phoneReg = /(01[016789])-\d{3,4}-\d{4}/g;
-		
-		if(!phoneReg.test(find_id.mem_phone.value)) {
-			alert("전화번호를 형식에 맞게 입력해주세요.");
-			find_id.mem_phone.focus();
-			return;
-		}
-		
-		find_id.method = "post";
-		find_id.action = "<%=request.getContextPath()%>/find_id_ok.do";
-		find_id.submit();
-	}
-	
-	</script>
-	
+
 </body>
 </html>

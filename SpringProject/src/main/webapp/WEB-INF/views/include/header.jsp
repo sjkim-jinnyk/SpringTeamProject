@@ -60,20 +60,20 @@ $(document).mouseup(function(e){
 						</form>
 					</div>
 					
-					<c:set var="id" value="${session_id }"/>
+					<c:set var="dto" value="${session_id }"/>
 					
-					<c:if test="${empty id }">
+					<c:if test="${empty dto }">
 						<a href="<%=request.getContextPath()%>/login.do">LOGIN</a>
 						<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
 					</c:if>
 					
-					<c:if test="${!empty id }">
-						<input type="hidden" name="id" value="${id }">
+					<c:if test="${!empty dto }">
+						<input type="hidden" name="id" value="${dto.getMem_id() }">
 						<a href="<%=request.getContextPath()%>/logout.do">LOGOUT</a>
 						<c:set var="id" value="${session_id }"  />
 						<a href="<%=request.getContextPath()%>/member_home.do">MYPAGE</a>
 						<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
-						${id }님 환영합니다. 
+						${dto.getMem_name() }님 환영합니다. 
 					</c:if>
 					
 					
