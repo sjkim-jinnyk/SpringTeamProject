@@ -82,7 +82,7 @@
 		}
 		
 		joinForm.method = "post";
-		joinForm.action = "<%=request.getContextPath()%>/test_join_ok.do";
+		joinForm.action = "<%=request.getContextPath()%>/sns_join_ok.do";
 		joinForm.submit();
 	}
 	

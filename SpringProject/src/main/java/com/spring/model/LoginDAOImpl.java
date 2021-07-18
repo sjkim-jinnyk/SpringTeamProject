@@ -13,14 +13,38 @@ public class LoginDAOImpl implements LoginDAO {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public int naverJoinCheck(HashMap<String, String> id) {
+	public int snsJoinCheck(HashMap<String, String> hm) {
 		
-		return this.sqlSession.selectOne("naverJoinCheck", id);
+		return this.sqlSession.selectOne("snsJoinCheck", hm);
 	}
 
 	@Override
 	public int snsJoin(MemberDTO dto) {
 		
 		return this.sqlSession.insert("snsJoin", dto);
+	}
+
+	@Override
+	public MemberDTO getSnsMemInfo(HashMap<String, String> hm) {
+		
+		return this.sqlSession.selectOne("snsInfo", hm);
+	}
+
+	@Override
+	public int deleteSnsID(String id) {
+		
+		return this.sqlSession.update("deleteSnsID", id);
+	}
+
+	@Override
+	public int addSnsID(HashMap hm) {
+		
+		return this.sqlSession.insert("addSnsID", hm);
+	}
+
+	@Override
+	public int snsConnectCheck(HashMap hm) {
+		
+		return this.sqlSession.selectOne("snsConnectCheck", hm);
 	}
 }

@@ -7,8 +7,8 @@
 <mapper namespace="com.spring.model.LoginDAO">
 	
 	<!-- 네이버 -->
-	<select id="naverJoinCheck" parameterType="java.util.HashMap" resultType="int">
-		select count(*) from member where mem_sns_id = #{id} and mem_sns_type = 'naver'
+	<select id="snsJoinCheck" parameterType="java.util.HashMap" resultType="int">
+		select count(*) from member where mem_sns_id = #{sns_id} and mem_sns_type = 'naver'
 	</select>
 	
 	<insert id="snsJoin" parameterType="com.spring.model.MemberDTO">
@@ -18,6 +18,22 @@
 		insert into member values(#{mem_no}, #{mem_id}, #{mem_pwd}, #{mem_name}, 
 		#{mem_phone}, #{mem_zip}, #{mem_addr}, 0, sysdate, #{mem_sns_type}, #{mem_sns_id})
 	</insert>
+	
+	<select id="snsInfo" parameterType="java.util.HashMap" resultType="com.spring.model.MemberDTO">
+		select * from member where mem_sns_id = #{sns_id}
+	</select>
+	
+	<update id="deleteSnsID" parameterType="String">
+		update member set mem_sns_id = null, mem_sns_type = null where mem_id = #{value}
+	</update>
+	
+	<update id="addSnsID" parameterType="java.util.HashMap">
+		update member set mem_sns_id = #{sns_id}, mem_sns_type = #{type} where mem_id = #{mem_id} 
+	</update>
+	
+	<select id="snsConnectCheck" parameterType="java.util.HashMap" resultType="int">
+		select count(*) from member where mem_sns_id = #{sns_id} and mem_id = #{mem_id}
+	</select>
 	
 	
 </mapper>
