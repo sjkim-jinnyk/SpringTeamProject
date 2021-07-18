@@ -63,7 +63,7 @@ a {
 .nav_menu .on{
 	display: "";
 }
-.member_order, .member_review, .member_like {
+.member_order, .member_review, .member_like, .member_info {
 	background: #a9a9a9;
 	width: 100%;
 }
@@ -91,15 +91,49 @@ a {
 
 /* member_info css */
 
-.member_order .off {
+.member_info .off {
 	display: none;
 }
-.member_order .on {
+.member_info .on {
 	display: "";
 }
 
 /* member_qna css */
 .qnaimg img {
 	width: 250px;
+}
+/* member_recent css */
+.history img {
+	width: 250px;
+}
+
+/* member_home css */
+.select_day {
+	display: flex;
+}
+
+.select_day li {
+	padding: 0 10px;
+}
+
+.select_day .select_button {
+	display: flex;
+}
+
+.select_button li {
+	padding: 0;
+}
+
+.select_button a {
+	padding: 10px;
+}
+
+.select_day .on {
+	border : 1px solid black;
+}
+
+.select_day .off {
+	border: 1px solid white;
+	color: #666;
 }
 

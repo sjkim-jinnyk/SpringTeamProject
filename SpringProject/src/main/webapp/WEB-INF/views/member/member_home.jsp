@@ -88,21 +88,34 @@
 					</div> <!-- nav_menu END -->
 					
 					<div class="member_order">
-						<c:set var="order" value="${Order }" />
-						<c:set var="deliver" value="${Deliver }" />
+						<h3 align="left">주문내역 조회</h3>
+						<hr width="100%" color="white">
+						<form method="post" action="<%=request.getContextPath()%>/order_search.do">
+						<ul class="select_day">
+							<li>
+								<input type="date" id="orderFirst" name="orderFirst"> - 
+				    			<input type="date" id="orderLast" name="orderLast">
+							</li>
+							
+							<li>
+								<input type="submit" value="검색">
+							</li>
+						</ul>
+						
+						</form>
 						<table class="order_bar" border="1">
 							<tr>
 								<th>주문번호</th><th>상품정보</th><th>주문일자</th><th>주문금액</th><th>주문상태</th>
 							</tr>
-							<c:if test="${!empty order }">
-								<c:forEach items="${order }" var="dto">
+							<c:if test="${!empty OrderRecentList }">
+								<c:forEach items="${OrderRecentList }" var="dto">
 								<tr>
 									<td>${dto.getOrder_no() }</td>
 									<td>${dto.getOrder_content() }</td>
 									<td>${dto.getOrder_date() }</td>
 									<td>${dto.getOrder_price() }</td>
-									<c:if test="${!empty deliver }">
-										<c:forEach items="${deliver }" var="del">
+									<c:if test="${!empty Deliver }">
+										<c:forEach items="${Deliver }" var="del">
 											<c:if test="${dto.getOrder_no() == del.getOrder_no()}">
  												<c:if test="${del.getDeliver_status() == 0 }">
 													<td>
@@ -125,9 +138,9 @@
 								</tr>
 								</c:forEach>
 							</c:if>	
-							<c:if test="${empty deliver }">
+							<c:if test="${empty OrderRecentList }">
 								<tr>
-								<td>오류</td>
+									<td colspan="5"><h3>최근 구매내역이 없습니다.</h3></td>
 								</tr>
 							</c:if>
 						</table>

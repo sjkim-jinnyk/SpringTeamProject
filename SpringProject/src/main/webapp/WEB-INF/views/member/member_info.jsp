@@ -82,14 +82,14 @@
 							<li>
 								<a href="#none" id="info_click">정보관리</a>
 								<ul id="info_display" class="on">
-									<a href="<%=request.getContextPath() %>/member_info_edit.do?id=${mem.getMem_id() }"><li>회원정보 수정</li></a>
+									<a href="<%=request.getContextPath() %>/member_info.do?id=${mem.getMem_id() }"><li>회원정보 수정</li></a>
 									<a href="<%=request.getContextPath() %>/member_info_delete.do?id=${mem.getMem_id() }"><li>회원 탈퇴</li></a>
 								</ul>
 							</li>
 						</ul>
 					</div> <!-- nav_menu END -->
 					
-					<div class="member_order">
+					<div class="member_info">
 						
 						<h3>회원정보 변경</h3>
 						<ul>
@@ -144,7 +144,7 @@
 								</div> <!-- phone_before END -->
 							</li>
 						</ul>
-					</div> <!-- member_order END -->
+					</div> <!-- member_info END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
 			<jsp:include page="../include/footer.jsp" />

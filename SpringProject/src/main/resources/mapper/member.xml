@@ -121,4 +121,20 @@
 		select * from ordert where order_date between to_date(#{first}, 'yyyy-mm-dd') and to_date(#{last}, 'yyyy-mm-dd')+1 and order_mem_id = #{id}
 		order by order_no desc
 	</select>
+	
+	<select id="orderRecent" parameterType="java.util.HashMap" resultType="com.spring.model.OrderDTO">
+		select * from ordert where order_date between to_date(#{today}, 'yyyy-mm-dd')-7 and to_date(#{today}, 'yyyy-mm-dd')+1 and order_mem_id = #{id}
+		order by order_no desc
+	</select>
+	
+	<select id="deliverSearch" parameterType="ArrayList" resultType="com.spring.model.OrderDeliverDTO">
+		select * from order_deliver where order_no in 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.order_no}</foreach>
+	</select>
+	
+	<select id="deliverOrderSearch" parameterType="ArrayList" resultType="com.spring.model.OrderDTO">
+		select * from ordert where order_no in 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.order_no}</foreach>
+		order by order_no desc
+	</select>
 </mapper>
