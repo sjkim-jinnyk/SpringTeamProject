@@ -15,7 +15,7 @@
 			<jsp:include page="../include/header.jsp" />
 			
 			<form name="find_id">
-				
+				 
 				<div class="id_field">
 					
 					<div class="title">아이디 찾기</div>
