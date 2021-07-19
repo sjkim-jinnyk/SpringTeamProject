@@ -70,7 +70,7 @@
 	
 	<select id="productLikeList" resultType="com.spring.model.ProductLikeDTO">
 		select * from product_like where like_mem = #{id}
-	</select>
+	</select> 
 	
 	<delete id="deleteProductLike" parameterType="int">
 		delete from product_like where like_product = #{no}
