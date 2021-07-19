@@ -36,8 +36,8 @@ import com.github.scribejava.core.oauth.OAuth20Service;
 
 public class NaverLoginBO {
 
-	private final static String CLIENT_ID = "vSFvtkg3Q_t0zZ1H2L1c";	// 발급받은 클라이언트 ID
-	private final static String CLIENT_SECRET = "HLntLoIFlt";		// 발급받은 클라이언트 secret
+	private final static String CLIENT_ID = "c9lvgts6cYnpgXL4xlvY";	// 발급받은 클라이언트 ID
+	private final static String CLIENT_SECRET = "tsZoLZQS7G";		// 발급받은 클라이언트 secret
 	private final static String SESSION_STATE = "oauth_state";
 	private final static String API_URL = "https://nid.naver.com/oauth2.0/authorize";					// 네아로 인증요청
 	private final static String TOKEN_API_URL = "https://nid.naver.com/oauth2.0/token";
