@@ -60,7 +60,7 @@ $(document).mouseup(function(e){
 						</form>
 					</div>
 					
-					<c:set var="dto" value="${session_id }"/>
+					<c:set var="dto" value="${session_mem }"/>
 					
 					<c:if test="${empty dto }">
 						<a href="<%=request.getContextPath()%>/login.do">LOGIN</a>

@@ -10,7 +10,7 @@
 	</select>
 	
 	<select id="memberInfo" parameterType="String" resultType="com.spring.model.MemberDTO">
-		select * from member where mem_id = ${id}
+		select * from member where mem_id = #{id}
 	</select>
 	
 	<insert id="add" parameterType="com.spring.model.MemberDTO">
