@@ -42,14 +42,8 @@ function total() {
 	document.getElementById('total-price').innerText = total;
 }
 
-function show(obj) {
-	let id = $(obj).attr('class');
-	
-	if(document.getElementById('qna-detail-'+id).style.display == 'none'){
-		document.getElementById('qna-detail-'+id).style.display = 'block';
-	}else {
-		document.getElementById('qna-detail-'+id).style.display = 'none';
-	} 
+function show(index) {
+	$('.qna-detail-'+index).toggle();
 }
 
 function showPhoto() { 
@@ -58,7 +52,12 @@ function showPhoto() {
 };
 
 function writeQna(product_no) {
-	window.open("product_qna_write.do?no="+product_no, "질문글 작성하기", "_blank");
+	if('${session_id}' != ''){
+		window.open("product_qna_write.do?no="+product_no, "질문글 작성하기", "_blank");
+	}else {
+		alert('로그인 후 작성 가능합니다.');
+		window.open("login.do", "질문글 답변하기", "_blank");
+	}
 }
 
 function modifyQna(qna_no, product_no) {
@@ -84,7 +83,7 @@ function showReview(id){
 
  
 function addLike(product_no){
-	if('${session_id}' === 'guest' || '${session_id}' == ''){
+	if('${session_id}' == ''){
 		alert('로그인 후 사용가능합니다.');
 		window.open("login.do", "질문글 답변하기", "_blank");
 		return;
@@ -117,7 +116,6 @@ function addLike(product_no){
 	<div class="layout_container">
 		<jsp:include page="../include/header.jsp" />
 			<div class="main">			
-				
 				
 				<%-- 상단 제품 소개 및 주문 --%>
 				<c:set var="dto" value="${cont }" />
@@ -351,7 +349,7 @@ function addLike(product_no){
 					<table border="1" cellspacing="0" width="1200" style="text-align: center">
 						<c:if test="${!empty qna }">
 						<tr>
-							<th>번호</th>
+							<th>답변상태</th>
 							<th width="800">제목</th>
 							<th>글쓴이</th>
 							<th>작성일자</th>
@@ -359,13 +357,16 @@ function addLike(product_no){
 						
 						<c:forEach items="${qna }" var="dto" varStatus="status">
 						<tr>
-							<td>${dto.getQna_no() }</td>
 							<td>
-								<c:if test="${dto.getQna_writer() eq session_id }"><a class="${status.index }" href="javascript:void(0);" onclick="show(this);">
+								<c:if test="${!empty answer[status.index].getQna_no() }">답변완료</c:if> 
+								<c:if test="${empty answer[status.index].getQna_no() }">미답변</c:if> 
+							</td>
+							<td>
+								<c:if test="${dto.getQna_writer() eq session_id }"><a class="${status.index }" href="javascript:void(0);" onclick="show(${status.index});">
 										<c:if test="${dto.getQna_step() > 0 }">ㄴ[답변]</c:if>${dto.getQna_title() } <c:if test="${dto.getQna_secret() eq 1 }"><i class="fas fa-lock"></i></c:if></a></c:if>
 									
 									<c:if test="${dto.getQna_writer() ne session_id }">
-										<c:if test="${dto.getQna_secret() eq 0 }"><a class="${status.index }" href="javascript:void(0);" onclick="show(this);">
+										<c:if test="${dto.getQna_secret() eq 0 }"><a class="${status.index }" href="javascript:void(0);" onclick="show(${status.index});">
 										<c:if test="${dto.getQna_secret() eq 1 }"><c:if test="${dto.getQna_step() > 0 }">ㄴ[답변]</c:if><i class="fas fa-lock"></i></c:if> ${dto.getQna_title() }</a></c:if>
 										
 										<c:if test="${dto.getQna_secret() eq 1 }"><c:if test="${dto.getQna_step() > 0 }">ㄴ[답변]</c:if>상품관련 문의입니다. <c:if test="${dto.getQna_secret() eq 1 }"><i class="fas fa-lock"></i></c:if></c:if>
@@ -374,10 +375,11 @@ function addLike(product_no){
 							<td>${dto.getQna_writer().substring(0,3) }****</td>
 							<td>${dto.getQna_date().substring(0,10) }</td>
 						</tr>
-						<tr>
+						
+						<tr class="qna-detail-${status.index }" style="display:none;">
 							<td></td>
 							<td>
-								<div id="qna-detail-${status.index }" class="qna-detail" style="display:none;">
+							<div>
 								<span class="qna-cont" style="white-space:pre;"><c:out value="${dto.getQna_cont() }" /></span><br>
 								
 								
@@ -386,11 +388,31 @@ function addLike(product_no){
 										<button onclick="deleteQna(${dto.getQna_no() },${cont.getPro_no() });">삭제</button>
 									</c:if>
 									
-									<c:if test="${dto.getQna_step() < 1 }"><button onclick="answerQna(${dto.getQna_no() },${cont.getPro_no() });">답변하기</button></c:if>
+									<c:if test="${session_id eq 0 }"><button onclick="answerQna(${dto.getQna_no() },${cont.getPro_no() });">답변하기</button></c:if>
 							</div>
 							</td>
 							<td colspan="2"></td>
 						</tr>
+						
+						<c:if test="${!empty answer[status.index].getQna_no() }">
+						<tr class="qna-detail-${status.index }" style="display:none;">
+							<td></td>
+							<td>
+								<div class="qna-ans">
+									└<span style="background-color:gray; color:white;">답변</span>
+								</div>
+								<div class="qna-detail">
+									<span class="qna-cont" style="white-space:pre;"><c:out value="${answer[status.index].getQna_cont() }" /></span><br>
+									<c:if test="${answer[status.index].getQna_writer() eq session_id }">
+										<button onclick="modifyQna(${dto.getQna_no() },${cont.getPro_no() });">수정</button>
+										<button onclick="deleteQna(${dto.getQna_no() },${cont.getPro_no() });">삭제</button>
+									</c:if>
+								</div></td>
+							<td>관리자</td>
+							<td>${answer[status.index].getQna_date().substring(0,10) }</td>
+						</tr>
+						</c:if>
+						
 						</c:forEach>
 						</c:if>
 						

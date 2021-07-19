@@ -18,7 +18,7 @@
 
 function addLike(product_no, index){
 	
-	if('${session_id}' === 'guest' || '${session_id}' == ''){
+	if('${session_id}' == ''){
 		alert('로그인 후 사용가능합니다.');
 		window.open("login.do", "질문글 답변하기", "_blank");
 		return;
