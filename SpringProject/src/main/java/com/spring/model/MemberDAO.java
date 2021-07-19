@@ -16,18 +16,17 @@ public interface MemberDAO {
 	public int reviewCount(String id);										// 특정 회원 리뷰 수 호출 메서드
 	public int likeCount(String id);										// 특정 회원 찜 수 호출 메서드
 	
-	// mypage home 최근 주문 내역
+	// mypage home 주문 내역
 	public List<OrderDeliverDTO> getOrderDeliverList();						// 전체 회원 배송 리스트 호출 메서드
 	public List<OrderDTO> getOrderList(String id);							// 특정 회원 주문 리스트 호출 메서드
-
-	// 주문내역 탭 - 날짜, 상태로 조회
 	public List<OrderDTO> getOrderSearchList(Map map);						// 주문날짜로 주문내역 호출 
-	public List<OrderDTO> getOrderRecentList(Map map);						// 현재 날짜를 기준으로 일주일 전 주문내역 호출
-	public List<OrderDeliverDTO> deliverSearchList(List<OrderDTO> list);	// 주문 상태에 맞는 주문 호출
-	public List<OrderDTO> deliverOrderSearch(List<OrderDeliverDTO> list);	
+	public OrderDTO orderDetail(int no);									// 주문번호에 해당하는 주문 상세내역 조회
+	public OrderDetailDTO orderProno(int no);								// 주문번호로 구매한 제품번호 조회
+	
 	// coupon 
 	public List<CouponOwnDTO> getCouponList(String id);						// 특정 회원 쿠폰 리스트 호출 메서드
 	public List<CouponDTO> getCouponInfo(List<CouponOwnDTO> list); 			// 쿠폰 내역 호출 메서드
+	public CouponDTO couponCont(int no);									// 쿠폰 번호에 해당하는 쿠폰 내용 조회
 	
 	// review
 	public List<ReviewDTO> getReviewList(String id);						// 제품번호로 리뷰 리스트 호출 메서드
@@ -50,7 +49,7 @@ public interface MemberDAO {
 	public List<QnaDTO> getQnaList(String id);								// id에 해당하는 qna 리스트 호출 메서드
 	public ProductDTO getQnaProductInfo(int pro_no);						// 주문번호로 제품 정보 호출 메서드
 	public QnaCategoryDTO getQnaCateList(int cate_no);						// qna list의 카테고리 번호에 해당하는 카테고리 정보 호출 메서드
-	public QnaDTO getQnaContList(int qna_no);							// qna 그룹번호에 해당하는 qna 리스트 호출 메서드
+	public QnaDTO getQnaContList(int qna_no);								// qna 그룹번호에 해당하는 qna 리스트 호출 메서드
 	public List<QnaDTO> getQnaReplyList(int qna_no);						// qna 그룹번호에 해당하는 관리자 답글 호출 메서드
 	
 }

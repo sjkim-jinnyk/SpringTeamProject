@@ -20,7 +20,7 @@
 			<div class="member_container">
 				<!-- header_title -->
 				<div class="header_title">
-					<a href="<%=request.getContextPath() %>/member_home.do?id=${mem.getMem_id() }"><h3>My Page</h3></a>
+					<a href="<%=request.getContextPath() %>/member_home.do"><h3>My Page</h3></a>
 				</div> <!-- header_title END -->
 				
 				<!-- member_header -->
@@ -30,7 +30,7 @@
 						<li>
 							<ul class="user_info">
 								<li><a href="<%=request.getContextPath()%>/member_info.do?id=${mem.getMem_id() }">${mem.getMem_name() }님 </a>환영합니다.</li>
-								<li><a href="<%=request.getContextPath()%>/member_info.do?id=${mem.getMem_id() }">${mem.getMem_id() }</a></li>
+								<li><a id="mem_id" href="<%=request.getContextPath()%>/member_info.do?id=${mem.getMem_id() }">${mem.getMem_id() }</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -74,7 +74,7 @@
 				<div class="member_content">
 					<div class="nav_menu">
 						<ul>
-							<a href="<%=request.getContextPath() %>/member_orderList.do"><li>주문내역</li></a>
+							<a href="<%=request.getContextPath() %>/member_home.do"><li>주문내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_qna.do?id=${mem.getMem_id() }"><li>문의내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_recent.do"><li>최근 본 상품</li></a>
 							<li>
@@ -89,35 +89,79 @@
 					
 					<div class="member_order">
 						<h3 align="left">주문내역 조회</h3>
-						<hr width="100%" color="white">
-						<form method="post" action="<%=request.getContextPath()%>/order_search.do">
+						<form method="post" action="<%=request.getContextPath()%>/order_search.do" name="orderForm">
 						<ul class="select_day">
+							<div class="select_button">
+								<li><a id="sevenDay" class="off" href="#none">일주일</a></li>
+								<li><a id="month" class="off" href="#none">1개월</a></li>
+								<li><a id="threeMonth" class="off" href="#none">3개월</a></li>
+								<li><a id="allDay" class="on" href="#none">전체 시기</a></li>
+							</div>
 							<li>
-								<input type="date" id="orderFirst" name="orderFirst"> - 
-				    			<input type="date" id="orderLast" name="orderLast">
+								<input type="date" id="orderFirst" name="orderFirst" value="${map.get('first') }"> - 
+				    			<input type="date" id="orderLast" name="orderLast" value="${map.get('last') }">
 							</li>
-							
 							<li>
 								<input type="submit" value="검색">
 							</li>
-						</ul>
+						</ul>  
 						
 						</form>
 						<table class="order_bar" border="1">
+						<tr>
+							<th>주문번호</th><th>상품정보</th><th>주문일자</th><th>주문금액</th><th>주문상태</th>
+						</tr>
+						<c:if test="${!empty Order}">
+						<c:forEach items="${Order }" var="dto" varStatus="status">
 							<tr>
-								<th>주문번호</th><th>상품정보</th><th>주문일자</th><th>주문금액</th><th>주문상태</th>
-							</tr>
-							<c:if test="${!empty OrderRecentList }">
-								<c:forEach items="${OrderRecentList }" var="dto">
+								<td><a href="<%=request.getContextPath()%>/order_detail.do?no=${dto.getOrder_no() }">${dto.getOrder_no() }</a></td>
+								<td>
+									<ul>
+										<li class="qnaimg"><img src="resources/img/product/${Detail[status.index].getPro_img() }"></li>
+										<li>${Detail[status.index].getPro_name() }</li>
+									</ul>
+								</td>
+								<td>${dto.getOrder_date().substring(0,10) }</td>
+								<td>${dto.getOrder_price() }</td>
+								<c:if test="${!empty Deliver }">
+									<c:forEach items="${Deliver }" var="del">
+										<c:if test="${dto.getOrder_no() == del.getOrder_no()}">
+												<c:if test="${del.getDeliver_status() == 0 }">
+												<td>
+													배송 준비 중
+												</td>
+											</c:if>
+											<c:if test="${del.getDeliver_status() == 1 }">
+												<td>
+													배송중
+												</td>
+											</c:if>	
+											<c:if test="${del.getDeliver_status()  == 2 }">
+												<td>
+													배송완료
+												</td>
+											</c:if> 
+										</c:if>
+									</c:forEach>
+								</c:if>
+								</tr>
+							</c:forEach>
+							</c:if>
+							<c:if test="${!empty OrderSearchList }">
+								<c:forEach items="${OrderSearchList }" var="dto" varStatus="status">
 								<tr>
-									<td>${dto.getOrder_no() }</td>
-									<td>${dto.getOrder_content() }</td>
-									<td>${dto.getOrder_date() }</td>
+									<td><a href="<%=request.getContextPath()%>/order_detail.do?no=${dto.getOrder_no() }">${dto.getOrder_no() }</a></td>
+									<td>
+										<ul>
+											<li class="qnaimg"><img src="resources/img/product/${Detail[status.index].getPro_img() }"></li>
+											<li>${Detail[status.index].getPro_name() }</li>
+										</ul>
+									</td>
+									<td>${dto.getOrder_date().substring(0,10) }</td>
 									<td>${dto.getOrder_price() }</td>
-									<c:if test="${!empty Deliver }">
-										<c:forEach items="${Deliver }" var="del">
+										<c:forEach items="${DeliverS }" var="del">
 											<c:if test="${dto.getOrder_no() == del.getOrder_no()}">
- 												<c:if test="${del.getDeliver_status() == 0 }">
+													<c:if test="${del.getDeliver_status() == 0 }">
 													<td>
 														배송 준비 중
 													</td>
@@ -134,14 +178,8 @@
 												</c:if> 
 											</c:if>
 										</c:forEach>
-									</c:if>
-								</tr>
+									</tr>
 								</c:forEach>
-							</c:if>	
-							<c:if test="${empty OrderRecentList }">
-								<tr>
-									<td colspan="5"><h3>최근 구매내역이 없습니다.</h3></td>
-								</tr>
 							</c:if>
 						</table>
 					</div> <!-- member_order END -->
@@ -151,5 +189,6 @@
 		</div>
 	</div>
 </body>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member_order.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </html>

@@ -137,4 +137,17 @@
 		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.order_no}</foreach>
 		order by order_no desc
 	</select>
+	
+	<select id="noOrderDetail" resultType="com.spring.model.OrderDTO">
+		select * from ordert where order_no = #{no}
+	</select>
+	
+	<select id="orderProNO" resultType="com.spring.model.OrderDetailDTO">
+		select * from order_detail where order_no = #{no}
+	</select>
+	
+	<select id="couponCont" resultType="com.spring.model.CouponDTO">
+		select * from coupon where coupon_no = #{no}
+	</select>
+
 </mapper>

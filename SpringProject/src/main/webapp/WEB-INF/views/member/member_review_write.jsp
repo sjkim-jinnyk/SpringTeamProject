@@ -20,7 +20,7 @@
 			<div class="member_container">
 				<!-- header_title -->
 				<div class="header_title">
-					<a href="<%=request.getContextPath() %>/member_home.do?id=${mem.getMem_id() }"><h3>My Page</h3></a>
+					<a href="<%=request.getContextPath() %>/member_home.do}"><h3>My Page</h3></a>
 				</div> <!-- header_title END -->
 				
 				<!-- member_header -->
@@ -74,7 +74,7 @@
 				<div class="member_content">
 					<div class="nav_menu">
 						<ul>
-							<a href="<%=request.getContextPath() %>/member_orderList.do"><li>주문내역</li></a>
+							<a href="<%=request.getContextPath() %>/member_home.do"><li>주문내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_qna.do"><li>문의내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_recent.do"><li>최근 본 상품</li></a>
 							<a href="<%=request.getContextPath() %>/member_info.do"><li>정보관리</li></a>
