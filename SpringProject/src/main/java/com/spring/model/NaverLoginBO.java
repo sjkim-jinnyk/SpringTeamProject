@@ -88,7 +88,7 @@ public class NaverLoginBO {
 		
 		profile.add("Authorization", "Bearer" + naverOauthParams.getAccess_token());
 		
-		HttpEntity<HttpHeaders> profileEntity = new HttpEntity<>(profile);
+		HttpEntity<HttpHeaders> profileEntity = new HttpEntity<HttpHeaders>(profile);
 		
 		RestTemplate rt2 = new RestTemplate();
 		rt2.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
