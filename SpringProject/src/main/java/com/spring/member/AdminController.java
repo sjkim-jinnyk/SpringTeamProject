@@ -48,6 +48,30 @@ public class AdminController {
 
 	}
 
+	@RequestMapping("product_insert.do")
+	public String insert() {
+		
+		return "priduct_insert";
+		
+	}
+	
+	
+
+	@RequestMapping("admin_cont.do")
+	public String content(@RequestParam("no") int member_no,
+			@RequestParam("page") int nowPage, Model model) {
+		
+		// 게시글 상세내역 조회하는 메서드 호출
+		AdminDTO dto = this.dao.memberCont(member_no);
+		
+		model.addAttribute("content", dto);
+		
+		model.addAttribute("page", nowPage);
+		
+		return "admin/admin_content";
+		
+	}
+	
 	@RequestMapping("/member_search.do")
 	public String search(@RequestParam("field") String field, @RequestParam("keyword") String keyword, Model model, HttpServletRequest request) {
 		

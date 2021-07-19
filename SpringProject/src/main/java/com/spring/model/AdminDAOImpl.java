@@ -55,5 +55,11 @@ public class AdminDAOImpl implements AdminDAO{
 		return null;
 	}
 
+	@Override
+	public AdminDTO memberCont(int no) {
+		
+		return this.sqlSession.selectOne("content", no);
+	}
+
 
 }

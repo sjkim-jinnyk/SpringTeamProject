@@ -6,9 +6,10 @@ import java.util.List;
 public interface AdminDAO {
 
 	int getListCount();
-
 	List<AdminDTO> getMemberList(PageDTO dto);
 
+	AdminDTO memberCont(int no);	// 회원 상세 내역 호출 
+	
 	int insertProduct(ProductDTO dto); // 상품 등록
 
 	int updateProduct(ProductDTO dto); // 상품 수정
