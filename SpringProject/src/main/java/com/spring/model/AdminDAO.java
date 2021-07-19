@@ -18,6 +18,8 @@ public interface AdminDAO {
 	int searchMemberListCount(HashMap<String, String> hm);
 	List<AdminDTO>searchMemberList(PageDTO dto);
 	
+	List<CateDTO> getCateList();			// 상품 카테고리 조회
+	
 
 	
 

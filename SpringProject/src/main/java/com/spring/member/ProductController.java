@@ -153,8 +153,11 @@ public class ProductController {
 
 		PageDTO qpageDTO = new PageDTO(qpage, rowsize, qtotalRecord, pro_no);
 		List<QnaDTO> qlist = this.pdao.getProQnaList(qpageDTO);
-		List<QnaDTO> alist = this.pdao.getProQnaAnswerList(qlist);	// 답변
-
+		
+		if(qlist.size() != 0) {
+			List<QnaDTO> alist = this.pdao.getProQnaAnswerList(qlist);	// 답변
+			model.addAttribute("answer", alist);
+		}
 		model.addAttribute("cont", pdto);
 
 		model.addAttribute("likeCheck", likeCheck);
@@ -171,7 +174,6 @@ public class ProductController {
 		model.addAttribute("qna", qlist);
 		model.addAttribute("qpage", qpageDTO);
 		model.addAttribute("qtotal", qtotalRecord);
-		model.addAttribute("answer", alist);
 
 		return "product/product_cont";
 	}
