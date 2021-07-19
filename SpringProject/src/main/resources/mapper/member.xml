@@ -14,7 +14,7 @@
 		select * from ordert where order_mem_id = #{id} order by order_no desc
 	</select>
 	
-	<select id="content" resultType="com.spring.model.MemberDTO">
+	<select id="memberContent" resultType="com.spring.model.MemberDTO">
 		select * from member where mem_id = #{id}
 	</select>
 	

@@ -61,7 +61,7 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public MemberDTO getMemberInfo(String id) {
 
-		return this.sqlSession.selectOne("content", id);
+		return this.sqlSession.selectOne("memberContent", id);
 	}
 
 	// 특정 회원 쿠폰 수 호출 메서드
