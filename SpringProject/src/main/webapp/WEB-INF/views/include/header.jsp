@@ -31,6 +31,17 @@ $(document).mouseup(function(e){
 	}
 });
 
+$(document).ready(function(){ 
+	$("#toggle_btn").mouseover(function(){ 
+		if($("#hidden_list").is(":visible")){ 
+			$("#hidden_list").slideUp(); 
+		}else{ 
+			$("#hidden_list").slideDown(); 
+		} 
+	}); 
+});
+
+
 </script>
 <body>
 
@@ -76,7 +87,14 @@ $(document).mouseup(function(e){
 						${dto.getMem_name() }님 환영합니다. 
 					</c:if>
 					
-					
+					<div id="drop_menu">
+						<span id="toggle_btn">고객센터</span>
+						<ul id="hidden_list">
+							<li><a href="#">자주하는 질문</a></li>
+							<li><a href="#">1:1 문의</a></li>
+							<li><a href="#">공지사항</a></li>
+						</ul>
+					</div>
 				</div>
 			</div>
 			
