@@ -37,6 +37,11 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 	
     config.filebrowserUploadMethod = 'form';
+    
+    config.enterMode               = CKEDITOR.ENTER_BR;
+    config.shiftEnterMode             = CKEDITOR.ENTER_DIV;
+    config.fillEmptyBlocks = false;
+    CKEDITOR.dtd.$removeEmpty['i'] = false;
 };
 
 CKEDITOR.on('dialogDefinition', function( ev ){

@@ -9,13 +9,13 @@
 	<!-- ::: product_list ::: -->
 	
 	<select id="productTotalRecord" resultType="int">
-		select count(*) from product
+		select count(*) from product where pro_check = 'y'
 	</select>
 	
 	<select id="productList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.ProductDTO">
 		<![CDATA[ 
 			select * from (select p.*, row_number() over(order by pro_no desc) rnum from product p where pro_check = 'y')
-			where rnum >= #{startNo} and rnum <= ${endNo}
+			where rnum >= #{startNo} and rnum <= #{endNo}
 		]]>
 	</select>
 	
@@ -36,7 +36,7 @@
 	<select id="proReviewList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.ReviewDTO">
 		<![CDATA[ 
 			select * from (select r.*, row_number() over(order by review_no desc) rnum from review r where review_pro = #{no})
-			where rnum >= #{startNo} and rnum <= ${endNo}
+			where rnum >= #{startNo} and rnum <= #{endNo}
 		]]>
 	</select>
 	
@@ -47,7 +47,7 @@
 	<select id="proReviewPhotoList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.ReviewDTO">
 		<![CDATA[ 
 			select * from (select r.*, row_number() over(order by review_no desc) rnum from review r where review_pro = #{no} and review_img is not null)
-			where rnum >= #{startNo} and rnum <= ${endNo}
+			where rnum >= #{startNo} and rnum <= #{endNo}
 		]]>
 	</select>	
 	
@@ -65,7 +65,7 @@
 	<select id="proQnaList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.QnaDTO">
 		<![CDATA[ 
 			select * from (select q.*, row_number() over(order by qna_group desc, qna_step) rnum from qna q where qna_pro = #{no} and qna_step = 0)
-			where rnum >= #{startNo} and rnum <= ${endNo}
+			where rnum >= #{startNo} and rnum <= #{endNo}
 		]]>
 	</select>
 	
@@ -78,7 +78,7 @@
 		<selectKey keyProperty="qna_no" resultType="int" order="BEFORE">
 			select max(qna_no)+1 from qna
 		</selectKey>
-		insert into qna values(#{qna_no}, #{qna_writer}, #{qna_pro}, #{qna_title}, #{qna_cont}, null, #{qna_category_no}, sysdate, ${qna_no}, default, #{qna_secret})
+		insert into qna values(#{qna_no}, #{qna_writer}, #{qna_pro}, #{qna_title}, #{qna_cont}, null, #{qna_category_no}, sysdate, #{qna_no}, default, #{qna_secret})
 	</insert>
 	
 	<delete id="deleteQna" parameterType="int">
@@ -90,14 +90,14 @@
 	</select>
 	
 	<update id="updateProQna" parameterType="com.spring.model.QnaDTO">
-		update qna set qna_title = #{qna_title}, qna_cont = #{qna_cont}, qna_secret = ${qna_secret} where qna_no = ${qna_no}
+		update qna set qna_title = #{qna_title}, qna_cont = #{qna_cont}, qna_secret = #{qna_secret} where qna_no = #{qna_no}
 	</update>
 	
 	<insert id="proQnaAns" parameterType="com.spring.model.QnaDTO">
 		<selectKey keyProperty="qna_no" resultType="int" order="BEFORE">
 			select max(qna_no)+1 from qna
 		</selectKey>
-		insert into qna values(#{qna_no}, #{qna_writer}, #{qna_pro}, #{qna_title}, #{qna_cont}, null, #{qna_category_no}, sysdate, ${qna_group}, (select max(qna_step)+1 from qna where qna_group = #{qna_group}), #{qna_secret})
+		insert into qna values(#{qna_no}, #{qna_writer}, #{qna_pro}, #{qna_title}, #{qna_cont}, null, #{qna_category_no}, sysdate, #{qna_group}, (select max(qna_step)+1 from qna where qna_group = #{qna_group}), #{qna_secret})
 	</insert>
 	
 	
@@ -107,7 +107,7 @@
 		<![CDATA[ 
 			select * from (select p.*, row_number() over(order by pro_no desc) rnum from product p 
 			where pro_check = 'y' and pro_name like '%' || #{keyword} || '%' or pro_tag like '%' || #{keyword} || '%')
-			where rnum >= #{startNo} and rnum <= ${endNo}
+			where rnum >= #{startNo} and rnum <= #{endNo}
 		]]>
 	</select>
 	
@@ -125,7 +125,7 @@
 		<![CDATA[ 
 			select * from (select p.*, row_number() over(order by pro_no desc) rnum from product p 
 			where pro_check = 'y' and pro_tag like '%' || #{keyword} || '%')
-			where rnum >= #{startNo} and rnum <= ${endNo}
+			where rnum >= #{startNo} and rnum <= #{endNo}
 		]]>
 	</select>
 	

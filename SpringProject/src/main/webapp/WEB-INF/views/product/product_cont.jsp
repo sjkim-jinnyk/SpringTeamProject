@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="resources/css/product.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<title>Insert title here</title>
+<title>울퉁불퉁's - ${cont.getPro_name() }</title>
 </head>
 <script type="text/javascript">
 
@@ -85,7 +85,7 @@ function showReview(id){
 function addLike(product_no){
 	if('${session_id}' == ''){
 		alert('로그인 후 사용가능합니다.');
-		window.open("login.do", "질문글 답변하기", "_blank");
+		window.open("login.do", "로그인 창", "_blank");
 		return;
 	}
 	
@@ -122,7 +122,7 @@ function addLike(product_no){
 				<c:if test="${!empty cont }">
 					<div class="product-cont">
 						<div class="cont-photo-wrap">
-							<img class="cont-photo" src="resources/img/product/${dto.getPro_img() }">
+							<img class="cont-photo" src="resources/img/upload/${dto.getPro_img() }">
 							
 							<div class="cont-photo-mini">
 								<img src="">
@@ -178,7 +178,7 @@ function addLike(product_no){
 				
 				
 					<div id="content-detail" class="content-detail">
-						${dto.getPro_cont() }
+						<span class="pro-cont">${dto.getPro_cont() }</span>
 					</div>
 				
 				</c:if>
@@ -216,7 +216,7 @@ function addLike(product_no){
 										
 											
 											<c:if test="${!empty dto.getReview_img() }">
-												<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/review/${dto.getReview_img() }"></a>
+												<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/upload/${dto.getReview_img() }"></a>
 											</c:if>
 										</div>
 									
@@ -224,7 +224,7 @@ function addLike(product_no){
 											<span class="review-cont" style="white-space:pre;"><a href="javascript:void(0);" onclick="showReview(${status.index });"><c:out value="${dto.getReview_cont() }" /></a></span>
 											<div class="review-img">
 												<c:if test="${!empty dto.getReview_img() }">
-													<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/review/${dto.getReview_img() }"></a>
+													<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/upload/${dto.getReview_img() }"></a>
 												</c:if>									
 											</div>
 										</div>
@@ -286,7 +286,7 @@ function addLike(product_no){
 										
 											
 											<c:if test="${!empty dto.getReview_img() }">
-												<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/review/${dto.getReview_img() }"></a>
+												<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/upload/${dto.getReview_img() }"></a>
 											</c:if>
 										</div>
 									
@@ -294,7 +294,7 @@ function addLike(product_no){
 											<span class="review-cont" style="white-space:pre;"><a href="javascript:void(0);" onclick="showReview(${status.index });"><c:out value="${dto.getReview_cont() }" /></a></span>
 											<div class="review-img">
 												<c:if test="${!empty dto.getReview_img() }">
-													<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/review/${dto.getReview_img() }"></a>
+													<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/upload/${dto.getReview_img() }"></a>
 												</c:if>									
 											</div>
 										</div>

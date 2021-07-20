@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="resources/css/product.css">
-<title>Insert title here</title>
+<title>울퉁불퉁's 장바구니</title>
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
@@ -117,7 +117,7 @@ function total() {
 							<div class="history" id="history-${status.index }">
 								<input id="cart-no-${status.index }" type="hidden" value="${dto.getCart_no() }">
 								<input name="check" type="checkbox" value="${dto.getCart_no() }">
-								<a href="<%=request.getContextPath()%>/product_cont.do?no=${pList[status.index].getPro_no()}"><img src="resources/img/product/${pList[status.index].getPro_img() }"></a>
+								<a href="<%=request.getContextPath()%>/product_cont.do?no=${pList[status.index].getPro_no()}"><img src="resources/img/upload/${pList[status.index].getPro_img() }"></a>
 								
 								<div class="pro-content">
 									<c:forEach items="${pList[status.index].getPro_tags() }" var="tags">

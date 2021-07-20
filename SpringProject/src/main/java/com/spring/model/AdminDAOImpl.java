@@ -33,14 +33,14 @@ public class AdminDAOImpl implements AdminDAO{
 
 	@Override
 	public int updateProduct(ProductDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return this.sqlSession.update("updateProduct", dto);
 	}
 
 	@Override
-	public int deletProduct(int no) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteProduct(int no) {
+		
+		return this.sqlSession.delete("deleteProduct", no);
 	}
 
 	@Override
@@ -60,6 +60,50 @@ public class AdminDAOImpl implements AdminDAO{
 		
 		return this.sqlSession.selectList("cateList");
 	}
+
+	@Override
+	public int getProductAllListCount() {
+		
+		return this.sqlSession.selectOne("proAllListCount");
+	}
+
+	@Override
+	public List<ProductDTO> getProductAllList(PageDTO dto) {
+		 
+		return this.sqlSession.selectList("proAllList", dto);
+	}
+
+	@Override
+	public CateDTO getProductCate(int no) {
+		
+		return this.sqlSession.selectOne("productCate", no);
+	}
+
+	@Override
+	public int updateProductNoImg(ProductDTO dto) {
+		
+		return this.sqlSession.update("updateProductNoImg", dto);
+	}
+
+	@Override
+	public int insertCategory(CateDTO dto) {
+		 
+		return this.sqlSession.insert("insertCate", dto);
+	}
+	
+	@Override
+	public int updateCate(CateDTO dto) {
+		
+		return this.sqlSession.update("updateCate", dto);
+	}
+
+	@Override
+	public int deleteCate(int no) {
+		 
+		return this.sqlSession.delete("deleteCate", no);
+	}
+
+	
 
 
 }

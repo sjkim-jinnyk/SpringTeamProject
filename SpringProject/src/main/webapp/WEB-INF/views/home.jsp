@@ -11,7 +11,7 @@
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="include/header.jsp" />
-			
+
 			<div id="section1"> <!-- 슬라이드 -->
 				<div class="slide_bg">[슬라이드 배경 이미지]</div>
 				<div class="slide_title">1년을 기다린 맛!<br>햇출하, 초당옥수수</div>

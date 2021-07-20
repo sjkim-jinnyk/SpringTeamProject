@@ -53,13 +53,6 @@ function addLike(product_no, index){
 		<jsp:include page="../include/header.jsp" />
 		<jsp:include page="../include/recent.jsp" />
 			<div class="main">	
-	
-			<div class="search">
-				<form method="post" action="product_search.do">		
-					<input type="search" name="k" placeholder="${keyword }">
-					<input type="submit" value="검색"> 
-					</form>
-			</div>
 			
 			<div class="category">
 				<a class="category-menu" href="#">category1</a>|
@@ -71,7 +64,7 @@ function addLike(product_no, index){
 			<c:if test="${!empty List }">
 				<c:forEach items="${List }" var="dto" varStatus="status">
 					<div class="product">
-							<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/product/${dto.getPro_img() }"></a>
+							<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/upload/${dto.getPro_img() }"></a>
 							
 							<div class="product-info">
 							
