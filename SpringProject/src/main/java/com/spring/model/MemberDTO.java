@@ -15,4 +15,7 @@ public class MemberDTO {
 	private int mem_point;
 	private String mem_regdate;
 	
+	private String mem_sns_type;
+	private String mem_sns_id;
+	
 }

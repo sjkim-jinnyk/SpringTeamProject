@@ -88,11 +88,15 @@
 					</div> <!-- nav_menu END -->
 					
 					<div class="member_order">
-						<form method="post" action="<%=request.getContextPath()%>/order_search.do">
-						<ul>
-							<li>
-								주문날짜
-							</li>
+						<h3 align="left">주문내역 조회</h3>
+						<form method="post" action="<%=request.getContextPath()%>/order_search.do" name="orderForm">
+						<ul class="select_day">
+							<div class="select_button">
+								<li><a id="sevenDay" class="off" href="#none">일주일</a></li>
+								<li><a id="month" class="off" href="#none">1개월</a></li>
+								<li><a id="threeMonth" class="off" href="#none">3개월</a></li>
+								<li><a id="allDay" class="on" href="#none">전체 시기</a></li>
+							</div>
 							<li>
 								<input type="date" id="orderFirst" name="orderFirst"> - 
 				    			<input type="date" id="orderLast" name="orderLast">
@@ -100,21 +104,21 @@
 							<li>
 								<input type="submit" value="검색">
 							</li>
-						</ul>
+						</ul>  
 						
 						</form>
 						<table class="order_bar" border="1">
 						<tr>
 							<th>주문번호</th><th>상품정보</th><th>주문일자</th><th>주문금액</th><th>주문상태</th>
 						</tr>
-						<c:if test="${!empty OrderSearchList}">
-						<c:forEach items="${OrderSearchList }" var="dto">
+						<c:if test="${!empty Order}">
+						<c:forEach items="${Order }" var="dto">
 							<tr>
 								<td>${dto.getOrder_no() }</td>
 								<td>${dto.getOrder_content() }</td>
 								<td>${dto.getOrder_date() }</td>
 								<td>${dto.getOrder_price() }</td>
-								<c:if test="${!empty deliver }">
+								<c:if test="${!empty Deliver }">
 									<c:forEach items="${Deliver }" var="del">
 										<c:if test="${dto.getOrder_no() == del.getOrder_no()}">
 												<c:if test="${del.getDeliver_status() == 0 }">
@@ -138,6 +142,35 @@
 								</tr>
 							</c:forEach>
 							</c:if>
+							<c:if test="${!empty OrderSearchList }">
+								<c:forEach items="${OrderSearchList }" var="dto">
+								<tr>
+									<td>${dto.getOrder_no() }</td>
+									<td>${dto.getOrder_content() }</td>
+									<td>${dto.getOrder_date() }</td>
+									<td>${dto.getOrder_price() }</td>
+										<c:forEach items="${DeliverS }" var="del">
+											<c:if test="${dto.getOrder_no() == del.getOrder_no()}">
+													<c:if test="${del.getDeliver_status() == 0 }">
+													<td>
+														배송 준비 중
+													</td>
+												</c:if>
+												<c:if test="${del.getDeliver_status() == 1 }">
+													<td>
+														배송중
+													</td>
+												</c:if>	
+												<c:if test="${del.getDeliver_status()  == 2 }">
+													<td>
+														배송완료
+													</td>
+												</c:if> 
+											</c:if>
+										</c:forEach>
+									</tr>
+								</c:forEach>
+							</c:if>
 						</table>
 					</div> <!-- member_order END -->
 				</div> <!-- member_content END-->
@@ -146,5 +179,5 @@
 		</div>
 	</div>
 </body>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member_order.js"></script>
 </html>

@@ -50,10 +50,10 @@ public class Member2Controller {
 		}
 	}
 	
-	@RequestMapping("login.do")
-	public String go_login() {
-		return "login/login_form";
-	}
+//	@RequestMapping("login.do")
+//	public String go_login() {
+//		return "login/login_form";
+//	}
 	
 	@RequestMapping("login_ok.do")
 	public void login(
@@ -72,7 +72,9 @@ public class Member2Controller {
 		
 		if(idCheck == 1) { // 아이디 맞음
 			if(pwdCheck > 0) { // 비밀번호 맞음 (같은 비번인 계정이 여러개일 수 있음)
-				session.setAttribute("session_id", login_info);
+				// session.setAttribute("session_id", login_info);
+				session.setAttribute("session_id", login_info.getMem_id());
+				session.setAttribute("session_mem", login_info);
 				out.println("<script>");
 				out.println("alert('로그인 성공')");
 				out.println("location.href='main.do'");

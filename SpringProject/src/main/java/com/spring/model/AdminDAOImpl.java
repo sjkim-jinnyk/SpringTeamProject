@@ -27,8 +27,8 @@ public class AdminDAOImpl implements AdminDAO{
 
 	@Override
 	public int insertProduct(ProductDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return this.sqlSession.insert("insertProduct", dto);
 	}
 
 	@Override
@@ -53,6 +53,17 @@ public class AdminDAOImpl implements AdminDAO{
 	public List<AdminDTO> searchMemberList(PageDTO dto) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public AdminDTO memberCont(int no) {
+		
+		return this.sqlSession.selectOne("content", no);
+	}
+
+	public List<CateDTO> getCateList() {
+		
+		return this.sqlSession.selectList("cateList");
 	}
 
 

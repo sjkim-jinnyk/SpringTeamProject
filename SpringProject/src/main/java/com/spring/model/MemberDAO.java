@@ -20,9 +20,11 @@ public interface MemberDAO {
 	public List<OrderDeliverDTO> getOrderDeliverList();						// 전체 회원 배송 리스트 호출 메서드
 	public List<OrderDTO> getOrderList(String id);							// 특정 회원 주문 리스트 호출 메서드
 
-	// 주문내역 탭 - 날짜로 조회
+	// 주문내역 탭 - 날짜, 상태로 조회
 	public List<OrderDTO> getOrderSearchList(Map map);						// 주문날짜로 주문내역 호출 
-	
+	public List<OrderDTO> getOrderRecentList(Map map);						// 현재 날짜를 기준으로 일주일 전 주문내역 호출
+	public List<OrderDeliverDTO> deliverSearchList(List<OrderDTO> list);	// 주문 상태에 맞는 주문 호출
+	public List<OrderDTO> deliverOrderSearch(List<OrderDeliverDTO> list);	
 	// coupon 
 	public List<CouponOwnDTO> getCouponList(String id);						// 특정 회원 쿠폰 리스트 호출 메서드
 	public List<CouponDTO> getCouponInfo(List<CouponOwnDTO> list); 			// 쿠폰 내역 호출 메서드

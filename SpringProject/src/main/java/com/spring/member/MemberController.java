@@ -2,7 +2,9 @@ package com.spring.member;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,8 @@ import com.spring.model.OrderDetailDTO;
 import com.spring.model.ProductDAO;
 import com.spring.model.ProductDTO;
 import com.spring.model.ProductLikeDTO;
+import com.spring.model.ProductRecentDAO;
+import com.spring.model.ProductRecentDTO;
 import com.spring.model.QnaCategoryDTO;
 import com.spring.model.QnaDTO;
 import com.spring.model.ReviewDTO;
@@ -35,6 +39,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberDAO dao;
+	
+	@Autowired
+	private ProductRecentDAO prdao;
 	
 	@RequestMapping("test.do")
 	public String test(Model model) {
@@ -52,9 +59,19 @@ public class MemberController {
 		
 		String id = (String) session.getAttribute("session_id");
 
-		MemberDTO mdto = this.dao.getMemberInfo(id);	// id에 해당하는 회원 정보
-		List<OrderDTO> odto = this.dao.getOrderList(id);	// id에 해당하는 주문 정보
+		MemberDTO mdto = this.dao.getMemberInfo(id);					// id에 해당하는 회원 정보
+
 		List<OrderDeliverDTO> oddto = this.dao.getOrderDeliverList(); // 배송 정보
+		
+		
+		// 현재 날짜를 map으로 넘겨 일주일 주문 내역 조회
+		SimpleDateFormat formatType = new SimpleDateFormat("yyyy-MM-dd");
+		Date time = new Date();
+		String today = formatType.format(time);
+		Map todaymap = new HashMap();
+		todaymap.put("today", today);
+		todaymap.put("id", id);
+		List<OrderDTO> recent = this.dao.getOrderRecentList(todaymap);
 		
 		// id에 해당하는 쿠폰 수
 		int coupon = this.dao.couponCount(id);	
@@ -73,10 +90,90 @@ public class MemberController {
 		model.addAttribute("Coupon", cdto);
 		model.addAttribute("Review", rdto);
 		model.addAttribute("Like", ldto);
+		model.addAttribute("Deliver", oddto);
+		
+		model.addAttribute("OrderRecentList", recent);
+		
+		return "member/member_home";
+	}
+	
+	// 주문내역 조회
+	@RequestMapping("member_orderList.do")
+	public String memberOrder(HttpSession session, Model model) {
+		String id = (String) session.getAttribute("session_id");
+		
+		MemberDTO dto = this.dao.getMemberInfo(id);
+		List<OrderDTO> odto = this.dao.getOrderList(id);	// id에 해당하는 주문 정보
+		List<OrderDeliverDTO> oddto = this.dao.getOrderDeliverList(); // 배송 정보
+
+		
+		// id에 해당하는 쿠폰 수
+		int coupon = this.dao.couponCount(id);	
+		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
+		
+		// id에 해당하는 리뷰 수
+		int review = this.dao.reviewCount(id);	
+		ReviewDTO reviewcount = new ReviewDTO(review);
+		
+		// id에 해당하는 찜 수
+		int like = this.dao.likeCount(id);		
+		ProductLikeDTO ldto = new ProductLikeDTO(like);
+		
+		
+		model.addAttribute("Coupon", countCoupon);
+		model.addAttribute("Review", reviewcount);
+		model.addAttribute("Like", ldto);
+		model.addAttribute("Cont", dto);
 		model.addAttribute("Order", odto);
 		model.addAttribute("Deliver", oddto);
 		
-		return "member/member_home";
+		return "member/member_order";
+	}
+	
+	// 주문내역 검색 조회
+	@RequestMapping("order_search.do")
+	public String memberOrderSearch(HttpSession session, Model model, @RequestParam("orderFirst") String orderFirst, @RequestParam("orderLast") String orderLast) {
+		
+		String id = (String) session.getAttribute("session_id");
+		
+		// 검색 날짜를 map에 저장하여 넘겨주기
+		Map map = new HashMap();
+		map.put("first", orderFirst);
+		map.put("last", orderLast);
+		map.put("id", id);
+		
+		List<OrderDTO> olist = this.dao.getOrderSearchList(map);
+		System.out.println("olist : " + olist);
+		
+		List<OrderDeliverDTO> oddto = this.dao.getOrderDeliverList(); // 배송 정보
+		List<OrderDeliverDTO> oddto_search = this.dao.getOrderDeliverList(); // 배송 정보
+		System.out.println("배송정보 : " + oddto);
+		System.out.println("배송정보 : " + oddto_search);
+		
+		MemberDTO dto = this.dao.getMemberInfo(id);
+		
+		// id에 해당하는 쿠폰 수
+		int coupon = this.dao.couponCount(id);	
+		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
+		
+		// id에 해당하는 리뷰 수
+		int review = this.dao.reviewCount(id);	
+		ReviewDTO reviewcount = new ReviewDTO(review);
+		
+		// id에 해당하는 찜 수
+		int like = this.dao.likeCount(id);		
+		ProductLikeDTO ldto = new ProductLikeDTO(like);
+		
+		
+		model.addAttribute("Coupon", countCoupon);
+		model.addAttribute("Review", reviewcount);
+		model.addAttribute("Like", ldto);
+		model.addAttribute("Cont", dto);
+		model.addAttribute("OrderSearchList", olist);
+		model.addAttribute("Deliver ", oddto); 
+		model.addAttribute("DeliverS", oddto_search);
+		model.addAttribute("map", map);
+		return "member/member_order";
 	}
 	
 	// 쿠폰 페이지
@@ -288,75 +385,7 @@ public class MemberController {
 		}
 	}
 	
-	// 주문내역 조회
-	@RequestMapping("member_orderList.do")
-	public String memberOrder(HttpSession session, Model model) {
-		String id = (String) session.getAttribute("session_id");
-		
-		MemberDTO dto = this.dao.getMemberInfo(id);
-		
-		// id에 해당하는 쿠폰 수
-		int coupon = this.dao.couponCount(id);	
-		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
-		
-		// id에 해당하는 리뷰 수
-		int review = this.dao.reviewCount(id);	
-		ReviewDTO reviewcount = new ReviewDTO(review);
-		
-		// id에 해당하는 찜 수
-		int like = this.dao.likeCount(id);		
-		ProductLikeDTO ldto = new ProductLikeDTO(like);
-		
-		
-		model.addAttribute("Coupon", countCoupon);
-		model.addAttribute("Review", reviewcount);
-		model.addAttribute("Like", ldto);
-		model.addAttribute("Cont", dto);
-		
-		return "member/member_order";
-	}
 	
-	// 주문내역 검색 조회
-	@RequestMapping("order_search.do")
-	public String memberOrderSearch(HttpSession session, Model model, @RequestParam("orderFirst") String orderFirst, @RequestParam("orderLast") String orderLast) {
-		
-		String id = (String) session.getAttribute("session_id");
-		
-		Map map = new HashMap();
-		map.put("first", orderFirst);
-		map.put("last", orderLast);
-		map.put("id", id);
-		System.out.println("map" + map);
-		
-		List<OrderDTO> olist = this.dao.getOrderSearchList(map);
-		System.out.println("olist : " + olist);
-		
-		List<OrderDeliverDTO> oddto = this.dao.getOrderDeliverList(); // 배송 정보
-		System.out.println("배송정보 : " + oddto);
-		
-		MemberDTO dto = this.dao.getMemberInfo(id);
-		
-		// id에 해당하는 쿠폰 수
-		int coupon = this.dao.couponCount(id);	
-		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
-		
-		// id에 해당하는 리뷰 수
-		int review = this.dao.reviewCount(id);	
-		ReviewDTO reviewcount = new ReviewDTO(review);
-		
-		// id에 해당하는 찜 수
-		int like = this.dao.likeCount(id);		
-		ProductLikeDTO ldto = new ProductLikeDTO(like);
-		
-		
-		model.addAttribute("Coupon", countCoupon);
-		model.addAttribute("Review", reviewcount);
-		model.addAttribute("Like", ldto);
-		model.addAttribute("Cont", dto);
-		model.addAttribute("OrderSearchList", olist);
-		model.addAttribute("Deliver ", oddto);
-		return "member/member_order";
-	}
 
 	// 회원 정보 & 수정
 	@RequestMapping("member_info.do")
@@ -574,4 +603,42 @@ public class MemberController {
 		
 		return "member/member_qnaCont";
 	}
+	
+	// 최근 본 상품
+	@RequestMapping("member_recent.do")
+	public String memberRecent(HttpSession session, Model model) {
+		
+		String id = (String) session.getAttribute("session_id");
+		MemberDTO dto = this.dao.getMemberInfo(id);
+		
+		int check = this.prdao.recentCheck(id); // 최근 본 상품 여부 확인
+
+		if (check > 0) { // 최근 본 상품이 있는 경우
+			List<ProductRecentDTO> list = this.prdao.getRecentList(id);
+			for (int i = 0; i < list.size(); i++) {
+				list.get(i).getProductDTO().tag_split();
+			}
+			model.addAttribute("list", list);
+		}
+		
+		// id에 해당하는 쿠폰 수
+		int coupon = this.dao.couponCount(id);	
+		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
+		
+		// id에 해당하는 리뷰 수
+		int review = this.dao.reviewCount(id);	
+		ReviewDTO reviewcount = new ReviewDTO(review);
+		
+		// id에 해당하는 찜 수
+		int like = this.dao.likeCount(id);		
+		ProductLikeDTO ldto = new ProductLikeDTO(like);
+	
+		model.addAttribute("Coupon", countCoupon);
+		model.addAttribute("Review", reviewcount);
+		model.addAttribute("Like", ldto);
+		model.addAttribute("Cont", dto);
+		
+		return "member/member_recent";
+	}
+	
 }
