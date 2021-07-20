@@ -14,17 +14,17 @@ public class ReviewDAOImpl implements ReviewDAO {
 
 	@Override
 	public int getReivewListCount() {
-		return this.sqlSession.selectOne("reviewCount");
+		return this.sqlSession.selectOne("review_count");
 	}
 
 	@Override
 	public List<ReviewDTO> getReviewList(PageDTO dto) {
-		return this.sqlSession.selectList("reviewList", dto);
+		return this.sqlSession.selectList("review_list", dto);
 	}
 
 	@Override
 	public ReviewDTO getReviewCont(int no) {
-		return this.sqlSession.selectOne("reviewCont", no);
+		return this.sqlSession.selectOne("review_cont", no);
 	}
 	
 }

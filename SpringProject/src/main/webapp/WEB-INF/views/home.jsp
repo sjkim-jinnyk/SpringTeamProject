@@ -10,7 +10,7 @@
 
 	<div class="layout_container">
 		<div class="main">
-			<jsp:include page="include/header.jsp" />
+			<jsp:include page="include/header.jsp"/>
 			
 			<div id="section1"> <!-- 슬라이드 -->
 				<div class="slide_bg">[슬라이드 배경 이미지]</div>

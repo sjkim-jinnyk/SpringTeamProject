@@ -21,7 +21,18 @@
 			<c:if test="${!empty List }">
 				<c:forEach items="${List }" var="dto">
 					<div class="review">
-						<a href="<%=request.getContextPath() %>/review_cont.do?no="></a>
+						
+						<div class="below">
+							<div class="img">[해당 상품 사진]</div>
+							<span>${dto.getReview_pro() }</span>
+							<c:forEach begin="1" end="${dto.getReview_star() }" >★</c:forEach>
+						</div>
+						
+						<div class="under">
+							<span>${dto.getReview_title() }</span>
+							<span>${dto.getReview_writer) }</span>
+						</div>
+						
 					</div>
 				</c:forEach>
 			</c:if>
@@ -29,6 +40,29 @@
 			<c:if test="${empty List }">
 				등록된 리뷰가 없습니다.
 			</c:if>
+			
+			<%-- <div class="pagination">
+				<c:if test="${page.getPage() > page.getBlock() }">
+					<a href="review_list.do?page=1">◀◀</a>
+	   				<a href="review_list.do?page=${Paging.getStartBlock() - 1 }">◀</a>
+				</c:if>
+				
+				<c:forEach begin="${page.getStartBlock() }" end="${page.getEndBlock() }" var="i">
+			      <c:if test="${i == page.getPage() }">
+			         <b><a href="review_list.do?page=${i }">${i }</a></b>
+			      </c:if>
+			      
+			      <c:if test="${i != page.getPage() }">
+			         <a href="review_list.do?page=${i }">${i }</a>
+			      </c:if>
+			   </c:forEach>
+			   
+			   <c:if test="${page.getEndBlock() < page.getAllPage() }">
+			      <a href="review_list.do?page=${page.getEndBlock() +1 }">▶</a>
+			      <a href="review_list.do?page=${page.getAllPage() }">▶▶</a>
+			   </c:if>
+				
+			</div> --%>
 			
 			
 			<jsp:include page="../include/footer.jsp" />

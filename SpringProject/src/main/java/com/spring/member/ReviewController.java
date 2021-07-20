@@ -2,8 +2,11 @@ package com.spring.member;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.model.PageDTO;
@@ -21,9 +24,24 @@ public class ReviewController {
 	private int rowsize = 0;
 	
 	@RequestMapping("review_list.do")
-	public String review_list() {
+	public String review_list(HttpServletRequest request, Model model) {
 		
-	
+		int page = 0;
+
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		} else {
+			page = 1;
+		}
+		
+		rowsize = 8;
+		totalRecord = this.dao.getReivewListCount();
+				
+		PageDTO pageDTO = new PageDTO(page, rowsize, totalRecord);
+		List<ReviewDTO> list = this.dao.getReviewList(pageDTO);
+		
+		model.addAttribute("page", pageDTO);
+		
 		return "review/review_list";
 	}
 	
