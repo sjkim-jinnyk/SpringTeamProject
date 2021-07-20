@@ -39,24 +39,24 @@
 
 				<table border="1" cellspacing="0" width="500">
 					<tr>
-						<th>회원번호</th>
+						
 						<th>회원성명</th>
 						<th>전화번호</th>
 						<th>주소</th>
 						<th>가입일자</th>
-						<th>적립금</th>
+						
 					</tr>
 
 					<c:set var="list" value="${searchList }" />
 					<c:if test="${!empty list }">
 						<c:forEach items="${list }" var="dto">
 							<tr>
-								<td>${dto.getMem_no() }</td>
+								
 								<td>${dto.getMem_name() }</td>
 								<td>${dto.getMem_phone() }</td>
 								<td>${dto.getMem_addr() }</td>
 								<td>${dto.getMem_regdate().substring(0,10) }</td>
-								<td>${dto.getMem_point() }</td>
+								
 							</tr>
 						</c:forEach>
 					</c:if>
@@ -85,7 +85,7 @@
 					<c:forEach begin="${page.getStartBlock() }"
 						end="${page.getEndBlock() }" var="i">
 						<c:if test="${i == page.getPage() }">
-							<b><a href="product_list.do?page=${i }">${i }</a></b>
+							<b><a href="admin_list.do?page=${i }">${i }</a></b>
 						</c:if>
 
 						<c:if test="${i != page.getPage() }">

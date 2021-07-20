@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%	HttpSession session1 = request.getSession();
+	String session_id = (String)session.getAttribute("session_id"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <title>Member</title>
 </head>
 <body>
@@ -14,7 +18,7 @@
 		<div class="main">
 			<jsp:include page="../include/header.jsp" />
 			<c:set var="mem" value="${Cont }" />
-			
+			 
 			<div class="member_container">
 				<!-- header_title -->
 				<div class="header_title">

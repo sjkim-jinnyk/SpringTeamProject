@@ -11,5 +11,20 @@ public class ReviewDAOImpl implements ReviewDAO {
 
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+
+	@Override
+	public int getReivewListCount() {
+		return this.sqlSession.selectOne("reviewCount");
+	}
+
+	@Override
+	public List<ReviewDTO> getReviewList(PageDTO dto) {
+		return this.sqlSession.selectList("reviewList", dto);
+	}
+
+	@Override
+	public ReviewDTO getReviewCont(int no) {
+		return this.sqlSession.selectOne("reviewCont", no);
+	}
 	
 }

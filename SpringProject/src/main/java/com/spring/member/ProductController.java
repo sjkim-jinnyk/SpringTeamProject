@@ -2,7 +2,6 @@ package com.spring.member;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -154,7 +153,11 @@ public class ProductController {
 
 		PageDTO qpageDTO = new PageDTO(qpage, rowsize, qtotalRecord, pro_no);
 		List<QnaDTO> qlist = this.pdao.getProQnaList(qpageDTO);
-
+		
+		if(qlist.size() != 0) {
+			List<QnaDTO> alist = this.pdao.getProQnaAnswerList(qlist);	// 답변
+			model.addAttribute("answer", alist);
+		}
 		model.addAttribute("cont", pdto);
 
 		model.addAttribute("likeCheck", likeCheck);
@@ -171,8 +174,6 @@ public class ProductController {
 		model.addAttribute("qna", qlist);
 		model.addAttribute("qpage", qpageDTO);
 		model.addAttribute("qtotal", qtotalRecord);
-
-		model.addAttribute("session_id", user_id);
 
 		return "product/product_cont";
 	}
@@ -224,9 +225,6 @@ public class ProductController {
 		String field = "";
 		PageDTO pageDTO = new PageDTO(page, rowsize, totalRecord, field, keyword);
 		List<ProductDTO> list = this.pdao.getSearchTagList(pageDTO);
-
-		System.out.println("pageDTO >> " + pageDTO);
-		System.out.println("list >> " + list);
 
 		for (int i = 0; i < list.size(); i++) {
 			list.get(i).tag_split();

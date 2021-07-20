@@ -21,5 +21,45 @@
 				   where rnum >= #{startNo} and rnum <= #{endNo} 
 		]]>
 	</select>
+	
+	<select id="content" parameterType="int" 
+							resultType="com.spring.model.AdminDTO">
+		select * from member where mem_no = #{no}
+	</select>	
+	
+	<insert id="add" parameterType="com.spring.model.ProductDTO">
+		<selectKey resultType="int" keyProperty="pro_no" order="BEFORE">
+			select count(*) + 1 from product
+		</selectKey>
+		
+		insert into product values(#{pro_no}, #{pro_name}, #{pro_category}
+					, #{pro_input_price}, #{pro_output_price}, #{pro_tag}
+					, #{pro_check}, #{pro_img}, #{pro_cont})		
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- :::::::::::::::::::::: 관리자 상품관련 :::::::::::::::::::::: -->
+	
+	<insert id="insertProduct">
+		<selectKey keyProperty="pro_no" resultType="int" order="BEFORE">
+			select max(pro_no) + 1 from product
+		</selectKey>
+		insert into product values(#{pro_no}, #{pro_name}, #{pro_category}, #{pro_input_price}, #{pro_output_price}, #{pro_tag}, #{pro_check}, #{pro_img}, #{pro_cont})
+	</insert>
+	
+	<select id="cateList" resultType="com.spring.model.CateDTO">
+		select * from cate
+	</select>
+	
+	
+	
+	<!-- :::::::::::::::::::::: 관리자 상품관련 end :::::::::::::::::::::: -->
+	
 </mapper>
   

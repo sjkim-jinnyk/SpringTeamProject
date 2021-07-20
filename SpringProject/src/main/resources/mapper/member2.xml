@@ -10,15 +10,15 @@
 	</select>
 	
 	<select id="memberInfo" parameterType="String" resultType="com.spring.model.MemberDTO">
-		select * from member where mem_id = ${id}
+		select * from member where mem_id = #{id}
 	</select>
 	
-	<insert id="add" parameterType="com.spring.model.MemberDTO">
+	<insert id="memberAdd" parameterType="com.spring.model.MemberDTO">
 		<selectKey resultType="int" keyProperty="mem_no" order="BEFORE">
 			select count(*)+1 from member
 		</selectKey>
 		insert into member values(#{mem_no}, #{mem_id}, #{mem_pwd}, #{mem_name}, 
-		#{mem_phone}, #{mem_zip}, #{mem_addr}, 0, sysdate)
+		#{mem_phone}, #{mem_zip}, #{mem_addr}, 0, sysdate, null, null)
 	</insert>
 	
 	<select id="idCheck" parameterType="com.spring.model.MemberDTO" resultType="int">
@@ -29,6 +29,22 @@
 		select count(*) from member where mem_pwd = #{mem_pwd}
 	</select>
 	
+	<select id="findId" parameterType="String" resultType="String">
+		select mem_id from member where mem_phone = #{mem_phone}
+	</select>
 	
+	<select id="findPwd" parameterType="String" resultType="String">
+		select mem_pwd from member where mem_id = #{mem_id}
+	</select>
+	
+	<select id="id_overlap" parameterType="com.spring.model.MemberDTO" 
+		resultType="com.spring.model.MemberDTO">
+		select mem_id from member where mem_id = #{mem_id}
+	</select>
+	
+	<select id="phone_overlap" parameterType="com.spring.model.MemberDTO" 
+		resultType="com.spring.model.MemberDTO">
+		select mem_phone from member where mem_phone = #{mem_phone}
+	</select>
 	
 </mapper>

@@ -6,7 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="resources/css/main.css">
+<script src="${pageContext.request.contextPath}/resources/js/login.js" defer></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<!-- <link rel="stylesheet" href="resources/css/main.css"> -->
 <title>회원가입</title>
 </head>
 <body>
@@ -25,10 +27,10 @@
 					
 					<div class="field_cont">
 						<div class="row">
-							
 							<span class="label">아이디 *</span>
-							<input type="text" name="mem_id" required="required">
-							<input type="button" value="중복확인" onclick="location.href='id_dup_check.do'">
+							<input type="text" id="mem_id" name="mem_id" required="required"
+								placeholder="4자리 이상 15자리 미만">
+							<span id="id_check_txt"></span>
 						</div>
 						<div class="row">
 							<span class="label">이름 *</span>
@@ -39,21 +41,27 @@
 							<input type="password" name="mem_pwd" required="required">
 						</div>
 						<div class="row">
-							<span class="label">휴대폰 번호</span>
-							<input type="text" name="mem_phone" required="required">
-							<span class="guide">* 000-0000-0000 형식으로 작성해주세요.</span>
+							<span class="label">휴대폰 번호 *</span>
+							<input type="text" id="mem_phone" name="mem_phone" required="required" 
+								placeholder="000-0000-0000">
+							<!-- <span class="guide">* 000-0000-0000 형식으로 작성해주세요.</span> -->
+							<span id="phone_check_txt"></span>
 						</div>
 						<div class="row">
 							<span class="label">우편번호 *</span>
-							<input type="text" name="mem_zip">
-							<input type="button" value="검색하기" required="required">
+							<input type="text" name="mem_zip" class="joinTxt" id="sample4_postcode">
+							<input type="button" value="검색하기" required="required" onclick="sample4_execDaumPostcode()">
 						</div>
 						<div class="row">
-							<span class="label">주소</span>
-							<input type="text" name="mem_addr" required="required">
+							<span class="label">주소 *</span>
+							<!-- <input type="text" name="mem_addr" required="required"> -->
+							<input type="text" class="joinTxt" id="sample4_roadAddress" 
+								name="mem_addr" size="40" required="required">
+							<span id="guide" style="color:#999;display:none"></span>
+						
 						</div>
 						
-						<input type="submit" value="가입하기" onclick="submitCheck();">
+						<input type="submit" id="submit" value="가입하기" onclick="submitCheck()">
 					</div>
 					
 				</form>
@@ -65,26 +73,8 @@
 		</div>
 	</div>
 	
-	<script type="text/javascript">
-			
-	// 전화번호 형식 검사 000-0000-0000
-	// 참고 : https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=irene-fts&logNo=221898756777
-	function submitCheck(){
-		
-		var phoneReg = /(01[016789])-\d{3,4}-\d{4}/g;
-		
-		if(!phoneReg.test(joinForm.mem_phone.value)) {
-			alert("전화번호를 형식에 맞게 입력해주세요.");
-			joinForm.mem_phone.focus();
-			return;
-		}
-		
-		joinForm.method = "post";
-		joinForm.action = "<%=request.getContextPath()%>/join_ok.do";
-		joinForm.submit();
-	}
+	<!-- 주소 API 파일 로딩  -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	
-	</script>
-
 </body>
 </html>
