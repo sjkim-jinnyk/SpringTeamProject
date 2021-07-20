@@ -24,7 +24,7 @@ public class Member2DAOImpl implements Member2DAO {
 	
 	@Override
 	public int insertMember(MemberDTO dto) {
-		return this.sqlSession.insert("add", dto);
+		return this.sqlSession.insert("memberAdd", dto);
 	}
 
 	@Override
