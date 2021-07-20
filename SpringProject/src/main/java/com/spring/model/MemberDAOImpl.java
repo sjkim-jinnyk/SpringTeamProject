@@ -35,28 +35,6 @@ public class MemberDAOImpl implements MemberDAO{
 		return this.sqlSession.selectList("orderSearchList", map);
 	}
 	
-	// 현재 날짜를 기준으로 일주일 주문 내역 호출
-	@Override
-	public List<OrderDTO> getOrderRecentList(Map map) {
-
-		return this.sqlSession.selectList("orderRecent", map);
-	}
-	
-	// 주문 상태에 해당하는 주문 번호 호출
-	@Override
-	public List<OrderDeliverDTO> deliverSearchList(List<OrderDTO> list) {
-		
-		return this.sqlSession.selectList("deliverSearch", list);
-	}
-	
-	// 주문 상태에 해당하는 주문 내역 호출
-	@Override
-	public List<OrderDTO> deliverOrderSearch(List<OrderDeliverDTO> list) {
-		
-		return this.sqlSession.selectList("deliverOrderSearch", list);
-	}
-	
-	
 	// 특정 회원 정보 호출 메서드	
 	@Override
 	public MemberDTO getMemberInfo(String id) {
@@ -105,9 +83,27 @@ public class MemberDAOImpl implements MemberDAO{
 
 		return this.sqlSession.selectList("couponInfo", list);
 	}
-
 	
-	// 주문번호로 주문 정보 호출 메서드
+	// 쿠폰 번호에 해당하는 쿠폰 상세 내역 조회
+	@Override
+	public CouponDTO couponCont(int no) {
+
+		return this.sqlSession.selectOne("couponCont", no);
+	}
+	// 주문번호로 주문 상세내역 호출 메서드
+	@Override
+	public OrderDTO orderDetail(int no) {
+
+		return this.sqlSession.selectOne("noOrderDetail", no);
+	}
+	
+	// 주문번호로 제품 번호 조회
+	@Override
+	public OrderDetailDTO orderProno(int no) {
+
+		return this.sqlSession.selectOne("orderProNO", no);
+	}
+	// 주문번호로 주문 정보 호출 메서드(list 안 주문번호)
 	@Override
 	public List<OrderDetailDTO> getOrderDetail(List<OrderDTO> list) {
 
@@ -221,6 +217,11 @@ public class MemberDAOImpl implements MemberDAO{
 
 		return this.sqlSession.selectList("qnaReplyList", qna_no);
 	}
+
+
+
+
+
 
 
 

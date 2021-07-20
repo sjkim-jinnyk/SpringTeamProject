@@ -15,66 +15,15 @@
 	<div class="layout_container">
 		<div class="main">
 			<jsp:include page="../include/header.jsp" />
-			<c:set var="mem" value="${Cont }" />
 			
 			<div class="member_container">
-				<!-- header_title -->
-				<div class="header_title">
-					<a href="<%=request.getContextPath() %>/member_home.do?id=${mem.getMem_id() }"><h3>My Page</h3></a>
-				</div> <!-- header_title END -->
-				
-				<!-- member_header -->
-				<div class="member_header">
-					<ul>
-						<li><i class="fas fa-user-circle"></i></li>
-						<li>
-							<ul class="user_info">
-								<li>${mem.getMem_name() }님 환영합니다.</li>
-								<li>${mem.getMem_id() }</li>
-							</ul>
-						</li>
-					</ul>
-					<ul class="my_menu">
-						<a href="">
-							<li>
-								<ul class="menu_bar">
-									<li>적립금 </li>
-									<li>${mem.getMem_point() }</li>
-								</ul>
-							</li>
-						</a>
-						<a href="<%=request.getContextPath() %>/member_coupon.do?id=${mem.getMem_id() }">
-							<li>
-								<ul class="menu_bar">
-									<li>쿠폰 </li>
-									<li>${Coupon.getCount() }</li>
-								</ul>
-							</li>
-						</a>
-						<a href="<%=request.getContextPath() %>/member_review.do">
-							<li>
-								<ul class="menu_bar">
-									<li>리뷰 </li>
-									<li>${Review.getReviewCount() }</li>
-								</ul>
-							</li>
-						</a>
-						<a href="<%=request.getContextPath() %>/member_productLike.do">
-							<li>
-								<ul class="menu_bar">
-									<li>찜 </li>
-									<li>${Like.getLikeCount() }</li>
-								</ul>
-							</li>
-						</a>
-					</ul>
-				</div> <!-- member_header END -->
+			<jsp:include page="../include/member_header.jsp"/>
 				
 				<!-- member_content -->
 				<div class="member_content">
 					<div class="nav_menu">
 						<ul>
-							<a href="<%=request.getContextPath() %>/member_orderList.do"><li>주문내역</li></a>
+							<a href="<%=request.getContextPath() %>/member_home.do"><li>주문내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_qna.do"><li>문의내역</li></a>
 							<a href="<%=request.getContextPath() %>/member_recent.do"><li>최근 본 상품</li></a>
 							<a href="<%=request.getContextPath() %>/member_info.do"><li>정보관리</li></a>

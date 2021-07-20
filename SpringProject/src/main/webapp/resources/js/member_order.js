@@ -31,7 +31,6 @@ function getThreeMonth() {
 threeMonth.addEventListener('click', function() {
 	let three = getThreeMonth();
 	let today = getToday();
-	console.log(today);
 	document.orderForm.orderFirst.value = three;
 	document.orderForm.orderLast.value = today;
 	
@@ -45,7 +44,6 @@ threeMonth.addEventListener('click', function() {
 oneMonth.addEventListener('click', function() {
 	let one = getMonth();
 	let today = getToday();
-	console.log(today);
 	document.orderForm.orderFirst.value = one;
 	document.orderForm.orderLast.value = today;
 	
@@ -59,7 +57,6 @@ oneMonth.addEventListener('click', function() {
 sevenDay.addEventListener('click', function() {
 	let seven = getSeven();
 	let today = getToday();
-	console.log(seven);
 	document.orderForm.orderFirst.value = seven;
 	document.orderForm.orderLast.value = today;
 	
@@ -69,13 +66,31 @@ sevenDay.addEventListener('click', function() {
 	sevenDay.classList.replace('off','on');
 });
 
+// 전체시기 클릭시
 allDay.addEventListener('click', function() {
-
+	let past = '2021-01-01';
+	let today = getToday();
+	let id = $("#mem_id").text();
+	
 	threeMonth.classList.replace('on','off');
 	allDay.classList.replace('off','on');
 	oneMonth.classList.replace('on','off');
 	sevenDay.classList.replace('on','off');
 	
-	document.orderForm.orderFirst.value = "";
-	document.orderForm.orderLast.value = "";
+	$.ajax({
+		type : "post",
+		url : "./member_order.do",
+		dataType: "text", 
+		data : {
+			"id" : id
+		},
+		success : function(data) {
+			document.orderForm.orderFirst.value = data;
+			document.orderForm.orderLast.value = today;
+		},
+		error : function() {
+			alert('오류');
+		}
+	});
+	
 });
