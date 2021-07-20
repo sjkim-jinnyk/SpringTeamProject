@@ -16,7 +16,7 @@
 			<div class="review_header">
 				<span>실구매자 분들의 솔직한 구매후기</span>
 				<hr>
-			</div>
+			</div> 
 			
 			<c:if test="${!empty List }">
 				<c:forEach items="${List }" var="dto">
