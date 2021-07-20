@@ -43,12 +43,18 @@
 		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.own_coupon}</foreach>
 	</select>
 	
+	
 	<select id="orderDetail" parameterType="ArrayList" resultType="com.spring.model.OrderDetailDTO">
-		select * from order_detail where order_no in 
+	
+		select * from order_detail 
+		<if test="!list.isEmpty()">
+		where order_no in 
 		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.order_no}</foreach>
+		</if>
 		order by order_no desc
+	
 	</select>
-
+	
 	<select id="productInfo" parameterType="ArrayList" resultType="com.spring.model.ProductDTO">
 		select * from product where pro_no in 
 		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.order_pro_no}</foreach>

@@ -23,6 +23,7 @@ import com.spring.model.CouponDTO;
 import com.spring.model.CouponOwnDTO;
 import com.spring.model.MemberDAO;
 import com.spring.model.MemberDTO;
+import com.spring.model.MyPageHeader;
 import com.spring.model.OrderDTO;
 import com.spring.model.OrderDeliverDTO;
 import com.spring.model.OrderDetailDTO;
@@ -54,6 +55,7 @@ public class MemberController {
 		return "member/test";
 	}
 	
+	// ajax
 	@RequestMapping("member_order.do")
 	@ResponseBody
 	public String memcheck(@RequestParam("id") String id) {
@@ -72,33 +74,43 @@ public class MemberController {
 
 		MemberDTO mdto = this.dao.getMemberInfo(id);					// id에 해당하는 회원 정보
 
-		List<OrderDeliverDTO> oddto = this.dao.getOrderDeliverList(); // 배송 정보
+		List<OrderDeliverDTO> oddto = this.dao.getOrderDeliverList(); 	// 배송 정보
+		List<ProductDTO> proinfo = new ArrayList<ProductDTO>();
 		
-		List<OrderDTO> odto = this.dao.getOrderList(id);	// id에 해당하는 주문 정보
-		List<OrderDetailDTO> detail = this.dao.getOrderDetail(odto);
-		List<ProductDTO> proinfo = this.dao.getProductInfo(detail);
+		List<OrderDTO> odto = this.dao.getOrderList(id);				// id에 해당하는 주문 정보
+		if(odto != null) {
+			List<OrderDetailDTO> detail = this.dao.getOrderDetail(odto);
+			proinfo = this.dao.getProductInfo(detail);
+			
+		}
 		System.out.println(proinfo);
+		
+		
+		MyPageHeader mypage = new MyPageHeader();
+		mypage.setPoint(mdto.getMem_point());
+		mypage.setMemId(mdto.getMem_id());
+		mypage.setMemName(mdto.getMem_name());
+		
 		// id에 해당하는 쿠폰 수
 		int coupon = this.dao.couponCount(id);	
 		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
+		mypage.setCouponCount(countCoupon.getCount());
 		
 		// id에 해당하는 리뷰 수
 		int review = this.dao.reviewCount(id);	
 		ReviewDTO reviewcount = new ReviewDTO(review);
+		mypage.setReviewCount(reviewcount.getReviewCount());
 		
 		// id에 해당하는 찜 수
 		int like = this.dao.likeCount(id);		
 		ProductLikeDTO ldto = new ProductLikeDTO(like);
+		mypage.setLikeCount(ldto.getLikeCount());
 		
-		
-		model.addAttribute("Coupon", countCoupon);
-		model.addAttribute("Review", reviewcount);
-		model.addAttribute("Like", ldto);
-		model.addAttribute("Cont", mdto);
+		session.setAttribute("myPage", mypage);
+
 		model.addAttribute("Order", odto);
 		model.addAttribute("Deliver", oddto);
 		model.addAttribute("Detail", proinfo);
-		
 		
 		return "member/member_home";
 	}
@@ -124,23 +136,6 @@ public class MemberController {
 		
 		MemberDTO dto = this.dao.getMemberInfo(id);
 		
-		// id에 해당하는 쿠폰 수
-		int coupon = this.dao.couponCount(id);	
-		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
-		
-		// id에 해당하는 리뷰 수
-		int review = this.dao.reviewCount(id);	
-		ReviewDTO reviewcount = new ReviewDTO(review);
-		
-		// id에 해당하는 찜 수
-		int like = this.dao.likeCount(id);		
-		ProductLikeDTO ldto = new ProductLikeDTO(like);
-		
-		
-		model.addAttribute("Coupon", countCoupon);
-		model.addAttribute("Review", reviewcount);
-		model.addAttribute("Like", ldto);
-		model.addAttribute("Cont", dto);
 		model.addAttribute("OrderSearchList", olist);
 		model.addAttribute("Deliver ", oddto); 
 		model.addAttribute("DeliverS", oddto_search);
@@ -157,17 +152,6 @@ public class MemberController {
 		
 		MemberDTO dto = this.dao.getMemberInfo(id);
 		
-		// id에 해당하는 쿠폰 수
-		int coupon = this.dao.couponCount(id);	
-		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
-		
-		// id에 해당하는 리뷰 수
-		int review = this.dao.reviewCount(id);	
-		ReviewDTO reviewcount = new ReviewDTO(review);
-		
-		// id에 해당하는 찜 수
-		int like = this.dao.likeCount(id);		
-		ProductLikeDTO ldto = new ProductLikeDTO(like);
 		
 		OrderDTO order = this.dao.orderDetail(no);
 		OrderDetailDTO prono = this.dao.orderProno(no);
@@ -176,10 +160,6 @@ public class MemberController {
 
 		ProductDTO product = this.dao.getQnaProductInfo(prono.getOrder_pro_no());
 		
-		model.addAttribute("Coupon", countCoupon);
-		model.addAttribute("Review", reviewcount);
-		model.addAttribute("Like", ldto);
-		model.addAttribute("Cont", dto);
 		model.addAttribute("Order", order);
 		model.addAttribute("Product", product);
 		model.addAttribute("CouponCont", couponCont);
@@ -196,24 +176,7 @@ public class MemberController {
 		List<CouponOwnDTO> codto = this.dao.getCouponList(id);
 		
 		List<CouponDTO> cdto = this.dao.getCouponInfo(codto);
-		
-		// id에 해당하는 쿠폰 수
-		int coupon = this.dao.couponCount(id);	
-		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
-		
-		// id에 해당하는 리뷰 수
-		int review = this.dao.reviewCount(id);	
-		ReviewDTO rdto = new ReviewDTO(review);
-		
-		// id에 해당하는 찜 수
-		int like = this.dao.likeCount(id);		
-		ProductLikeDTO ldto = new ProductLikeDTO(like);
-		
-		
-		model.addAttribute("Cont", mdto);
-		model.addAttribute("Coupon", countCoupon);
-		model.addAttribute("Review", rdto);
-		model.addAttribute("Like", ldto);
+
 		model.addAttribute("CouponInfo", cdto);
 		
 		return "member/member_coupon";
@@ -233,23 +196,6 @@ public class MemberController {
 		
 		List<ReviewDTO> rdto = this.dao.getReviewList(id);	// id에 해당하는 리뷰 정보 찾기
 		
-		// id에 해당하는 쿠폰 수
-		int coupon = this.dao.couponCount(id);	
-		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
-		
-		// id에 해당하는 리뷰 수
-		int review = this.dao.reviewCount(id);	
-		ReviewDTO reviewcount = new ReviewDTO(review);
-		
-		// id에 해당하는 찜 수
-		int like = this.dao.likeCount(id);		
-		ProductLikeDTO ldto = new ProductLikeDTO(like);
-		
-		
-		model.addAttribute("Cont", mdto);
-		model.addAttribute("Coupon", countCoupon);
-		model.addAttribute("Review", reviewcount);
-		model.addAttribute("Like", ldto);
 		model.addAttribute("ProductInfo", pdto);
 		model.addAttribute("OrderDetail", oddto);
 		model.addAttribute("OrderInfo", odto);
@@ -263,27 +209,7 @@ public class MemberController {
 	public String review_cont(HttpSession session, @RequestParam("no") int no, Model model) {
 		
 		ReviewDTO rdto = this.dao.getReviewCont(no);
-		String id = (String) session.getAttribute("session_id");
 		
-		MemberDTO mdto = this.dao.getMemberInfo(id);	
-		
-		// id에 해당하는 쿠폰 수
-		int coupon = this.dao.couponCount(id);	
-		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
-		
-		// id에 해당하는 리뷰 수
-		int review = this.dao.reviewCount(id);	
-		ReviewDTO reviewcount = new ReviewDTO(review);
-		
-		// id에 해당하는 찜 수
-		int like = this.dao.likeCount(id);		
-		ProductLikeDTO ldto = new ProductLikeDTO(like);
-		
-		
-		model.addAttribute("Cont", mdto);
-		model.addAttribute("Coupon", countCoupon);
-		model.addAttribute("Review", reviewcount);
-		model.addAttribute("Like", ldto);
 		model.addAttribute("ReviewCont", rdto);
 		
 		return "member/member_review_cont";
@@ -294,27 +220,7 @@ public class MemberController {
 	public String review_write(HttpSession session, @RequestParam("no") int no, Model model) {
 		
 		ReviewDTO rdto = this.dao.getReviewCont(no);
-		String id = (String) session.getAttribute("session_id");
 		
-		MemberDTO mdto = this.dao.getMemberInfo(id);	
-		
-		// id에 해당하는 쿠폰 수
-		int coupon = this.dao.couponCount(id);	
-		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
-		
-		// id에 해당하는 리뷰 수
-		int review = this.dao.reviewCount(id);	
-		ReviewDTO reviewcount = new ReviewDTO(review);
-		
-		// id에 해당하는 찜 수
-		int like = this.dao.likeCount(id);		
-		ProductLikeDTO ldto = new ProductLikeDTO(like);
-		
-		
-		model.addAttribute("Cont", mdto);
-		model.addAttribute("Coupon", countCoupon);
-		model.addAttribute("Review", reviewcount);
-		model.addAttribute("Like", ldto);
 		model.addAttribute("ReviewWrite", rdto);
 		
 		return "member/member_review_write";
@@ -350,25 +256,6 @@ public class MemberController {
 		List<ProductLikeDTO> plList = this.dao.getProductLikeList(id);
 		List<ProductDTO> plist = this.dao.getProductLikeInfo(plList);
 		
-		MemberDTO mdto = this.dao.getMemberInfo(id);	
-		
-		// id에 해당하는 쿠폰 수
-		int coupon = this.dao.couponCount(id);	
-		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
-		
-		// id에 해당하는 리뷰 수
-		int review = this.dao.reviewCount(id);	
-		ReviewDTO reviewcount = new ReviewDTO(review);
-		
-		// id에 해당하는 찜 수
-		int like = this.dao.likeCount(id);		
-		ProductLikeDTO ldto = new ProductLikeDTO(like);
-		
-		
-		model.addAttribute("Cont", mdto);
-		model.addAttribute("Coupon", countCoupon);
-		model.addAttribute("Review", reviewcount);
-		model.addAttribute("Like", ldto);
 		model.addAttribute("ProductLikeInfo", plist);
 		
 		return "member/member_productLike";
@@ -405,22 +292,6 @@ public class MemberController {
 		
 		MemberDTO dto = this.dao.getMemberInfo(id);
 		
-		// id에 해당하는 쿠폰 수
-		int coupon = this.dao.couponCount(id);	
-		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
-		
-		// id에 해당하는 리뷰 수
-		int review = this.dao.reviewCount(id);	
-		ReviewDTO reviewcount = new ReviewDTO(review);
-		
-		// id에 해당하는 찜 수
-		int like = this.dao.likeCount(id);		
-		ProductLikeDTO ldto = new ProductLikeDTO(like);
-		
-		
-		model.addAttribute("Coupon", countCoupon);
-		model.addAttribute("Review", reviewcount);
-		model.addAttribute("Like", ldto);
 		model.addAttribute("Cont", dto);
 		
 		return "member/member_info";
@@ -485,23 +356,7 @@ public class MemberController {
 		String id = (String) session.getAttribute("session_id");
 
 		MemberDTO dto = this.dao.getMemberInfo(id);
-		
-		// id에 해당하는 쿠폰 수
-		int coupon = this.dao.couponCount(id);	
-		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
-		
-		// id에 해당하는 리뷰 수
-		int review = this.dao.reviewCount(id);	
-		ReviewDTO reviewcount = new ReviewDTO(review);
-		
-		// id에 해당하는 찜 수
-		int like = this.dao.likeCount(id);		
-		ProductLikeDTO ldto = new ProductLikeDTO(like);
-		
-		
-		model.addAttribute("Coupon", countCoupon);
-		model.addAttribute("Review", reviewcount);
-		model.addAttribute("Like", ldto);
+
 		model.addAttribute("Cont", dto);
 		
 		return "member/member_delete";
@@ -550,30 +405,9 @@ public class MemberController {
 			qclist.add(this.dao.getQnaCateList(list.get(i).getQna_category_no()));
 		}
 		
-		MemberDTO dto = this.dao.getMemberInfo(id);
-		
-		// id에 해당하는 쿠폰 수
-		int coupon = this.dao.couponCount(id);	
-		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
-		
-		// id에 해당하는 리뷰 수
-		int review = this.dao.reviewCount(id);	
-		ReviewDTO reviewcount = new ReviewDTO(review);
-		
-		// id에 해당하는 찜 수
-		int like = this.dao.likeCount(id);		
-		ProductLikeDTO ldto = new ProductLikeDTO(like);
-	
-		model.addAttribute("Coupon", countCoupon);
-		model.addAttribute("Review", reviewcount);
-		model.addAttribute("Like", ldto);
-		model.addAttribute("Cont", dto);
 		model.addAttribute("qnaList", list);
 		model.addAttribute("qnaProductList", plist);
 		model.addAttribute("qnaCategory", qclist);
-		System.out.println("문의내역 상품 리스트 : " + plist);
-		System.out.println("문의 카테고리 : " + qclist);
-		System.out.println("문의내역 리스트 : " + list);
 		
 		return "member/member_qna";
 	}
@@ -581,8 +415,6 @@ public class MemberController {
 	// 문의내역 상세 페이지
 	@RequestMapping("qna_cont.do")
 	public String qnaCont(HttpSession session, Model model, @RequestParam("no") int qna_no) {
-		String id = (String) session.getAttribute("session_id");
-		MemberDTO dto = this.dao.getMemberInfo(id);
 		
 		QnaDTO qdto = this.dao.getQnaContList(qna_no);
 		System.out.println("qncContList : " + qdto);
@@ -592,22 +424,7 @@ public class MemberController {
 		List<QnaDTO> reply = this.dao.getQnaReplyList(qna_no);
 		System.out.println("qncReply : " + reply);
 		
-		// id에 해당하는 쿠폰 수
-		int coupon = this.dao.couponCount(id);	
-		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
-		
-		// id에 해당하는 리뷰 수
-		int review = this.dao.reviewCount(id);	
-		ReviewDTO reviewcount = new ReviewDTO(review);
-		
-		// id에 해당하는 찜 수
-		int like = this.dao.likeCount(id);		
-		ProductLikeDTO ldto = new ProductLikeDTO(like);
 	
-		model.addAttribute("Coupon", countCoupon);
-		model.addAttribute("Review", reviewcount);
-		model.addAttribute("Like", ldto);
-		model.addAttribute("Cont", dto);
 		model.addAttribute("QnaCont", qdto);
 		model.addAttribute("QnaReply", reply);
 		
@@ -619,7 +436,6 @@ public class MemberController {
 	public String memberRecent(HttpSession session, Model model) {
 		
 		String id = (String) session.getAttribute("session_id");
-		MemberDTO dto = this.dao.getMemberInfo(id);
 		
 		int check = this.prdao.recentCheck(id); // 최근 본 상품 여부 확인
 
@@ -630,23 +446,6 @@ public class MemberController {
 			}
 			model.addAttribute("list", list);
 		}
-		
-		// id에 해당하는 쿠폰 수
-		int coupon = this.dao.couponCount(id);	
-		CouponOwnDTO countCoupon = new CouponOwnDTO(coupon);
-		
-		// id에 해당하는 리뷰 수
-		int review = this.dao.reviewCount(id);	
-		ReviewDTO reviewcount = new ReviewDTO(review);
-		
-		// id에 해당하는 찜 수
-		int like = this.dao.likeCount(id);		
-		ProductLikeDTO ldto = new ProductLikeDTO(like);
-	
-		model.addAttribute("Coupon", countCoupon);
-		model.addAttribute("Review", reviewcount);
-		model.addAttribute("Like", ldto);
-		model.addAttribute("Cont", dto);
 		
 		return "member/member_recent";
 	}

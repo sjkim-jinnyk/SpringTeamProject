@@ -1,61 +1,27 @@
 @charset "UTF-8";
-body, ul, li, a, h3 {
-	color: black;
-	padding: 0;
-}
-li{
-	list-style: none;
-}
-a {
-	text-decoration: none;
-}
-.header_title {
-	text-align: left;
-}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400&display=swap');
+
 .member_container {
+	font-family:'Noto Sans KR', sans-serif;
 	margin: 0 130px;
 	text-align: center;
 }
-.member_header {
-	display: flex;
-	justify-content : space-between;
-	background: gray;
-	height: 100px;
-	margin: 20px 0;
-	padding: 0 20px;
-}
 
-.member_header ul {
-	display: flex;
-}
-.member_header li {
-	padding : 0 20px 0 0;
-}
-.member_header i {
-	font-size: 70px;
-}
-.member_header .user_info{
-	flex-direction: column;
-}
-.my_menu{
-	display: flex;
-	justify-content: space-between;
-}
-.my_menu .menu_bar{
-	flex-direction: column;
-}
 .member_content {
 	display: flex;
+	margin: 20px 0;
 }
+
+/* nav_menu css */
 .nav_menu{
-	background: #ccc;
+	margin-top: 30px;
 	margin-right: 20px;
-	padding: 0 30px;
+	padding: 0 10px;
 	width: 200px;
+	height: 500px;
 }
 .nav_menu li {
 	padding: 20px 0;
-	
 }
 .nav_menu .off{
 	display: none;
@@ -63,17 +29,85 @@ a {
 .nav_menu .on{
 	display: "";
 }
+
+/* member_order */
 .member_order, .member_review, .member_like, .member_info {
-	background: #a9a9a9;
+	margin-left: 30px;
 	width: 100%;
+}
+.member_order h3 {
+	padding: 0 0 20px;
+	text-align: left;
+	border-bottom: 2px solid;
+}
+
+.member_order .select_day {
+	padding: 20px 0;
+	margin-top: 35px;
+	display: flex;
+}
+.member_order .select_day .select_button {
+	padding: 4px 20px 0 0;
+	display: flex;
+}
+
+.member_order .select_day li {
+	padding: 0 10px;
+}
+.member_order .select_day #orderFirst, #orderLast {
+	font-family:'Noto Sans KR', sans-serif;
+	border: 1px solid #ccc;
+	padding: 4px;
+}
+.member_order .select_button li {
+	padding: 0;
+}
+.member_order .select_button a {
+	padding: 4px 10px;
+}
+.member_order .select_day .on {
+	border : 1px solid black;
+}
+.member_order .select_day .off {
+	border: 1px solid #ccc;
+	color: #666;
+}
+.member_order #search_btn {
+	padding: 4px 25px;
+	background: transparent;
+	font-family:'Noto Sans KR', sans-serif;
 }
 .member_order .order_bar {
 	width: 100%;
 }
+.member_order .order_bar #tablecont:hover{
+	background: #ffddae;
+}
 .member_order .order_bar th{
 	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+.member_order .order_bar td{
+	padding: 10px;
+}
+.member_order .order_bar #orderinfo {
+	width: 40%;
+}
+.member_order .order_bar #orderno, #orderdate, #orderstatus, #orderprice {
+	width: 15%;
+}
+.member_order .order_bar ul {
+	display: flex;
+}
+.member_order .order_bar img {
+	width: 100px;
+	height: 80px;
+}
+.member_order .order_bar .proname {
+	padding: 30px 20px;
 }
 
+/* review_write css */
 .review_star .off::before{
 	content: url("star_empty.png");
 	color: white;
@@ -108,32 +142,11 @@ a {
 }
 
 /* member_home css */
-.select_day {
-	display: flex;
-}
 
-.select_day li {
-	padding: 0 10px;
-}
 
-.select_day .select_button {
-	display: flex;
-}
+/* 반응형 */
 
-.select_button li {
-	padding: 0;
-}
 
-.select_button a {
-	padding: 10px;
-}
 
-.select_day .on {
-	border : 1px solid black;
-}
 
-.select_day .off {
-	border: 1px solid white;
-	color: #666;
-}
 
