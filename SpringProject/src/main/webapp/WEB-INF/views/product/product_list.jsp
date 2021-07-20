@@ -71,7 +71,7 @@ function addLike(product_no, index){
 			<c:if test="${!empty List }">
 				<c:forEach items="${List }" var="dto" varStatus="status">
 					<div class="product">
-							<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/product/${dto.getPro_img() }"></a>
+							<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/upload/${dto.getPro_img() }"></a>
 							
 							<div class="product-info">
 							

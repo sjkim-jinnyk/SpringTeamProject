@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Service
 public class UploadBO {
 	
-	private String productPath = "C:\\NCS\\workspace(spring)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\SpringProject\\resources\\img\\product";
+	private String productPath = "C:\\NCS\\workspace(spring)\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\SpringProject\\resources\\img\\upload";
 
 	public HashMap fileUpload(MultipartHttpServletRequest mRequest) {
 		

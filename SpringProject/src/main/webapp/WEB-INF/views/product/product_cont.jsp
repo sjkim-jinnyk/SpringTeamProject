@@ -122,7 +122,7 @@ function addLike(product_no){
 				<c:if test="${!empty cont }">
 					<div class="product-cont">
 						<div class="cont-photo-wrap">
-							<img class="cont-photo" src="resources/img/product/${dto.getPro_img() }">
+							<img class="cont-photo" src="resources/img/upload/${dto.getPro_img() }">
 							
 							<div class="cont-photo-mini">
 								<img src="">
@@ -216,7 +216,7 @@ function addLike(product_no){
 										
 											
 											<c:if test="${!empty dto.getReview_img() }">
-												<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/review/${dto.getReview_img() }"></a>
+												<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/upload/${dto.getReview_img() }"></a>
 											</c:if>
 										</div>
 									
@@ -224,7 +224,7 @@ function addLike(product_no){
 											<span class="review-cont" style="white-space:pre;"><a href="javascript:void(0);" onclick="showReview(${status.index });"><c:out value="${dto.getReview_cont() }" /></a></span>
 											<div class="review-img">
 												<c:if test="${!empty dto.getReview_img() }">
-													<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/review/${dto.getReview_img() }"></a>
+													<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/upload/${dto.getReview_img() }"></a>
 												</c:if>									
 											</div>
 										</div>
@@ -286,7 +286,7 @@ function addLike(product_no){
 										
 											
 											<c:if test="${!empty dto.getReview_img() }">
-												<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/review/${dto.getReview_img() }"></a>
+												<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/upload/${dto.getReview_img() }"></a>
 											</c:if>
 										</div>
 									
@@ -294,7 +294,7 @@ function addLike(product_no){
 											<span class="review-cont" style="white-space:pre;"><a href="javascript:void(0);" onclick="showReview(${status.index });"><c:out value="${dto.getReview_cont() }" /></a></span>
 											<div class="review-img">
 												<c:if test="${!empty dto.getReview_img() }">
-													<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/review/${dto.getReview_img() }"></a>
+													<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/upload/${dto.getReview_img() }"></a>
 												</c:if>									
 											</div>
 										</div>

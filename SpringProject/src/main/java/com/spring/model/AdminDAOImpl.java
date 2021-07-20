@@ -1,6 +1,5 @@
 package com.spring.model;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -43,28 +42,32 @@ public class AdminDAOImpl implements AdminDAO{
 		return 0;
 	}
 
-	@Override
-	public int searchMemberListCount(HashMap<String, String> hm) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
-	public List<AdminDTO> searchMemberList(PageDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public AdminDTO memberCont(int no) {
+	public AdminDTO getMemberdetail(int no) {
 		
-		return this.sqlSession.selectOne("content", no);
+		return this.sqlSession.selectOne("admincont", no);
 	}
 
 	public List<CateDTO> getCateList() {
 		
 		return this.sqlSession.selectList("cateList");
 	}
+
+
+	@Override public List<AdminDTO> adminSearchList(PageDTO dto) {
+	 
+	 return this.sqlSession.selectList("searchList", dto); 
+	 }
+
+
+	@Override
+	public int adminSearchMemberListCount(String keyword) {
+		
+		return this.sqlSession.selectOne("searchListCount", keyword);
+	}
+
+
 
 
 }

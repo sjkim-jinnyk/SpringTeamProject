@@ -37,7 +37,7 @@
 							<c:if test="${!empty ProductLikeInfo}">
 							<c:forEach items="${ProductLikeInfo }" var="dto">
 								<li class="likeproduct">
-									<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/product/${dto.getPro_img() }"></a>
+									<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/upload/${dto.getPro_img() }"></a>
 									<div class="product-info">
 										<a class="pro-tag" href="#">${dto.getPro_tag() }</a><br>
 										<a class="pro-name" href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a><br>

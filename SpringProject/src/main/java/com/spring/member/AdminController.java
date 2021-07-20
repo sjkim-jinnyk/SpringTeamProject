@@ -50,7 +50,7 @@ public class AdminController {
 			page = 1;
 		}
 
-		rowsize = 4;
+		rowsize = 5;
 		totalRecord = this.dao.getListCount();
 
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
@@ -63,43 +63,35 @@ public class AdminController {
 
 	}
 
-	@RequestMapping("admin_cont.do")
-	public String content(@RequestParam("no") int member_no,
-			@RequestParam("page") int nowPage, Model model) {
+	@RequestMapping("admin_detail.do")
+	public String content(@RequestParam("no") int mem_no, Model model) {
 		
 		// 게시글 상세내역 조회하는 메서드 호출
-		AdminDTO dto = this.dao.memberCont(member_no);
+		AdminDTO dto = this.dao.getMemberdetail(mem_no);
 		
-		model.addAttribute("content", dto);
+		model.addAttribute("AdminCont", dto);
 		
-		model.addAttribute("page", nowPage);
-		
-		return "admin/admin_content";
+		return "admin/admin_member_detail";
 		
 	}
 	
 	@RequestMapping("member_search.do")
-	public String search(@RequestParam("field") String field, @RequestParam("keyword") String keyword, Model model, HttpServletRequest request) {
+	public String search(@RequestParam("a") String keyword, Model model, HttpServletRequest request) {
 		
 		int page = 0;
+		
 		if(request.getParameter("page") != null){
 			page = Integer.parseInt(request.getParameter("page"));
 		}else {
 			page = 1;
 		}
 		
-		rowsize = 10;
+		rowsize = 5;
+		totalRecord = this.dao.adminSearchMemberListCount(keyword);
 		
-		// 인자를 하나로 모아 넘겨주기 위해 hashmap으로 모아줌
-		HashMap<String, String> hm = new HashMap<String, String>();
-		hm.put("field", field);
-		hm.put("keyword", keyword);
-		
-		// 검색해서 나오는 회원의 전체 수 (select count(*))
-		totalRecord = this.dao.searchMemberListCount(hm); 	
-		
+		String field = "";		
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord, field, keyword);
-		List<AdminDTO> list = this.dao.searchMemberList(dto);
+		List<AdminDTO> list = this.dao.adminSearchList(dto);
 
 		model.addAttribute("searchList", list);
 		model.addAttribute("page", dto);

@@ -45,7 +45,7 @@
 						<c:forEach items="${list }" var="dto">
 							<tr>
 								
-								<td><a href="<%=request.getContextPath() %>/admin_cont.do?no=${dto.getMem_no()}&page=${Paging.getPage()}">
+								<td><a href="<%=request.getContextPath() %>/admin_detail.do?no=${dto.getMem_no()}&page=${Paging.getPage()}">
 												${dto.getMem_name() }</a></td>
 								<td>${dto.getMem_phone() }</td>
 								<td>${dto.getMem_addr() }</td>
@@ -93,12 +93,11 @@
 
 				<form method="post"
 					action="<%=request.getContextPath()%>/member_search.do">
-					<input type="hidden" name="page" value="${Paging.getPage() }">
 					<select name="field">
 						<option value="name">회원성명</option>
 						<option value="addr">주소</option>
 					</select>
-					<input type="text" name="keyword"> 
+					<input type="text" name="a"> 
 					<input type="submit" value="검색">
 				</form>
 			</div>

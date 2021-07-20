@@ -22,8 +22,8 @@
 		]]>
 	</select>
 	
-	<select id="content" parameterType="int" 
-							resultType="com.spring.model.AdminDTO">
+	<select id="admincont" parameterType="int"
+			resultType="com.spring.model.AdminDTO">
 		select * from member where mem_no = #{no}
 	</select>	
 	

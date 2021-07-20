@@ -58,7 +58,7 @@
 							<tr>
 								<td>
 									<a href="<%=request.getContextPath() %>/product_cont.do?no=${Product.getPro_no()}">
-										<img class="qnaimg" src="resources/img/product/${Product.getPro_img() }"><br>
+										<img class="qnaimg" src="resources/img/upload/${Product.getPro_img() }"><br>
 										${Product.getPro_name() }
 									</a>
 								</td>

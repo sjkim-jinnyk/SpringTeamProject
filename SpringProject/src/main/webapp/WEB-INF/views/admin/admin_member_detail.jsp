@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,14 +35,14 @@
 
 			<!-- 내용 시작 -->
 			<div align="center">
-				<hr width="50%" color="tomato">
-				<h3>${dto.getMem_name() }님 상세 정보</h3>
-				<hr width="50%" color="tomato">
-				<br> <br>
+				<c:set var="dto" value="${AdminCont }" />
+				<c:if test="${!empty dto }">
+					<h3>${dto.getMem_name() }님 상세정보</h3>
+					<hr width="50%" color="tomato">
+					<br>
+					<br>
 
-				<table border="1" cellspacing="0" width="850">
-					<c:set var="dto" value="${content }" />
-					<c:if test="${!empty dto }">
+					<table border="1" cellspacing="0" width="700">
 						<tr>
 							<th>회원이름</th>
 							<td>${dto.getMem_name() }</td>
@@ -55,45 +55,36 @@
 							<th>연락처</th>
 							<td>${dto.getMem_phone() }</td>
 						</tr>
-						
+
 						<tr>
 							<th>주소</th>
 							<td>${dto.getMem_addr() }</td>
 						</tr>
-						
+
 						<tr>
 							<th>적립금</th>
-							<td>${dto.getMem_point() }</td>
+							<td><fmt:formatNumber value="${dto.getMem_point() }" />포인트</td>
 						</tr>
-						
-						<tr>
-							<td>${dto.getMem_regdate().substring(0,10) }</td>
-						</tr>
-					</c:if>
 
-					<c:if test="${empty dto }">
 						<tr>
-							<td colspan="2" align="center">
-								<h3>검색된 게시글이 없습니다.....</h3>
-							</td>
+							<th>가입일자</th>
+							<td>${dto.getMem_regdate() }</td>
 						</tr>
-					</c:if>
+						</c:if>
 
-					<tr>
-						<td colspan="2" align="center">
-						<%-- <input type="button"
-							value="글수정"
-							onclick="location.href='board_update.do?no=${dto.getBoard_no() }&page=${page }'">
-							
-							<input type="button" value="글삭제"
-							onclick="if(confirm('게시글을 삭제 하시겠습니까?')) {
-	                				location.href='board_delete.do?no=${dto.getBoard_no() }&page=${page }'
-	                		 }else {return; }"> --%>
-							
-							<input type="button" value="전체 회원 목록"
-							onclick="location.href='admin_list.do?page=${page }'"></td>
-					</tr>
-				</table>
+						<c:if test="${empty dto }">
+							<tr>
+								<td colspan="2" align="center">
+									<h3>회원이 존재하지 않습니다.</h3>
+								</td>
+							</tr>
+						</c:if>
+
+						<tr>
+							<td colspan="2" align="center"><input type="button"
+								value="전체 회원 목록" onclick="location.href='admin_list.do'"></td>
+						</tr>
+					</table>
 			</div>
 			<jsp:include page="../include/footer.jsp" />
 		</div>

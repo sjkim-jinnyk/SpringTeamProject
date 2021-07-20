@@ -50,7 +50,7 @@
 										<td>
 											<ul>
 												<a href="<%=request.getContextPath() %>/product_cont.do?no=${list[status.index].getPro_no()}">
-												<li class="qnaimg"><img src="resources/img/product/${list[status.index].getPro_img() }"></li>
+												<li class="qnaimg"><img src="resources/img/upload/${list[status.index].getPro_img() }"></li>
 												<li>${list[status.index].getPro_name() }</li></a>
 											</ul>
 										</td>

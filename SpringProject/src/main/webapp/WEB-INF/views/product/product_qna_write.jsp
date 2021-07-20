@@ -36,7 +36,7 @@
 							<form method="post">
 								<input type="hidden" name="product_no" value="${dto.getPro_no() }">
 								<div class="history">
-									<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/product/${dto.getPro_img() }"></a>
+									<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/upload/${dto.getPro_img() }"></a>
 									
 									<div class="pro-content">
 										<c:forEach items="${dto.getPro_tags() }" var="tags">

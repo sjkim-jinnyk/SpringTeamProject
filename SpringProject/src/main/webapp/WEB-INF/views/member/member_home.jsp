@@ -68,7 +68,7 @@
 								<td><a href="<%=request.getContextPath()%>/order_detail.do?no=${dto.getOrder_no() }">${dto.getOrder_no() }</a></td>
 								<td>
 									<ul>
-										<li><img src="resources/img/product/${Detail[status.index].getPro_img() }"></li>
+										<li><img src="resources/img/upload/${Detail[status.index].getPro_img() }"></li>
 										<li class="proname">${Detail[status.index].getPro_name() }</li>
 									</ul>
 								</td>
@@ -109,7 +109,7 @@
 									<td><a href="<%=request.getContextPath()%>/order_detail.do?no=${dto.getOrder_no() }">${dto.getOrder_no() }</a></td>
 									<td>
 										<ul>
-											<li class="qnaimg"><img src="resources/img/product/${Detail[status.index].getPro_img() }"></li>
+											<li class="qnaimg"><img src="resources/img/upload/${Detail[status.index].getPro_img() }"></li>
 											<li>${Detail[status.index].getPro_name() }</li>
 										</ul>
 									</td>
