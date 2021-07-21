@@ -14,7 +14,7 @@ public class ProductDAOImpl implements ProductDAO {
 	private SqlSessionTemplate sqlSession;
 
 	@Override
-	public int getProductListCount() {
+	public int getProductListCount(int no) {
 		
 		return this.sqlSession.selectOne("productTotalRecord");
 	}
@@ -128,9 +128,15 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public List<QnaDTO> getProQnaAnswerList(List<QnaDTO> list) {
+	public QnaDTO getProQnaAnswerList(int no) {
 		
-		return this.sqlSession.selectList("proQnaAnsList", list);
+		return this.sqlSession.selectOne("proQnaAnsList", no);
+	}
+
+	@Override
+	public String qnaGroupCount(int no) {
+
+		return this.sqlSession.selectOne("qnaGroupCheck", no);
 	}
 
 

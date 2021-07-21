@@ -3,35 +3,24 @@ package com.spring.member;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sound.sampled.AudioFormat.Encoding;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.spring.model.CartDAO;
 import com.spring.model.LoginDAO;
-import com.spring.model.MemberDAO;
+import com.spring.model.Member2DAO;
 import com.spring.model.MemberDTO;
 import com.spring.model.NaverLoginBO;
 
@@ -46,6 +35,9 @@ public class LoginController {
 
 	@Autowired
 	private LoginDAO dao;
+	
+	@Autowired
+	private Member2DAO mdao;
 
 	@Autowired
 	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
@@ -91,8 +83,6 @@ public class LoginController {
 	@RequestMapping("naver_login.do")
 	public ModelAndView callback(HttpServletResponse response, Model model, ModelAndView mav, @RequestParam String code,
 			@RequestParam String state, HttpSession session) throws IOException, ParseException {
-		
-		System.out.println("code >> " + code + " ............ / state >> " + state);
 		
 		OAuth2AccessToken oauthToken;
 		oauthToken = naverLoginBO.getAccessToken(session, code, state, callback_URL1);
@@ -242,6 +232,58 @@ public class LoginController {
 			}
 		}
 
+	}
+	
+	@RequestMapping("login_popup.do")
+	public String login_popup(Model model, HttpSession session) {
+		
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session, callback_URL1);
+		String naverConnectUrl = naverLoginBO.getAuthorizationUrl(session, callback_URL2);
+
+		model.addAttribute("url", naverAuthUrl);
+		model.addAttribute("connectUrl", naverConnectUrl);
+		
+		return "login/login_popup";
+	}
+	
+	@RequestMapping("login_popup_ok.do")
+	public void login(
+			@RequestParam("mem_id") String id,
+			@RequestParam("mem_pwd") String pwd,
+			HttpServletResponse response,
+			HttpSession session) throws IOException {
+		
+		int idCheck = this.mdao.idCheck(id);
+		int pwdCheck = this.mdao.pwdCheck(pwd);
+		
+		MemberDTO login_info = this.mdao.getMemberInfo(id);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		if(idCheck == 1) { // 아이디 맞음
+			if(pwdCheck > 0) { // 비밀번호 맞음 (같은 비번인 계정이 여러개일 수 있음)
+				// session.setAttribute("session_id", login_info);
+				session.setAttribute("session_id", login_info.getMem_id());
+				session.setAttribute("session_mem", login_info);
+				out.println("<script>");
+				out.println("opener.document.location.reload()");
+				out.println("window.close()");
+				out.println("</script>");
+			}else {		// 비밀번호 틀림
+				out.println("<script>");
+				out.println("alert('비밀번호가 틀립니다. 다시 확인해주세요.')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+		}else {	// 아이디 틀림 (회원 아님)
+			out.println("<script>");
+			out.println("alert('회원이 아닙니다. 가입 후 이용해주세요.')");
+			out.println("location.href='join.do'");
+			out.println("</script>");
+		}
+		
+		System.out.println(idCheck+ ", " +pwdCheck);
 	}
 
 }

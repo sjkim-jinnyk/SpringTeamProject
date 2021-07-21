@@ -14,21 +14,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="resources/js/product.js"></script>
 <title>Insert title here</title>
 </head>
-<script type="text/javascript">
-
-function closeRecent(){
-	if(document.getElementById('recent').style.display == 'block'){
-		document.getElementById('recent').style.display = 'none';
-		document.getElementById('x-div').style.display = 'block';
-	}else{
-		document.getElementById('recent').style.display = 'block';
-		document.getElementById('x-div').style.display = 'none';
-	}
-}
-
-</script>
 <body>
 
 	<div class="layout_container">

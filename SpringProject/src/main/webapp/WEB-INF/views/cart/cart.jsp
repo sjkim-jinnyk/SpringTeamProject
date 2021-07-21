@@ -13,19 +13,10 @@
 <title>Insert title here</title>
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="resources/js/product.js"></script>
 <script type="text/javascript">
 
 <% List<CartDTO> cList = (List<CartDTO>)request.getAttribute("cList"); %>
-
-function resetCart() {
-	if(confirm("장바구니를 비우시겠습니까?")){
-        location.href="cart_reset.do";
-    }
-};
-
-function checkAll() {  /* 체크박스 전체선택 함수 */
-	$('input[name=check]').prop('checked', $('#checkAll').prop('checked'));
-};
 
 function count(type, index, no) {
 
@@ -73,6 +64,14 @@ function total() {
 	}
 	
 	$('#total-price').text(String(total_price).replace(/(.)(?=(\d{3})+$)/g,'$1,'));
+}
+
+function loginCheck(){
+	if('${session_id}' == ''){
+		alert('로그인 후 사용가능합니다.');
+		window.open("login_popup.do", "로그인", "_blank");
+		return;
+	}
 }
 
 </script>
@@ -167,8 +166,8 @@ function total() {
 						<button type="submit" class="order-btn" formaction="cart_delete_seleted.do">선택상품 삭제</button>
 						<button type="button" class="order-btn" onclick="resetCart();">전체상품 삭제</button>
 					</c:if>
-					<button class="order-btn" onclick="#">선택상품주문하기</button>
-					<button class="order-btn" onclick="#">전체상품주문하기</button>
+					<button class="order-btn" onclick="loginCheck();">선택상품주문하기</button>
+					<button class="order-btn" onclick="loginCheck();">전체상품주문하기</button>
 					</form>
 				</div>
 				

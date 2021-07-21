@@ -119,8 +119,6 @@ public class CartController {
 		dto.setCart_amount(cart_amount);
 		dto.setUser_id(user_id);
 				
-		System.out.println("dto >> " + dto);
-
 		int result = this.dao.updateAmount(dto);
 
 		if (result > 0) {

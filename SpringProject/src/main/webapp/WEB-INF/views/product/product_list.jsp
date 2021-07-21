@@ -12,38 +12,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="resources/css/product.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<title>Insert title here</title>
+<script type="text/javascript" src="resources/js/product.js"></script>
+<title>UTBT</title>
 </head>
 <script type="text/javascript">
-
-function addLike(product_no, index){
 	
+function likeCheck(product_no, index){
 	if('${session_id}' == ''){
 		alert('로그인 후 사용가능합니다.');
-		window.open("login.do", "질문글 답변하기", "_blank");
+		window.open("login_popup.do", "로그인", "_blank");
 		return;
+	}else{
+		addLikey(product_no, index);
 	}
-	
-	$.ajax({
-		type : "post",
-		url : "add_like.do",
-		data : {"no":product_no},
-		success : function(data) {
-			if(data == 1){
-				$("#like-btn-"+index).css({"color":"red"});
-				return false;
-			}else if(data == 2){
-				$("#like-btn-"+index).css({"color":"black"});
-				return false;
-			}else {
-				console.log("data" + data);
-				alert('에이젝스 실패');
-			}
-		},
-		error: function(request,status,error) {
-			alert("통신 오류입니다.");
-		}
-	});
 }
 
 </script>
@@ -62,10 +43,13 @@ function addLike(product_no, index){
 			</div>
 			
 			<div class="category">
-				<a class="category-menu" href="#">category1</a>|
-				<a class="category-menu" href="#">category2</a>|
-				<a class="category-menu" href="#">category3</a>|
-				<a class="category-menu" href="#">category4</a>
+				<a class="category-menu" href="product_list.do">전체 상품</a>
+				
+				<c:if test="${!empty cList }">
+					<c:forEach items="${cList }" var="dto">
+						<a class="category-menu" href="product_list.do?no=${dto.getCate_no() }">${dto.getCate_name() }</a>
+					</c:forEach>
+				</c:if>
 			</div>
 			
 			<c:if test="${!empty List }">
@@ -82,8 +66,8 @@ function addLike(product_no, index){
 								<a class="pro-name" href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a><br>
 								<span class="pro-price">${dto.getPro_output_price() } 원</span>
 								
-								<c:if test="${dto.getLike_check() eq 0 }"><button type="button" id="like-btn-${status.index }" onclick="addLike(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
-								<c:if test="${dto.getLike_check() > 0 }"><button type="button" id="like-btn-${status.index }" class="like-checked" onclick="addLike(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
+								<c:if test="${dto.getLike_check() eq 0 }"><button type="button" id="like-btn-${status.index }" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
+								<c:if test="${dto.getLike_check() > 0 }"><button type="button" id="like-btn-${status.index }" class="like-checked" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
 							</div>
 					</div>
 				</c:forEach>
@@ -96,23 +80,23 @@ function addLike(product_no, index){
 			<%-- Pagination --%>	
 			<div class="pagination">
 				<c:if test="${page.getPage() > page.getBlock() }">
-					<a href="product_list.do?page=1">◀◀</a>
-	   				<a href="product_list.do?page=${Paging.getStartBlock() - 1 }">◀</a>
+					<a href="product_list.do?page=1&no=${page.getNo() }">◀◀</a>
+	   				<a href="product_list.do?page=${Paging.getStartBlock() - 1 }&no=${page.getNo() }">◀</a>
 				</c:if>
 				
 				<c:forEach begin="${page.getStartBlock() }" end="${page.getEndBlock() }" var="i">
 			      <c:if test="${i == page.getPage() }">
-			         <b><a href="product_list.do?page=${i }">${i }</a></b>
+			         <b><a href="product_list.do?page=${i }&no=${page.getNo() }">${i }</a></b>
 			      </c:if>
 			      
 			      <c:if test="${i != page.getPage() }">
-			         <a href="product_list.do?page=${i }">${i }</a>
+			         <a href="product_list.do?page=${i }&no=${page.getNo() }">${i }</a>
 			      </c:if>
 			   </c:forEach>
 			   
 			   <c:if test="${page.getEndBlock() < page.getAllPage() }">
-			      <a href="product_list.do?page=${page.getEndBlock() +1 }">▶</a>
-			      <a href="product_list.do?page=${page.getAllPage() }">▶▶</a>
+			      <a href="product_list.do?page=${page.getEndBlock() +1 }&no=${page.getNo() }">▶</a>
+			      <a href="product_list.do?page=${page.getAllPage() }&no=${page.getNo() }">▶▶</a>
 			   </c:if>
 				
 			</div>

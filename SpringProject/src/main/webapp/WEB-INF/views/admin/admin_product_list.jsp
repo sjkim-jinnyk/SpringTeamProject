@@ -14,48 +14,9 @@
 <link rel="stylesheet" href="resources/css/memberStyle.css">
 <link rel="stylesheet" href="resources/css/admin.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="resources/js/admin.js"></script>
 <title>울퉁불퉁's 관리자 - 상품 목록</title>
 </head>
-<script type="text/javascript">
-
-function deletePro(no, name){
-	if(confirm("'"+name+"' 상품을 삭제하시겠습니까?")){
-		location.href='product_delete.do?no='+no;
-	}
-};
-
-function check() {
-	var f = document.getElementById('field');
-	var value = f.options[f.selectedIndex].value;
-	console.log("value >> " , value);
-	
-	if(value == 'category'){
-		document.getElementById('category').style.display = 'block';
-		document.getElementById('search').style.display = 'none';
-	}else if(value == 'state'){
-		document.getElementById('state').style.display = 'block';
-		document.getElementById('search').style.display = 'none';
-	}else if(value == 'name'){
-		document.getElementById('search').style.display = 'block';
-		document.getElementById('category').style.display = 'none';
-		document.getElementById('state').style.display = 'none';
-	}
-	
-}
-
-/* function check() {
-	var result = $("#field option:selected").val();
-	if(result == "check"){
-		$(".search-text").css("display", "none");
-		$(".check-list").css("display", "block");
-	}else {
-		$(".search-text").css("display", "block");
-		$(".check-list").css("display", "none");
-	}
-}; */
-
-
-</script>
 <body>
 	
 		<div class="wrapper d-flex align-items-stretch">
@@ -68,15 +29,14 @@ function check() {
 	
 			<div class="search">
 				<form method="post" action="admin_product_search.do">		
-					<select name="field" onchange="check();">
-						<option value="all">전체</option>
+					<select id="field" name="field" onchange="check();">
 						<option value="name">상품명</option>
 						<option value="category">카테고리</option>
 						<option value="state">판매상태</option>
 						<option value="tag">태그</option>
 					</select>
 					
-					<select id="category" name="keyword" hidden>
+					<select id="category" name="cateWord" style="display:none;">
 						<c:if test="${empty category }">
 							<option value="">:::카테고리 없음:::</option>
 						</c:if>
@@ -87,12 +47,12 @@ function check() {
 						</c:if>
 					</select>
 					
-					<select id="state" name="keyword" hidden>
-						<option value="y">판매</option>
+					<select id="state" name="stateWord" style="display:none;">
+						<option value="y">판매중</option>
 						<option value="n">미판매</option>
 					</select>
 					
-					<input id="search" type="search" name="keyword" placeholder="${keyword }">
+					<input id="search" type="search" name="allWord" placeholder="${keyword }">
 					<input type="submit" value="검색"> 
 				</form>
 			</div>
@@ -115,11 +75,11 @@ function check() {
 					<c:forEach items="${List }" var="dto" varStatus="status">
 						<tr class="pro-wrap">
 							<td>${dto.getPro_no() }</td>
-							<td><a href="admin_search_cate.do?keyword=${cList[status.index].getCate_no() }">${cList[status.index].getCate_name() }[${cList[status.index].getCate_no() }]</a></td>
+							<td><a href="admin_product_search.do?field=category&cateWord=${cList[status.index].getCate_no() }">${cList[status.index].getCate_name() }[${cList[status.index].getCate_no() }]</a></td>
 							<td><a href="admin_product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/upload/${dto.getPro_img() }"></a></td>
 							<td class="pro_name">
 								<c:forEach items="${dto.getPro_tags() }" var="tags">
-									<a class="pro-tag" href="admin_search_tag.do?keyword=${tags }">${tags }</a> 
+									<a class="pro-tag" href="admin_product_search.do?field=tag&allWord=${tags }">${tags }</a> 
 								</c:forEach><br>
 								<a href="admin_product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a>
 							</td>
