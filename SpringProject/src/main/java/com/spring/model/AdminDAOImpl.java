@@ -33,13 +33,13 @@ public class AdminDAOImpl implements AdminDAO{
 
 	@Override
 	public int updateProduct(ProductDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return this.sqlSession.update("updateProduct", dto);
 	}
 
 	@Override
 	public int deleteProduct(int no) {
-		// TODO Auto-generated method stub
+
 		return this.sqlSession.delete("deleteProduct", no);
 	}
 
@@ -54,7 +54,6 @@ public class AdminDAOImpl implements AdminDAO{
 		
 		return this.sqlSession.selectList("cateList");
 	}
-
 
 	@Override public List<AdminDTO> adminSearchList(PageDTO dto) {
 	 

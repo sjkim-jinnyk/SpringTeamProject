@@ -34,13 +34,6 @@ function likeCheck(product_no, index){
 		<jsp:include page="../include/header.jsp" />
 		<jsp:include page="../include/recent.jsp" />
 			<div class="main">	
-	
-			<div class="search">
-				<form method="post" action="product_search.do">		
-					<input type="search" name="k" placeholder="${keyword }">
-					<input type="submit" value="검색"> 
-					</form>
-			</div>
 			
 			<div class="category">
 				<a class="category-menu" href="product_list.do">전체 상품</a>

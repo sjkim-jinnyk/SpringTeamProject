@@ -337,16 +337,6 @@ public class AdminController {
 			return "admin/admin_product_search";
 		}
 		
-		@RequestMapping("admin_search_cate.do")
-		public void admin_search_cate() {
-			
-		}
-		
-		@RequestMapping("admin_search_tag.do")
-		public void admin_search_tag() {
-			
-		}
-		
 		@RequestMapping("category_list.do")
 		public String category_insert(Model model) {
 			

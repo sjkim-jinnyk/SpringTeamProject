@@ -33,7 +33,7 @@
 				<ul class="list-unstyled components mb-5">
 					<li class="active"><a href="#homeSubmenu"
 						data-toggle="collapse" aria-expanded="false"
-						class="dropdown-toggle" onclick="admin_product_list.do">상품</a>
+						class="dropdown-toggle" onclick="admin_product_list.do">상품 관리</a>
 						<ul class="collapse list-unstyled" id="homeSubmenu">
 							<li><a href="admin_product_list.do">상품 관리</a></li>
 							<li><a href="product_insert.do">상품 등록</a></li>

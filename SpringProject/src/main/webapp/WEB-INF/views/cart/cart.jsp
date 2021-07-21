@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="resources/css/product.css">
-<title>Insert title here</title>
+<title>울퉁불퉁's 장바구니</title>
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="resources/js/product.js"></script>
