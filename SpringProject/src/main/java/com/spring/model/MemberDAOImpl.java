@@ -123,7 +123,19 @@ public class MemberDAOImpl implements MemberDAO{
 		
 		return this.sqlSession.selectList("reviewList", id);
 	}
+	
+	// 리뷰 날짜로 리뷰내역 호출 메서드
+	@Override
+	public List<ReviewDTO> getReviewSearchList(Map map) {
 
+		return this.sqlSession.selectList("reviewSearch", map);
+	}
+	
+	@Override
+	public List<OrderDetailDTO> getOrderDetail_review(List<ReviewDTO> list) {
+
+		return this.sqlSession.selectList("reviewProductDetail", list);
+	}
 	
 	// 리뷰번호로 리뷰 상세내역 호출 메서드
 	@Override
@@ -217,6 +229,10 @@ public class MemberDAOImpl implements MemberDAO{
 
 		return this.sqlSession.selectList("qnaReplyList", qna_no);
 	}
+
+
+
+
 
 
 

@@ -9,6 +9,7 @@ public interface MemberDAO {
 	
 	public List<OrderDetailDTO> getOrderDetail(List<OrderDTO> list); 		// 주문번호로 주문 정보 호출 메서드
 	public List<ProductDTO> getProductInfo(List<OrderDetailDTO> list);		// 주문번호로 제품 정보 호출 메서드
+	public List<OrderDetailDTO> getOrderDetail_review(List<ReviewDTO> list);// 주문번호로 제품 정보 호출 메서드
 	
 	// mypage home_header
 	public MemberDTO getMemberInfo(String id);								// 특정 회원 정보 호출 메서드	
@@ -32,7 +33,8 @@ public interface MemberDAO {
 	public List<ReviewDTO> getReviewList(String id);						// 제품번호로 리뷰 리스트 호출 메서드
 	public ReviewDTO getReviewCont(int no);									// 리뷰번호로 리뷰 상세내역 호출 메서드
 	public int updateReview(ReviewDTO dto);   								// 리뷰 수정 메서드
-
+	public List<ReviewDTO> getReviewSearchList(Map map);					// 리뷰날짜로 리뷰내역 호출 
+	
 	// productLike
 	public List<ProductLikeDTO> getProductLikeList(String id);				// id로 찜한 상품 리스트 호출 메서드
 	public int deleteProductLike(int no);									// 찜한 상품 취소

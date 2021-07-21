@@ -156,4 +156,19 @@
 		select * from coupon where coupon_no = #{no}
 	</select>
 
+	<select id="reviewSearch" parameterType="java.util.HashMap" resultType="com.spring.model.ReviewDTO">
+		select * from review where review_date between to_date(#{first}, 'yyyy-mm-dd') and to_date(#{last}, 'yyyy-mm-dd')+1 and review_writer = #{id}
+		order by order_no desc
+	</select>
+	<select id="reviewProductDetail" parameterType="ArrayList" resultType="com.spring.model.OrderDetailDTO">
+	
+		select * from order_detail 
+		<if test="!list.isEmpty()">
+		where order_no in 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.order_no}</foreach>
+		</if>
+		order by order_no desc
+	
+	</select>
+
 </mapper>

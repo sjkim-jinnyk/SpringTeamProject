@@ -21,17 +21,11 @@
 				
 				<!-- member_content -->
 				<div class="member_content">
-					<div class="nav_menu">
-						<ul>
-							<a href="<%=request.getContextPath() %>/member_home.do"><li>주문내역</li></a>
-							<a href="<%=request.getContextPath() %>/member_qna.do"><li>문의내역</li></a>
-							<a href="<%=request.getContextPath() %>/member_recent.do"><li>최근 본 상품</li></a>
-							<a href="<%=request.getContextPath() %>/member_info.do"><li>정보관리</li></a>
-						</ul>
-					</div> <!-- nav_menu END -->
+					<jsp:include page="../include/member_navmenu.jsp" />
 					
-					<div class="member_order">
-						<table class="order_bar" border="1">
+					<div class="member_reviewCont">
+						<h3>구매후기 상세내역</h3>
+						<table class="review_bar">
 						<c:set var="rlist" value="${ReviewCont }" />
 							<tr>
 								<th>리뷰제목</th>
@@ -43,7 +37,7 @@
 							</tr>
 							<tr>
 								<th>사진</th>
-								<td>${rlist.getReview_img() }</td>
+								<td><img src="resources/img/upload/${rlist.getReview_img() }"></td>
 							</tr>	
 							<tr>
 								<th>별점</th>
@@ -61,5 +55,4 @@
 		</div>
 	</div>
 </body>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member.js"></script>
 </html>

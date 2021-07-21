@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
 
-
 <title>Member</title>
 </head>
 <body>
@@ -23,31 +22,35 @@
 				
 				<!-- member_content -->
 				<div class="member_content">
-					<div class="nav_menu">
-						<ul>
-							<a href="<%=request.getContextPath() %>/member_home.do"><li>주문내역</li></a>
-							<a href="<%=request.getContextPath() %>/member_qna.do"><li>문의내역</li></a>
-							<a href="<%=request.getContextPath() %>/member_recent.do"><li>최근 본 상품</li></a>
-							<a href="<%=request.getContextPath() %>/member_info.do"><li>정보관리</li></a>
-						</ul>
-					</div> <!-- nav_menu END -->
+					<jsp:include page="../include/member_navmenu.jsp" />
 					
 					<div class="member_like">
-						<ul>
-							<c:if test="${!empty ProductLikeInfo}">
-							<c:forEach items="${ProductLikeInfo }" var="dto">
-								<li class="likeproduct">
-									<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/upload/${dto.getPro_img() }"></a>
-									<div class="product-info">
-										<a class="pro-tag" href="#">${dto.getPro_tag() }</a><br>
-										<a class="pro-name" href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a><br>
+						<h3>찜 리스트</h3>
+						<c:if test="${!empty ProductLikeInfo}">
+						<ul id="allList">
+						<c:forEach items="${ProductLikeInfo }" var="dto">
+							<li id="box">
+								<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">
+									<img src="resources/img/upload/${dto.getPro_img() }">
+								</a>
+								<ul id="stepList">
+									<li class="product-info">
+										<a class="pro-tag" href="#">${dto.getPro_tag() }</a>
+									</li>
+									<li>
+										<a class="pro-name" href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a>
+									</li>
+									<li>
 										<span class="pro-price"><fmt:formatNumber value="${dto.getPro_output_price() }" /> 원</span>
+									</li>
+									<li>
 										<a href="<%=request.getContextPath() %>/productLike_delete.do?no=${dto.getPro_no()}&id=${session_id}" id="heart"><i class="fas fa-heart"></i></a>
-									</div>
-								</li>
-							</c:forEach>
-							</c:if>
+									</li>
+								</ul>
+							</li>
+						</c:forEach>
 						</ul>
+						</c:if>
 					</div> <!-- member_like END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
@@ -55,6 +58,5 @@
 		</div>
 	</div>
 </body>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member_productLike.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </html>
