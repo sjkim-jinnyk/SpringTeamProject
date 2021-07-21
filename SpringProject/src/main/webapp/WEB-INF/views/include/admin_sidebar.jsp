@@ -35,9 +35,9 @@
 						data-toggle="collapse" aria-expanded="false"
 						class="dropdown-toggle" onclick="admin_product_list.do">상품</a>
 						<ul class="collapse list-unstyled" id="homeSubmenu">
-							<li><a href="admin_product_list.do">상품 목록</a></li>
+							<li><a href="admin_product_list.do">상품 관리</a></li>
 							<li><a href="product_insert.do">상품 등록</a></li>
-							<li><a href="#">상품 수정</a></li>
+							<li><a href="category_list.do">카테고리 관리</a></li>
 							<li><a href="#">상품 삭제</a></li>
 						</ul></li>
 					<li><a href="#">쿠폰 발행</a></li>

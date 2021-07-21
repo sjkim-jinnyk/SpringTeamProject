@@ -46,6 +46,42 @@
 	
 	<!-- :::::::::::::::::::::: 관리자 상품관련 :::::::::::::::::::::: -->
 	
+	<select id="cateList" resultType="com.spring.model.CateDTO">
+		select * from cate order by cate_no
+	</select>
+	
+	<insert id="insertCate">
+		<selectKey keyProperty="cate_no" resultType="int" order="BEFORE">
+			select max(cate_no)+1 from cate
+		</selectKey>
+		insert into cate values(#{cate_no}, #{cate_name})
+	</insert>
+	
+	<update id="updateCate">
+		update cate set cate_name = #{cate_name} where cate_no = #{cate_no}
+	</update>
+	
+	<delete id="deleteCate">
+		delete from cate where cate_no = #{no}
+	</delete>
+	
+	
+	
+	<select id="proAllListCount" resultType="int">
+		select count(*) from product
+	</select>
+	
+	<select id="proAllList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.ProductDTO">
+		<![CDATA[ 
+			select * from (select p.*, row_number() over(order by pro_no desc) rnum from product p)
+			where rnum >= #{startNo} and rnum <= #{endNo}
+		]]>
+	</select>
+	
+	<select id="productCate" resultType="com.spring.model.CateDTO">
+		select * from cate where cate_no = #{no}
+	</select>
+	
 	<insert id="insertProduct">
 		<selectKey keyProperty="pro_no" resultType="int" order="BEFORE">
 			select max(pro_no) + 1 from product
@@ -53,9 +89,19 @@
 		insert into product values(#{pro_no}, #{pro_name}, #{pro_category}, #{pro_input_price}, #{pro_output_price}, #{pro_tag}, #{pro_check}, #{pro_img}, #{pro_cont})
 	</insert>
 	
-	<select id="cateList" resultType="com.spring.model.CateDTO">
-		select * from cate
-	</select>
+	<update id="updateProduct">
+		update product set pro_name = #{pro_name}, pro_category = #{pro_category}, pro_input_price = #{pro_input_price}, pro_output_price = #{pro_output_price}, pro_tag = #{pro_tag}, pro_check = #{pro_check}, pro_img = #{pro_img}, pro_cont = #{pro_cont} 
+		where pro_no = #{pro_no}
+	</update>
+	
+	<update id="updateProductNoImg">
+		update product set pro_name = #{pro_name}, pro_category = #{pro_category}, pro_input_price = #{pro_input_price}, pro_output_price = #{pro_output_price}, pro_tag = #{pro_tag}, pro_check = #{pro_check}, pro_cont = #{pro_cont} 
+		where pro_no = #{pro_no}
+	</update>
+	
+	<delete id="deleteProduct">
+		delete from product where pro_no = #{no}
+	</delete>
 	
 	
 	

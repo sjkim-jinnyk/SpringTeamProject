@@ -2,6 +2,7 @@ package com.spring.member;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -123,72 +124,250 @@ public class AdminController {
 	
 	// :::::::::::::::::::::: 관리자 상품관련 ::::::::::::::::::::::
 	
-	@RequestMapping("product_insert.do")
-	public String pro_insert(Model model) {
-		
-		List<CateDTO> list = this.dao.getCateList();
-		model.addAttribute("list", list);
-		
-		return "admin/product_insert";
-	}
-	
-	@RequestMapping("product_insert_ok.do")
-	public void pro_insertOk(ProductDTO dto, HttpServletResponse response, MultipartHttpServletRequest mRequest) throws IOException {
-		
-		response.setContentType("text/html; UTF-8");
-		PrintWriter out = response.getWriter();
-		
-		HashMap hm = upload.fileUpload(mRequest);
-		boolean isUpload = (Boolean) hm.get("isUpload");
-		String fileName = (String) hm.get("fileName");
-		
-		if(isUpload) {
+		@RequestMapping("product_insert.do")
+		public String pro_insert(Model model) {
 			
-			dto.setPro_img(fileName);
+			List<CateDTO> list = this.dao.getCateList();
+			model.addAttribute("list", list);
 			
-			int result = this.dao.insertProduct(dto);
+			return "admin/admin_product_insert";
+		}
+		
+		@RequestMapping("product_insert_ok.do")
+		public void pro_insertOk(ProductDTO dto, HttpServletResponse response, MultipartHttpServletRequest mRequest) throws IOException {
+			
+			response.setContentType("text/html; UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			HashMap hm = upload.fileUpload(mRequest);
+			boolean isUpload = (Boolean) hm.get("isUpload");
+			String fileName = String.valueOf(hm.get("fileName"));
+			
+			if(isUpload) {
+				
+				dto.setPro_img(fileName);
+				
+				int result = this.dao.insertProduct(dto);
+				
+				if(result > 0) {
+					out.println("<script>");
+					out.println("alert('상품등록 성공')");
+					out.println("location.href='admin_product_list.do'");
+					out.println("</script>");
+				}else {
+					out.println("<script>");
+					out.println("alert('상품등록 실패')");
+					out.println("history.back()");
+					out.println("</script>");
+				}
+			}
+		}
+		
+		@RequestMapping("admin_product_list.do")
+		public String pro_list(HttpServletRequest request, HttpSession session, Model model) {
+			
+			int page = 0;
+
+			if (request.getParameter("page") != null) {
+				page = Integer.parseInt(request.getParameter("page"));
+			} else {
+				page = 1;
+			}
+
+			rowsize = 10;
+			totalRecord = this.dao.getProductAllListCount();
+
+			PageDTO pageDTO = new PageDTO(page, rowsize, totalRecord);
+			List<ProductDTO> list = this.dao.getProductAllList(pageDTO);
+			List<CateDTO> cateList = this.dao.getCateList();
+			// List<TagDTO> tList = this.dao.getTagList();
+			
+			
+			List<CateDTO> cList = new ArrayList<CateDTO>();
+
+			for (int i=0; i<list.size(); i++) {
+				list.get(i).tag_split();
+				cList.add(this.dao.getProductCate(list.get(i).getPro_category()));
+			}
+			
+			model.addAttribute("page", pageDTO);
+			model.addAttribute("List", list);
+			model.addAttribute("category", cateList);
+			model.addAttribute("cList", cList);
+			
+			return "admin/admin_product_list";
+		}
+		
+		@RequestMapping("admin_product_cont.do")
+		public String admin_pro_cont(@RequestParam int no, Model model) {
+			
+			ProductDTO dto = this.pdao.getProductCont(no);
+			dto.tag_split();
+			CateDTO cdto = this.dao.getProductCate(dto.getPro_category());
+			
+			model.addAttribute("dto", dto);
+			model.addAttribute("cdto", cdto);
+			
+			return "admin/admin_product_cont";
+		}
+		
+		@RequestMapping("product_update.do")
+		public String admin_pro_update(@RequestParam int no, Model model) {
+			
+			ProductDTO dto = this.pdao.getProductCont(no);
+			dto.tag_split();
+			List<CateDTO> cateList = this.dao.getCateList();
+			
+			model.addAttribute("dto", dto);
+			model.addAttribute("cdto", cateList);
+			
+			return "admin/admin_product_update";
+		}
+		
+		@RequestMapping("product_update_ok.do")
+		public void admin_pro_update_ok(ProductDTO dto, HttpServletResponse response, MultipartHttpServletRequest mRequest) throws IOException {
+			
+			response.setContentType("text/html; UTR-8");
+			PrintWriter out = response.getWriter();
+			
+			HashMap hm = upload.fileUpload(mRequest);
+			boolean isUpload = (Boolean) hm.get("isUpload");
+			String fileName = String.valueOf(hm.get("fileName"));
+			
+			if(isUpload) {
+				
+				dto.setPro_img(fileName);
+				
+				int result = this.dao.updateProduct(dto);
+				
+				if(result > 0) {
+					out.println("<script>");
+					out.println("alert('상품이 수정되었습니다.')");
+					out.println("location.href='admin_product_cont.do?no="+dto.getPro_no()+"'");
+					out.println("</script>");
+				}else {
+					out.println("<script>");
+					out.println("alert('상품 수정 실패!')");
+					out.println("history.back()");
+					out.println("</script>");
+				}
+			}else {
+				int result = this.dao.updateProductNoImg(dto);
+				
+				if(result > 0) {
+					out.println("<script>");
+					out.println("alert('상품이 수정되었습니다.')");
+					out.println("location.href='admin_product_cont.do?no="+dto.getPro_no()+"'");
+					out.println("</script>");
+				}else {
+					out.println("<script>");
+					out.println("alert('상품 수정 실패!')");
+					out.println("history.back()");
+					out.println("</script>");
+				}
+			}
+			
+		}
+		
+		@RequestMapping("product_delete.do")
+		public void admin_pro_delete(@RequestParam int no, HttpServletResponse response) throws IOException {
+			
+			response.setContentType("text/html; UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			int result = this.dao.deleteProduct(no);
 			
 			if(result > 0) {
 				out.println("<script>");
-				out.println("alert('상품등록 성공')");
-				out.println("location.href='main.do'");
+				out.println("alert('상품이 삭제되었습니다.')");
+				out.println("location.href='admin_product_list.do'");
 				out.println("</script>");
 			}else {
 				out.println("<script>");
-				out.println("alert('상품등록 실패')");
+				out.println("alert('상품 삭제 실패!')");
 				out.println("history.back()");
 				out.println("</script>");
 			}
 		}
-	}
-	
-	@RequestMapping("admin_product_list.do")
-	public String pro_list(HttpServletRequest request, HttpSession session, Model model) {
 		
-		int page = 0;
-
-		if (request.getParameter("page") != null) {
-			page = Integer.parseInt(request.getParameter("page"));
-		} else {
-			page = 1;
-		}
-
-		rowsize = 8;
-		totalRecord = this.pdao.getProductListCount();
-
-		PageDTO pageDTO = new PageDTO(page, rowsize, totalRecord);
-		List<ProductDTO> list = this.pdao.getProductList(pageDTO);
-
-		for (int i=0; i<list.size(); i++) {
-			list.get(i).tag_split();
+		@RequestMapping("admin_search_cate.do")
+		public void admin_search_cate() {
+			
 		}
 		
-		model.addAttribute("page", pageDTO);
-		model.addAttribute("List", list);
+		@RequestMapping("admin_search_tag.do")
+		public void admin_search_tag() {
+			
+		}
 		
-		return "admin/product_list";
-	}
-	
-	
-	// :::::::::::::::::::::: 관리자 상품관련 end ::::::::::::::::::::::
+		@RequestMapping("category_list.do")
+		public String category_insert(Model model) {
+			
+			List<CateDTO> list = this.dao.getCateList();
+			//List<ProductDTO> pList = this.dao.getProductList(list);
+			
+			model.addAttribute("List", list);
+			
+			return "admin/admin_category_list";
+		}
+		
+		@RequestMapping("category_insert.do")
+		public void category_insert(CateDTO dto, HttpServletResponse response) throws IOException {
+			response.setContentType("text/html; UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			int result = this.dao.insertCategory(dto);
+			
+			if(result > 0) {
+				out.println("<script>");
+				out.println("location.href='category_list.do'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('카테고리 등록 실패!')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+		}
+		
+		@RequestMapping("category_update.do")
+		public void category_update(CateDTO dto, HttpServletResponse response) throws IOException {
+			response.setContentType("text/html; UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			int result = this.dao.updateCate(dto);
+			
+			if(result > 0) {
+				out.println("<script>");
+				out.println("location.href='category_list.do'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('카테고리 등록 실패!')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+		}
+		
+		@RequestMapping("category_delete.do")
+		public void category_delete(@RequestParam int no, HttpServletResponse response) throws IOException {
+			response.setContentType("text/html; UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			int result = this.dao.deleteCate(no);
+			
+			if(result > 0) {
+				out.println("<script>");
+				out.println("location.href='category_list.do'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('카테고리 삭제 실패!')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+		}
+		
+		// :::::::::::::::::::::: 관리자 상품관련 end ::::::::::::::::::::::
 }
+		
