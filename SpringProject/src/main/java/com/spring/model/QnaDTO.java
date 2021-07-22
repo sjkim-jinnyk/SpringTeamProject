@@ -17,4 +17,6 @@ public class QnaDTO {
 	private int qna_step;
 	private int qna_secret;
 	
+	private QnaDTO qnaDTO;
+	
 }

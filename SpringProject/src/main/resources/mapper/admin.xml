@@ -103,6 +103,24 @@
 		delete from product where pro_no = #{no}
 	</delete>
 	
+	<select id="proSearchListCount" resultType="int">
+		select count(*) from product 
+		<if test='field.equals("tag")'> <![CDATA[where pro_tag like  '%' || #{keyword} || '%' ]]> </if>
+		<if test='field.equals("name")'>where pro_name like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
+		<if test='field.equals("category")'>where pro_category like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
+		<if test='field.equals("state")'>where pro_check like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
+	</select>
+	
+	<select id="proSearchList" resultType="com.spring.model.ProductDTO">
+		select * from (select p.*, row_number() over(order by pro_no desc) rnum from product p
+		<if test='field.equals("tag")'> <![CDATA[where pro_tag like  '%' || #{keyword} || '%' ]]> </if>
+		<if test='field.equals("name")'>where pro_name like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
+		<if test='field.equals("category")'>where pro_category like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
+		<if test='field.equals("state")'>where pro_check like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
+		) 
+		<![CDATA[  where rnum >= #{startNo} and rnum <= #{endNo} ]]>
+		
+	</select>
 	
 	
 	<!-- :::::::::::::::::::::: 관리자 상품관련 end :::::::::::::::::::::: -->

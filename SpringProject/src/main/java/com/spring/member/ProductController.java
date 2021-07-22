@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.spring.model.AdminDAO;
+import com.spring.model.CateDTO;
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDAO;
 import com.spring.model.ProductDTO;
@@ -35,6 +37,9 @@ public class ProductController {
 	
 	@Autowired
 	private ProductLikeDAO ldao;
+	
+	@Autowired
+	private AdminDAO adao;
 
 	private int totalRecord = 0;
 	private int rowsize = 0;
@@ -51,17 +56,25 @@ public class ProductController {
 		
 		int likeCheck = 0;
 		int page = 0;
-
+		int no = 0;
+		
 		if (request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		} else {
 			page = 1;
 		}
+		
+		if(request.getParameter("no") != null) {
+			no = Integer.parseInt(request.getParameter("no"));
+		}
 
 		rowsize = 8;
-		totalRecord = this.pdao.getProductListCount();
-
-		PageDTO pageDTO = new PageDTO(page, rowsize, totalRecord);
+		totalRecord = this.pdao.getProductListCount(no);
+		
+		System.out.println("no >>> " + no);
+		System.out.println("total >>> " + totalRecord);
+		
+		PageDTO pageDTO = new PageDTO(page, rowsize, totalRecord, no);
 		List<ProductDTO> list = this.pdao.getProductList(pageDTO);
 
 		for (int i=0; i<list.size(); i++) {
@@ -72,11 +85,11 @@ public class ProductController {
 			list.get(i).setLike_check(likeCheck);
 		}
 		
-		List<ProductRecentDTO> rList = this.rdao.getRecentList(user_id);
+		List<CateDTO> cList = this.adao.getCateList();
 		
 		model.addAttribute("page", pageDTO);
 		model.addAttribute("List", list);
-		model.addAttribute("rList", rList);
+		model.addAttribute("cList", cList);
 
 		return "product/product_list";
 	}
@@ -155,9 +168,11 @@ public class ProductController {
 		List<QnaDTO> qlist = this.pdao.getProQnaList(qpageDTO);
 		
 		if(qlist.size() != 0) {
-			List<QnaDTO> alist = this.pdao.getProQnaAnswerList(qlist);	// 답변
-			model.addAttribute("answer", alist);
+			for(int i=0; i<qlist.size(); i++) {
+				qlist.get(i).setQnaDTO(this.pdao.getProQnaAnswerList(qlist.get(i).getQna_no()));
+			}
 		}
+		
 		model.addAttribute("cont", pdto);
 
 		model.addAttribute("likeCheck", likeCheck);
@@ -266,6 +281,7 @@ public class ProductController {
 		if (result > 0) {
 			out.println("<script>");
 			out.println("alert('상품 Q&A가 작성되었습니다.')");
+			out.println("opener.document.location.reload()");
 			out.println("window.close()");
 			out.println("</script>");
 		} else {
@@ -285,11 +301,16 @@ public class ProductController {
 		PrintWriter out = response.getWriter();
 
 		int result = this.pdao.deleteQna(qna_no);
-
+		
 		if (result > 0) {
+			String check = this.pdao.qnaGroupCount(qna_no);
+			
+			if(check != null) {
+				this.pdao.deleteQna(Integer.parseInt(check));
+			}
 			out.println("<script>");
 			out.println("alert('삭제되었습니다.')");
-			out.println("location.href='product_cont.do?no=" + product_no + "'");
+			out.println("location.href='product_cont.do?no=" + product_no + "#qna'");
 			out.println("</script>");
 		} else {
 			out.println("<script>");
@@ -322,6 +343,7 @@ public class ProductController {
 		if (result > 0) {
 			out.println("<script>");
 			out.println("alert('수정되었습니다.')");
+			out.println("opener.document.location.reload()");
 			out.println("window.close()");
 			out.println("</script>");
 		} else {
@@ -364,6 +386,7 @@ public class ProductController {
 		if (result > 0) {
 			out.println("<script>");
 			out.println("alert('답변이 작성되었습니다.')");
+			out.println("opener.document.location.reload()");
 			out.println("window.close()");
 			out.println("</script>");
 		} else {
