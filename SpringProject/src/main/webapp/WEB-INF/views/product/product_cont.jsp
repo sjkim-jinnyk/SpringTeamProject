@@ -46,11 +46,7 @@ function total() {
 function likeCheck(product_no){
 	if('${session_id}' == ''){
 		alert('로그인 후 사용가능합니다.');
-<<<<<<< HEAD
 		window.open("login_popup.do", "로그인", "_blank");
-=======
-		window.open("login.do", "로그인 창", "_blank");
->>>>>>> refs/remotes/origin/csooy
 		return;
 	}else{
 		addLike(product_no);

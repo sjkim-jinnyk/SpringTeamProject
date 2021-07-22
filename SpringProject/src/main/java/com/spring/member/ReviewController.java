@@ -41,6 +41,7 @@ public class ReviewController {
 		List<ReviewDTO> list = this.dao.getReviewList(pageDTO);
 		
 		model.addAttribute("page", pageDTO);
+		model.addAttribute("List", list);
 		
 		return "review/review_list";
 	}

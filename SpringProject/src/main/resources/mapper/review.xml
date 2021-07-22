@@ -9,14 +9,14 @@
 		select count(*) from review
 	</select>
 	
-	<select id="review_list" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.ReviewDAO">
+	<select id="review_list" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.ReviewDTO">
 		<![CDATA[ 
 			select * from (select r.*, row_number() over(order by review_no desc) rnum from review r)
 			where rnum >= #{startNo} and rnum <= ${endNo}
 		]]>
 	</select>
 	
-	<select id="review_cont" parameterType="int" resultType="com.spring.model.ReviewDAO">
+	<select id="review_cont" parameterType="int" resultType="com.spring.model.ReviewDTO">
 		select * from review where review_no = #{no}
 	</select>
 	
