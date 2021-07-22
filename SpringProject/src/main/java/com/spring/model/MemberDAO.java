@@ -43,6 +43,7 @@ public interface MemberDAO {
 	// 회원 정보 수정
 	public int updateMemberAddr(MemberDTO dto);								// 회원 주소 수정 메서드
 	public int updateMemberPhone(MemberDTO dto);							// 회원 연락처 수정 메서드
+	public int updateMemberPwd(MemberDTO dto);								// 회원 비밀번호 수정 메서드
 	
 	// 회원 탈퇴
 	public int deleteMember(String id);										// 회원 삭제  메서드

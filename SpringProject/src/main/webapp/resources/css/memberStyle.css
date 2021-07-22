@@ -3,7 +3,7 @@
 
 .member_container {
 	font-family:'Noto Sans KR', sans-serif;
-	margin: 0 130px;
+	margin: 50px 130px;
 	text-align: center;
 }
 
@@ -31,7 +31,7 @@
 }
 
 /* member_order css */
-.member_order, .member_orderDetail, .member_coupon, .member_reviewCont, .member_review, .member_like, .member_info {
+.member_order, .member_orderDetail, .member_coupon, .member_reviewCont, .member_review, .member_qna, .member_like, .member_info {
 	margin-left: 30px;
 	width: 100%;
 }
@@ -192,7 +192,10 @@
 .member_coupon .coupon_bar td{
 	padding: 10px;
 }
-
+.member_coupon #noCoupon {
+	padding-top: 50px;
+	text-align: center;
+}
 
 /* member_review css */
 .member_review h3, .member_reviewCont h3{
@@ -285,7 +288,10 @@
 	height: 80px;
 	padding-left: 10px;
 }
-
+.member_review #noHistory {
+	padding-top: 50px;
+	text-align: center;
+}
 
 
 /* member_review_write css */
@@ -366,23 +372,146 @@
 	height: 125px;
 	padding-left: 10px;
 }
+.member_like #noLike {
+	padding-top: 50px;
+	text-align: center;
+}
 
+/* member_qna css */
 
+.member_qna .off{
+	display: none;
+}
 
+.member_qna h3{
+	padding: 0 0 20px;
+	text-align: left;
+	border-bottom: 2px solid;
+}
+.member_qna .qna_bar {
+	width: 100%;
+}
+.member_qna .qna_bar #tablecont:hover{
+	background: #ffddae;
+}
+.member_qna .qna_bar th{
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+.member_qna .qna_bar td{
+	padding: 10px;
+}
+.member_qna .qna_bar #qnainfo, #qnatitle{
+	width: 30%;
+}
+.member_qna .qna_bar #qnacate, #qnadate {
+	width: 20%;
+}
+.member_qna .qna_bar ul {
+	display: flex;
+	padding-left: 20px;
+}
+.member_qna .qna_bar img {
+	width: 100px;
+	height: 80px;
+}
+.member_qna .qna_bar .proname {
+	padding: 30px 20px;
+}
+.member_qna .qna_bar #noHistory {
+	padding-top: 50px;
+	text-align: center;
+}
 
 
 /* member_info css */
-
+.member_info #headName {
+	padding: 0 0 20px;
+	text-align: left;
+	border-bottom: 2px solid;
+}
+.member_info ul {
+	padding-top: 20px; 
+	padding-left: 10px;
+}
+.member_info #tag {
+	width: 250px;
+}
+.member_info #cont {
+	width: 450px;
+	display: inline-block;
+}
+.member_info li {
+	text-align: left;
+	padding: 10px 0;
+	display: flex;
+	border-bottom: 1px solid #e5e5e5;
+}
+.member_info #addr_btn, .member_info #phone_btn, .member_info #addr_edit_btn, #pwd_btn {
+	background: transparent;
+	padding: 0 10px;
+	cursor: pointer;
+	border: 1px solid #e5e5e5;
+}
+.member_info #submit_btnA, #reset_btnA, #submit_btnP, #resest_btnP, #submit_btnPwd {
+	background: #f1f1f1;
+	padding: 0 10px;
+	cursor: pointer;
+	border: 1px solid #f1f1f1;
+}
+.member_info #submit_btnA:hover, #submit_btnP:hover, #submit_btnPwd:hover {
+	color: white;
+	background: black;
+	border: 1px solid black;
+}
+.member_info #reset_btnA:hover, #resest_btnP:hover{
+	background: #ccc;
+	border: 1px solid #ccc;
+}
+.member_info #addr_edit_btn{
+	margin-bottom: 10px;
+}
+.member_info #addr_btn:hover, .member_info #phone_btn:hover, .member_info #submit_btnA:hover, #addr_edit_btn:hover {
+	border: 1px solid black;
+}
 .member_info .off {
 	display: none;
 }
 .member_info .on {
 	display: "";
 }
-
-/* member_qna css */
-.qnaimg img {
-	width: 250px;
+.member_info #sample6_postcode {
+	border: 1px solid #e5e5e5;
+	width: 150px;
+	margin-right: 20px;
+	margin-bottom: 10px;
+}
+.member_info #sample6_address {
+	width: 400px;
+	margin-bottom: 10px;
+	border: 1px solid #e5e5e5;
+}
+.member_info #sample6_detailAddress {
+	width: 400px;
+	margin-right: 50px;
+	border: 1px solid #e5e5e5;
+	margin-bottom: 10px;
+}
+.member_info #phone {
+	border: 1px solid #e5e5e5;
+	text-align: center;
+}
+.member_info #pwd_edit{
+	border: 1px solid #e5e5e5;
+	margin-bottom: 10px;
+}
+.member_info #pwdinfo {
+	color: #ccc;
+	font-size: 16px;
+}
+.member_info #phone_num {
+	width: 450px;
+	display: inline-block;
 }
 /* member_recent css */
 .history img {

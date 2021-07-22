@@ -42,11 +42,11 @@
 							</c:if>
 							<c:if test="${empty clist }">
 								<tr>
-									<td colspan="4">등록된 쿠폰이 없습니다.</td>
+									<td colspan="4" id="noCoupon">등록된 쿠폰이 없습니다.</td>
 								</tr>
 							</c:if>
 						</table>
-					</div> <!-- member_order END -->
+					</div> <!-- member_coupon END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
 			<jsp:include page="../include/footer.jsp" />

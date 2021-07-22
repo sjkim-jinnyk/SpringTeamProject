@@ -176,5 +176,9 @@
 		order by order_no desc
 	
 	</select>
+	<update id="updateMemberPwd" parameterType="com.spring.model.MemberDTO">
+		update member set mem_pwd = #{mem_pwd}
+		where mem_id = #{mem_id}
+	</update>
 
 </mapper>

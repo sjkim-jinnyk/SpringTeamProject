@@ -182,6 +182,13 @@ public class MemberDAOImpl implements MemberDAO{
 		return this.sqlSession.update("updateMemberAddr", dto);
 	}
 	
+	// 회원 비밀번호 수정 메서드
+	@Override
+	public int updateMemberPwd(MemberDTO dto) {
+
+		return this.sqlSession.update("updateMemberPwd", dto);
+	}
+	
 	// 회원 연락처 수정 메서드
 	@Override
 	public int updateMemberPhone(MemberDTO dto) {
@@ -229,6 +236,7 @@ public class MemberDAOImpl implements MemberDAO{
 
 		return this.sqlSession.selectList("qnaReplyList", qna_no);
 	}
+
 
 
 

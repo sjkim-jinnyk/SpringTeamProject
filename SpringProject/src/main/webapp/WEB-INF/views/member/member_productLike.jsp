@@ -51,6 +51,9 @@
 						</c:forEach>
 						</ul>
 						</c:if>
+						<c:if test="${empty ProductLikeInfo}">
+							<p id="noLike">찜한 상품이 없습니다.</p>
+						</c:if>
 					</div> <!-- member_like END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->

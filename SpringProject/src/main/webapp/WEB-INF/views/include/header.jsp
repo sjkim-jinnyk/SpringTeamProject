@@ -8,6 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="resources/css/include.css">
 <link rel="stylesheet" href="resources/css/CommonStyle.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberHeaderStyle.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <title>Insert title here</title>
 </head>
