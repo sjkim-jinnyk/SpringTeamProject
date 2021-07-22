@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="resources/css/product.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="resources/js/product.js"></script>
 <title>Insert title here</title>
 </head>
 <script type="text/javascript">
@@ -42,75 +43,20 @@ function total() {
 	document.getElementById('total-price').innerText = total;
 }
 
-function show(index) {
-	$('.qna-detail-'+index).toggle();
-}
-
-function showPhoto() { 
-	$('#review-all').toggle();
-	$('#review-photo').toggle();
-};
-
-function writeQna(product_no) {
-	if('${session_id}' != ''){
-		window.open("product_qna_write.do?no="+product_no, "질문글 작성하기", "_blank");
-	}else {
-		alert('로그인 후 작성 가능합니다.');
-		window.open("login.do", "질문글 답변하기", "_blank");
-	}
-}
-
-function modifyQna(qna_no, product_no) {
-	window.open("product_qna_modify.do?no="+qna_no+"&pno="+product_no, "질문글 수정하기", "_blank");
-}
-
-function deleteQna(qna_no, product_no){
-	if(confirm('삭제하시겠습니까?')){
-		location.href="qna_delete.do?no="+qna_no+"&pno="+product_no;
-	}
-}
-
-function answerQna(qna_no, product_no){
-	window.open("product_qna_answer.do?no="+qna_no+"&pno="+product_no, "질문글 답변하기", "_blank");
-}
-
-function showReview(id){
-	$('#review-'+id).toggle();
-	$('#review-detail-'+id).toggle();
-	$('#reviews-'+id).toggle();
-	$('#reviews-detail-'+id).toggle();
-}
-
- 
-function addLike(product_no){
+function likeCheck(product_no){
 	if('${session_id}' == ''){
 		alert('로그인 후 사용가능합니다.');
-		window.open("login.do", "질문글 답변하기", "_blank");
+<<<<<<< HEAD
+		window.open("login_popup.do", "로그인", "_blank");
+=======
+		window.open("login.do", "로그인 창", "_blank");
+>>>>>>> refs/remotes/origin/csooy
 		return;
+	}else{
+		addLike(product_no);
 	}
-	
-	$.ajax({
-		type : "post",
-		url : "add_like.do",
-		data : {"no":product_no},
-		success : function(data) {
-			if(data == 1){
-				$("#like-btn").css({"color":"red"});
-				return false;
-			}else if(data == 2){
-				$("#like-btn").css({"color":"black"});
-				return false;
-			}else {
-				console.log("data" + data);
-				alert('에이젝스 실패');
-			}
-		},
-		error: function(request,status,error) {
-			alert("통신 오류입니다.");
-		}
-	});
 }
- 
+
 </script>
 <body>
 	<div class="layout_container">
@@ -157,8 +103,8 @@ function addLike(product_no){
 							
 							<input type="submit" value="구매하기" formaction="#">
 							<input type="submit" value="장바구니에 담기" formaction="add_cart.do">
-							<c:if test="${likeCheck eq 0 }"><button type="button" id="like-btn" onclick="addLike(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
-							<c:if test="${likeCheck > 0 }"><button type="button" id="like-btn" class="like-checked" onclick="addLike(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
+							<c:if test="${likeCheck eq 0 }"><button type="button" id="like-btn" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
+							<c:if test="${likeCheck > 0 }"><button type="button" id="like-btn" class="like-checked" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
 							
 							</form>
 						</div>
@@ -178,7 +124,7 @@ function addLike(product_no){
 				
 				
 					<div id="content-detail" class="content-detail">
-						${dto.getPro_cont() }
+						<span class="pro-cont">${dto.getPro_cont() }</span>
 					</div>
 				
 				</c:if>
@@ -358,19 +304,16 @@ function addLike(product_no){
 						<c:forEach items="${qna }" var="dto" varStatus="status">
 						<tr>
 							<td>
-								<c:if test="${!empty answer[status.index].getQna_no() }">답변완료</c:if> 
-								<c:if test="${empty answer[status.index].getQna_no() }">미답변</c:if> 
+								<c:if test="${!empty dto.getQnaDTO() }">답변완료</c:if> 
+								<c:if test="${empty dto.getQnaDTO() }">미답변</c:if> 
 							</td>
 							<td>
-								<c:if test="${dto.getQna_writer() eq session_id }"><a class="${status.index }" href="javascript:void(0);" onclick="show(${status.index});">
-										<c:if test="${dto.getQna_step() > 0 }">ㄴ[답변]</c:if>${dto.getQna_title() } <c:if test="${dto.getQna_secret() eq 1 }"><i class="fas fa-lock"></i></c:if></a></c:if>
+								<c:if test="${dto.getQna_writer() eq session_id || session_id eq 'admin' }">
+									<a class="${status.index }" href="javascript:void(0);" onclick="show(${status.index});">${dto.getQna_title() } <c:if test="${dto.getQna_secret() eq 1 }"><i class="fas fa-lock"></i></c:if></a>
+								</c:if>
 									
-									<c:if test="${dto.getQna_writer() ne session_id }">
-										<c:if test="${dto.getQna_secret() eq 0 }"><a class="${status.index }" href="javascript:void(0);" onclick="show(${status.index});">
-										<c:if test="${dto.getQna_secret() eq 1 }"><c:if test="${dto.getQna_step() > 0 }">ㄴ[답변]</c:if><i class="fas fa-lock"></i></c:if> ${dto.getQna_title() }</a></c:if>
-										
-										<c:if test="${dto.getQna_secret() eq 1 }"><c:if test="${dto.getQna_step() > 0 }">ㄴ[답변]</c:if>상품관련 문의입니다. <c:if test="${dto.getQna_secret() eq 1 }"><i class="fas fa-lock"></i></c:if></c:if>
-									</c:if>
+								<c:if test="${dto.getQna_writer() ne session_id && session_id ne 'admin' && dto.getQna_secret() eq 0 }"><a class="${status.index }" href="javascript:void(0);" onclick="show(${status.index});">${dto.getQna_title() }</a></c:if>
+								<c:if test="${dto.getQna_writer() ne session_id && session_id ne 'admin' && dto.getQna_secret() eq 1 }">상품관련 문의입니다. <c:if test="${dto.getQna_secret() eq 1 }"><i class="fas fa-lock"></i></c:if></c:if>
 							</td>
 							<td>${dto.getQna_writer().substring(0,3) }****</td>
 							<td>${dto.getQna_date().substring(0,10) }</td>
@@ -383,18 +326,18 @@ function addLike(product_no){
 								<span class="qna-cont" style="white-space:pre;"><c:out value="${dto.getQna_cont() }" /></span><br>
 								
 								
-									<c:if test="${dto.getQna_writer() eq session_id }">
+									<c:if test="${dto.getQna_writer() eq session_id || session_id eq 'admin' }">
 										<button onclick="modifyQna(${dto.getQna_no() },${cont.getPro_no() });">수정</button>
 										<button onclick="deleteQna(${dto.getQna_no() },${cont.getPro_no() });">삭제</button>
 									</c:if>
 									
-									<c:if test="${session_id eq 0 }"><button onclick="answerQna(${dto.getQna_no() },${cont.getPro_no() });">답변하기</button></c:if>
+									<c:if test="${session_id eq 'admin' }"><button onclick="answerQna(${dto.getQna_no() },${cont.getPro_no() });">답변하기</button></c:if>
 							</div>
 							</td>
 							<td colspan="2"></td>
 						</tr>
 						
-						<c:if test="${!empty answer[status.index].getQna_no() }">
+						<c:if test="${!empty dto.getQnaDTO() }">
 						<tr class="qna-detail-${status.index }" style="display:none;">
 							<td></td>
 							<td>
@@ -402,14 +345,14 @@ function addLike(product_no){
 									└<span style="background-color:gray; color:white;">답변</span>
 								</div>
 								<div class="qna-detail">
-									<span class="qna-cont" style="white-space:pre;"><c:out value="${answer[status.index].getQna_cont() }" /></span><br>
-									<c:if test="${answer[status.index].getQna_writer() eq session_id }">
-										<button onclick="modifyQna(${dto.getQna_no() },${cont.getPro_no() });">수정</button>
-										<button onclick="deleteQna(${dto.getQna_no() },${cont.getPro_no() });">삭제</button>
+									<span class="qna-cont" style="white-space:pre;"><c:out value="${dto.getQnaDTO().getQna_cont() }" /></span><br>
+									<c:if test="${session_id eq 'admin' }">
+										<button onclick="modifyQna(${dto.getQnaDTO().getQna_no() },${cont.getPro_no() });">수정</button>
+										<button onclick="deleteQna(${dto.getQnaDTO().getQna_no() },${cont.getPro_no() });">삭제</button>
 									</c:if>
 								</div></td>
 							<td>관리자</td>
-							<td>${answer[status.index].getQna_date().substring(0,10) }</td>
+							<td>${dto.getQnaDTO().getQna_date().substring(0,10) }</td>
 						</tr>
 						</c:if>
 						

@@ -66,8 +66,8 @@ $(document).ready(function(){
 				<div class="right">
 					<a id="search-btn" href="javascript:void(0)" onclick="showSearch();">검색</a>
 					<div id="search" style="display: none;">
-						<form method="post" action="product_search.do">			
-								<input type="search" name="k">
+						<form method="post" action="product_search.do" >			
+								<input type="search" name="k" placeholder="${keyword }">
 								<input type="submit" value="검색"> 
 						</form>
 					</div>

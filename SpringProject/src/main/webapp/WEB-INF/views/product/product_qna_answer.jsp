@@ -66,13 +66,12 @@
 					<td><input name="qna_title" value="문의 답변드립니다." required></td>
 				</tr>
 				<tr>
+					<th>문의 내용</th>
+					<td><span class="qna-cont" style="white-space:pre;"><c:out value="${qdto.getQna_cont() }" /></span></td>
+				</tr>
+				<tr>
 					<th>내 용</th>
-					<td><textarea name="qna_cont" rows="15" cols="50" required>
-문의 내용 :
-${qdto.getQna_cont() }
-----------------------------
-					
-</textarea></td>
+					<td><textarea name="qna_cont" rows="15" cols="50" required></textarea></td>
 				</tr>
 				<tr>
 					<th>비공개</th>

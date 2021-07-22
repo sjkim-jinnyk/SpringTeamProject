@@ -17,41 +17,7 @@
 <title>울퉁불퉁's 관리자 - 상품 등록</title>
 </head>
 <script type="text/javascript" src="resources/ckeditor/ckeditor.js"></script>
-<script type="text/javascript">
-
-function fileSizeCheck() {
-	var fileSize = document.getElementById('upload').files[0].size;
-	document.getElementById('uploadSize').innerHTML = String(fileSize).replace(/(.)(?=(\d{3})+$)/g,'$1,') + "Byte";
-	console.log("fileSize", fileSize);
-	
-	if(document.getElementById('upload').value!=''){
-		var fileSize = document.getElementById('upload').files[0].size;
-		var maxSize = 1024 * 1024 * 10;
-		
-		if(fileSize > maxSize) {
-			alert('첨부파일 사이즈는 10MB 이내로 등록 가능합니다.');
-			return;
-		}
-	}
-}
-
-function readImg(input) {
-	if(input.files && input.files[0]) {
-		var reader = new FileReader();
-
-		reader.onload = function (e) {
-			$('#preview').attr('src', e.target.result);
-		}
-		reader.readAsDataURL(input.files[0]);
-	}
-	
-	if(input.files && input.files[0].size > (10485760)) {
-        alert("파일 사이즈가 10MB를 넘습니다.");
-        input.value = null;
-    }
-}
-
-</script>
+<script type="text/javascript" src="resources/js/admin.js"></script>
 <body>
 	
 		<div class="wrapper d-flex align-items-stretch">
@@ -108,7 +74,7 @@ function readImg(input) {
 						<td>
 							<div class="ima-container">
 								<img id="preview" src=""><br>
-								<input id="upload" type="file" name="pro_imgs" onchange="readImg(this);"> <span id="uploadSize"></span> 최대 10MB 
+								<input id="upload" type="file" name="pro_imgs" onchange="readImg(this);"> 최대 10MB 
 							</div>
 						</td>
 					</tr>
@@ -126,7 +92,7 @@ function readImg(input) {
 					<tr>
 						<td></td>
 						<td>
-							<input type="button" value="크기확인" onclick="fileSizeCheck();">
+							<input type="button" value="취소" onclick="location.href='admin_product_list.do'">
 							<input type="submit" value="등록">
 							<input type="reset" value="초기화">
 						</td>
