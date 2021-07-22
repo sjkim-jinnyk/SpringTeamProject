@@ -170,8 +170,11 @@ public class MemberController {
 		
 		MemberDTO mdto = this.dao.getMemberInfo(id);		
 		List<CouponOwnDTO> codto = this.dao.getCouponList(id);
+		List<CouponDTO> cdto = new ArrayList<CouponDTO>();
 		
-		List<CouponDTO> cdto = this.dao.getCouponInfo(codto);
+		if(!codto.isEmpty()) {
+			cdto = this.dao.getCouponInfo(codto);
+		}
 
 		model.addAttribute("CouponInfo", cdto);
 		
@@ -276,7 +279,11 @@ public class MemberController {
 		String id = (String) session.getAttribute("session_id");
 		
 		List<ProductLikeDTO> plList = this.dao.getProductLikeList(id);
-		List<ProductDTO> plist = this.dao.getProductLikeInfo(plList);
+		List<ProductDTO> plist = new ArrayList<ProductDTO>();
+		
+		if(!plList.isEmpty()) {
+			plist = this.dao.getProductLikeInfo(plList);
+		}
 		
 		model.addAttribute("ProductLikeInfo", plist);
 		

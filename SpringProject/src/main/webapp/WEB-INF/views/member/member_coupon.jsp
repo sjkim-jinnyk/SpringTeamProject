@@ -42,7 +42,7 @@
 							</c:if>
 							<c:if test="${empty clist }">
 								<tr>
-									<td>오류</td>
+									<td colspan="4">등록된 쿠폰이 없습니다.</td>
 								</tr>
 							</c:if>
 						</table>
