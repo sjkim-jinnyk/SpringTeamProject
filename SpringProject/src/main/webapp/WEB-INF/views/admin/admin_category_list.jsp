@@ -14,51 +14,9 @@
 <link rel="stylesheet" href="resources/css/admin.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="resources/js/admin.js"></script>
 <title>울퉁불퉁's 관리자 - 카테고리 목록</title>
 </head>
-<script type="text/javascript">
-
-function makeCate(index){
-	document.getElementById('cate-'+index).style.display = 'none';
-	document.getElementById('cate-update-'+index).style.display = 'inline-block';
-	document.getElementById('btn-'+index).style.display = 'none';
-	document.getElementById('btn-update-'+index).style.display = 'block';
-}
-
-function deleteCate(no, name){
-	if(confirm("'"+name+"' 카테고리를 삭제하시겠습니까?")){
-		location.href='category_delete.do?no='+no;
-	}
-};
-
-function updateCate(index) {
-	
-	var no = document.getElementById('cate-no-'+index).innerText;
-	var name = document.getElementById('cate-name-'+index).value;
-	
-	$.ajax({
-		type : "post",
-		url : "category_update.do",
-		data : {"cate_no":no, "cate_name":name},
-		success : function(data) {
-			if(data == 1){
-				return false;
-			}else {
-				document.getElementById('cate-'+index).style.display = 'block';
-				document.getElementById('cate-update-'+index).style.display = 'none';
-				document.getElementById('btn-'+index).style.display = 'block';
-				document.getElementById('btn-update-'+index).style.display = 'none';
-				
-				document.getElementById('cate-'+index).innerText = name;
-			}
-		},
-		error: function(request,status,error) {
-			alert("통신 오류입니다.");
-		}
-	}); 
-}
-
-</script>
 <body>
 	
 		<div class="wrapper d-flex align-items-stretch">
@@ -81,7 +39,7 @@ function updateCate(index) {
 								<tr class="pro-wrap">
 									<td><span id="cate-no-${status.index }">${dto.getCate_no() }</span></td>
 									<td class="cate-name">
-										<div id="cate-${status.index }">${dto.getCate_name() }</div> 
+										<div id="cate-${status.index }" style="display: block;">${dto.getCate_name() }</div> 
 										
 										<div id="cate-update-${status.index }" style="display: none;">
 											<input type="text" id="cate-name-${status.index }" name="cate_name" value="${dto.getCate_name() }" >
@@ -94,6 +52,7 @@ function updateCate(index) {
 										</div>
 										<div id="btn-update-${status.index }" style="display:none;">
 											<button onclick="updateCate(${status.index});">등록</button> 
+											<button onclick="makeCate(${status.index });">취소</button> 
 										</div>
 									</td>
 								</tr>

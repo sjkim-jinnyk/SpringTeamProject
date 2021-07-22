@@ -17,7 +17,7 @@
 <script type="text/javascript" src="resources/js/admin.js"></script>
 <title>울퉁불퉁's 관리자 - 상품 목록</title>
 </head>
-<body>
+<body onload="check();">
 	
 		<div class="wrapper d-flex align-items-stretch">
 		<jsp:include page="../include/admin_sidebar.jsp" /> 
@@ -30,10 +30,10 @@
 			<div class="search">
 				<form method="post" action="admin_product_search.do">		
 					<select id="field" name="field" onchange="check();">
-						<option value="name">상품명</option>
-						<option value="category">카테고리</option>
-						<option value="state">판매상태</option>
-						<option value="tag">태그</option>
+						<option value="name" <c:if test="${field eq 'name' }">selected</c:if>>상품명</option>
+						<option value="category" <c:if test="${field eq 'category' }">selected</c:if>>카테고리</option>
+						<option value="state" <c:if test="${field eq 'state' }">selected</c:if>>판매상태</option>
+						<option value="tag" <c:if test="${field eq 'tag' }">selected</c:if>>태그</option>
 					</select>
 					
 					<select id="category" name="cateWord" style="display:none;">
@@ -42,14 +42,14 @@
 						</c:if>
 						<c:if test="${!empty category }">
 							<c:forEach items="${category }" var="dto">
-								<option value="${dto.getCate_no() }">${dto.getCate_name() }[${dto.getCate_no() }]</option>
+								<option value="${dto.getCate_no() }" <c:if test="${keyword eq 'dto.getCate_no()' }">selected</c:if>>${dto.getCate_name() }[${dto.getCate_no() }]</option>
 							</c:forEach>
 						</c:if>
 					</select>
 					
 					<select id="state" name="stateWord" style="display:none;">
-						<option value="y">판매중</option>
-						<option value="n">미판매</option>
+						<option value="y" <c:if test="${keyword eq 'y' }">selected</c:if>>판매중</option>
+						<option value="n" <c:if test="${keyword eq 'n' }">selected</c:if>>미판매</option>
 					</select>
 					
 					<input id="search" type="search" name="allWord" placeholder="${keyword }">
@@ -99,7 +99,7 @@
 				</c:if>
 				<c:if test="${empty List }">
 				<tr>
-					<td>등록된 상품이 없습니다.</td>
+					<td>검색된 상품이 없습니다.</td>
 				</tr>
 				</c:if>
 				</table>
@@ -108,28 +108,26 @@
 			<%-- Pagination --%>	
 			<div class="pagination">
 				<c:if test="${page.getPage() > page.getBlock() }">
-					<a href="admin_product_list.do?page=1">◀◀</a>
-	   				<a href="admin_product_list.do?page=${Paging.getStartBlock() - 1 }">◀</a>
+					<a href="admin_product_search.do?page=1&field=${field }&keyword=${keyword}">◀◀</a>
+	   				<a href="admin_product_search.do?page=${Paging.getStartBlock() - 1 }&field=${field }&keyword=${keyword}">◀</a>
 				</c:if>
 				
 				<c:forEach begin="${page.getStartBlock() }" end="${page.getEndBlock() }" var="i">
 			      <c:if test="${i == page.getPage() }">
-			         <b><a href="admin_product_list.do?page=${i }">${i }</a></b>
+			         <b><a href="admin_product_search.do?page=${i }&field=${field }&keyword=${keyword}">${i }</a></b>
 			      </c:if>
 			      
 			      <c:if test="${i != page.getPage() }">
-			         <a href="admin_product_list.do?page=${i }">${i }</a>
+			         <a href="admin_product_search.do?page=${i }&field=${field }&keyword=${keyword}">${i }</a>
 			      </c:if>
 			   </c:forEach>
 			   
 			   <c:if test="${page.getEndBlock() < page.getAllPage() }">
-			      <a href="admin_product_list.do?page=${page.getEndBlock() +1 }">▶</a>
-			      <a href="admin_product_list.do?page=${page.getAllPage() }">▶▶</a>
+			      <a href="admin_product_search.do?page=${page.getEndBlock() +1 }&field=${field }&keyword=${keyword}">▶</a>
+			      <a href="admin_product_search.do?page=${page.getAllPage() }&field=${field }&keyword=${keyword}">▶▶</a>
 			   </c:if>
 				
 			</div>
-		
-				
 			
 			</div>
 			

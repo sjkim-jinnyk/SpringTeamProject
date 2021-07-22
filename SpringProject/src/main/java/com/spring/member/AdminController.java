@@ -180,8 +180,6 @@ public class AdminController {
 			PageDTO pageDTO = new PageDTO(page, rowsize, totalRecord);
 			List<ProductDTO> list = this.dao.getProductAllList(pageDTO);
 			List<CateDTO> cateList = this.dao.getCateList();
-			// List<TagDTO> tList = this.dao.getTagList();
-			
 			
 			List<CateDTO> cList = new ArrayList<CateDTO>();
 
@@ -290,14 +288,53 @@ public class AdminController {
 			}
 		}
 		
-		@RequestMapping("admin_search_cate.do")
-		public void admin_search_cate() {
+		@RequestMapping("admin_product_search.do")
+		public String admin_search(@RequestParam String field, Model model, HttpServletRequest request) {
+			int page = 0;
+			int rowsize = 10;
 			
-		}
-		
-		@RequestMapping("admin_search_tag.do")
-		public void admin_search_tag() {
+			String keyword = "";
 			
+			if(field.equals("tag") || field.equals("name")) {
+				keyword = request.getParameter("allWord");
+			}else if(field.equals("category")) {
+				keyword = request.getParameter("cateWord");
+			}else if(field.equals("state")) {
+				keyword = request.getParameter("stateWord");
+			}
+			
+			if (request.getParameter("page") != null) {
+				page = Integer.parseInt(request.getParameter("page"));
+				keyword = request.getParameter("keyword");
+			} else {
+				page = 1;
+			}
+			
+			HashMap<String, String> hm = new HashMap<String, String>();
+			hm.put("field", field);
+			hm.put("keyword", keyword);
+			
+			totalRecord = this.dao.getProductSearchListCount(hm);
+			
+			PageDTO pageDTO = new PageDTO(page, rowsize, totalRecord, field, keyword);
+			
+			List<ProductDTO> list = this.dao.getProductSearchList(pageDTO);
+			List<CateDTO> cateList = this.dao.getCateList();
+			List<CateDTO> cList = new ArrayList<CateDTO>();
+
+			for (int i=0; i<list.size(); i++) {
+				list.get(i).tag_split();
+				cList.add(this.dao.getProductCate(list.get(i).getPro_category()));
+			}
+			
+			model.addAttribute("page", pageDTO);
+			model.addAttribute("List", list);
+			model.addAttribute("category", cateList);
+			model.addAttribute("cList", cList);
+			model.addAttribute("field", field);
+			model.addAttribute("keyword", keyword);
+
+			return "admin/admin_product_search";
 		}
 		
 		@RequestMapping("category_list.do")

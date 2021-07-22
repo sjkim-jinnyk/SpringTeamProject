@@ -1,5 +1,6 @@
 package com.spring.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -32,13 +33,13 @@ public class AdminDAOImpl implements AdminDAO{
 
 	@Override
 	public int updateProduct(ProductDTO dto) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return this.sqlSession.update("updateProduct", dto);
 	}
 
 	@Override
 	public int deleteProduct(int no) {
-		// TODO Auto-generated method stub
+
 		return this.sqlSession.delete("deleteProduct", no);
 	}
 
@@ -53,7 +54,6 @@ public class AdminDAOImpl implements AdminDAO{
 		
 		return this.sqlSession.selectList("cateList");
 	}
-
 
 	@Override public List<AdminDTO> adminSearchList(PageDTO dto) {
 	 
@@ -107,6 +107,18 @@ public class AdminDAOImpl implements AdminDAO{
 	public int deleteCate(int no) {
 		 
 		return this.sqlSession.delete("deleteCate", no);
+	}
+
+	@Override
+	public int getProductSearchListCount(HashMap<String, String> hm) {
+		
+		return this.sqlSession.selectOne("proSearchListCount", hm);
+	}
+
+	@Override
+	public List<ProductDTO> getProductSearchList(PageDTO dto) {
+		// TODO Auto-generated method stub
+		return this.sqlSession.selectList("proSearchList", dto);
 	}
 
 

@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ProductDAO {
 
-	public int getProductListCount();						// 전체 상품 리스트 수를 조회하는 메서드
+	public int getProductListCount(int no);					// 전체 상품 리스트 수를 조회하는 메서드
 	public List<ProductDTO> getProductList(PageDTO dto);	// 전체 상품 리스트를 조회하는 메서드
 	public ProductDTO getProductCont(int no);				// 특정 상품 상제 정보를 조회하는 메서드
 	
@@ -23,7 +23,8 @@ public interface ProductDAO {
 	public QnaDTO getQnaCont(int no);						// 문의글 상세내역 조회
 	public int updateProQna(QnaDTO dto);					// 문의글 수정
 	public int insertProQnaAns(QnaDTO dto);					// 문의글 답변
-	public List<QnaDTO> getProQnaAnswerList(List<QnaDTO> list);	// 특성 상품에 관한 문의 답변 리스트
+	public QnaDTO getProQnaAnswerList(int no);				// 특성 상품에 관한 문의 답변 리스트
+	public String qnaGroupCount(int no);					// 문의글 삭제시 답변여부 확인
 	
 	// search
 	public List<ProductDTO> getSearchList(PageDTO dto);		// 검색 리스트

@@ -1,5 +1,6 @@
 package com.spring.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface AdminDAO {
@@ -30,5 +31,8 @@ public interface AdminDAO {
 	public int updateProduct(ProductDTO dto);						// 상품 수정
 	public int updateProductNoImg(ProductDTO dto);					// 상품 이미지를 제외한 수정
 	public int deleteProduct(int no); 								// 상품 삭제
+	
+	public int getProductSearchListCount(HashMap<String, String> hm);	// 검색된 상품 수
+	public List<ProductDTO> getProductSearchList(PageDTO dto);			// 검색된 상품 리스트
 		
 }
