@@ -21,14 +21,7 @@
 				
 				<!-- member_content -->
 				<div class="member_content">
-					<div class="nav_menu">
-						<ul>
-							<a href="<%=request.getContextPath() %>/member_home.do"><li>주문내역</li></a>
-							<a href="<%=request.getContextPath() %>/member_qna.do"><li>문의내역</li></a>
-							<a href="<%=request.getContextPath() %>/member_recent.do"><li>최근 본 상품</li></a>
-							<a href="<%=request.getContextPath() %>/member_info.do"><li>정보관리</li></a>
-						</ul>
-					</div> <!-- nav_menu END -->
+					<jsp:include page="../include/member_navmenu.jsp" />
 					
 					<div class="member_review">
 						<form method="post" name="review_form" enctype="multipart/form-data" action="<%=request.getContextPath() %>/member_review_wrtie_ok.do" >
@@ -43,28 +36,33 @@
 								<li>후기 등록 후 삭제는 불가합니다.</li>
 							</ul>
 							<div class="review_content">
-								<div class="review_star">
-									<span>별점</span>
-									<a href="#none" id="star1" class="off"></a>
-									<a href="#none" id="star2" class="off"></a>
-									<a href="#none" id="star3" class="off"></a>
-									<a href="#none" id="star4" class="off"></a>
-									<a href="#none" id="star5" class="off"></a>
-								</div>
-								<div class="review_img">
-									<span>사진</span>
-									<input type="file" name="review_im">
-								</div>
-								<ul class="review_text">
+								<ul class="review_star">
+									<li id="reviewTag">별점</li>
 									<li>
-										<span>제목</span>
-										<input type="text" name="review_title">
+										<a href="#none" id="star1" class="off"></a>
+										<a href="#none" id="star2" class="off"></a>
+										<a href="#none" id="star3" class="off"></a>
+										<a href="#none" id="star4" class="off"></a>
+										<a href="#none" id="star5" class="off"></a>
 									</li>
-									<li><textarea rows="7" cols="30" name="review_cont" placeholder="최소 20자 이상 입력해주세요"></textarea></li>
-									<li>0 / 5,000</li>
 								</ul>
-							</div>
-							<div>
+								<div class="review_img">
+									<label for="review_file" id="qna_file_name">사진선택</label>
+									<input type="file" id="review_file" name="review_file" accept=".jpg, .jpeg, .png">
+									<p class="fileGuide"> * 첨부가능 파일종류 : jpg, png, jpeg (용량 20MB) </p>
+								</div>
+								<div class="review_text">
+									<ul>
+										<li id="reviewTag">제목</li>
+										<li><input id="review_title" type="text" name="review_title" placeholder="제목을 입력해주세요."></li>
+									</ul>
+									<ul>
+										<li id="reviewTag">내용</li>
+										<li><textarea id="review_cont" name="review_cont" placeholder="최소 20자 이상 입력해주세요"></textarea></li>
+									</ul>
+								</div>
+							</div> <!-- review_content END"> -->
+							<div class="review_btn">
 								<input type="submit" value="등록">
 							</div>
 						</form>

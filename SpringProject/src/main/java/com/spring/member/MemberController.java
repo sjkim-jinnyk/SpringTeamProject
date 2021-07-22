@@ -81,10 +81,7 @@ public class MemberController {
 		if(odto != null) {
 			List<OrderDetailDTO> detail = this.dao.getOrderDetail(odto);
 			proinfo = this.dao.getProductInfo(detail);
-			
 		}
-		System.out.println(proinfo);
-		
 		
 		MyPageHeader mypage = new MyPageHeader();
 		mypage.setPoint(mdto.getMem_point());
@@ -156,7 +153,6 @@ public class MemberController {
 		OrderDTO order = this.dao.orderDetail(no);
 		OrderDetailDTO prono = this.dao.orderProno(no);
 		CouponDTO couponCont = this.dao.couponCont(order.getCoupon_no());
-		System.out.println(couponCont);
 
 		ProductDTO product = this.dao.getQnaProductInfo(prono.getOrder_pro_no());
 		
@@ -204,6 +200,32 @@ public class MemberController {
 		return "member/member_review";
 	}
 	
+	// 리뷰 검색
+	@RequestMapping("review_search.do")
+	public String review_search(HttpSession session, Model model, @RequestParam("orderFirst") String orderFirst, @RequestParam("orderLast") String orderLast) {
+		String id = (String) session.getAttribute("session_id");
+		
+		// 검색 날짜를 map에 저장하여 넘겨주기
+		Map map = new HashMap();
+		map.put("first", orderFirst);
+		map.put("last", orderLast);
+		map.put("id", id);
+		
+		List<OrderDTO> odto = this.dao.getOrderList(id);	// id에 해당하는 주문 정보
+		List<ReviewDTO> review = this.dao.getReviewSearchList(map);
+		List<OrderDetailDTO> oddto = this.dao.getOrderDetail_review(review); // 리뷰 테이블의 주문번호로 주문상세내역 찾기
+		
+		List<ProductDTO> pdto = this.dao.getProductInfo(oddto); // 주문상세내역의 제품번호로 제품 정보 찾기
+		
+		model.addAttribute("ProductInfo_s", pdto);
+		model.addAttribute("OrderDetail_s", oddto);
+		model.addAttribute("Order_s", odto);
+		model.addAttribute("ReviewList_s", review);
+		model.addAttribute("map", map);
+		
+		return "member/member_review";
+	}
+	
 	// 리뷰 내용
 	@RequestMapping("member_review_cont.do")
 	public String review_cont(HttpSession session, @RequestParam("no") int no, Model model) {
@@ -223,7 +245,7 @@ public class MemberController {
 		
 		model.addAttribute("ReviewWrite", rdto);
 		
-		return "member/member_review_write";
+		return "member/member_review_test";
 	}
 
 	@RequestMapping("member_review_wrtie_ok.do")
@@ -271,13 +293,7 @@ public class MemberController {
 		int check = this.dao.deleteProductLike(no);
 		if(check > 0) {
 			out.println("<script>");
-			out.println("alert('찜 삭제 성공')");
 			out.println("location.href='member_productLike.do?id=" + id + "'");
-			out.println("</script>");
-		}else {
-			out.println("<script>");
-			out.println("alert('찜 삭제 실패')");
-			out.println("history.back()");
 			out.println("</script>");
 		}
 	}

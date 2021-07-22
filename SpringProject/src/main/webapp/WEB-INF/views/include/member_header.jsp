@@ -45,7 +45,7 @@
 			<a href="<%=request.getContextPath() %>/member_review.do?id=${dto.getMemId() }">
 				<li>
 					<ul class="menu_bar">
-						<li>리뷰 </li>
+						<li>후기 </li>
 						<li id="menu_cont">${dto.getReviewCount() }</li>
 					</ul>
 				</li>

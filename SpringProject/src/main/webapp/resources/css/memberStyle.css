@@ -30,12 +30,12 @@
 	display: "";
 }
 
-/* member_order */
-.member_order, .member_review, .member_like, .member_info {
+/* member_order css */
+.member_order, .member_orderDetail, .member_coupon, .member_reviewCont, .member_review, .member_like, .member_info {
 	margin-left: 30px;
 	width: 100%;
 }
-.member_order h3 {
+.member_order #headName {
 	padding: 0 0 20px;
 	text-align: left;
 	border-bottom: 2px solid;
@@ -57,7 +57,6 @@
 .member_order .select_day #orderFirst, #orderLast {
 	font-family:'Noto Sans KR', sans-serif;
 	border: 1px solid #ccc;
-	padding: 4px;
 }
 .member_order .select_button li {
 	padding: 0;
@@ -73,7 +72,7 @@
 	color: #666;
 }
 .member_order #search_btn {
-	padding: 4px 25px;
+	padding: 0 25px;
 	background: transparent;
 	font-family:'Noto Sans KR', sans-serif;
 }
@@ -106,8 +105,189 @@
 .member_order .order_bar .proname {
 	padding: 30px 20px;
 }
+.member_order .order_bar #noHistory {
+	padding-top: 50px;
+}
 
-/* review_write css */
+
+/* member_orderDetail css */
+.member_orderDetail .order_detail h3{
+	padding: 0 0 20px;
+	text-align: left;
+}
+.member_orderDetail .order_deliver h3 {
+	padding: 0 0 20px;
+	text-align: left;
+	border-bottom: 1px solid #ccc;
+	align-items: center;
+	width: 50%;
+}
+.member_orderDetail .order_detail ul {
+	display: flex;
+}
+.member_orderDetail .order_detail #tag {
+	padding: 15px 30px 15px 0;
+	font-size: 16px;
+}
+.member_orderDetail .order_detail #title {
+	font-weight: bold;
+	padding-right: 10px;
+}
+.order_detail .order_bar th{
+	padding: 10px;
+	border-top: 2px solid;
+	border-bottom: 1px solid #ccc;
+}
+.order_detail .order_bar td{
+	padding: 10px;
+}
+.order_detail .order_bar #orderinfo {
+	width: 40%;
+}
+.order_detail .order_bar #ordercoupon, #orderday, #orderprice {
+	width: 15%;
+}
+.order_detail .order_bar ul {
+	display: flex;
+}
+.order_detail .order_bar img {
+	width: 100px;
+	height: 80px;
+	padding-left: 10px;
+}
+.order_detail .order_bar .proname {
+	padding: 10px 20px;
+	text-align: left;
+}
+.order_deliver .order_bar {
+	width: 50%;
+	margin-top: 20px;
+	text-align: left;
+}
+.order_deliver .order_bar tr{
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+.order_deliver .order_bar td{
+	padding: 10px;
+}
+
+/*member_coupon css */
+.member_coupon h3{
+	padding: 0 0 20px;
+	text-align: left;
+	border-bottom: 2px solid;
+}
+.member_coupon .coupon_bar #name, #range {
+	width: 30%;
+}
+.member_coupon .coupon_bar #num, #money {
+	width: 20%;
+}
+.member_coupon .coupon_bar th{
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+.member_coupon .coupon_bar td{
+	padding: 10px;
+}
+
+
+/* member_review css */
+.member_review h3, .member_reviewCont h3{
+	padding: 0 0 20px;
+	text-align: left;
+	border-bottom: 2px solid;
+}
+.member_review #review_btn, .member_reviewCont #review_btn {
+	padding: 0 25px;
+	background: transparent;
+	font-family:'Noto Sans KR', sans-serif;
+	border: 0;
+	outline: 0;
+	cursor: pointer;
+	color: blue;
+}
+.member_review .select_day {
+	padding: 20px 0;
+	margin-top: 35px;
+	display: flex;
+}
+.member_review .select_day .select_button {
+	padding: 4px 20px 0 0;
+	display: flex;
+}
+.member_review .select_day li {
+	padding: 0 10px;
+}
+.member_review .select_day #orderFirst, #orderLast {
+	font-family:'Noto Sans KR', sans-serif;
+	border: 1px solid #ccc;
+}
+.member_review .select_button li {
+	padding: 0;
+}
+.member_review .select_button a {
+	padding: 4px 10px;
+}
+.member_review .select_day .on {
+	border : 1px solid black;
+}
+.member_review .select_day .off {
+	border: 1px solid #ccc;
+	color: #666;
+}
+.member_review #search_btn {
+	padding: 0 25px;
+	background: transparent;
+	font-family:'Noto Sans KR', sans-serif;
+}
+.member_review .review_bar #info,#date {
+	width: 30%;
+}
+.member_review .review_bar #review {
+	width: 40%;
+}
+.member_review .review_bar th{
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+.member_review .review_bar td{
+	padding: 10px;
+}
+.member_review .review_bar ul {
+	display: flex;
+}
+.member_review .review_bar img {
+	width: 100px;
+	height: 80px;
+	padding-left: 10px;
+}
+.member_review .review_bar .proname {
+	padding: 10px 20px;
+	text-align: left;
+}
+.member_reviewCont .review_bar {
+	margin-top: 20px;
+	text-align: left;
+}
+.member_reviewCont .review_bar th{
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+.member_reviewCont .review_bar  td{
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+.member_reviewCont .review_bar img {
+	width: 100px;
+	height: 80px;
+	padding-left: 10px;
+}
+
+
+
+/* member_review_write css */
 .review_star .off::before{
 	content: url("star_empty.png");
 	color: white;
@@ -115,6 +295,36 @@
 .review_star .on::after{
 	content: url("star_full.png");
 }
+
+.member_review .review_info, .review_content, .review_btn {
+	text-align: left;
+}
+.member_review .review_info {
+	padding: 20px 0;
+	color: #777777;
+}
+.review_content .review_img {
+	padding-bottom: 20px;
+}
+.review_content .review_star, .review_text ul {
+	display: flex;
+}
+.review_content #reviewTag {
+	padding-right: 20px;
+}
+.review_content ul {
+	padding-bottom: 20px;
+}
+.review_text #review_title {
+	border: 1px solid #e5e5e5;
+	width: 500px;
+}
+.review_text #review_cont {
+	border: 1px solid #e5e5e5;
+	height: 200px;
+	width: 700px;
+}
+
 .likeproduct {
 	float : left;
 	padding : 0 20px;
@@ -122,6 +332,43 @@
 .likeproduct img {
 	width: 250px;
 }
+
+/* member_productLike css */
+.member_like h3{
+	padding: 0 0 20px;
+	text-align: left;
+	border-bottom: 2px solid;
+}
+.member_like #allList{
+	padding-top: 25px;
+	display: flex;
+	flex-wrap: wrap;
+}
+.member_like #allList #box{
+	display: flex;
+	width: 450px;
+	padding-bottom: 20px;
+}
+
+.member_like #stepList {
+	padding: 0 20px;
+	text-align: left;
+}
+.member_like #stepList .pro-name, #stepList .pro-price{
+	font-weight: bold;
+}
+.fa-heart:before {
+	color: red;
+}
+.member_like img{
+	width: 140px;
+	height: 125px;
+	padding-left: 10px;
+}
+
+
+
+
 
 /* member_info css */
 
