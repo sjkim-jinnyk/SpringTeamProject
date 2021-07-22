@@ -16,7 +16,7 @@
 			<jsp:include page="../include/header.jsp" />
 			
 			<div class="join_wrap">
-			<h2>SNS로 가입하기</h2>
+			<h2>SNS(${sns_type })로 가입하기</h2>
 				<form name="joinForm" class="signup_field">
 					<input type="hidden" name="mem_sns_id" value="${sns_id }">
 					<input type="hidden" name="mem_sns_type" value="${sns_type }">
@@ -42,7 +42,7 @@
 						</div>
 						<div class="row">
 							<span class="label">휴대폰 번호</span>
-							<input type="text" name="mem_phone" required="required">
+							<input type="text" name="mem_phone" value="${sns_phone }" required="required">
 							<span class="guide">* 000-0000-0000 형식으로 작성해주세요.</span>
 						</div>
 						<div class="row">

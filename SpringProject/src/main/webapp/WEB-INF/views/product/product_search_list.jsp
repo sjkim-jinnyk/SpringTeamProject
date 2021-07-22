@@ -43,23 +43,23 @@
 			<%-- Pagination --%>	
 			<div class="pagination">
 				<c:if test="${page.getPage() > page.getBlock() }">
-					<a href="product_search.do?page=1&keyword=${keyword}">◀◀</a>
-	   				<a href="product_search.do?page=${Paging.getStartBlock() - 1 }&keyword=${keyword}">◀</a>
+					<a href="product_search.do?page=1&k=${keyword}">◀◀</a>
+	   				<a href="product_search.do?page=${Paging.getStartBlock() - 1 }&k=${keyword}">◀</a>
 				</c:if>
 				
 				<c:forEach begin="${page.getStartBlock() }" end="${page.getEndBlock() }" var="i">
 			      <c:if test="${i == page.getPage() }">
-			         <b><a href="product_search.do?page=${i }&keyword=${keyword}">${i }</a></b>
+			         <b><a href="product_search.do?page=${i }&k=${keyword}">${i }</a></b>
 			      </c:if>
 			      
 			      <c:if test="${i != page.getPage() }">
-			         <a href="product_search.do?page=${i }&keyword=${keyword}">${i }</a>
+			         <a href="product_search.do?page=${i }&k=${keyword}">${i }</a>
 			      </c:if>
 			   </c:forEach>
 			   
 			   <c:if test="${page.getEndBlock() < page.getAllPage() }">
-			      <a href="product_search.do?page=${page.getEndBlock() +1 }&keyword=${keyword}">▶</a>
-			      <a href="product_search.do?page=${page.getAllPage() }&keyword=${keyword}">▶▶</a>
+			      <a href="product_search.do?page=${page.getEndBlock() +1 }&k=${keyword}">▶</a>
+			      <a href="product_search.do?page=${page.getAllPage() }&k=${keyword}">▶▶</a>
 			   </c:if>
 				
 			</div>

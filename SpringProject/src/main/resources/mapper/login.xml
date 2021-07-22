@@ -7,8 +7,8 @@
 <mapper namespace="com.spring.model.LoginDAO">
 	
 	<!-- 네이버 -->
-	<select id="snsJoinCheck" parameterType="java.util.HashMap" resultType="int">
-		select count(*) from member where mem_sns_id = #{sns_id} and mem_sns_type = 'naver'
+	<select id="snsJoinCheck" resultType="int">
+		select count(*) from member where mem_sns_id = #{sns_id}
 	</select>
 	
 	<insert id="snsJoin" parameterType="com.spring.model.MemberDTO">
@@ -33,6 +33,12 @@
 	
 	<select id="snsConnectCheck" parameterType="java.util.HashMap" resultType="int">
 		select count(*) from member where mem_sns_id = #{sns_id} and mem_id = #{mem_id}
+	</select>
+	
+	
+	
+	<select id="joinChecking" resultType="int">
+		select count(*) from member where mem_sns_id = #{sns_id}
 	</select>
 	
 	

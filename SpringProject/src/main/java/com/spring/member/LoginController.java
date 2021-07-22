@@ -6,10 +6,11 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +25,15 @@ import com.spring.model.Member2DAO;
 import com.spring.model.MemberDTO;
 import com.spring.model.NaverLoginBO;
 
+/**
+ * Handles requests for the application home page.
+ */
 @Controller
 public class LoginController {
 
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+
+	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
 	private String callback_URL1 = "http://localhost:8585/member/naver_login.do";
@@ -35,7 +42,7 @@ public class LoginController {
 
 	@Autowired
 	private LoginDAO dao;
-	
+
 	@Autowired
 	private Member2DAO mdao;
 
@@ -44,52 +51,26 @@ public class LoginController {
 		this.naverLoginBO = naverLoginBO;
 	}
 
-//	@RequestMapping("naver.do")
-//	public void naver(HttpServletResponse response, HttpSession session) throws IOException {
-//		
-//		String uri = naverLoginBO.getLoginURI(session, callback_URL1);
-//		System.out.println("uri >> " + uri);
-//		response.sendRedirect(uri);
-//	}
-//	
-//	@RequestMapping("naver_login.do")
-//	public String naver_login(@RequestParam String code, @RequestParam String state) throws JsonParseException, JsonMappingException, IOException, ParseException {
-//		
-//		String oauthToken = naverLoginBO.getAccessToken(code, state);
-//		
-//		
-//		System.out.println(oauthToken);
-//		
-//		//apiResult = naverLoginBO.getUserProfile(access_token);
-//		
-//		//System.out.println(apiResult);
-//		
-//		return "login/login_form";
-//	}
-
 	@RequestMapping("login.do")
-	public String go_login(Model model, HttpSession session) {
+	public String login(Model model, HttpSession session) {
 
-		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session, callback_URL1);
-		String naverConnectUrl = naverLoginBO.getAuthorizationUrl(session, callback_URL2);
-
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session, callback_URL1);		
 		model.addAttribute("url", naverAuthUrl);
-		model.addAttribute("connectUrl", naverConnectUrl);
 
 		return "login/login_form";
 	}
 
 	// 네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping("naver_login.do")
-	public ModelAndView callback(HttpServletResponse response, Model model, ModelAndView mav, @RequestParam String code,
-			@RequestParam String state, HttpSession session) throws IOException, ParseException {
-		
+	public ModelAndView callback(Model model, @RequestParam String code, @RequestParam String state,
+			HttpSession session) throws IOException, ParseException {
+
 		OAuth2AccessToken oauthToken;
 		oauthToken = naverLoginBO.getAccessToken(session, code, state, callback_URL1);
-		this.access_token = oauthToken.getAccessToken(); // access_token 정보 저장
+		this.access_token = oauthToken.getAccessToken();
 
-		// 1. 로그인 사용자 정보를 읽어온다.
-		apiResult = naverLoginBO.getUserProfile(oauthToken, callback_URL1); // String형식의 json데이터
+		// 1. 프로필 조회
+		apiResult = naverLoginBO.getUserProfile(oauthToken, callback_URL1); 
 
 		// 2. String형식인 apiResult를 json형태로 바꿈
 		JSONParser parser = new JSONParser();
@@ -97,34 +78,58 @@ public class LoginController {
 		JSONObject jsonObj = (JSONObject) obj;
 
 		// 3. 데이터 파싱
-		// 파싱 가능한 데이터 : id, nickname, age, gender, email, name
+		/* json 형식으로 아래와 같이 데이터가 넘어오게 됨.
+		 * {
+			  "resultcode": "00",
+			  "message": "success",
+			  "response": {
+			    "email": "openapi@naver.com",
+			    "nickname": "OpenAPI",
+			    "profile_image": "https://ssl.pstatic.net/static/pwe/address/nodata_33x33.gif",
+			    "age": "40-49",
+			    "gender": "F",
+			    "id": "32742776",
+			    "name": "오픈 API",
+			    "birthday": "10-01"
+			    "birthyear" : "9999"
+			    "mobile": "010-1234-5678"
+			  }
+			}
+		 */
+		
 		JSONObject response_obj = (JSONObject) jsonObj.get("response");
 
-		String id = (String) response_obj.get("id"); // id를 파싱하여 저장
-		String name = (String) response_obj.get("name"); // name을 파싱하여 저장
+		String id = String.valueOf(response_obj.get("id"));			// id를 파싱하여 저장
+		String name = String.valueOf(response_obj.get("name")); 	// name을 파싱하여 저장
+		String mobile = String.valueOf(response_obj.get("mobile"));	// 휴대전화 번호를 파싱하여 저장
 
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put("sns_id", id);
 
 		int check = dao.snsJoinCheck(hm); // 해당 네이버 아이디로 가입한 회원이 있는지 확인
 
+		ModelAndView mav = new ModelAndView();
+
 		if (check > 0) { // 해당 네이버 아이디로 가입한 회원이 있다면 자동 로그인
-			mav.addObject("token", oauthToken.getAccessToken());
-			mav.setViewName("login/login_form_sns");
+
+			mav.setViewName("home");
 
 			MemberDTO dto = dao.getSnsMemInfo(hm); // 네이버 아이디로 가입한 회원 아이디 불러오기
-			session.setAttribute("session_id", dto.getMem_id()); // 세션 생성
-			session.setAttribute("session_name", dto.getMem_name());
+			session.setAttribute("session_id", dto.getMem_id()); // 세션에 회원 저장
+			session.setAttribute("session_mem", dto);
+
 		} else { // 해당 네이버 아이디로 가입한 회원이 없다면 sns회원가입창으로 이동
 			mav.addObject("sns_id", id);
 			mav.addObject("sns_name", name);
 			mav.addObject("sns_type", "naver");
+			mav.addObject("sns_phone", mobile);
 			mav.setViewName("login/join_form_sns");
 		}
 
 		return mav;
 	}
-
+	
+	
 	@RequestMapping("sns_join_ok.do")
 	public void test_join(MemberDTO dto, HttpServletResponse response) throws IOException {
 
@@ -165,19 +170,26 @@ public class LoginController {
 			out.println("location.href='" + deleteTokenURL + "'");
 			out.println("alert('네이버 연동이 해제되었습니다.')");
 			out.println("location.href='main.do'");
-			// out.println("location.href='http://nid.naver.com/nidlogin.logout'"); 네이버 로그아웃
-			// 처리
+			// out.println("window.open('http://nid.naver.com/nidlogin.logout', '네이버 로그아웃', '_blank')"); // 네이버 로그아웃 처리
 			out.println("</script>");
 		} else {
 			out.println("<script>");
-			out.println("alert('네이버 연동 해제 오류')");
+			out.println("alert('연동 해제 오류')");
 			out.println("history.back()");
 			out.println("</script>");
 		}
 	}
+	
+	@RequestMapping("sns_connect.do")
+	public String sns_connect(HttpSession session, Model model) {
+		String naverConnectUrl = naverLoginBO.getAuthorizationUrl(session, callback_URL2);
+		model.addAttribute("url", naverConnectUrl);
+		
+		return "login/sns_connect";
+	}
 
-	// 네이버 로그인 성공시 callback호출 메소드
-	@RequestMapping(value = "naver_connect.do", method = { RequestMethod.GET, RequestMethod.POST })
+	// 네이버 연동 인증 성공시 callback호출 메소드
+	@RequestMapping("naver_connect.do")
 	public void naver_connect(Model model, ModelAndView mav, @RequestParam String code, @RequestParam String state,
 			HttpSession session, HttpServletResponse response) throws IOException, ParseException {
 
@@ -186,9 +198,10 @@ public class LoginController {
 
 		OAuth2AccessToken oauthToken;
 		oauthToken = naverLoginBO.getAccessToken(session, code, state, callback_URL2);
+		this.access_token = oauthToken.getAccessToken();
 
-		// 1. 로그인 사용자 정보를 읽어온다.
-		apiResult = naverLoginBO.getUserProfile(oauthToken, callback_URL2); // String형식의 json데이터
+		// 1. 프로필 조회
+		apiResult = naverLoginBO.getUserProfile(oauthToken, callback_URL1); 
 
 		// 2. String형식인 apiResult를 json형태로 바꿈
 		JSONParser parser = new JSONParser();
@@ -196,11 +209,9 @@ public class LoginController {
 		JSONObject jsonObj = (JSONObject) obj;
 
 		// 3. 데이터 파싱
-		// Top레벨 단계 _response 파싱
 		JSONObject response_obj = (JSONObject) jsonObj.get("response");
 
-		String id = (String) response_obj.get("id");
-		String name = (String) response_obj.get("name");
+		String id = String.valueOf(response_obj.get("id"));
 
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put("mem_id", (String) session.getAttribute("session_id"));
