@@ -13,26 +13,6 @@ td, th {
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<script type="text/javascript">
-function memberInfoDisplay() {
-	$('#memberInfo').attr('style', "display:'';");
-	$('#newInfo').attr('style', "display:none;");
-	
-	$('#pay_button').show();
-	$('#pay_button2').show();
-	$('#pay_button_new').hide();
-	$('#pay_button2_new').hide();
-}
-function newInfoDisplay() {
-	$('#newInfo').attr('style', "display:'';");
-	$('#memberInfo').attr('style', "display:none;");
-	
-	$('#pay_button').hide();
-	$('#pay_button2').hide();
-	$('#pay_button_new').show();
-	$('#pay_button2_new').show();
-}
-</script>
 </head>
 <body>
 <!-- 개발 중 purchase.do로 접근 --> 
@@ -124,7 +104,7 @@ function newInfoDisplay() {
 					<th>쿠폰</th>
 					<td>
 						<input type="text" id="coupon_cont" readonly="readonly">
-						<button onclick="">쿠폰 선택</button>
+						<button onclick="coupon_select()">쿠폰 선택</button>
 					</td>
 				</tr>
 
@@ -164,5 +144,6 @@ function newInfoDisplay() {
 
 </body>
 <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/kakao.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/purchase.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </html>

@@ -25,27 +25,29 @@ public class PurchaseController {
 	@Autowired
 	private ProductDAO productDAO;
 	
+	// 결제 페이지 진입 매핑
 	@RequestMapping("/purchase.do")
 	public String purchase(HttpSession session, Model model) throws IOException {
 		
-		MemberDTO memberDTO = (MemberDTO) session.getAttribute("session_mem");
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("session_mem");	// ID 세션값 확인
 		System.out.println("세션 id : " + memberDTO.getMem_id());
 		
-		List<CartDTO> clist = this.cartDAO.getCartList(memberDTO.getMem_id());
+		List<CartDTO> clist = this.cartDAO.getCartList(memberDTO.getMem_id());	// 카트 목록 확인
 		System.out.println("clist : " + clist);
 		System.out.println("clist.size : " + clist.size());
 		
 		System.out.println("제품번호 : " + clist.get(0).getProduct_no());
 		System.out.println("제품수량 : " + clist.get(0).getCart_amount());
 		
-		ProductDTO productDTO = this.productDAO.getProductCont(clist.get(0).getProduct_no());
-		System.out.println("제품 이름 : " + productDTO.getPro_name());
-		
 		int totalPrice = 0;
-		for (int i = 0; i < clist.size(); i++) {
+		for (int i = 0; i < clist.size(); i++) {	// 총 가격 계산
 			ProductDTO dto = this.productDAO.getProductCont(clist.get(i).getProduct_no());
 			totalPrice += dto.getPro_output_price() * clist.get(i).getCart_amount();
 		}
+		
+		// order_content에 넣을 수 있게 변형
+		ProductDTO productDTO = this.productDAO.getProductCont(clist.get(0).getProduct_no());	
+		System.out.println("제품 이름 : " + productDTO.getPro_name());
 		
 		OrderDTO orderDTO = new OrderDTO();
 		String orderCont = null;
@@ -79,6 +81,12 @@ public class PurchaseController {
 	public String payFail() {
 		
 		return "cart/payFail";
+	}
+	
+	@RequestMapping("/coupon_popup.do")
+	public String coupon_popup() {
+		
+		return "cart/coupon_popup";
 	}
 
 }
