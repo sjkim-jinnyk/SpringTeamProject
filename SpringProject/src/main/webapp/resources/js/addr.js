@@ -6,12 +6,12 @@ let reset_btnA= document.querySelector('#reset_btnA'); 				// 주소 변경 취�
 let phone_btn = document.querySelector('#phone_btn'); 				// 연락처 변경 버튼
 let phone_before = document.querySelector('#phone_before'); 		// 현재 연락처
 let phone_after = document.querySelector('#phone_after'); 			// 변경 연락처
-let resest_btnP = document.querySelector('#resest_btnP'); 			// 연락처 변경 취소 버튼
+let reset_btnP = document.querySelector('#reset_btnP'); 			// 연락처 변경 취소 버튼
 
 let pwd_btn = document.querySelector('#pwd_btn'); 					// 비밀번호 변경 버튼
 let pwd_before = document.querySelector('#pwd_before'); 			// 현재 비밀번호
 let pwd_after = document.querySelector('#pwd_after'); 				// 변경 비밀번호
-
+let reset_btnPwd = document.querySelector('#reset_btnPwd'); 		// 비밀번호 변경 취소 버튼
 
 addr_btn.addEventListener('click', function() {
 	addr_before.classList.replace('on','off');
@@ -25,7 +25,7 @@ phone_btn.addEventListener('click', function() {
 	phone_before.classList.replace('on','off');
 	phone_after.classList.replace('off','on');
 });
-resest_btnP.addEventListener('click', function() {
+reset_btnP.addEventListener('click', function() {
 	phone_before.classList.replace('off','on');
 	phone_after.classList.replace('on','off');
 });
@@ -35,7 +35,10 @@ pwd_btn.addEventListener('click', function() {
 	pwd_after.classList.replace('off','on');
 });
 
-
+reset_btnPwd.addEventListener('click', function() {
+	pwd_before.classList.replace('off','on');
+	pwd_after.classList.replace('on','off');
+});
 function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {

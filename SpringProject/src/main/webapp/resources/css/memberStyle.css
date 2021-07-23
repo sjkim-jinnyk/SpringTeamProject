@@ -31,7 +31,7 @@
 }
 
 /* member_order css */
-.member_order, .member_orderDetail, .member_coupon, .member_reviewCont, .member_review, .member_qna, .member_like, .member_info {
+.member_order, .member_orderDetail, .member_coupon, .member_reviewCont, .member_review, .member_qna, .member_like, .member_info, .member_delete {
 	margin-left: 30px;
 	width: 100%;
 }
@@ -425,7 +425,7 @@
 
 
 /* member_info css */
-.member_info #headName {
+.member_info #headName, .member_delete #headName{
 	padding: 0 0 20px;
 	text-align: left;
 	border-bottom: 2px solid;
@@ -453,7 +453,7 @@
 	cursor: pointer;
 	border: 1px solid #e5e5e5;
 }
-.member_info #submit_btnA, #reset_btnA, #submit_btnP, #resest_btnP, #submit_btnPwd {
+.member_info #submit_btnA, #reset_btnA, #submit_btnP, #reset_btnP, #submit_btnPwd, #reset_btnPWd {
 	background: #f1f1f1;
 	padding: 0 10px;
 	cursor: pointer;
@@ -464,14 +464,14 @@
 	background: black;
 	border: 1px solid black;
 }
-.member_info #reset_btnA:hover, #resest_btnP:hover{
+.member_info #reset_btnA:hover, #reset_btnP:hover, #reset_btnPWd:hover{
 	background: #ccc;
 	border: 1px solid #ccc;
 }
 .member_info #addr_edit_btn{
 	margin-bottom: 10px;
 }
-.member_info #addr_btn:hover, .member_info #phone_btn:hover, .member_info #submit_btnA:hover, #addr_edit_btn:hover {
+.member_info #addr_btn:hover, .member_info #phone_btn:hover, .member_info #submit_btnA:hover, #addr_edit_btn:hover, #pwd_btn:hover {
 	border: 1px solid black;
 }
 .member_info .off {
@@ -512,6 +512,14 @@
 .member_info #phone_num {
 	width: 450px;
 	display: inline-block;
+}
+
+/* member_delete css */
+.member_delete #infoHead{
+	font-size: 20px;
+}
+.member_delete .deleteInfo {
+	text-align: left;
 }
 /* member_recent css */
 .history img {
