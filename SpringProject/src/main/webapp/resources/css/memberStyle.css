@@ -364,9 +364,11 @@
 .member_like #stepList .pro-name, #stepList .pro-price{
 	font-weight: bold;
 }
+/* 
 .fa-heart:before {
 	color: red;
 }
+ */
 .member_like img{
 	width: 140px;
 	height: 125px;
