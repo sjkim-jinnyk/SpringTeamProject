@@ -74,7 +74,8 @@
 						<td>
 							<div class="ima-container">
 								<img id="preview" src=""><br>
-								<input id="upload" type="file" name="pro_imgs" onchange="readImg(this);"> 최대 10MB 
+								<input id="upload" type="file" name="pro_imgs" accept=".jpg, .jpeg, .png" onchange="readImg(this);"> 
+								<p class="fileGuide"> * 첨부가능 파일종류 : jpg, png, jpeg (최대 10MB) </p> 
 							</div>
 						</td>
 					</tr>

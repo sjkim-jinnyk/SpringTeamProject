@@ -16,7 +16,7 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public int getProductListCount(int no) {
 		
-		return this.sqlSession.selectOne("productTotalRecord");
+		return this.sqlSession.selectOne("productTotalRecord", no);
 	}
 
 	@Override

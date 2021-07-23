@@ -42,7 +42,7 @@
 						</c:if>
 						<c:if test="${!empty category }">
 							<c:forEach items="${category }" var="dto">
-								<option value="${dto.getCate_no() }" <c:if test="${keyword eq 'dto.getCate_no()' }">selected</c:if>>${dto.getCate_name() }[${dto.getCate_no() }]</option>
+								<option value="${dto.getCate_no() }" <c:if test="${keyword eq String.valueOf(dto.getCate_no()) }">selected</c:if>>${dto.getCate_name() }[${dto.getCate_no() }]</option>
 							</c:forEach>
 						</c:if>
 					</select>

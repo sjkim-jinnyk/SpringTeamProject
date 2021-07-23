@@ -10,33 +10,26 @@ li{
 
 .header {
 	width: 100%;
-	height: 50px;
+	height: 100px;
 	background-color: pink;
 	display: flex;
 	flex: auto;
 	justify-content: space-around;
 	position:relative;
-	padding-top: 12px;
-    padding-bottom: 12px;
+	padding: 34px 0 0 20px;
 }
 
-.header a, #toggle_btn{
+.menu_warp a, #toggle_btn{
 	color: black;
 	text-decoration: none;
 	margin: 30px;
 	font-size: 17px;
 }
 
-.header .center {
-	background-color: yellow;
-	width: 170px;
-	text-align: center;
+.menu_warp a{
+	margin-right: 40px;
 }
 
-.header .left, .header .right{
-	padding: 17px 0;
-	
-}
 
 #drop_menu{
 	display: inline-block;
@@ -49,11 +42,15 @@ li{
 	cursor: pointer;
 }
 
+span #toggle_btn{
+	margin: 0;
+}
+
 #drop_menu ul{
 	display: none;
 	float: left;
 	position: absolute;
-	width: 123px;
+	width: 173px;
 	line-height: 2;
 	background-color: pink;
 	padding: 30px 0 20px 31px;
@@ -69,7 +66,6 @@ li{
 
 .footer {
 	width: 100%;
-	height: 180px;
 	background-color: orange;
 	padding: 50px 40px 70px 40px;
 	display: flex;

@@ -9,7 +9,7 @@
 	<!-- ::: product_list ::: -->
 	
 	<select id="productTotalRecord" resultType="int">
-		select count(*) from product <if test="no gt 0">where pro_category = #{no}</if> 
+		select count(*) from product where pro_check = 'y' <if test="value gt 0"> and pro_category = #{value}</if> 
 	</select>
 	
 	<select id="productList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.ProductDTO">

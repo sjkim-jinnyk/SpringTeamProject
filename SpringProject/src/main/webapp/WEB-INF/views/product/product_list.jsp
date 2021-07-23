@@ -93,7 +93,6 @@ function likeCheck(product_no, index){
 			   </c:if>
 				
 			</div>
-		
 				
 			
 			</div>

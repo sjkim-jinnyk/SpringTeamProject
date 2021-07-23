@@ -74,7 +74,8 @@
 							<td>
 								<div class="img-container">
 								<img id="preview" src="resources/img/upload/${dto.getPro_img() }"><br>
-								<input id="upload" type="file" name="pro_imgs" onchange="readImg(this);"> <span id="uploadSize"></span> 최대 10MB 
+								<input id="upload" type="file" name="pro_imgs" accept=".jpg, .jpeg, .png" onchange="readImg(this);"> 
+								<p class="fileGuide"> * 첨부가능 파일종류 : jpg, png, jpeg (최대 10MB) </p>
 							</div>
 							</td>
 							<td colspan="2"></td>
@@ -121,8 +122,6 @@
 					</table>
 				</form>
 			</div>
-			
-				
 			
 			</div>
 			

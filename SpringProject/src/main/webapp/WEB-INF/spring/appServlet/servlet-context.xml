@@ -27,6 +27,9 @@
 	<beans:bean id="naverLoginBO" class="com.spring.model.NaverLoginBO" />
 	
 	<!-- ckEditor -->
-	<resources location="/WEB-INF/views/ckeditor/" mapping="/ckeditor/**" />
+	<resources location="/resources/ckeditor/" mapping="/ckeditor/**" />
+	
+	<!-- ckEditor 파일 업로드 경로 -->
+	<resources location="/resources/ckUpload/" mapping="/ckUpload/**" />
 	
 </beans:beans>

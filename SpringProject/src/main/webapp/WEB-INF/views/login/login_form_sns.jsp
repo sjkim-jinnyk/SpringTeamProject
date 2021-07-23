@@ -18,9 +18,9 @@
 			<jsp:include page="../include/header.jsp" />
 					
 				<c:choose>
-				<c:when test="${session_id != null}">
+				<c:when test="${sessionId != null}">
 					<h2> 네이버 아이디 로그인 성공하셨습니다!! </h2>
-					<h3>'${session_id}' 님 환영합니다! </h3>
+					<h3>'${sessionId}' 님 환영합니다! </h3>
 					<h3><a href="logout.do">로그아웃</a></h3>
 					<a href="grant_delete.do?token=${token }">[네이버 연동 해제]</a><br>
 					${token }

@@ -2,12 +2,15 @@ package com.spring.member;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,6 +46,8 @@ public class ProductController {
 
 	private int totalRecord = 0;
 	private int rowsize = 0;
+	
+	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
 	@RequestMapping("product_list.do")
 	public String product_list(HttpServletRequest request, HttpSession session, Model model) {
@@ -70,9 +75,6 @@ public class ProductController {
 
 		rowsize = 8;
 		totalRecord = this.pdao.getProductListCount(no);
-		
-		System.out.println("no >>> " + no);
-		System.out.println("total >>> " + totalRecord);
 		
 		PageDTO pageDTO = new PageDTO(page, rowsize, totalRecord, no);
 		List<ProductDTO> list = this.pdao.getProductList(pageDTO);
