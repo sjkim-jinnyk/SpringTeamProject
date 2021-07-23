@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDTO;
@@ -45,5 +46,17 @@ public class ReviewController {
 		
 		return "review/review_list";
 	}
+	
+	@RequestMapping("review_cont.do")
+	public String review_cont(@RequestParam("no") int no,
+			Model model) {
+		
+		ReviewDTO dto = this.dao.getReviewCont(no);
+		
+		model.addAttribute("cont", dto);
+		
+		return "review/review_cont";
+	}
+	
 	
 }
