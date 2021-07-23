@@ -73,7 +73,7 @@ public class ProductController {
 			no = Integer.parseInt(request.getParameter("no"));
 		}
 
-		rowsize = 8;
+		rowsize = 9;
 		totalRecord = this.pdao.getProductListCount(no);
 		
 		PageDTO pageDTO = new PageDTO(page, rowsize, totalRecord, no);
@@ -92,6 +92,7 @@ public class ProductController {
 		model.addAttribute("page", pageDTO);
 		model.addAttribute("List", list);
 		model.addAttribute("cList", cList);
+		model.addAttribute("no", no);
 
 		return "product/product_list";
 	}
@@ -207,7 +208,7 @@ public class ProductController {
 			page = 1;
 		}
 
-		rowsize = 8;
+		rowsize = 9;
 		totalRecord = this.pdao.getSearchListCount(keyword);
 
 		String field = "";
@@ -236,7 +237,7 @@ public class ProductController {
 			page = 1;
 		}
 
-		rowsize = 8;
+		rowsize = 9;
 		totalRecord = this.pdao.getSearchTagCount(keyword);
 
 		String field = "";

@@ -76,7 +76,7 @@ public class CartController {
 
 		dto.setUser_id(user_id);
 		
-		if(dto.getCart_amount() == 0) {
+		if(dto.getCart_amount() == 0 || String.valueOf(dto.getCart_amount()) == null) {
 			dto.setCart_amount(1);
 		}
 

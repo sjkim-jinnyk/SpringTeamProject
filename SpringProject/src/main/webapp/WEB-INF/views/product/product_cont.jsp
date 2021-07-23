@@ -41,6 +41,7 @@ function total() {
 	let total = String(parseInt(price) * parseInt(amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,');
 
 	document.getElementById('total-price').innerText = total;
+	document.getElementById('total-amount').innerText = amount;
 }
 
 function likeCheck(product_no){
@@ -52,25 +53,20 @@ function likeCheck(product_no){
 		addLike(product_no);
 	}
 }
-
 </script>
 <body>
 	<div class="layout_container">
 		<jsp:include page="../include/header.jsp" />
 			<div class="main">			
 				
+				<div class="product_cont">
+				
 				<%-- 상단 제품 소개 및 주문 --%>
 				<c:set var="dto" value="${cont }" />
 				<c:if test="${!empty cont }">
-					<div class="product-cont">
+					<div class="product-container">
 						<div class="cont-photo-wrap">
 							<img class="cont-photo" src="resources/img/upload/${dto.getPro_img() }">
-							
-							<div class="cont-photo-mini">
-								<img src="">
-								<img src="">
-								<img src="">
-							</div>
 						</div>
 						
 						<div class="cont-info">
@@ -82,40 +78,47 @@ function likeCheck(product_no){
 							</c:forEach><br>
 								
 							<span class="cont-info-title">${dto.getPro_name() }</span><br>
-							<span>가격</span>
-							<span id="price" class="cont-info-price"><fmt:formatNumber value="${dto.getPro_output_price() }" /> 원</span>
+							<span class="cont-info-price">가격</span>
+							<span id="price" class="cont-info-price"><fmt:formatNumber value="${dto.getPro_output_price() }" /> 원</span><br>
+							<span>택배배송 | 무료배송</span>
 							
-							<div class="cont-amount">
+							<hr class="hr1">
+							
+							
 								<span>수량</span>
+							<div class="cont-amount">
 								<button type="button" onclick="count('minus');" value="-">-</button>
 								<input type="text" id="cart_amount" class="cart_amount" name="cart_amount" value="1">
 								<button type="button" onclick="count('plus');" value="+">+</button>
 							</div>
 							
+							<hr calss="hr2">
+							
 							<div class="total-price">
-								<span>총 결제금액</span>
+								<span>총 상품 금액</span>
+								총 수량 <span id="total-amount">1</span> 개
 								<span id="total-price"><fmt:formatNumber value="${dto.getPro_output_price() }"/> </span> 원
 							</div>
 							
-							<input type="submit" value="구매하기" formaction="#">
-							<input type="submit" value="장바구니에 담기" formaction="add_cart.do">
-							<c:if test="${likeCheck eq 0 }"><button type="button" id="like-btn" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
-							<c:if test="${likeCheck > 0 }"><button type="button" id="like-btn" class="like-checked" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
-							
+							<div class="btn-wraaper">
+								<input type="submit" class="cont-btn" value="장바구니" formaction="add_cart.do">
+								<input type="submit" class="cont-btn" value="구매하기" formaction="#">
+								<c:if test="${dto.getLike_check() eq 0 }"><button class="like-btn" type="button" id="like-btn-${status.index }" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
+								<c:if test="${dto.getLike_check() > 0 }"><button type="button" id="like-btn-${status.index }" class="like-btn like-checked" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
+							</div>
 							</form>
-						</div>
-					</div>
+						</div><%-- cont-info end --%>
+					</div><%-- product-cont end --%>
 				
 				
 				
 				<%-- 상품 상세설명 --%>
-				<div class="product-content">
+				<div id="content-bar" class="product-content">
 					<span class="content-category"><a href="#content-detail">상품 설명</a></span>
 					<span class="content-category"><a href="#review">후기</a><c:if test="${rtotal > 0 }">(${rtotal })</c:if></span>
 					<span class="content-category"><a href="#qna">Q&A</a><c:if test="${rtotal > 0 }">(${qtotal })</c:if></span>
 					
 					<hr>
-					
 				</div>
 				
 				
@@ -447,7 +450,7 @@ function likeCheck(product_no){
 					</div>
 				</div>
 				
-				
+				</div><%-- product-cont end --%>
 			</div>
 		<jsp:include page="../include/footer.jsp" />
 	</div>
