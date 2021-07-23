@@ -4,21 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<title>Member</title>
-</head>
+<title>쿠폰 내역</title>
 <body>
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
 			<c:set var="mem" value="${Cont }" />
-			
 			<div class="member_container">
 			<jsp:include page="../include/member_header.jsp"/>
-				
+
 				<!-- member_content -->
 				<div class="member_content">
 					<jsp:include page="../include/member_navmenu.jsp" />
@@ -49,9 +43,8 @@
 					</div> <!-- member_coupon END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
-			<jsp:include page="../include/footer.jsp" />
-		</div>
+		</div>  <!-- main END -->
+	<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member.js"></script>
 </html>

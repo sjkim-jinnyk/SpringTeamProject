@@ -5,16 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
-
-<title>Member</title>
-</head>
+<title>찜한 상품</title>
 <body>
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
 			<c:set var="mem" value="${Cont }" />
 			
 			<div class="member_container">
@@ -44,7 +39,9 @@
 										<span class="pro-price"><fmt:formatNumber value="${dto.getPro_output_price() }" /> 원</span>
 									</li>
 									<li>
-										<a href="<%=request.getContextPath() %>/productLike_delete.do?no=${dto.getPro_no()}&id=${session_id}" id="heart"><i class="fas fa-heart"></i></a>
+										<a href="<%=request.getContextPath() %>/productLike_delete.do?no=${dto.getPro_no()}&id=${session_id}">
+											<span id="heart"><i class="fas fa-heart"></i></span>
+										</a>
 									</li>
 								</ul>
 							</li>
@@ -57,9 +54,8 @@
 					</div> <!-- member_like END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
-			<jsp:include page="../include/footer.jsp" />
-		</div>
+		</div>  <!-- main END -->
+	<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </html>

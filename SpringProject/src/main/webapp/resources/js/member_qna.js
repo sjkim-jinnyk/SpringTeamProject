@@ -15,25 +15,4 @@ for(let i=0; i<listsize; i++){
 		 qna_reply[i].classList.toggle('off');
 	 });
 }
-console.log(qna_title);
-qna_title.addEventListener('click', function() {
-	
-	qna_cont.classList.toggle('off');
-	let no = $("qna_title").text();
-	console.log(no);
-	/*$.ajax({
-		type : "post",
-		url : "./qna_cont.do",
-		dataType: "text", 
-		data : {
-			"id" : id
-		},
-		success : function(data) {
-			document.orderForm.orderFirst.value = data;
-			document.orderForm.orderLast.value = today;
-		},
-		error : function() {
-			alert('오류');
-		}
-	});*/
-});
+

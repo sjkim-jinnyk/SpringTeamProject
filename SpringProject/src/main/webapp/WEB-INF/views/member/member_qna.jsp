@@ -4,12 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>MemberQnA</title>
+<title>문의 내역</title>
 <body>
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
-			 
 			<div class="member_container">
 			<jsp:include page="../include/member_header.jsp"/>
 				
@@ -65,8 +64,8 @@
 					</div> <!-- member_qna END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
-			<jsp:include page="../include/footer.jsp" />
-		</div>
+		</div>  <!-- main END -->
+	<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member_qna.js"></script>

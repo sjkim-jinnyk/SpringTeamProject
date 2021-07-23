@@ -1,7 +1,34 @@
 @charset "UTF-8";
 
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400&display=swap');
+/* 반응형 */
+@media ( min-width : 1201px) {
+    .main {
+        width: 1200px;
+    }
+}
+@media ( max-width : 1200px) {
+    .main {
+        width: 1140px;
+    }
+}
 
+@media ( max-width : 768px) {
+    .main {
+        width: 720px;
+    }
+}
+
+@media ( max-width : 576px) {
+    .main {
+        width: 540px;
+    }
+}
+
+.main {
+    padding: 0 10px;
+    margin: 0 auto;
+}
 
 /* Common */
 body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,form,fieldset,legend,input,textarea,button,select,div{margin:0;padding:0;box-sizing:border-box;word-break:keep-all;word-wrap:break-word}
@@ -18,9 +45,7 @@ table{width:100%;border-collapse:separate;empty-cells:show;border-spacing:0}
 hr,legend{display:none}
 caption{overflow:hidden;position:static;top:0;left:0;width:0;height:0;font-size:0;line-height:0;text-transform:uppercase}
 strong, b{font-weight:500}
-button{box-sizing:border-box;border:none;background:none; font-family:'Noto Sans KR', sans-serif;}
-/*button:focus{outline:1px dashed #e0e0e0}*/
-label{cursor:pointer}
+button{box-sizing:border-box;border:none;background:none;}
 
 a{color:inherit;text-decoration:none}
 /*a:hover{text-decoration:underline}*/

@@ -5,18 +5,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
-
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<title>Member</title>
+<title>주문 상세내역</title>
 </head>
 <body>
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
-			
 			<div class="member_container">
 			<jsp:include page="../include/member_header.jsp"/>
 				
@@ -27,7 +21,7 @@
 					<div class="member_orderDetail">
 						<div class="order_detail">
 							<c:set var="dto" value="${Order }" />
-							<h3>주문 상세 내역</h3>
+							<h3>주문 상세내역</h3>
 							<ul>
 								<li id="tag">
 									<span id="title">주문번호</span>
@@ -116,10 +110,8 @@
 					</div> <!-- member_orderDetail END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
-			<jsp:include page="../include/footer.jsp" />
-		</div>
+		</div>   <!-- main END -->
+	<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
-<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member_order.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.js"></script> --%>
 </html>

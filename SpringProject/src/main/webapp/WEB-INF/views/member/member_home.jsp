@@ -10,13 +10,12 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
 
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<title>Member</title>
+<title>마이페이지</title>
 </head>
 <body>
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
-			
 			<div class="member_container">
 			<jsp:include page="../include/member_header.jsp"/>
 				
@@ -25,7 +24,7 @@
 					<jsp:include page="../include/member_navmenu.jsp" />
 					
 					<div class="member_order">
-						<h3 id="headName">주문내역 조회</h3>
+						<h3 id="headName">주문내역</h3>
 						<form method="post" action="<%=request.getContextPath()%>/order_search.do" name="orderForm">
 						<ul class="select_day">
 							<div class="select_button">
@@ -130,8 +129,8 @@
 					</div> <!-- member_order END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
-			<jsp:include page="../include/footer.jsp" />
-		</div>
+		</div>  <!-- main END -->
+	<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member_order.js"></script>

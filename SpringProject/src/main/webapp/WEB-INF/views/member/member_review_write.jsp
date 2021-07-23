@@ -13,9 +13,8 @@
 </head>
 <body>
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
-			
 			<div class="member_container">
 			<jsp:include page="../include/member_header.jsp"/>
 				

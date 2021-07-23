@@ -8,10 +8,9 @@
 </head>
 <body>
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
 			<c:set var="mem" value="${Cont }" />
-			
 			<div class="member_container">
 			<jsp:include page="../include/member_header.jsp"/>
 				
@@ -109,11 +108,11 @@
 					</div> <!-- member_info END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
-			<jsp:include page="../include/footer.jsp" />
-		</div>
+		</div>  <!-- main END -->
+	<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/addr.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member_addr.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<!-- 주소 API 파일 로딩  -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
