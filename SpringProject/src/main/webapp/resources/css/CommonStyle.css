@@ -18,7 +18,7 @@ table{width:100%;border-collapse:separate;empty-cells:show;border-spacing:0}
 hr,legend{display:none}
 caption{overflow:hidden;position:static;top:0;left:0;width:0;height:0;font-size:0;line-height:0;text-transform:uppercase}
 strong, b{font-weight:500}
-button{box-sizing:border-box;border:none;background:none;}
+button{box-sizing:border-box;border:none;background:none; font-family:'Noto Sans KR', sans-serif;}
 /*button:focus{outline:1px dashed #e0e0e0}*/
 label{cursor:pointer}
 

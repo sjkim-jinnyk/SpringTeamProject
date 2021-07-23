@@ -88,7 +88,7 @@
 							<c:if test="${empty Order && empty OrderSearchList}">
 								<tr>
 									<td colspan="5" id="noHistory">
-										<h3>주문 내역이 없습니다.</h3>
+										주문 내역이 없습니다.
 									</td>
 								</tr>
 							</c:if>
