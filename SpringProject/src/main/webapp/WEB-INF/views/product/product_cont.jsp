@@ -24,7 +24,7 @@
 
 function count(type) {
 	let text = document.getElementById('cart_amount').value;
-	
+	 
 	if(type == 'plus'){
 		document.getElementById('cart_amount').value = parseInt(text) + 1;
 	}else if(type == 'minus' && text > 1) {
