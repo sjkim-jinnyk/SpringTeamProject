@@ -18,7 +18,7 @@ table{width:100%;border-collapse:separate;empty-cells:show;border-spacing:0}
 hr,legend{display:none}
 caption{overflow:hidden;position:static;top:0;left:0;width:0;height:0;font-size:0;line-height:0;text-transform:uppercase}
 strong, b{font-weight:500}
-button{box-sizing:border-box;border:none;background:none;}
+button{box-sizing:border-box;border:none;background:none; font-family:'Noto Sans KR', sans-serif;}
 /*button:focus{outline:1px dashed #e0e0e0}*/
 label{cursor:pointer}
 
@@ -28,4 +28,33 @@ a{box-sizing:border-box}
 
 a, button{cursor:pointer}
 [tabindex="-1"]{outline:0}
-[tabindex="0"]:focus{outline:1px dashed #e0e0e0}
+[tabindex="0"]:focus{outline:1px dashed #e0e0e0}+
+
+/* 반응형 */
+@media ( min-width : 1201px) {
+    .main {
+        width: 1200px;
+    }
+}
+@media ( max-width : 1200px) {
+    .main {
+        width: 1140px;
+    }
+}
+
+@media ( max-width : 768px) {
+    .main {
+        width: 720px;
+    }
+}
+
+@media ( max-width : 576px) {
+    .main {
+        width: 540px;
+    }
+}
+
+.main {
+    padding: 0 10px;
+    margin: 0 auto;
+}

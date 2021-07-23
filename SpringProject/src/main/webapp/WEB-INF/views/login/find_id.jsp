@@ -11,8 +11,8 @@
 <body>
 	
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
 			
 			<form name="find_id">
 				 
@@ -31,8 +31,8 @@
 			</form>
 			
 			
-			<jsp:include page="../include/footer.jsp" />
 		</div>
+		<jsp:include page="../include/footer.jsp" />
 	</div>
 
 </body>

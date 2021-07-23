@@ -24,7 +24,7 @@
 
 function count(type) {
 	let text = document.getElementById('cart_amount').value;
-	
+	 
 	if(type == 'plus'){
 		document.getElementById('cart_amount').value = parseInt(text) + 1;
 	}else if(type == 'minus' && text > 1) {
@@ -35,7 +35,7 @@ function count(type) {
 }
 
 function total() {
-	
+	 
 	let price = <%=dto.getPro_output_price() %>;
 	let amount = document.getElementById('cart_amount').value;
 	let total = String(parseInt(price) * parseInt(amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,');

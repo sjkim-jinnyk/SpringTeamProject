@@ -11,8 +11,8 @@
 <body>
 	
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
 			
 			<div class="id_field">
 				<c:set var="pwd" value="${result_pwd }"/>
@@ -27,8 +27,8 @@
 				
 			</div>
 			
-			<jsp:include page="../include/footer.jsp" />
 		</div>
+		<jsp:include page="../include/footer.jsp" />
 	</div>
 	
 	

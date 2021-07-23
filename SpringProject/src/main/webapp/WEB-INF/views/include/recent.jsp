@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="resources/js/product.js"></script>
 <title>Insert title here</title>
 </head>
 <body>

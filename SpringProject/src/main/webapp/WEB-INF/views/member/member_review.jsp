@@ -12,8 +12,8 @@
 </head>
 <body>
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
 			<c:set var="mem" value="${Cont }" />
 			
 			<div class="member_container">
@@ -87,7 +87,7 @@
 							<c:if test="${empty rlist && empty ReviewList_s}">
 								<tr>
 									<td colspan="5" id="noHistory">
-										<h3>주문 내역이 없습니다.</h3>
+										주문 내역이 없습니다.
 									</td>
 								</tr>
 							</c:if>
@@ -125,8 +125,8 @@
 					</div> <!-- member_order END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
-			<jsp:include page="../include/footer.jsp" />
 		</div>
+		<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member_review.js"></script>

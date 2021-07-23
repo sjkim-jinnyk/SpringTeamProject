@@ -12,8 +12,8 @@
 </head>
 <body>
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
 			<c:set var="mem" value="${Cont }" />
 			
 			<div class="member_container">
@@ -42,15 +42,15 @@
 							</c:if>
 							<c:if test="${empty clist }">
 								<tr>
-									<td>오류</td>
+									<td colspan="4" id="noCoupon">등록된 쿠폰이 없습니다.</td>
 								</tr>
 							</c:if>
 						</table>
-					</div> <!-- member_order END -->
+					</div> <!-- member_coupon END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
-			<jsp:include page="../include/footer.jsp" />
 		</div>
+		<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member.js"></script>

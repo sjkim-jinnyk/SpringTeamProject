@@ -12,8 +12,8 @@
 <body>
 
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
 			
 			<div class="join_wrap">
 			<h2>SNS(${sns_type })로 가입하기</h2>
@@ -63,8 +63,8 @@
 			</div>			
 			
 			
-			<jsp:include page="../include/footer.jsp" />
 		</div>
+		<jsp:include page="../include/footer.jsp" />
 	</div>
 	
 	<script type="text/javascript">

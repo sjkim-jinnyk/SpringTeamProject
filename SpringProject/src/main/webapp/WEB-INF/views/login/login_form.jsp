@@ -10,8 +10,8 @@
 <body>
 
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
 					
 				<form action="<%=request.getContextPath()%>/login_ok.do">
 					
@@ -48,14 +48,14 @@
 				
 				<!-- 네이버 로그인 창으로 이동 -->
 				<div id="social_login">
-					<a href="${url }"><img class="naver_login" height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a><br>
+					<a href="naver.do"><img class="naver_login" height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a><br>
 				
 					<a href="grant_delete.do">[네이버 연동 해제]</a><br>
 					<a href="sns_connect.do">[연동 추가]</a>
 				</div>
 
-			<jsp:include page="../include/footer.jsp" />
 		</div>
+		<jsp:include page="../include/footer.jsp" />
 	</div>
 	
 </body>

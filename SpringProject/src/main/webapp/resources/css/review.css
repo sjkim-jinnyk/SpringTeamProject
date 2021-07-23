@@ -11,7 +11,7 @@ body{
 }
 
 .review_title{
-	padding: 150px 0;
+	padding: 90px 0;
 	padding-left: 10%;
 	color: white;
 }
@@ -104,4 +104,40 @@ span.writer{
 	left: 10px;
 	top: 45px;
 	color: gray;
+}
+
+.r_cont {
+    position: relative;
+    width: 800px;
+    margin: 100px auto;
+}
+
+.r_cont .writer {
+    position: relative;
+    margin-bottom: 50px;
+}
+.r_cont .cont {
+    position: relative;
+    margin-bottom: 32px;
+}
+.r_cont .title {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+.r_cont .pro_img {
+    position: relative;
+    margin-bottom: 40px;
+    width: 160px;
+    height: 160px;
+}
+.r_cont .star {
+    position: relative;
+    color: black;
+    left: 0px;
+}
+
+.devide{
+	height: 1px;
+    background-color: gray;
+    margin-bottom: 30px;
 }

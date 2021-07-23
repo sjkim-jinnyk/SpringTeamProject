@@ -32,7 +32,7 @@ function likeCheck(product_no, index){
 
 	<div class="layout_container">
 		<jsp:include page="../include/header.jsp" />
-		<jsp:include page="../include/recent.jsp" />
+		<%-- <jsp:include page="../include/recent.jsp" /> --%>
 			<div class="main">	
 			
 			<div class="category">

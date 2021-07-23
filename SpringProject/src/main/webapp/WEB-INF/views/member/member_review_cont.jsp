@@ -12,8 +12,8 @@
 </head>
 <body>
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
 			<c:set var="mem" value="${Cont }" />
 			
 			<div class="member_container">
@@ -51,8 +51,8 @@
 					</div> <!-- member_order END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
-			<jsp:include page="../include/footer.jsp" />
 		</div>
+		<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
 </html>

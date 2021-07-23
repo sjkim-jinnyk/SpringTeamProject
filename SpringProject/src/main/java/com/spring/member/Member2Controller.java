@@ -50,10 +50,10 @@ public class Member2Controller {
 		}
 	}
 	
-//	@RequestMapping("login.do")
-//	public String go_login() {
-//		return "login/login_form";
-//	}
+	@RequestMapping("login.do")
+	public String go_login() {
+		return "login/login_form";
+	}
 	
 	@RequestMapping("login_ok.do")
 	public void login(

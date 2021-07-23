@@ -92,7 +92,7 @@ public class ProductController {
 		model.addAttribute("page", pageDTO);
 		model.addAttribute("List", list);
 		model.addAttribute("cList", cList);
-		
+
 		return "product/product_list";
 	}
 

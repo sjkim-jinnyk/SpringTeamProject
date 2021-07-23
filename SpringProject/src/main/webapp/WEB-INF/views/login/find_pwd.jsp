@@ -10,8 +10,8 @@
 <body>
 	
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
 			
 			<form name="find_id" method = "post" 
 				action = "<%=request.getContextPath()%>/find_pwd_ok.do">
@@ -28,8 +28,8 @@
 			
 			</form>
 			
-			<jsp:include page="../include/footer.jsp" />
 		</div>
+		<jsp:include page="../include/footer.jsp" />
 	</div>
 	
 	

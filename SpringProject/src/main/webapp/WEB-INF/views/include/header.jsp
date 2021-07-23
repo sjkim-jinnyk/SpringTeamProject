@@ -6,8 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="resources/css/include.css">
 <link rel="stylesheet" href="resources/css/CommonStyle.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberHeaderStyle.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
+<link rel="stylesheet" href="resources/css/include.css?after">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <title>Insert title here</title>
 </head>
@@ -42,7 +45,6 @@ $(document).ready(function(){
 	}); 
 });
 
-
 </script>
 <body>
 
@@ -50,20 +52,15 @@ $(document).ready(function(){
 		
 		<div class="header_desktop header">
 			
-			<div class="left_wrap">
-				<div class="left">
+			<a href="<%=request.getContextPath()%>/main.do" class="site_logo">[LOGO]</a>
+			
+			<div class="menu_wrap">
+				
 					<a href="<%=request.getContextPath()%>/about.do">ABOUT</a>
 					<a href="<%=request.getContextPath()%>/product_list.do">SHOP</a>
 					<a href="<%=request.getContextPath()%>/review_list.do">REVIEW</a>
 					<a href="<%=request.getContextPath() %>/admin_list.do">관리자</a>
-				</div>
-			</div>
-			
-
-			<a href="<%=request.getContextPath()%>/main.do" class="site_logo">[LOGO]</a>
-			
-			<div class="right_wrap">
-				<div class="right">
+					
 					<a id="search-btn" href="javascript:void(0)" onclick="showSearch();">검색</a>
 					<div id="search" style="display: none;">
 						<form method="post" action="product_search.do" >			
@@ -96,7 +93,6 @@ $(document).ready(function(){
 							<li><a href="#">공지사항</a></li>
 						</ul>
 					</div>
-				</div>
 			</div>
 			
 		</div>

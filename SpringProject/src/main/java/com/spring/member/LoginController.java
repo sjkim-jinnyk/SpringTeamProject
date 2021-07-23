@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -15,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,9 +26,6 @@ import com.spring.model.Member2DAO;
 import com.spring.model.MemberDTO;
 import com.spring.model.NaverLoginBO;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class LoginController {
 
@@ -42,7 +40,7 @@ public class LoginController {
 
 	@Autowired
 	private LoginDAO dao;
-
+	
 	@Autowired
 	private Member2DAO mdao;
 
@@ -51,13 +49,12 @@ public class LoginController {
 		this.naverLoginBO = naverLoginBO;
 	}
 
-	@RequestMapping("login.do")
-	public String login(Model model, HttpSession session) {
+	@RequestMapping("naver.do")
+	public void login(Model model, HttpSession session, HttpServletResponse response) throws IOException {
 
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session, callback_URL1);		
-		model.addAttribute("url", naverAuthUrl);
-
-		return "login/login_form";
+		response.sendRedirect(naverAuthUrl);
+		
 	}
 
 	// 네이버 로그인 성공시 callback호출 메소드
@@ -166,11 +163,11 @@ public class LoginController {
 
 		if (result > 0) {
 			out.println("<script>");
-			out.println("alert('네이버 연동 해제 중 . . .')");
-			out.println("location.href='" + deleteTokenURL + "'");
 			out.println("alert('네이버 연동이 해제되었습니다.')");
+			out.println("location.href='" + deleteTokenURL + "'");
+			out.println("setTimeout(function() {},3000)");
 			out.println("location.href='main.do'");
-			// out.println("window.open('http://nid.naver.com/nidlogin.logout', '네이버 로그아웃', '_blank')"); // 네이버 로그아웃 처리
+			//out.println("location.href='http://nid.naver.com/nidlogin.logout'"); // 네이버 로그아웃 처리
 			out.println("</script>");
 		} else {
 			out.println("<script>");
@@ -181,11 +178,9 @@ public class LoginController {
 	}
 	
 	@RequestMapping("sns_connect.do")
-	public String sns_connect(HttpSession session, Model model) {
+	public void sns_connect(HttpSession session, HttpServletResponse response) throws IOException {
 		String naverConnectUrl = naverLoginBO.getAuthorizationUrl(session, callback_URL2);
-		model.addAttribute("url", naverConnectUrl);
-		
-		return "login/sns_connect";
+		response.sendRedirect(naverConnectUrl);
 	}
 
 	// 네이버 연동 인증 성공시 callback호출 메소드
@@ -247,12 +242,6 @@ public class LoginController {
 	
 	@RequestMapping("login_popup.do")
 	public String login_popup(Model model, HttpSession session) {
-		
-		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session, callback_URL1);
-		String naverConnectUrl = naverLoginBO.getAuthorizationUrl(session, callback_URL2);
-
-		model.addAttribute("url", naverAuthUrl);
-		model.addAttribute("connectUrl", naverConnectUrl);
 		
 		return "login/login_popup";
 	}

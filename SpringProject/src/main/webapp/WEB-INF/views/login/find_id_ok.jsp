@@ -11,8 +11,9 @@
 <body>
 	
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
+	
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
 			
 			<div class="id_field">
 				<c:set var="id" value="${result_id }"/>
@@ -30,8 +31,8 @@
 				</div>
 			</div>
 			
-			<jsp:include page="../include/footer.jsp" />
 		</div>
+		<jsp:include page="../include/footer.jsp" />
 	</div>
 	
 	

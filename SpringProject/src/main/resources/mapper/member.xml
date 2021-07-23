@@ -39,8 +39,11 @@
 	</select>
 	
 	<select id="couponInfo" parameterType="ArrayList" resultType="com.spring.model.CouponDTO">
-		select * from coupon where coupon_no in 
+		select * from coupon 
+		<if test="!list.isEmpty()">
+		where coupon_no in 
 		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.own_coupon}</foreach>
+		</if>
 	</select>
 	
 	
@@ -83,8 +86,11 @@
 	</delete>
 	
 	<select id="productLikeInfo" parameterType="ArrayList" resultType="com.spring.model.ProductDTO">
-		select * from product where pro_no in 
+		select * from product 
+		<if test="!list.isEmpty()">
+		where pro_no in 
 		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.like_product}</foreach>
+		</if>
 		order by pro_no desc
 	</select>
 	
@@ -170,5 +176,9 @@
 		order by order_no desc
 	
 	</select>
+	<update id="updateMemberPwd" parameterType="com.spring.model.MemberDTO">
+		update member set mem_pwd = #{mem_pwd}
+		where mem_id = #{mem_id}
+	</update>
 
 </mapper>

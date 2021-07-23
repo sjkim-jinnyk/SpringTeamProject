@@ -5,10 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberHeaderStyle.css">
-<title>Insert title here</title>
-</head>
 <body>
 	<c:set var="dto" value="${myPage }" />
 	<!-- header_title -->

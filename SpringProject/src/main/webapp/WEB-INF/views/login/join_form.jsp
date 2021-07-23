@@ -14,8 +14,8 @@
 <body>
 
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
 			
 			<div class="join_wrap">
 			
@@ -69,8 +69,8 @@
 			</div>			
 			
 			
-			<jsp:include page="../include/footer.jsp" />
 		</div>
+		<jsp:include page="../include/footer.jsp" />
 	</div>
 	
 	<!-- 주소 API 파일 로딩  -->

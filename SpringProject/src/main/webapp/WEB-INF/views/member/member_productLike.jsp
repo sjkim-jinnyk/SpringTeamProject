@@ -13,8 +13,8 @@
 </head>
 <body>
 	<div class="layout_container">
+	<jsp:include page="../include/header.jsp" />
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
 			<c:set var="mem" value="${Cont }" />
 			
 			<div class="member_container">
@@ -45,17 +45,20 @@
 									</li>
 									<li>
 										<a href="<%=request.getContextPath() %>/productLike_delete.do?no=${dto.getPro_no()}&id=${session_id}" id="heart"><i class="fas fa-heart"></i></a>
-									</li>
+									</li> 
 								</ul>
 							</li>
 						</c:forEach>
 						</ul>
 						</c:if>
+						<c:if test="${empty ProductLikeInfo}">
+							<p id="noLike">찜한 상품이 없습니다.</p>
+						</c:if>
 					</div> <!-- member_like END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
-			<jsp:include page="../include/footer.jsp" />
 		</div>
+		<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
