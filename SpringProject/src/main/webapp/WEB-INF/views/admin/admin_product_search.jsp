@@ -17,11 +17,6 @@
 <script type="text/javascript" src="resources/js/admin.js"></script>
 <title>울퉁불퉁's 관리자 - 상품 목록</title>
 </head>
-<script type="text/javascript">
-
-console.log("type" , typeof ${keyword});
-
-</script>
 <body onload="check();">
 	
 		<div class="wrapper d-flex align-items-stretch">
