@@ -11,6 +11,8 @@ body{
 }
 
 .review_title{
+	width: 1200px;
+	margin: 0 auto;
 	padding: 90px 0;
 	padding-left: 10%;
 	color: white;

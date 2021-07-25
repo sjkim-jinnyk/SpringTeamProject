@@ -10,9 +10,13 @@
 <title>리뷰</title>
 </head>
 <body>
+	
+	<jsp:include page="../include/header.jsp" />
+
 	<div class="layout_container">
+		
 		<div class="main">
-			<jsp:include page="../include/header.jsp" />
+			
 			
 			<c:set var="dto" value="${cont }" />
 			
@@ -33,7 +37,12 @@
 				
 			</div>
 			
-			<jsp:include page="../include/footer.jsp" />
+			
+		</div>
+		
 	</div>
+	
+	<jsp:include page="../include/footer.jsp" />
+	
 </body>
 </html>
