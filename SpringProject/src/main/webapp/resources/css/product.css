@@ -98,19 +98,15 @@
 	padding: 0px 5px;
 	color: #FFF;
 	font-size: 20px;
-	border: 1px solid #FFF;
-	border-radius: 100%;
 }
 
 .like-btn:hover {
 	color: red;
 	transition: all 0.3s;
-	border: 1px solid red;
 }
 
 .like-checked {
 	color: red;
-	border: 1px solid red;
 }
 
 .pagination {
@@ -194,6 +190,7 @@
 	font-size: 13px;
 	color: gray;
 }
+
 
 
 /* product_recent */
@@ -280,12 +277,12 @@
 
 /* product_cont */
 .product-cont {
-	background-color: green;
 	margin: 100px auto 50px;
+	display: inline-flex;
 }
 
 .product-container {
-	background-color: blue;
+	display: flex;
 	padding: 0 10px;
 	margin-bottom: 50px;
 }
@@ -307,11 +304,41 @@
 
 .cont-info {
 	display: inline-block;
-	background-color: #CCC;
 	vertical-align: top;
-	margin: 0 40px;
-	width: 500px;
+	padding-left: 50px;
+	width: 600px;
 	height: 555px;
+}
+
+.info-wrapper {
+	height: 300px;
+	width: 500px;
+}
+
+.info-wrapper table {
+	margin: 10px 0;
+	vertical-align: bottom;
+}
+
+.info-wrapper table tr {
+	display: block;
+	margin: 5px 0;
+	padding: 0;
+}
+
+.info-wrapper table tr th {
+	border-right-color: black;
+	padding-right: 20px;
+	font-weight: bold;
+}
+
+.shipping {
+	font-size: 15px;	
+}
+
+.text {
+	font-size: 13px;
+	color: #AAA;
 }
 
 .cont-info-title {
@@ -322,7 +349,7 @@
 
 .cont-info-price {
 	margin-top: 50px;
-	font-size: 20px;
+	font-size: 25px;
 	font-weight: bold;
 	color: red;
 }
@@ -332,6 +359,7 @@
 }
 
 .cont-amount {
+	display: inline-block;
 	background-color: #F5F5F5;
 	text-align: center;
 	width: 130px;
@@ -348,28 +376,93 @@
 	font-size: 15px;
 }
 
+.cont-total {
+	margin: 20px 0px;
+	padding-top: 10px;
+	border-top: 1px solid black;
+}
+
+.cont-total .total-title {
+	font-weight: bold;
+}
+
+.cont-total .total-wrapper {
+	float: right;
+}
+
+.cont-total .total-amount {
+	font-size: 13px;
+	color: #AAA;
+}
+
+.cont-total .total-price {
+	font-weight: bold;
+	
+}
+
 .btn-wrapper {
-	width: 500px;
 	margin: 0 auto;
+	width: 550px;
 }
 
 .cont-btn {
-	background-color: #FF8F1C;
-	border: 1px solid #FF8F1C;
+	margin: 0 auto;
 	text-align: center;
-	width: 200px;
+	width: 230px;
 	height: 60px;
 	color: #FFF;
 	font-weight: bold;
 	cursor: pointer;
 }
 
-.hr1, .hr2 {
+.btn-cart {
+	background-color: black;
+	border: 1px solid black;
+}
+
+.btn-purchase {
+	background-color: #FF8F1C;
+	border: 1px solid #FF8F1C;
+}
+
+.btn-wrapper {
+	vertical-align: bottom;
+}
+
+.btn-wrapper .like-btn {
+	background-color: #F5F5F5;
 	border: 1px solid #F5F5F5;
+	text-align: center;
+	width: 60px;
+	height: 60px;
+	color: #FFF;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.btn-wrapper .like-btn:hover {
+	color: red;
+}
+
+.btn-wrapper .like-checked {
+	color: red;
+}
+
+.hr1 {
+	border: 1px inset #F5F5F5;
+	margin-bottom: 20px;
+}
+
+
+.content-wrapper {
+	margin: 80px 0;
+	display: flex-row;
 }
 
 .product-content {
+	padding: 50px 0;
 	text-align: center;
+	border-bottom-color: #F5F5F5;
 }
 
 .content-category {
@@ -379,19 +472,14 @@
 
 .product-content hr {
 	background-color: #CCC;
-	margin-bottom: 30px;
+	margin-bottom: 30px 0;
 }
 
 .content-detail {
-	margin: 5px 5px;
-	padding-bottom: 50px;
+	padding-bottom: 150px;
 }
 
-.content-detail img {
-	width: 100%;
-}
-
-.cont-board {
+.cont-reveiw {
 	margin: 50px 0;
 }
 
@@ -401,18 +489,44 @@
 	font-weight: bold;
 }
 
+.hr2 {
+	margin: 20px 0 20px;	
+}
+
+
+/* product_cont - review */
 .review {
 	padding: 10px;
 }
 
+.cont-li li {
+	border-top: 1px solid #CCC;
+	border-bottom: 1px solid #CCC;
+	margin-top: -1px;
+}
+
+.cont-li li:first-child {
+	border-top: 0;	
+}
+
+.cont-li li:last-child {
+	border-bottom: 0;
+}
+
 .review-star .review-number {
-	display: inline-block
+	display: inline-block;
 	font-size: 10px;
 	color: #CCC;
 }
 
+.review-number {
+	font-size: 13px;
+}
+
 .photo-only {
 	float: right;
+	font-size: 15px;
+	vertical-align: bottom;
 }
 
 .cont-board ul {
@@ -422,30 +536,63 @@
 
 .review-wrap {
 	display: inline-block;
-	width: 90%;
+	width: 100%;
 	vertical-align: top;
 }
 
-.personal-star {
-	
+.star-selected{
+	color: #FF8F1C;
+	padding-bottom: 10px;
+}
+
+.star-deseleted {
+	color: #EEE;
+	padding-bottom: 10px;
 }
 
 .mem-id {
 	color: #AAA;
 }
 
+.review-div {
+	display: flex;
+}
+
+.cont-div {
+	display: flex-row;
+}
+
+.review-imgs {
+	display: flex-row;
+	width: 160px;
+}
+
 .review-cont {
-	margin-top: 10px;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	width: 1000px;
+	height: 5m;
+	white-space:pre-wrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
-.review img {
-	float: right important!;
-	width: 100px;
-	height: 100px;
+.review-detail-cont {
+	white-space:pre-wrap;
 }
 
-.cont-board ul li {
-	border-bottom: solid 1px #EEE;
+.list-img {
+	float: right;
+	vertical-align: middle;
+	width: 110px;
+	height: 110px;
+}
+
+.review {
+}
+
+.review:last-child {
 }
 
 .write {
@@ -456,8 +603,14 @@
 	text-align: center;
 }
 
+
+/* product_cont - qna */
+.cont-board {
+	padding-top: 100px;
+}
+
 .qna {
-	padding-top: 10px;
+	padding-top: 100px;
 	padding-bottom: 10px;
 	text-align: center;
 }
@@ -469,24 +622,74 @@
 	font-weight: bold;
 }
 
-.qna-no {
-	display: inline-block;
-	width: 50px;
+.qna-table {
+	border-collapse: collapse;
+}
+
+.qna-table tr th {
+	font-weight: bold;
+	padding: 10px 5px;
+}
+
+.qna-table tr td {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-top: 1px solid;
+	border-bottom: 1px solid #AAA;
+}
+
+.qna-state, .qna-writer, .qna-date {
+	text-align: center;
+}
+
+.qna-state {
+	width: 10%;
 }
 
 .qna-title {
-	display: inline-block;
-	width: 800px;
+	width: 60%;
+	padding-left: 50px;
 }
 
 .qna-writer {
-	display: inline-block;
-	width: 100px
+	width: 10%;
 }
 
-.qna-regdate {
-	display: inline-block;
-	width: 100px;
+.qna-date {
+	width: 10%;
+}
+
+.qna-cont {
+	white-space:pre;
+}
+
+.qna-ans td {
+	background-color: #F5F5F5;
+}
+
+.qna-answer-wrapper {
+	display: flex;
+}
+
+.qna-answer, .qna-answer-title {
+	display: flex-row;
+}
+
+.qna-answer {
+	width: 100%;
+}
+
+.qna-btn {
+	display: flex-row;
+	float: right;
+}
+
+.answer-tag {
+	background-color: #FFF;
+	border-radius: 10px;
+	font-size: 13px;
+	padding: 5px 10px;
+	margin-right: 10px;
 }
 
 
