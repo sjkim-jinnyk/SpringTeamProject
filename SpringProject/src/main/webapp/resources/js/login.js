@@ -56,7 +56,6 @@ function fn_idCheck(){
 // 아이디(4자리 이상 15자리 미만), 전화번호 (000-0000-0000) 형식 검사
 // 참고 : https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=irene-fts&logNo=221898756777
 function submitCheck(){
-	
 	var phoneReg = /(01[016789])-\d{4}-\d{4}/g;
 	
 	if(!phoneReg.test(joinForm.mem_phone.value)) {
@@ -68,6 +67,20 @@ function submitCheck(){
 	joinForm.method = "post";
 	joinForm.action = "/member/join_ok.do";
 	joinForm.submit();
+}
+
+function phoneCheck(){
+	var phoneReg = /(01[016789])-\d{4}-\d{4}/g;
+	
+	if(!phoneReg.test(find_id.mem_phone.value)) {
+		alert("전화번호를 형식에 맞게 입력해주세요.");
+		find_id.mem_phone.focus();
+		return;
+	}
+	
+	find_id.method = "post";
+	find_id.action = "/member/find_id_ok.do";
+	find_id.submit();
 }
 
 // 도로명 주소  다음 API 스크립트
