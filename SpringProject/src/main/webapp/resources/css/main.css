@@ -3,3 +3,182 @@
 body{
 	margin: 0;
 }
+
+.slide{
+	position: relative;
+	overflow: hidden;
+	height: 600px;
+	width: 100%;
+}
+
+.panel{
+	width: 400%;
+}
+
+.panel :after{
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.panel>li {
+	width: 25%;
+	height: 600px;
+	float: left;;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	position: relative;
+}
+
+.panel>li:nth-of-type(1) {
+	background-color: red;
+}
+
+.panel>li:nth-of-type(2) {
+	background-color: blue;
+}
+
+.panel>li:nth-of-type(3) {
+	background-color: green;
+}
+
+.dot:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.dot {
+	position: absolute;
+	left: 50%;
+	bottom: 5%;
+	transform: translateX(-50%);
+}
+
+.dot>li {
+	float: left;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #FF8F1C;
+	border-radius: 50%;
+	margin-left: 10px;
+	margin-right: 10px;
+	text-indent: -9999px;
+	cursor: pointer;
+}
+
+.dot>li.on {
+	background-color: #FF8F1C;
+}
+
+.prev {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	background-color:  #FF8F1C;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 0;
+	cursor: pointer;
+}
+
+.next {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	background-color:  #FF8F1C;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 0;
+	cursor: pointer;
+}
+
+.prev>img, .next>img {
+	width: 30px;
+	height: 30px;
+	padding: 10px;
+}
+
+.panel>li>img{
+	width: 100%;
+	height: auto;
+}
+
+.content{
+	height: 300px;
+	margin: 100px auto 0 auto;
+	display: flex;
+	justify-content: space-between;
+}
+
+.cont_box{
+	background-color: orange;
+	width: 300px;
+	margin: 15px 36px;
+}
+
+.about_header{
+	background-color: pink;
+	width: 100%;
+	height: 150px;
+	position: relative;
+	overflow: hidden;
+}
+
+.about_header>span{
+	position: absolute;
+	width: 1000px;
+	padding-top: 60px;
+	padding-left: 15%;
+	font-size: 25px;
+    font-weight: 600;
+    color: white;
+}
+
+.about_header>img{
+	width: 100%;
+	height: auto;
+}
+
+.intro{
+	display: flex;
+	margin-top: 80px;
+	margin-bottom: 100px;
+}
+
+.intro>img{
+	width: 430px;
+	height: auto;
+}
+
+.intro .text{
+	margin-left: 72px;
+}
+
+.intro .text .title{
+	font-size: 37px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.points{
+	display: flex;
+	justify-content: space-between;
+}
+
+.points .box {
+	border-top: 3px solid #FF8F1C;
+    width: 324px;
+    padding: 20px 5px 0 5px;
+}
+
+.box .title{
+	font-size: 23px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.box .cont{
+	font-size: 17px;
+    font-weight: 300;
+}

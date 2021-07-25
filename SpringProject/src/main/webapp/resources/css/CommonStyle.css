@@ -29,3 +29,33 @@ a{box-sizing:border-box}
 a, button{cursor:pointer}
 [tabindex="-1"]{outline:0}
 [tabindex="0"]:focus{outline:1px dashed #e0e0e0}
+
+
+/* 반응형 */
+@media ( min-width : 1201px) {
+    .main {
+        width: 1200px;
+    }
+}
+@media ( max-width : 1200px) {
+    .main {
+        width: 1140px;
+    }
+}
+
+@media ( max-width : 768px) {
+    .main {
+        width: 720px;
+    }
+}
+
+@media ( max-width : 576px) {
+    .main {
+        width: 540px;
+    }
+}
+
+.main {
+    padding: 0 10px;
+    margin: 0 auto;
+}
