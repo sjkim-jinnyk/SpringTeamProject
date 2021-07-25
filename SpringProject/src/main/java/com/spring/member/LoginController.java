@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.spring.model.KakaoLoginBO;
 import com.spring.model.LoginDAO;
 import com.spring.model.Member2DAO;
 import com.spring.model.MemberDTO;
@@ -31,11 +32,26 @@ public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;
+	private KakaoLoginBO kakaoLoginBO;
+	
 	private String apiResult = null;
-	private String callback_URL1 = "http://localhost:8585/member/naver_login.do";
-	private String callback_URL2 = "http://localhost:8585/member/naver_connect.do";
+	private String callback_naver1 = "http://localhost:8585/member/naver_login.do";
+	private String callback_naver2 = "http://localhost:8585/member/naver_connect.do";
+	
+	private String callback_kakao1 = "http://localhost:8585/member/kakao_login.do";
+	private String callback_kakao2 = "http://localhost:8585/member/kakao_connect.do";
+	
+	@Autowired
+	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
+		this.naverLoginBO = naverLoginBO;
+	}
+	
+	@Autowired
+	private void setKakaoLoginBO(KakaoLoginBO kakaoLoginBO) {
+		this.kakaoLoginBO = kakaoLoginBO;
+	}
+	
 	private String access_token;
 
 	@Autowired
@@ -44,16 +60,17 @@ public class LoginController {
 	@Autowired
 	private Member2DAO mdao;
 
-	@Autowired
-	private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
-		this.naverLoginBO = naverLoginBO;
-	}
+	@RequestMapping("sns_login.do")
+	public void login(@RequestParam String type, Model model, HttpSession session, HttpServletResponse response) throws IOException {
 
-	@RequestMapping("naver.do")
-	public void login(Model model, HttpSession session, HttpServletResponse response) throws IOException {
-
-		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session, callback_URL1);		
-		response.sendRedirect(naverAuthUrl);
+		String snsAuthUrl = "";
+		
+		if(type.equals("naver")) {
+			snsAuthUrl = naverLoginBO.getAuthorizationUrl(session, callback_naver1);	
+		}else if(type.equals("kakao")) {
+			snsAuthUrl = kakaoLoginBO.getAuthorizationUrl(session, callback_kakao1);
+		}
+		response.sendRedirect(snsAuthUrl);
 		
 	}
 
@@ -63,11 +80,11 @@ public class LoginController {
 			HttpSession session) throws IOException, ParseException {
 
 		OAuth2AccessToken oauthToken;
-		oauthToken = naverLoginBO.getAccessToken(session, code, state, callback_URL1);
+		oauthToken = naverLoginBO.getAccessToken(session, code, state, callback_naver1);
 		this.access_token = oauthToken.getAccessToken();
 
 		// 1. 프로필 조회
-		apiResult = naverLoginBO.getUserProfile(oauthToken, callback_URL1); 
+		apiResult = naverLoginBO.getUserProfile(oauthToken, callback_naver1); 
 
 		// 2. String형식인 apiResult를 json형태로 바꿈
 		JSONParser parser = new JSONParser();
@@ -150,37 +167,69 @@ public class LoginController {
 
 	@RequestMapping("grant_delete.do")
 	public void grant_delete(HttpSession session, HttpServletResponse response, Model model) throws IOException {
-
+		
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
-
-		// client_id, client_secret, access_token을 받아서 grant_type = delete로 설정
-		String deleteTokenURL = naverLoginBO.deleteToken(this.access_token);
-		model.addAttribute("deleteTokenURL", deleteTokenURL);
-
+		
 		String user_id = (String) session.getAttribute("session_id");
-		int result = dao.deleteSnsID(user_id);
+		MemberDTO dto = this.mdao.getMemberInfo(user_id);
+		String type = dto.getMem_sns_type();
+		
+		if(type.equals("naver")) {
+			// client_id, client_secret, access_token을 받아서 grant_type = delete로 설정
+			String deleteTokenURL = naverLoginBO.deleteToken(this.access_token);
+			
+			int result = dao.deleteSnsID(user_id);
 
-		if (result > 0) {
-			out.println("<script>");
-			out.println("alert('네이버 연동이 해제되었습니다.')");
-			out.println("location.href='" + deleteTokenURL + "'");
-			out.println("setTimeout(function() {},3000)");
-			out.println("location.href='main.do'");
-			//out.println("location.href='http://nid.naver.com/nidlogin.logout'"); // 네이버 로그아웃 처리
-			out.println("</script>");
-		} else {
-			out.println("<script>");
-			out.println("alert('연동 해제 오류')");
-			out.println("history.back()");
-			out.println("</script>");
+			if (result > 0) {
+				out.println("<script>");
+				out.println("alert('SNS 연동이 해제되었습니다.')");
+				out.println("location.href='" + deleteTokenURL + "'");
+				out.println("setTimeout(function() {},3000)");
+				out.println("location.href='main.do'");
+				//out.println("location.href='http://nid.naver.com/nidlogin.logout'"); // 네이버 로그아웃 처리
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('연동 해제 오류')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
+			
+		}else if(type.equals("kakao")) {
+			int check = kakaoLoginBO.deleteToken(this.access_token);
+			
+			if(check == 1) {
+				int result = dao.deleteSnsID(user_id);
+
+				if (result > 0) {
+					out.println("<script>");
+					out.println("alert('SNS 연동이 해제되었습니다.')");
+					out.println("setTimeout(function() {},3000)");
+					out.println("location.href='main.do'");
+					out.println("</script>");
+				} else {
+					out.println("<script>");
+					out.println("alert('연동 해제 오류')");
+					out.println("history.back()");
+					out.println("</script>");
+				}
+			}
 		}
 	}
 	
 	@RequestMapping("sns_connect.do")
-	public void sns_connect(HttpSession session, HttpServletResponse response) throws IOException {
-		String naverConnectUrl = naverLoginBO.getAuthorizationUrl(session, callback_URL2);
-		response.sendRedirect(naverConnectUrl);
+	public void sns_connect(@RequestParam String type, HttpSession session, HttpServletResponse response) throws IOException {
+		
+		String snsConnectUrl = "";
+		
+		if(type.equals("naver")) {
+			snsConnectUrl = naverLoginBO.getAuthorizationUrl(session, callback_naver2);	
+		}else if(type.equals("kakao")) {
+			snsConnectUrl = kakaoLoginBO.getAuthorizationUrl(session, callback_kakao2);
+		}
+		response.sendRedirect(snsConnectUrl);
+		
 	}
 
 	// 네이버 연동 인증 성공시 callback호출 메소드
@@ -192,11 +241,11 @@ public class LoginController {
 		PrintWriter out = response.getWriter();
 
 		OAuth2AccessToken oauthToken;
-		oauthToken = naverLoginBO.getAccessToken(session, code, state, callback_URL2);
+		oauthToken = naverLoginBO.getAccessToken(session, code, state, callback_naver2);
 		this.access_token = oauthToken.getAccessToken();
 
 		// 1. 프로필 조회
-		apiResult = naverLoginBO.getUserProfile(oauthToken, callback_URL1); 
+		apiResult = naverLoginBO.getUserProfile(oauthToken, callback_naver1); 
 
 		// 2. String형식인 apiResult를 json형태로 바꿈
 		JSONParser parser = new JSONParser();
@@ -247,10 +296,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping("login_popup_ok.do")
-	public void login(
-			@RequestParam("mem_id") String id,
-			@RequestParam("mem_pwd") String pwd,
-			HttpServletResponse response,
+	public void login(@RequestParam("mem_id") String id, @RequestParam("mem_pwd") String pwd, HttpServletResponse response,
 			HttpSession session) throws IOException {
 		
 		int idCheck = this.mdao.idCheck(id);
@@ -284,6 +330,82 @@ public class LoginController {
 		}
 		
 		System.out.println(idCheck+ ", " +pwdCheck);
+	}
+	
+	// 카카오 로그인 성공시 callback호출 메소드
+	@RequestMapping("kakao_login.do")
+	public ModelAndView kakao_callback(HttpServletRequest request, Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws IOException, ParseException {
+		
+		String access_token = kakaoLoginBO.getAccessToken(request, code, callback_kakao1);
+		this.access_token = access_token;
+		
+		String id = kakaoLoginBO.getUserProfile(access_token, callback_kakao1);
+		
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put("sns_id", id);
+
+		int check = dao.snsJoinCheck(hm); // 해당 네이버 아이디로 가입한 회원이 있는지 확인
+
+		ModelAndView mav = new ModelAndView();
+
+		if (check > 0) { // 해당 네이버 아이디로 가입한 회원이 있다면 자동 로그인
+
+			mav.setViewName("home");
+
+			MemberDTO dto = dao.getSnsMemInfo(hm); // 네이버 아이디로 가입한 회원 아이디 불러오기
+			session.setAttribute("session_id", dto.getMem_id()); // 세션에 회원 저장
+			session.setAttribute("session_mem", dto);
+
+		} else { // 해당 네이버 아이디로 가입한 회원이 없다면 sns회원가입창으로 이동
+			mav.addObject("sns_id", id);
+			mav.addObject("sns_type", "kakao");
+			mav.setViewName("login/join_form_sns");
+		}
+		
+		return mav;
+	}
+	
+	// 카카오 연동 성공시 callback호출 메소드
+	@RequestMapping("kakao_connect.do")
+	public void kakao_connect(HttpServletRequest request, Model model, @RequestParam String code, @RequestParam String state, HttpSession session, HttpServletResponse response) throws IOException {
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+
+		String access_token = kakaoLoginBO.getAccessToken(request, code, callback_kakao2);
+		this.access_token = access_token;
+
+		String id = kakaoLoginBO.getUserProfile(access_token, callback_kakao2);
+
+		HashMap<String, String> hm = new HashMap<String, String>();
+		hm.put("mem_id", (String) session.getAttribute("session_id"));
+		hm.put("type", "kakao");
+		hm.put("sns_id", id);
+
+		int check = dao.snsConnectCheck(hm);
+
+		if (check > 0) {
+			out.println("<script>");
+			out.println("alert('이미 카카오와 연동되어 있습니다.')");
+			out.println("location.href='main.do'");
+			out.println("</script>");
+		} else {
+			int connectCheck = dao.snsJoinCheck(hm);
+
+			if (connectCheck > 0) {
+				out.println("<script>");
+				out.println("alert('이미 연동된 카카오 계정입니다.')");
+				out.println("location.href='main.do'");
+				out.println("</script>");
+			} else {
+				int result = dao.addSnsID(hm);
+
+				out.println("<script>");
+				out.println("alert('카카오 연동 성공!')");
+				out.println("location.href='main.do'");
+				out.println("</script>");
+			}
+		}
 	}
 
 }

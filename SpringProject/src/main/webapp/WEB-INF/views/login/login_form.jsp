@@ -48,11 +48,16 @@
 				
 				<!-- 네이버 로그인 창으로 이동 -->
 				<div id="social_login">
-					<a href="naver.do"><img class="naver_login" height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a><br>
+					<a href="sns_login.do?type=naver"><img class="naver_login" height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a><br>
+					<a href="sns_login.do?type=kakao"><img class="kakao_login" height="50" src="resources/img/main/kakao_login.png"/></a><br>
 				
 					<a href="grant_delete.do">[네이버 연동 해제]</a><br>
-					<a href="sns_connect.do">[연동 추가]</a>
+					<a href="grant_delete.do">[카카오 연동 해제]</a><br>
+					<a href="sns_connect.do?type=naver">[네이버 연동 추가]</a><br>
+					<a href="sns_connect.do?type=kakao">[카카오 연동 추가]</a>
 				</div>
+				
+				
 
 		</div>
 		<jsp:include page="../include/footer.jsp" />

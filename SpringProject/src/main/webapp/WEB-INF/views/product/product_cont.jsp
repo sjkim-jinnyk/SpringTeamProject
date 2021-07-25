@@ -305,8 +305,8 @@ function likeCheck(product_no){
 				
 				<%-- 질문 Q&A --%>
 				<div id="qna" class="cont-board">
-					<span class="table-title">Q&A</span><br>
-					
+					<span class="table-title">Q&A</span>
+					<button class="write" onclick="writeQna(${cont.getPro_no() });">상품 Q&A 작성하기</button>
 					<table class="qna-table">
 						<c:if test="${!empty qna }">
 						<tr>
@@ -388,13 +388,12 @@ function likeCheck(product_no){
 						
 						<c:if test="${empty qna }">
 							<tr>
-								<td>작성된 질문이 없습니다.</td>
+								<td class="no-qna">작성된 질문이 없습니다.</td>
 							</tr>
 						</c:if>
 						
 					</table>
 					
-					<button class="write" onclick="writeQna(${cont.getPro_no() });">상품 Q&A 작성하기</button>
 					<br>
 					
 					<%-- pagination --%>

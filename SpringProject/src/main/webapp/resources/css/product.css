@@ -490,7 +490,7 @@
 }
 
 .hr2 {
-	margin: 20px 0 20px;	
+	margin: 10px 0 10px;	
 }
 
 
@@ -624,11 +624,13 @@
 
 .qna-table {
 	border-collapse: collapse;
+	margin-top: 10px;
 }
 
 .qna-table tr th {
 	font-weight: bold;
 	padding: 10px 5px;
+	border-top: 1px solid;
 }
 
 .qna-table tr td {
@@ -690,6 +692,11 @@
 	font-size: 13px;
 	padding: 5px 10px;
 	margin-right: 10px;
+}
+
+.no-qna {
+	text-align: center;
+	padding: 15px 0;
 }
 
 
