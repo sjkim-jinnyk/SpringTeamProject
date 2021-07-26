@@ -49,6 +49,15 @@ function likeCheck(product_no){
 		addLike(product_no);
 	}
 }
+
+function writeQna(product_no) {
+	if('${session_id}' != ''){
+		window.open("product_qna_write.do?no="+product_no, "질문글 작성하기", "_blank");
+	}else {
+		alert('로그인 후 작성 가능합니다.');
+		window.open("login_popup.do", "질문글 답변하기", "_blank");
+	}
+}
 </script>
 <body>
 	<div class="layout_container">
@@ -105,9 +114,9 @@ function likeCheck(product_no){
 							<span>수량</span>
 							<div class="cont-amount">
 							
-								<button type="button" onclick="count('minus');" value="-">-</button>
+								<button type="button" onclick="count('minus');" value="-"><i class="fas fa-minus"></i></button>
 								<input type="text" id="cart_amount" class="cart_amount" name="cart_amount" value="1">
-								<button type="button" onclick="count('plus');" value="+">+</button>
+								<button type="button" onclick="count('plus');" value="+"><i class="fas fa-plus"></i></button>
 							</div>
 							
 							<div class="cont-total">
@@ -140,7 +149,7 @@ function likeCheck(product_no){
 					</div>
 				
 					<div id="content-detail" class="content-detail">
-						<span class="pro-cont">${dto.getPro_cont() }</span>
+						<span class="pro-detail">${dto.getPro_cont() }</span>
 					</div>
 				
 				</c:if>
@@ -268,7 +277,7 @@ function likeCheck(product_no){
 						</ul>
 						</c:if>
 						<c:if test="${empty photo }">
-							작성된 후기가 없습니다.
+							<div style="text-align:center;">작성된 후기가 없습니다.</div>
 						</c:if>
 						
 						<hr class="hr2">
@@ -302,7 +311,7 @@ function likeCheck(product_no){
 				<%-- 질문 Q&A --%>
 				<div id="qna" class="cont-board">
 					<span class="table-title">Q&A</span>
-					<button class="write" onclick="writeQna(${cont.getPro_no() });">상품 Q&A 작성하기</button>
+					<button class="write pro-name" onclick="writeQna(${cont.getPro_no() });">상품 Q&A 작성하기</button>
 					<table class="qna-table">
 						<c:if test="${!empty qna }">
 						<tr>
@@ -315,8 +324,8 @@ function likeCheck(product_no){
 						<c:forEach items="${qna }" var="dto" varStatus="status">
 						<tr>
 							<td class="qna-state">
-								<c:if test="${!empty dto.getQnaDTO() }">답변완료</c:if> 
-								<c:if test="${empty dto.getQnaDTO() }">미답변</c:if> 
+								<c:if test="${!empty dto.getQnaDTO() }"><span class="state-ok">답변완료</span></c:if> 
+								<c:if test="${empty dto.getQnaDTO() }"><span class="state-no">미답변</span></c:if> 
 							</td>
 							<td class="qna-title">
 								<c:if test="${dto.getQna_writer() eq session_id || session_id eq 'admin' }">
@@ -358,7 +367,7 @@ function likeCheck(product_no){
 							<td class="qna-title">
 								<div class="qna-answer-wrapper">
 									<div class="qna-answer-title">
-										<span class="answer-tag" style="background-color:gray; color:white;">답변</span>
+										<span class="answer-tag">답변</span>
 									</div>
 									<div class="qna-detail qna-answer">
 										<span class="qna-cont"><c:out value="${dto.getQnaDTO().getQna_cont() }" /></span><br>

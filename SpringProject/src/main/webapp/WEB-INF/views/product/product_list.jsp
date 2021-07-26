@@ -34,7 +34,7 @@ function likeCheck(product_no, index){
 	<div class="layout_container">
 		<jsp:include page="../include/header.jsp" />
 		<%-- <jsp:include page="../include/recent.jsp" /> --%>
-		<div class="about_header">
+			<div class="about_header">
 				<span>product list</span>
 				<img src="resources/img/main/orange_bg.jpeg">
 			</div>
@@ -65,7 +65,7 @@ function likeCheck(product_no, index){
 										<div class="product-info">
 										
 											<c:forEach items="${dto.getPro_tags() }" var="tags">
-												<a class="pro-tag" href="search_tag.do?k=${tags }">${tags }</a> 
+												<a class="cart-tag" href="search_tag.do?k=${tags }">${tags }</a> 
 											</c:forEach><br>
 											
 											<a class="pro-name" href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a><br>

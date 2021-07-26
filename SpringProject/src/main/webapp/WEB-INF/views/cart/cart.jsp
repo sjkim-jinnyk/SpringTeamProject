@@ -9,7 +9,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <link rel="stylesheet" href="resources/css/product.css">
+<link rel="stylesheet" href="resources/css/main.css?after">
 <title>울퉁불퉁's 장바구니</title>
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -79,29 +81,43 @@ function loginCheck(){
 
 	<div class="layout_container">
 		<jsp:include page="../include/header.jsp" />
+			
+			<div class="about_header">
+				<span>Cart</span>
+				<img src="resources/img/main/orange_bg.jpeg">
+			</div>
+			
 			<div class="main">			
 			
 				<div class="history-title">
-				장바구니<c:if test="${!empty cList }">(${cList.size() })</c:if>
+				장바구니<c:if test="${!empty cList }"> <span class="cart-size">(${cList.size() })</span></c:if>
 				</div>
 				
 				<div class="history-wrap">
 					<ul>
 						<li>
 							<div class="history">
-								<input id="checkAll" type="checkbox" onclick="checkAll()">
+								<div class="pro-check">
+									<input id="checkAll" type="checkbox" onclick="checkAll()">
+								</div>
 								
-								<div class="pro-content">
+								<div class="pro-cont cart-title">
 									상품 정보
 								</div>
 								
-								<div class="pro-btn">
+								<div class="cart-price cart-title">
+									가격
+								</div>
+								
+								<div class="pro-btn cart-title">
 									수량
 								</div>
 								
-								<div class="pro-price">
-									가격
+								<div class="pro-total cart-title">
+									합계
 								</div>
+								
+								<div class="pro-cancel cart-title"></div>
 							</div>
 						</li>
 					</ul>
@@ -115,31 +131,39 @@ function loginCheck(){
 						<li>
 							<div class="history" id="history-${status.index }">
 								<input id="cart-no-${status.index }" type="hidden" value="${dto.getCart_no() }">
-								<input name="check" type="checkbox" value="${dto.getCart_no() }">
-								<a href="<%=request.getContextPath()%>/product_cont.do?no=${pList[status.index].getPro_no()}"><img src="resources/img/upload/${pList[status.index].getPro_img() }"></a>
 								
-								<div class="pro-content">
-									<c:forEach items="${pList[status.index].getPro_tags() }" var="tags">
-										<span><a class="cont-info-tag" href="search_tag.do?k=${tags }">${tags }</a></span> 
-									</c:forEach><br>
-									<a href="<%=request.getContextPath()%>/product_cont.do?no=${pList[status.index].getPro_no()}">${pList[status.index].getPro_name() }</a>
+								<div class="pro-check cart-in">								
+									<input name="check" type="checkbox" value="${dto.getCart_no() }">
 								</div>
 								
-								<div class="pro-btn">
+								<div class="pro-cont">
+									<a href="<%=request.getContextPath()%>/product_cont.do?no=${pList[status.index].getPro_no()}"><img src="resources/img/upload/${pList[status.index].getPro_img() }"></a>
 									
-									<button type="button" onclick="count('m', ${status.index }, ${dto.getCart_no() })">-</button>
-									<input class="cart-amount" id="cart-amount-${status.index }" name="cart_amount" value="${dto.getCart_amount() }">
-									<button type="button" onclick="count('p', ${status.index }, ${dto.getCart_no() })">+</button>
-									개
+									<div class="pro-content">
+										<c:forEach items="${pList[status.index].getPro_tags() }" var="tags">
+											<span><a class="cart-tag" href="search_tag.do?k=${tags }">${tags }</a></span> 
+										</c:forEach><br>
+										<a class="cart-name pro-name" href="<%=request.getContextPath()%>/product_cont.do?no=${pList[status.index].getPro_no()}">${pList[status.index].getPro_name() }</a>
+									</div>
 								</div>
 								
-								<div class="pro-price">
+								<div class="cart-price cart-in">
+									<fmt:formatNumber value="${pList[status.index].getPro_output_price() }" />원
+								</div>
+								
+								<div class="pro-btn cart-in">
+										<button type="button" onclick="count('m', ${status.index }, ${dto.getCart_no() })"><i class="fas fa-minus"></i></button>
+										<input class="cart_amount" id="cart-amount-${status.index }" name="cart_amount" value="${dto.getCart_amount() }">
+										<button type="button" onclick="count('p', ${status.index }, ${dto.getCart_no() })"><i class="fas fa-plus"></i></button>
+								</div>
+								
+								<div class="pro-total cart-in">
 									<input type="hidden" id="cart-price-${status.index }" value="${pList[status.index].getPro_output_price() }">
-									<span id="total-price-${status.index }"><fmt:formatNumber value="${pList[status.index].getPro_output_price() * dto.getCart_amount() }" /></span> 원
+									<span id="total-price-${status.index }"><fmt:formatNumber value="${pList[status.index].getPro_output_price() * dto.getCart_amount() }" /></span>원
 								</div>
 								
-								<div class="pro-cancel">
-									<button onclick="location.href='cart_delete.do?no=${pList[status.index].getPro_no() }'">X</button>
+								<div class="pro-cancel cart-in">
+									<button onclick="location.href='cart_delete.do?no=${pList[status.index].getPro_no() }'"><i class="fas fa-times"></i></button>
 								</div>
 							</div>
 						</li>
@@ -148,10 +172,10 @@ function loginCheck(){
 						
 						<li>
 							<div class="price-amount-wrap">
-								<span class="pro-amount">상품 합계</span>
+								<span class="pro-amount">상품 합계</span>&nbsp;&nbsp;
 								<span id="total-price" class="price-amount">
-									<fmt:formatNumber value="${total }" />
-								</span> 원
+									<fmt:formatNumber value="${total }" />원
+								</span> 
 							</div>
 						</li>
 						</c:if>	
@@ -163,12 +187,18 @@ function loginCheck(){
 						</c:if>
 					</ul>
 					<c:if test="${!empty cList }">
-						<button type="submit" class="order-btn" formaction="cart_delete_seleted.do">선택상품 삭제</button>
-						<button type="button" class="order-btn" onclick="resetCart();">전체상품 삭제</button>
+						<div class="cart-del">
+							<button type="submit" formaction="cart_delete_seleted.do">선택상품 삭제</button>
+							<button type="button" onclick="resetCart();">전체상품 삭제</button>
+						</div>
 					</c:if>
-					<button class="order-btn" onclick="loginCheck();">선택상품주문하기</button>
-					<button class="order-btn" onclick="loginCheck();">전체상품주문하기</button>
+					
+					<div class="cart-btn">
+						<button class="order-btn order-all" onclick="loginCheck();">전체상품주문하기</button>
+						<button class="order-btn order-selected" onclick="loginCheck();">선택상품주문하기</button>
+					</div>
 					</form>
+					
 				</div>
 				
 				

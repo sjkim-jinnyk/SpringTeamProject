@@ -22,8 +22,12 @@
 			<div class="login_wrap">
 			
 				<form name="joinForm" class="signup_field">
+					<input type="hidden" name="mem_sns_id" value="${sns_id }">
+					<input type="hidden" name="mem_sns_type" value="${sns_type }">
 					
-					<div class="title">회원가입</div>
+					<div class="title">
+						<c:if test="${!empty sns_type }"><img width="28px" style="vertical-align: middle;" src="resources/img/main/${sns_type }.png"> SNS로 </c:if> 회원가입
+					</div>
 				
 					<div class="row">
 						<div class="label">아이디 *</div>
@@ -33,7 +37,7 @@
 					</div>
 					<div class="row">
 						<div class="label">이름 *</div>
-						<input type="text" name="mem_name" required="required">
+						<input type="text" name="mem_name" value="${sns_name }" required="required">
 					</div>
 					<div class="row">
 						<div class="label">비밀번호 *</div>
@@ -41,7 +45,7 @@
 					</div>
 					<div class="row">
 						<div class="label">휴대폰 번호 *</div>
-						<input type="text" id="mem_phone" name="mem_phone" required="required" 
+						<input type="text" id="mem_phone" name="mem_phone" value="${sns_phone }" required="required" 
 							placeholder="000-0000-0000">
 						<!-- <span class="guide">* 000-0000-0000 형식으로 작성해주세요.</span> -->
 						<div id="phone_check_txt"></div>

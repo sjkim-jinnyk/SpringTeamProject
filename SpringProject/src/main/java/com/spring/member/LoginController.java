@@ -137,7 +137,7 @@ public class LoginController {
 			mav.addObject("sns_name", name);
 			mav.addObject("sns_type", "naver");
 			mav.addObject("sns_phone", mobile);
-			mav.setViewName("login/join_form_sns");
+			mav.setViewName("login/join_form");
 		}
 
 		return mav;
@@ -359,7 +359,7 @@ public class LoginController {
 		} else { // 해당 네이버 아이디로 가입한 회원이 없다면 sns회원가입창으로 이동
 			mav.addObject("sns_id", id);
 			mav.addObject("sns_type", "kakao");
-			mav.setViewName("login/join_form_sns");
+			mav.setViewName("login/join_form");
 		}
 		
 		return mav;

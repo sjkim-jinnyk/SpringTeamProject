@@ -9,15 +9,6 @@ function showPhoto() {
 	$('#review-photo').toggle();
 };
 
-function writeQna(product_no) {
-	if('${session_id}' != ''){
-		window.open("product_qna_write.do?no="+product_no, "질문글 작성하기", "_blank");
-	}else {
-		alert('로그인 후 작성 가능합니다.');
-		window.open("login.do", "질문글 답변하기", "_blank");
-	}
-}
-
 function modifyQna(qna_no, product_no) {
 	window.open("product_qna_modify.do?no="+qna_no+"&pno="+product_no, "질문글 수정하기", "_blank");
 }
