@@ -48,7 +48,7 @@
 										<p id="pwdinfo">비밀번호는 공백을 포함하지 않고, 영문/숫자를 사용하여 8자 이상으로 등록하세요</p>
 										<input type="password" name="mem_pwd" id="pwd_edit">
 										<br>
-										<input type="button" value="취소" id="reset_btnPWd">
+										<input type="button" value="취소" id="reset_btnPwd">
 										<input type="submit" value="변경" id="submit_btnPwd">
 									</form>
 								</div>

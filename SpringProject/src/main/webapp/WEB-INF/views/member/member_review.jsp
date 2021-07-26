@@ -11,14 +11,14 @@
 		<div class="main">
 			<c:set var="mem" value="${Cont }" />
 			<div class="member_container">
-			<jsp:include page="../include/member_header.jsp"/>
+			<jsp:include page="../include/member_header.jsp"/> 
 				
 				<!-- member_content -->
 				<div class="member_content">
 					<jsp:include page="../include/member_navmenu.jsp" />
 					
-					<div class="member_review">
-						<h3>구매 후기</h3>
+					<div class="member_order">
+						<h3 id="headName">구매 후기</h3>
 						<form method="post" action="<%=request.getContextPath()%>/review_search.do" name="reviewForm">
 						<ul class="select_day">
 							<div class="select_button">
@@ -31,19 +31,19 @@
 								<input type="date" id="orderFirst" name="orderFirst" value="${map.get('first') }"> - 
 				    			<input type="date" id="orderLast" name="orderLast" value="${map.get('last') }">
 							</li>
-							<li>
+							<li id="searchBtn">
 								<input id="search_btn" type="submit" value="검색">
 							</li>
 						</ul>  
 						</form>
-						<table class="review_bar">
+						<table class="order_bar">
 						<c:set var="plist" value="${ProductInfo }"/>
 						<c:set var="odlist" value="${OrderDetail }"/> 
 						<c:set var="olist" value="${OrderInfo }"/> 
 						<c:set var="rlist" value="${ReviewList }"/>
 						
 							<tr>
-								<th id="info">상품정보</th><th id="date">구매일</th><th id="review">후기</th>
+								<th id="reviewInfo">상품정보</th><th id="reviewDate">구매일</th><th id="review">후기</th>
 							</tr>
 							<c:if test="${!empty rlist }">
 								<c:forEach items="${olist }" var="olist" varStatus="status">
@@ -51,7 +51,7 @@
 										<c:if test="${odlist[status.index].getOrder_pro_no() == plist[status.index].getPro_no()}">
 										<td>
 											<ul>
-												<li class="img"><img src="resources/img/upload/${plist[status.index].getPro_img() }"></li>
+												<li><img id="reviewImg" src="resources/img/upload/${plist[status.index].getPro_img() }"></li>
 												<li class="proname">${plist[status.index].getPro_name() }</li>
 											</ul>
 										</td>

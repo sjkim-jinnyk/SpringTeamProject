@@ -37,7 +37,7 @@
 								<input type="date" id="orderFirst" name="orderFirst" value="${map.get('first') }"> - 
 				    			<input type="date" id="orderLast" name="orderLast" value="${map.get('last') }">
 							</li>
-							<li>
+							<li id="searchBtn">
 								<input id="search_btn" type="submit" value="검색">
 							</li>
 						</ul>  

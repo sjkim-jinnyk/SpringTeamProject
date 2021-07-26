@@ -184,9 +184,9 @@ public class LoginController {
 			if (result > 0) {
 				out.println("<script>");
 				out.println("alert('SNS 연동이 해제되었습니다.')");
-				out.println("location.href='" + deleteTokenURL + "'");
+				out.println("location.href='member_sns.do'");
 				out.println("setTimeout(function() {},3000)");
-				out.println("location.href='main.do'");
+				out.println("location.href='member_sns.do'");
 				//out.println("location.href='http://nid.naver.com/nidlogin.logout'"); // 네이버 로그아웃 처리
 				out.println("</script>");
 			} else {
@@ -206,7 +206,7 @@ public class LoginController {
 					out.println("<script>");
 					out.println("alert('SNS 연동이 해제되었습니다.')");
 					out.println("setTimeout(function() {},3000)");
-					out.println("location.href='main.do'");
+					out.println("location.href='member_sns.do'");
 					out.println("</script>");
 				} else {
 					out.println("<script>");
@@ -267,7 +267,7 @@ public class LoginController {
 		if (check > 0) {
 			out.println("<script>");
 			out.println("alert('이미 네이버와 연동되어 있습니다.')");
-			out.println("location.href='main.do'");
+			out.println("location.href='member_sns.do'");
 			out.println("</script>");
 		} else {
 			int connectCheck = dao.snsJoinCheck(hm);
@@ -275,14 +275,14 @@ public class LoginController {
 			if (connectCheck > 0) {
 				out.println("<script>");
 				out.println("alert('이미 연동된 네이버 계정입니다.')");
-				out.println("location.href='main.do'");
+				out.println("location.href='member_sns.do'");
 				out.println("</script>");
 			} else {
 				int result = dao.addSnsID(hm);
 
 				out.println("<script>");
 				out.println("alert('네이버 연동 성공!')");
-				out.println("location.href='main.do'");
+				out.println("location.href='member_sns.do'");
 				out.println("</script>");
 			}
 		}
@@ -387,7 +387,7 @@ public class LoginController {
 		if (check > 0) {
 			out.println("<script>");
 			out.println("alert('이미 카카오와 연동되어 있습니다.')");
-			out.println("location.href='main.do'");
+			out.println("location.href='member_sns.do'");
 			out.println("</script>");
 		} else {
 			int connectCheck = dao.snsJoinCheck(hm);
@@ -395,14 +395,14 @@ public class LoginController {
 			if (connectCheck > 0) {
 				out.println("<script>");
 				out.println("alert('이미 연동된 카카오 계정입니다.')");
-				out.println("location.href='main.do'");
+				out.println("location.href='member_sns.do'");
 				out.println("</script>");
 			} else {
 				int result = dao.addSnsID(hm);
 
 				out.println("<script>");
 				out.println("alert('카카오 연동 성공!')");
-				out.println("location.href='main.do'");
+				out.println("location.href='member_sns.do'");
 				out.println("</script>");
 			}
 		}
