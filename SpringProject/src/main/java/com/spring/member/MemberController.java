@@ -519,5 +519,17 @@ public class MemberController {
 
 		return "member/member_recent";
 	}
+	
+	@RequestMapping("member_sns.do")
+	public String memberSNS(HttpSession session, Model model) {
+		
+		String id = (String) session.getAttribute("session_id");
+		
+		MemberDTO dto = this.dao.getMemberInfo(id);
+		
+		model.addAttribute("MemberSns", dto);
+		System.out.println(dto);
+		return "member/member_sns";
+	}
 
 }

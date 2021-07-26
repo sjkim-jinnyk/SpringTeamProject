@@ -48,11 +48,12 @@ $(document).ready(function(){
 </script>
 <body>
 
-	<div class="layout_container">
 		
 		<div class="header_desktop header">
 			
-			<a href="<%=request.getContextPath()%>/main.do" class="site_logo">[LOGO]</a>
+			<a href="<%=request.getContextPath()%>/main.do">
+				<img class="site_logo" src="resources/img/main/logo.png">
+			</a>
 			
 			<div class="menu_wrap">
 				
@@ -97,7 +98,6 @@ $(document).ready(function(){
 			
 		</div>
 		
-	</div>
 
 </body>
 </html>

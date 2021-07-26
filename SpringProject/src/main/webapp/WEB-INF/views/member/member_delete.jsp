@@ -36,7 +36,7 @@
 							<input type="hidden" name="db_pwd" value="${mem.getMem_pwd() }">
 							<div class="deleteBox">
 								<div class="delete_pwd">
-									<p>비밀번호</p>
+									<span>비밀번호</span>
 									<input id="pwdBox" type="password" name="mem_pwd"><br>
 								</div>
 								<div class="agreeCheck">

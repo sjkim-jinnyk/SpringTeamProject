@@ -47,10 +47,10 @@ function addLike(product_no){
 		data : {"no":product_no},
 		success : function(data) {
 			if(data == 1){
-				$("#like-btn").css({"color":"red"});
+				$("#like-btn").addClass("like-checked");
 				return false;
 			}else if(data == 2){
-				$("#like-btn").css({"color":"black"});
+				$("#like-btn").removeClass("like-checked");
 				return false;
 			}else {
 				console.log("data" + data);
@@ -73,10 +73,10 @@ function addLikey(product_no, index){
 		data : {"no":product_no},
 		success : function(data) {
 			if(data == 1){
-				$("#like-btn-"+index).css({"color":"red"});
+				$("#like-btn-"+index).addClass("like-checked");
 				return false;
 			}else if(data == 2){
-				$("#like-btn-"+index).css({"color":"black"});
+				$("#like-btn-"+index).removeClass("like-checked");
 				return false;
 			}else {
 				console.log("data" + data);

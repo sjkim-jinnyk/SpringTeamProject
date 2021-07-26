@@ -19,6 +19,6 @@ public class MainController {
 	
 	@RequestMapping("about.do")
 	public String go_about() {
-		return "about";
+		return "about/about";
 	}
 }

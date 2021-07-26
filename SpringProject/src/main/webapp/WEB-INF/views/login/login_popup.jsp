@@ -47,10 +47,7 @@
 				
 				<!-- 네이버 로그인 창으로 이동 -->
 				<div id="social_login">
-					<a href="${url }"><img class="naver_login" height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a><br>
-				
-					<a href="grant_delete.do?token=${token }">[네이버 연동 해제]</a><br>
-					<a href="${connectUrl }">[네이버 연동 추가]</a>
+					<a href="naver.do"><img class="naver_login" height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a><br>
 				</div>
 
 		</div>

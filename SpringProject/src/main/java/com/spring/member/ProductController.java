@@ -1,8 +1,8 @@
 package com.spring.member;
 
 import java.io.IOException;
+
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -73,7 +73,7 @@ public class ProductController {
 			no = Integer.parseInt(request.getParameter("no"));
 		}
 
-		rowsize = 8;
+		rowsize = 9;
 		totalRecord = this.pdao.getProductListCount(no);
 		
 		PageDTO pageDTO = new PageDTO(page, rowsize, totalRecord, no);
@@ -207,7 +207,7 @@ public class ProductController {
 			page = 1;
 		}
 
-		rowsize = 8;
+		rowsize = 9;
 		totalRecord = this.pdao.getSearchListCount(keyword);
 
 		String field = "";
@@ -236,7 +236,7 @@ public class ProductController {
 			page = 1;
 		}
 
-		rowsize = 8;
+		rowsize = 9;
 		totalRecord = this.pdao.getSearchTagCount(keyword);
 
 		String field = "";

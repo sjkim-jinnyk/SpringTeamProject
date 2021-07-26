@@ -1,0 +1,114 @@
+@charset "UTF-8";
+
+input[type="text"], input[type="password"]{
+	width: 100%;
+	height: 40px;
+    border: solid 1px #C0C0C0;
+}
+
+.login_wrap{
+	width: 400px;
+	margin: 70px auto 0 auto;
+}
+
+.login_form{
+	margin-bottom: 100px;
+}
+
+.title{
+	font-size: 25px; 
+	font-weight: 700;
+	margin-bottom: 40px;
+}
+
+.label{
+	font-size: 16px;
+	margin-bottom: 8px;
+}
+
+.login_btn{
+	width: 54%;
+    padding: 8px;
+    font-size: 15px;
+    margin: 10px 0 10px 0;
+    border-radius: 30px;
+    border: solid 2px #FF8F1C;
+    background-color: white;
+    color: #FF8F1C;
+    cursor: pointer;
+    
+}
+
+.login_btn :hover{
+	background-color: #FF8F1C;
+    color: white;
+}
+
+.row{
+	margin-bottom: 30px;
+}
+
+.btn_wrap{
+	text-align: center;
+    margin-top: 40px;
+}
+
+.btn_wrap .find {
+	margin-bottom: 30px;
+}
+
+.btn_wrap .find a {
+    font-size: 16px;
+}
+
+.normal_login{
+    margin-bottom: 10px;
+}
+
+.row .zip{
+	display: flex;
+}
+
+input #sample4_postcode{
+	width : 280px !important;
+}
+
+.zip_btn{
+	border: solid 2px #FF8F1C;
+    border-radius: 24px;
+    background-color: white;
+    font-size: 14px;
+    color: #FF8F1C;
+    padding: 6px 16px;
+    margin-left: 11px;
+}
+
+.zip_btn :hover {
+    background-color: #FF8F1C;
+    color: white;
+}
+
+.find .id {
+	margin-right: 30px;
+	color: #9F0000;
+}
+
+.find .pwd{
+	color: #9F0000;
+}
+
+span .guide{
+    font-size: 15px;
+    color: gray;
+}
+
+.find_body{
+	border: 1px solid lightgray;
+    padding: 34px;
+    border-radius: 9px;
+}
+
+.find_body span{
+	color: #FF8F1C;
+    font-weight: 600;
+}

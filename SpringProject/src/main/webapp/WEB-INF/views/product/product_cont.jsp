@@ -1,8 +1,4 @@
-<%@page import="com.spring.model.MemberDAOImpl"%>
-<%@page import="com.spring.model.ProductDAOImpl"%>
 <%@page import="com.spring.model.ProductDTO" %>
-<%@page import="javax.servlet.http.HttpSession" %>
-<%@page import="org.springframework.context.annotation.Import"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -16,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="resources/js/product.js"></script>
-<title>Insert title here</title>
+<title>울퉁불퉁's - ${cont.getPro_name() }</title>
 </head>
 <script type="text/javascript">
 
@@ -41,6 +37,7 @@ function total() {
 	let total = String(parseInt(price) * parseInt(amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,');
 
 	document.getElementById('total-price').innerText = total;
+	document.getElementById('total-amount').innerText = amount;
 }
 
 function likeCheck(product_no){
@@ -52,72 +49,95 @@ function likeCheck(product_no){
 		addLike(product_no);
 	}
 }
-
 </script>
 <body>
 	<div class="layout_container">
 		<jsp:include page="../include/header.jsp" />
 			<div class="main">			
 				
+				<div class="product_cont">
+				
 				<%-- 상단 제품 소개 및 주문 --%>
 				<c:set var="dto" value="${cont }" />
 				<c:if test="${!empty cont }">
-					<div class="product-cont">
+					<div class="product-container">
 						<div class="cont-photo-wrap">
 							<img class="cont-photo" src="resources/img/upload/${dto.getPro_img() }">
-							
-							<div class="cont-photo-mini">
-								<img src="">
-								<img src="">
-								<img src="">
-							</div>
 						</div>
 						
 						<div class="cont-info">
 						<form method="post">
 							<input type="hidden" name="product_no" value="${dto.getPro_no() }"> 
 							
+							<div class="info-wrapper">
 							<c:forEach items="${dto.getPro_tags() }" var="tags">
 								<a class="cont-info-tag" href="search_tag.do?k=${tags }">${tags }</a> 
 							</c:forEach><br>
-								
-							<span class="cont-info-title">${dto.getPro_name() }</span><br>
-							<span>가격</span>
-							<span id="price" class="cont-info-price"><fmt:formatNumber value="${dto.getPro_output_price() }" /> 원</span>
 							
+								<span class="cont-info-title">${dto.getPro_name() }</span><br>
+								<span class="cont-info-price">가격</span>
+								<span id="price" class="cont-info-price"><fmt:formatNumber value="${dto.getPro_output_price() }" /> 원</span><br>
+								<br>
+								<table>
+								
+									<tr>
+										<th>택배배송</th>
+										<td>무료배송</td>
+									</tr>
+								</table>
+								<table>
+									<tr>
+										<th class="shipping">배송요일</th>
+										<td class="shipping">화▪목 중 택1</td>
+									</tr>
+									<tr>
+										<th class="shipping">배송주기</th>
+										<td class="shipping">1주마다▪2주마다 중 택1</td>
+									</tr>
+									<tr><td></td></tr>
+									<tr>
+										<td colspan="2" class="shipping text">배송요일과 배송주기는 주문창에서 선택하실 수 있습니다.</td>
+									</tr>
+								</table>
+							</div>
+							
+							<hr class="hr1">
+							<span>수량</span>
 							<div class="cont-amount">
-								<span>수량</span>
+							
 								<button type="button" onclick="count('minus');" value="-">-</button>
 								<input type="text" id="cart_amount" class="cart_amount" name="cart_amount" value="1">
 								<button type="button" onclick="count('plus');" value="+">+</button>
 							</div>
 							
-							<div class="total-price">
-								<span>총 결제금액</span>
-								<span id="total-price"><fmt:formatNumber value="${dto.getPro_output_price() }"/> </span> 원
+							<div class="cont-total">
+								<span class="total-title">총 상품 금액</span>
+								<div class="total-wrapper">
+									<span class="total-amount">총 수량 <span id="total-amount">1</span> 개 | </span>
+									<span id="total-price" class="total-price"><fmt:formatNumber value="${dto.getPro_output_price() }"/> </span> 원
+								</div>
 							</div>
 							
-							<input type="submit" value="구매하기" formaction="#">
-							<input type="submit" value="장바구니에 담기" formaction="add_cart.do">
-							<c:if test="${likeCheck eq 0 }"><button type="button" id="like-btn" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
-							<c:if test="${likeCheck > 0 }"><button type="button" id="like-btn" class="like-checked" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
-							
+							<div class="btn-wrapper">
+								<button type="submit" class="cont-btn btn-cart" formaction="add_cart.do">장바구니</button>
+								<button type="submit" class="cont-btn btn-purchase" formaction="#">구매하기</button>
+								<c:if test="${dto.getLike_check() eq 0 }"><button class="like-btn" type="button" id="like-btn" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
+								<c:if test="${dto.getLike_check() > 0 }"><button type="button" id="like-btn" class="like-btn like-checked" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
+							</div>
 							</form>
-						</div>
-					</div>
+						</div><%-- cont-info end --%>
+					</div><%-- product-cont end --%>
 				
 				
 				
 				<%-- 상품 상세설명 --%>
-				<div class="product-content">
-					<span class="content-category"><a href="#content-detail">상품 설명</a></span>
-					<span class="content-category"><a href="#review">후기</a><c:if test="${rtotal > 0 }">(${rtotal })</c:if></span>
-					<span class="content-category"><a href="#qna">Q&A</a><c:if test="${rtotal > 0 }">(${qtotal })</c:if></span>
-					
-					<hr>
-					
-				</div>
-				
+				<div class="content-wrapper">
+					<div id="content-bar" class="product-content">
+						<span class="content-category"><a href="#content-detail">상품 설명</a></span>
+						<span class="content-category"><a href="#review">후기</a><c:if test="${rtotal > 0 }">(${rtotal })</c:if></span>
+						<span class="content-category"><a href="#qna">Q&A</a><c:if test="${rtotal > 0 }">(${qtotal })</c:if></span>
+						<hr class="hr1">
+					</div>
 				
 					<div id="content-detail" class="content-detail">
 						<span class="pro-cont">${dto.getPro_cont() }</span>
@@ -126,7 +146,7 @@ function likeCheck(product_no){
 				</c:if>
 				
 				<%-- 리뷰 --%>
-				<div id="review" class="cont-board">
+				<div id="review" class="cont-reivew">
 					<span class="table-title">후기</span>
 					
 					<c:if test="${!empty review }">
@@ -139,32 +159,33 @@ function likeCheck(product_no){
 						사진 후기만 보기
 					</div>
 					
-					<hr>
+					<hr class="hr2">
 					
 					<div id="review-all">
 						<c:if test="${!empty review }">
-						<ul>
+						<ul class="cont-li">
 						
 						<c:forEach items="${review }" var="dto" varStatus="status">
 							<li>
 								<div class="review">	
 									<div class="review-wrap">	
 										<span class="personal-star">
-											<c:forEach begin="1" end="${dto.getReview_star() }" >★</c:forEach>(${dto.getReview_star() })
-											</span> 
+											<c:forEach begin="1" end="${dto.getReview_star() }" ><i class="fas fa-star star-selected"></i></c:forEach><c:forEach begin="1" end="${5-dto.getReview_star() }" ><i class="fas fa-star star-deseleted"></i></c:forEach>
+										</span>&nbsp;
 										<span class="mem-id">${dto.getReview_writer().substring(0,3) }****</span> <br>
-										<div id="review-${status.index }">
-											<span class="review-cont" style="white-space:pre;"><a href="javascript:void(0);" onclick="showReview(${status.index });"><c:out value="${dto.getReview_cont() }" /></a></span>
+										<div id="review-${status.index }" class="review-div">
+											<div class="cont-div"><span class="review-cont"><a href="javascript:void(0);" onclick="showReview(${status.index });"><c:out value="${dto.getReview_cont() }" /></a></span></div>
 										
-											
-											<c:if test="${!empty dto.getReview_img() }">
-												<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/upload/${dto.getReview_img() }"></a>
-											</c:if>
+											<div class="review-imgs">
+												<c:if test="${!empty dto.getReview_img() }">
+													<a href="javascript:void(0);" onclick="showReview(${status.index });"><img class="list-img" src="resources/img/upload/${dto.getReview_img() }"></a>
+												</c:if>
+											</div>
 										</div>
 									
 										<div id="review-detail-${status.index }" style="display:none;">
-											<span class="review-cont" style="white-space:pre;"><a href="javascript:void(0);" onclick="showReview(${status.index });"><c:out value="${dto.getReview_cont() }" /></a></span>
-											<div class="review-img">
+											<span class="review-detail-cont"><a href="javascript:void(0);" onclick="showReview(${status.index });"><c:out value="${dto.getReview_cont() }" /></a></span>
+											<div class="review-detail-img">
 												<c:if test="${!empty dto.getReview_img() }">
 													<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/upload/${dto.getReview_img() }"></a>
 												</c:if>									
@@ -177,13 +198,11 @@ function likeCheck(product_no){
 						</c:forEach>
 						</ul>
 						</c:if>
-						<c:if test="${empty review }">
-							작성된 후기가 없습니다.
+						<c:if test="${empty review }" >
+							<div style="text-align:center;">작성된 후기가 없습니다.</div>
 						</c:if>
 						
-						<hr>
-						
-						<br>
+						<hr class="hr2">
 						
 						<%-- pagination --%>
 						<div class="pagination">
@@ -212,24 +231,25 @@ function likeCheck(product_no){
 				
 					<div id="review-photo" hidden>
 						<c:if test="${!empty photo }">
-						<ul>
+						<ul class="cont-li">
 						
 						<c:forEach items="${photo }" var="dto" varStatus="status">
 							<li>
 								<div class="review">	
 									<div class="review-wrap">	
 										<span class="personal-star">
-											<c:forEach begin="1" end="${dto.getReview_star() }" >★</c:forEach>(${dto.getReview_star() })
-											</span> 
-										<span class="mem-id">${dto.getReview_writer() }</span> <br>
+											<c:forEach begin="1" end="${dto.getReview_star() }" ><i class="fas fa-star star-selected"></i></c:forEach><c:forEach begin="1" end="${5-dto.getReview_star() }" ><i class="fas fa-star star-deseleted"></i></c:forEach>
+										</span> &nbsp;
+										<span class="mem-id">${dto.getReview_writer().substring(0,3) }****</span> <br>
 										
-										<div id="reviews-${status.index }">
-											<span class="review-cont" style="white-space:pre;"><a href="javascript:void(0);" onclick="showReview(${status.index });"><c:out value="${dto.getReview_cont() }" /></a></span>
+										<div id="reviews-${status.index }" class="review-div">
+											<div class="cont-div"><span class="review-cont" class="review-cont"><a href="javascript:void(0);" onclick="showReview(${status.index });"><c:out value="${dto.getReview_cont() }" /></a></span></div>
 										
-											
-											<c:if test="${!empty dto.getReview_img() }">
-												<a href="javascript:void(0);" onclick="showReview(${status.index });"><img src="resources/img/upload/${dto.getReview_img() }"></a>
-											</c:if>
+											<div class="review-imgs">
+												<c:if test="${!empty dto.getReview_img() }">
+													<a href="javascript:void(0);" onclick="showReview(${status.index });"><img class="list-img" src="resources/img/upload/${dto.getReview_img() }"></a>
+												</c:if>
+											</div>
 										</div>
 									
 										<div id="reviews-detail-${status.index }" style="display:none;">
@@ -251,9 +271,7 @@ function likeCheck(product_no){
 							작성된 후기가 없습니다.
 						</c:if>
 						
-						<hr>
-						
-						<br>
+						<hr class="hr2">
 						
 						<%-- pagination --%>
 						<div class="pagination">
@@ -284,26 +302,23 @@ function likeCheck(product_no){
 				<%-- 질문 Q&A --%>
 				<div id="qna" class="cont-board">
 					<span class="table-title">Q&A</span>
-					
-					<hr>
-					
-					
-					<table border="1" cellspacing="0" width="1200" style="text-align: center">
+					<button class="write" onclick="writeQna(${cont.getPro_no() });">상품 Q&A 작성하기</button>
+					<table class="qna-table">
 						<c:if test="${!empty qna }">
 						<tr>
-							<th>답변상태</th>
-							<th width="800">제목</th>
-							<th>글쓴이</th>
-							<th>작성일자</th>
+							<th class="qna-state">답변상태</th>
+							<th class="qna-title">제목</th>
+							<th class="qna-writer">글쓴이</th>
+							<th class="qna-date">등록일</th>
 						</tr>
 						
 						<c:forEach items="${qna }" var="dto" varStatus="status">
 						<tr>
-							<td>
+							<td class="qna-state">
 								<c:if test="${!empty dto.getQnaDTO() }">답변완료</c:if> 
 								<c:if test="${empty dto.getQnaDTO() }">미답변</c:if> 
 							</td>
-							<td>
+							<td class="qna-title">
 								<c:if test="${dto.getQna_writer() eq session_id || session_id eq 'admin' }">
 									<a class="${status.index }" href="javascript:void(0);" onclick="show(${status.index});">${dto.getQna_title() } <c:if test="${dto.getQna_secret() eq 1 }"><i class="fas fa-lock"></i></c:if></a>
 								</c:if>
@@ -311,44 +326,56 @@ function likeCheck(product_no){
 								<c:if test="${dto.getQna_writer() ne session_id && session_id ne 'admin' && dto.getQna_secret() eq 0 }"><a class="${status.index }" href="javascript:void(0);" onclick="show(${status.index});">${dto.getQna_title() }</a></c:if>
 								<c:if test="${dto.getQna_writer() ne session_id && session_id ne 'admin' && dto.getQna_secret() eq 1 }">상품관련 문의입니다. <c:if test="${dto.getQna_secret() eq 1 }"><i class="fas fa-lock"></i></c:if></c:if>
 							</td>
-							<td>${dto.getQna_writer().substring(0,3) }****</td>
-							<td>${dto.getQna_date().substring(0,10) }</td>
+							<td class="qna-writer">${dto.getQna_writer().substring(0,3) }****</td>
+							<td class="qna-date">
+								<fmt:parseDate value="${dto.getQna_date() }" pattern="yyyy-MM-dd HH:mm:ss" var="date" />
+								<fmt:formatDate value="${date }" pattern="yyyy.MM.dd" />
+							</td>
 						</tr>
 						
-						<tr class="qna-detail-${status.index }" style="display:none;">
-							<td></td>
-							<td>
-							<div>
-								<span class="qna-cont" style="white-space:pre;"><c:out value="${dto.getQna_cont() }" /></span><br>
-								
-								
-									<c:if test="${dto.getQna_writer() eq session_id || session_id eq 'admin' }">
-										<button onclick="modifyQna(${dto.getQna_no() },${cont.getPro_no() });">수정</button>
-										<button onclick="deleteQna(${dto.getQna_no() },${cont.getPro_no() });">삭제</button>
-									</c:if>
+						<tr class="qna-detail-${status.index } qna-ans" style="display:none;">
+							<td class="qna-state"></td>
+							<td class="qna-title">
+								<div>
+									<span class="qna-cont"><c:out value="${dto.getQna_cont() }" /></span><br>
 									
-									<c:if test="${session_id eq 'admin' }"><button onclick="answerQna(${dto.getQna_no() },${cont.getPro_no() });">답변하기</button></c:if>
-							</div>
+									<div class="qna-btn">
+										<c:if test="${dto.getQna_writer() eq session_id || session_id eq 'admin' }">
+											<button onclick="modifyQna(${dto.getQna_no() },${cont.getPro_no() });">수정</button>
+											<button onclick="deleteQna(${dto.getQna_no() },${cont.getPro_no() });">삭제</button>
+										</c:if>
+									
+										<c:if test="${session_id eq 'admin' }"><button onclick="answerQna(${dto.getQna_no() },${cont.getPro_no() });">답변하기</button></c:if>
+									</div>
+								</div>
 							</td>
 							<td colspan="2"></td>
 						</tr>
 						
 						<c:if test="${!empty dto.getQnaDTO() }">
-						<tr class="qna-detail-${status.index }" style="display:none;">
-							<td></td>
-							<td>
-								<div class="qna-ans">
-									└<span style="background-color:gray; color:white;">답변</span>
+						<tr class="qna-detail-${status.index } qna-ans" style="display:none;">
+							<td class="qna-state"></td>
+							<td class="qna-title">
+								<div class="qna-answer-wrapper">
+									<div class="qna-answer-title">
+										<span class="answer-tag" style="background-color:gray; color:white;">답변</span>
+									</div>
+									<div class="qna-detail qna-answer">
+										<span class="qna-cont"><c:out value="${dto.getQnaDTO().getQna_cont() }" /></span><br>
+										<div class="qna-btn">
+											<c:if test="${session_id eq 'admin' }">
+												<button onclick="modifyQna(${dto.getQnaDTO().getQna_no() },${cont.getPro_no() });">수정</button>
+												<button onclick="deleteQna(${dto.getQnaDTO().getQna_no() },${cont.getPro_no() });">삭제</button>
+											</c:if>
+										</div>
+									</div>
 								</div>
-								<div class="qna-detail">
-									<span class="qna-cont" style="white-space:pre;"><c:out value="${dto.getQnaDTO().getQna_cont() }" /></span><br>
-									<c:if test="${session_id eq 'admin' }">
-										<button onclick="modifyQna(${dto.getQnaDTO().getQna_no() },${cont.getPro_no() });">수정</button>
-										<button onclick="deleteQna(${dto.getQnaDTO().getQna_no() },${cont.getPro_no() });">삭제</button>
-									</c:if>
-								</div></td>
-							<td>관리자</td>
-							<td>${dto.getQnaDTO().getQna_date().substring(0,10) }</td>
+							</td>
+							<td class="qna-writer">관리자</td>
+							<td class="qna-date">
+								<fmt:parseDate value="${dto.getQna_date() }" pattern="yyyy-MM-dd HH:mm:ss" var="date" />
+								<fmt:formatDate value="${date }" pattern="yyyy.MM.dd" />
+							</td>
 						</tr>
 						</c:if>
 						
@@ -357,69 +384,12 @@ function likeCheck(product_no){
 						
 						<c:if test="${empty qna }">
 							<tr>
-								<td>작성된 질문이 없습니다.</td>
+								<td class="no-qna">작성된 질문이 없습니다.</td>
 							</tr>
 						</c:if>
 						
 					</table>
 					
-					<%-- 
-					<c:if test="${!empty qna }">
-					<ul>
-						<li>
-							<div class="qna-bar">
-								<span class="qna-no">번호</span>
-								<span class="qna-title">제목</span>
-								<span class="qna-writer">글쓴이</span>
-								<span class="qna-regdate">작성일자</span>
-							</div>
-						</li>
-					
-					
-					<c:forEach items="${qna }" var="dto" varStatus="status">
-						<li>
-							<div id="qna-${status.index }" class="qna">	
-								<span class="qna-no">${dto.getQna_no() }</span>
-								<span class="qna-title">
-								
-									<c:if test="${dto.getQna_writer() eq session_id }"><a class="${status.index }" href="javascript:void(0);" onclick="show(this);">
-										${dto.getQna_title() } <c:if test="${dto.getQna_secret() eq 1 }"><i class="fas fa-lock"></i></c:if></a></c:if>
-									
-									<c:if test="${dto.getQna_writer() ne session_id }">
-										<c:if test="${dto.getQna_secret() eq 0 }"><a class="${status.index }" href="javascript:void(0);" onclick="show(this);">
-										<c:if test="${dto.getQna_secret() eq 1 }"><i class="fas fa-lock"></i></c:if> ${dto.getQna_title() }</a></c:if>
-										
-										<c:if test="${dto.getQna_secret() eq 1 }">비밀글입니다. <c:if test="${dto.getQna_secret() eq 1 }"><i class="fas fa-lock"></i></c:if></c:if>
-									</c:if>
-										
-									
-								</span>
-								<span class="qna-writer">${dto.getQna_writer() }</span>
-								<span class="qna-regdate">${dto.getQna_date().substring(0,10) }</span>
-							</div>
-							
-							<div id="qna-detail-${status.index }" class="qna-detail" style="display:none;">
-								<span class="qna-cont" style="white-space:pre;"><c:out value="${dto.getQna_cont() }" /></span><br>
-								
-								<c:if test="${dto.getQna_writer() eq session_id }">
-									<button onclick="modiftQna(${dto.getQna_no() },${cont.getPro_no() });">수정</button>
-									<button onclick="deleteQna(${dto.getQna_no() },${cont.getPro_no() });">삭제</button>
-								</c:if>
-							</div>
-						</li>
-					</c:forEach>
-					
-					</ul>
-					</c:if>
-					
-					<c:if test="${empty qna }">
-							작성된 질문이 없습니다.
-					</c:if> --%>
-					
-					
-					<hr>
-					
-					<button class="write" onclick="writeQna(${cont.getPro_no() });">상품 Q&A 작성하기</button>
 					<br>
 					
 					<%-- pagination --%>
@@ -446,8 +416,8 @@ function likeCheck(product_no){
 						
 					</div>
 				</div>
-				
-				
+				</div>
+				</div><%-- product-cont end --%>
 			</div>
 		<jsp:include page="../include/footer.jsp" />
 	</div>
