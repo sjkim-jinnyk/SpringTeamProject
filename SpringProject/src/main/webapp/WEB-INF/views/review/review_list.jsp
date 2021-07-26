@@ -10,13 +10,16 @@
 <title>리뷰</title>
 </head>
 <body>
-	<div class="layout_container">
+
 	<jsp:include page="../include/header.jsp" />
+	
+	<div class="review_header">
+		<div class="review_title"><p>실구매자 분들의</p><p>솔직한 상품후기</p></div>
+	</div>
+	
+	<div class="layout_container">
+		
 		<div class="main">
-			
-			<div class="review_header">
-				<div class="review_title"><p>실구매자 분들의</p><p>솔직한 상품후기</p></div>
-			</div>
 			
 			<div class="review_wrap">
 			
@@ -103,9 +106,13 @@
 				</div>
 			</div>
 			
+			
+			
 		</div>
-		<jsp:include page="../include/footer.jsp" />
+		
 	</div>
+	
+	<jsp:include page="../include/footer.jsp" />
 	
 </body>
 </html>

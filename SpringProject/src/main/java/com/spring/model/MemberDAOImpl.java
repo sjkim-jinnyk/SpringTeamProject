@@ -1,7 +1,7 @@
-
 package com.spring.model;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -264,4 +264,3 @@ public class MemberDAOImpl implements MemberDAO{
 
 
 }
-

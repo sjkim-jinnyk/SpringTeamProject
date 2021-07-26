@@ -1,8 +1,4 @@
-<%@page import="com.spring.model.MemberDAOImpl"%>
-<%@page import="com.spring.model.ProductDAOImpl"%>
 <%@page import="com.spring.model.ProductDTO" %>
-<%@page import="javax.servlet.http.HttpSession" %>
-<%@page import="org.springframework.context.annotation.Import"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
