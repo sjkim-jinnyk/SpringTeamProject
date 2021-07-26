@@ -13,11 +13,9 @@
 <link rel="stylesheet" href="resources/css/memberStyle.css">
 <link rel="stylesheet" href="resources/css/product.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <title>울퉁불퉁's 관리자 - 상품 등록</title>
 </head>
 <script type="text/javascript" src="resources/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="resources/js/admin.js"></script>
 <body>
 	
 		<div class="wrapper d-flex align-items-stretch">
@@ -104,4 +102,5 @@
 		</div>
 	</div>
 </body>
+<script type="text/javascript" src="resources/js/admin.js"></script>
 </html>

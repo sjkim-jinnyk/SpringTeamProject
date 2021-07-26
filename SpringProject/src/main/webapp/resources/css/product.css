@@ -883,7 +883,6 @@ product_recent
 }
 
 .history-title {
-	display: inline-block;
 	text-align: left;
 	font-weight: bold;
 	margin: 5px auto 50px;
@@ -1059,5 +1058,25 @@ product_recent
 	float: left;
 }
 
+.search-box {
+	width: 1110px;
+	margin: 0 15px 30px;
+	height: 50px;
+	border: 2px solid #ABD037;
+	border-radius: 30px;
+	background-color: #FFF;
+}
 
+.fa-search {
+	font-size: 25px;
+	padding: 10px 10px 20px 10px;
+}
+
+.search {
+	border: none;
+	width: 90%;
+	-moz-appearance: none;
+    -webkit-appearance: textfield;
+    appearance: none; 
+}
 

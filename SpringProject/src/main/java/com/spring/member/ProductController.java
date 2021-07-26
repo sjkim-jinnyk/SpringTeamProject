@@ -207,7 +207,7 @@ public class ProductController {
 			page = 1;
 		}
 
-		rowsize = 9;
+		rowsize = 8;
 		totalRecord = this.pdao.getSearchListCount(keyword);
 
 		String field = "";
@@ -221,6 +221,7 @@ public class ProductController {
 		model.addAttribute("page", pageDTO);
 		model.addAttribute("List", list);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("size", totalRecord);
 
 		return "product/product_search_list";
 	}
@@ -236,7 +237,7 @@ public class ProductController {
 			page = 1;
 		}
 
-		rowsize = 9;
+		rowsize = 8;
 		totalRecord = this.pdao.getSearchTagCount(keyword);
 
 		String field = "";
@@ -250,6 +251,7 @@ public class ProductController {
 		model.addAttribute("page", pageDTO);
 		model.addAttribute("List", list);
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("size", totalRecord);
 
 		return "product/product_search_list";
 	}

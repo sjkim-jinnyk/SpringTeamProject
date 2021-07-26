@@ -70,8 +70,8 @@ public class LoginController {
 		}else if(type.equals("kakao")) {
 			snsAuthUrl = kakaoLoginBO.getAuthorizationUrl(session, callback_kakao1);
 		}
-		response.sendRedirect(snsAuthUrl);
 		
+		response.sendRedirect(snsAuthUrl);
 	}
 
 	// 네이버 로그인 성공시 callback호출 메소드
@@ -406,6 +406,26 @@ public class LoginController {
 				out.println("</script>");
 			}
 		}
+	}
+	
+	@RequestMapping("sns_login_popup.do")
+	public void sns_login_popup(@RequestParam String type, Model model, HttpSession session, HttpServletResponse response) throws IOException {
+
+		String snsAuthUrl = "";
+		
+		if(type.equals("naver")) {
+			snsAuthUrl = naverLoginBO.getAuthorizationUrl(session, callback_naver1);	
+		}else if(type.equals("kakao")) {
+			snsAuthUrl = kakaoLoginBO.getAuthorizationUrl(session, callback_kakao1);
+		}
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		out.println("<script>");
+		out.println("window.close()");
+		out.println("opener.document.location.href='"+snsAuthUrl+"'");
+		out.println("</script>");
 	}
 
 }

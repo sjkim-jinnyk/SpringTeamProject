@@ -105,3 +105,8 @@ function closeRecent(){
 		document.getElementById('x-div').style.display = 'none';
 	}
 }
+
+function joinPopup(){
+	opener.document.location.href='join.do';
+	window.close();
+}

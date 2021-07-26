@@ -1,6 +1,3 @@
-<%@page import="org.springframework.beans.factory.BeanFactory"%>
-<%@page import="com.spring.model.ProductRecentDTO"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -13,27 +10,13 @@
 <link rel="stylesheet" href="resources/css/product.css">
 <link rel="stylesheet" href="resources/css/main.css?after">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<script type="text/javascript" src="resources/js/product.js"></script>
-<title>UTBT</title>
+<title>울퉁불퉁's</title>
 </head>
-<script type="text/javascript">
-	
-function likeCheck(product_no, index){
-	if('${session_id}' == ''){
-		alert('로그인 후 사용가능합니다.');
-		window.open("login_popup.do", "로그인", "_blank");
-		return;
-	}else{
-		addLikey(product_no, index);
-	}
-}
-
-</script>
 <body>
 
 	<div class="layout_container">
 		<jsp:include page="../include/header.jsp" />
-		<%-- <jsp:include page="../include/recent.jsp" /> --%>
+		
 			<div class="about_header">
 				<span>product list</span>
 				<img src="resources/img/main/orange_bg.jpeg">
@@ -115,7 +98,18 @@ function likeCheck(product_no, index){
 				
 			</div><%-- main end --%>
 		<jsp:include page="../include/footer.jsp" />
-	</div>
 
 </body>
+<script type="text/javascript" src="resources/js/product.js"></script>
+<script type="text/javascript">
+function likeCheck(product_no, index){
+	if('${session_id}' == ''){
+		alert('로그인 후 사용가능합니다.');
+		window.open("login_popup.do", "로그인", "_blank");
+		return;
+	}else{
+		addLikey(product_no, index);
+	}
+}
+</script>
 </html>

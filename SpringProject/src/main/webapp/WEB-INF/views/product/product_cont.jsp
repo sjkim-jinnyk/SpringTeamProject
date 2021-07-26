@@ -10,55 +10,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="resources/css/product.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="resources/js/product.js"></script>
 <title>울퉁불퉁's - ${cont.getPro_name() }</title>
 </head>
-<script type="text/javascript">
-
-<%ProductDTO dto = (ProductDTO)request.getAttribute("cont");%>
-
-function count(type) {
-	let text = document.getElementById('cart_amount').value;
-	 
-	if(type == 'plus'){
-		document.getElementById('cart_amount').value = parseInt(text) + 1;
-	}else if(type == 'minus' && text > 1) {
-		document.getElementById('cart_amount').value = parseInt(text) - 1;
-	}
-	
-	total();
-}
-
-function total() {
-	 
-	let price = <%=dto.getPro_output_price() %>;
-	let amount = document.getElementById('cart_amount').value;
-	let total = String(parseInt(price) * parseInt(amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,');
-
-	document.getElementById('total-price').innerText = total;
-	document.getElementById('total-amount').innerText = amount;
-}
-
-function likeCheck(product_no){
-	if('${session_id}' == ''){
-		alert('로그인 후 사용가능합니다.');
-		window.open("login_popup.do", "로그인", "_blank");
-		return;
-	}else{
-		addLike(product_no);
-	}
-}
-
-function writeQna(product_no) {
-	if('${session_id}' != ''){
-		window.open("product_qna_write.do?no="+product_no, "질문글 작성하기", "_blank");
-	}else {
-		alert('로그인 후 작성 가능합니다.');
-		window.open("login_popup.do", "질문글 답변하기", "_blank");
-	}
-}
-</script>
 <body>
 	<div class="layout_container">
 		<jsp:include page="../include/header.jsp" />
@@ -325,7 +278,7 @@ function writeQna(product_no) {
 						<tr>
 							<td class="qna-state">
 								<c:if test="${!empty dto.getQnaDTO() }"><span class="state-ok">답변완료</span></c:if> 
-								<c:if test="${empty dto.getQnaDTO() }"><span class="state-no">미답변</span></c:if> 
+								<c:if test="${empty dto.getQnaDTO() }"><span class="state-no">답변대기</span></c:if> 
 							</td>
 							<td class="qna-title">
 								<c:if test="${dto.getQna_writer() eq session_id || session_id eq 'admin' }">
@@ -432,4 +385,51 @@ function writeQna(product_no) {
 	</div>
 
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="resources/js/product.js"></script>
+<script type="text/javascript">
+
+<%ProductDTO dto = (ProductDTO)request.getAttribute("cont");%>
+
+function count(type) {
+	let text = document.getElementById('cart_amount').value;
+	 
+	if(type == 'plus'){
+		document.getElementById('cart_amount').value = parseInt(text) + 1;
+	}else if(type == 'minus' && text > 1) {
+		document.getElementById('cart_amount').value = parseInt(text) - 1;
+	}
+	
+	total();
+}
+
+function total() {
+	 
+	let price = <%=dto.getPro_output_price() %>;
+	let amount = document.getElementById('cart_amount').value;
+	let total = String(parseInt(price) * parseInt(amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,');
+
+	document.getElementById('total-price').innerText = total;
+	document.getElementById('total-amount').innerText = amount;
+}
+
+function likeCheck(product_no){
+	if('${session_id}' == ''){
+		alert('로그인 후 사용가능합니다.');
+		window.open("login_popup.do", "로그인", "_blank");
+		return;
+	}else{
+		addLike(product_no);
+	}
+}
+
+function writeQna(product_no) {
+	if('${session_id}' != ''){
+		window.open("product_qna_write.do?no="+product_no, "질문글 작성하기", "_blank");
+	}else {
+		alert('로그인 후 작성 가능합니다.');
+		window.open("login_popup.do", "질문글 답변하기", "_blank");
+	}
+}
+</script>
 </html>

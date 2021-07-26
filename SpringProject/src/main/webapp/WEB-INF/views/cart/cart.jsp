@@ -14,76 +14,13 @@
 <link rel="stylesheet" href="resources/css/main.css?after">
 <title>울퉁불퉁's 장바구니</title>
 </head>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="resources/js/product.js"></script>
-<script type="text/javascript">
-
-<% List<CartDTO> cList = (List<CartDTO>)request.getAttribute("cList"); %>
-
-function count(type, index, no) {
-
-	 let amount = parseInt($('#cart-amount-'+index).val());
-	 let price = parseInt($('#cart-price-'+index).val());
-	 
-	 if((type == 'p' && amount > 0) || type == 'm' && amount > 1) {
-		$.ajax({
-			type: 'post',
-			url: 'cart_amount_set.do',
-			data: {'type' : type, 'no' : no },
-			success: function(data) {
-				if(data == 1) {
-					amount += 1;
-					$('#cart-amount-'+index).attr('value', amount);
-					$('#total-price-'+index).text(String(amount*price).replace(/(.)(?=(\d{3})+$)/g,'$1,'));
-					total();
-					return false;
-				}else if(data == 2) {
-					amount -= 1;
-					$('#cart-amount-'+index).attr('value', amount);
-					$('#total-price-'+index).text(String(amount*price).replace(/(.)(?=(\d{3})+$)/g,'$1,'));
-					total();
-					return false;
-				}else {
-					console.log('data', data);
-					alert('에이젝스 실패');
-				}
-			},
-			error:function(request,status,error){
-		    alert('code:'+request.status+'\n'+'message:'+request.responseamount+'\n'+'error:'+error);}
-		});		
-	 }
-} 
-
-
-function total() {
-	
-	let total_price = 0;
-	 
-	for(i=0; i<<%=cList.size()%>; i++) {
-		let prc = $('#cart-price-'+i).val();
-		let amt = $('#cart-amount-'+i).val();
-		total_price += parseInt(prc) * parseInt(amt);
-	}
-	
-	$('#total-price').text(String(total_price).replace(/(.)(?=(\d{3})+$)/g,'$1,'));
-}
-
-function loginCheck(){
-	if('${session_id}' == ''){
-		alert('로그인 후 사용가능합니다.');
-		window.open("login_popup.do", "로그인", "_blank");
-		return;
-	}
-}
-
-</script>
 <body>
 
 	<div class="layout_container">
 		<jsp:include page="../include/header.jsp" />
 			
 			<div class="about_header">
-				<span>Cart</span>
+				<span>CART</span>
 				<img src="resources/img/main/orange_bg.jpeg">
 			</div>
 			
@@ -207,4 +144,67 @@ function loginCheck(){
 	</div>
 
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="resources/js/product.js"></script>
+<script type="text/javascript">
+
+<% List<CartDTO> cList = (List<CartDTO>)request.getAttribute("cList"); %>
+
+function count(type, index, no) {
+
+	 let amount = parseInt($('#cart-amount-'+index).val());
+	 let price = parseInt($('#cart-price-'+index).val());
+	 
+	 if((type == 'p' && amount > 0) || type == 'm' && amount > 1) {
+		$.ajax({
+			type: 'post',
+			url: 'cart_amount_set.do',
+			data: {'type' : type, 'no' : no },
+			success: function(data) {
+				if(data == 1) {
+					amount += 1;
+					$('#cart-amount-'+index).attr('value', amount);
+					$('#total-price-'+index).text(String(amount*price).replace(/(.)(?=(\d{3})+$)/g,'$1,'));
+					total();
+					return false;
+				}else if(data == 2) {
+					amount -= 1;
+					$('#cart-amount-'+index).attr('value', amount);
+					$('#total-price-'+index).text(String(amount*price).replace(/(.)(?=(\d{3})+$)/g,'$1,'));
+					total();
+					return false;
+				}else {
+					console.log('data', data);
+					alert('에이젝스 실패');
+				}
+			},
+			error:function(request,status,error){
+		    alert('code:'+request.status+'\n'+'message:'+request.responseamount+'\n'+'error:'+error);}
+		});		
+	 }
+} 
+
+
+function total() {
+	
+	let total_price = 0;
+	 
+	for(i=0; i<<%=cList.size()%>; i++) {
+		let prc = $('#cart-price-'+i).val();
+		let amt = $('#cart-amount-'+i).val();
+		total_price += parseInt(prc) * parseInt(amt);
+	}
+	
+	$('#total-price').text(String(total_price).replace(/(.)(?=(\d{3})+$)/g,'$1,'));
+}
+
+function loginCheck(){
+	if('${session_id}' == ''){
+		alert('로그인 후 사용가능합니다.');
+		window.open("login_popup.do", "로그인", "_blank");
+		return;
+	}
+}
+
+</script>
 </html>

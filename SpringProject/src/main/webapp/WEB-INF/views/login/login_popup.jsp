@@ -39,13 +39,13 @@
 							<div class="normal_login">
 								<input type="submit" value="로그인 하기" class="login_btn">
 								<input type="button" value="회원 가입하기" class="login_btn"
-								onclick="location.href='join.do'">	
+								onclick="joinPopup();">	
 							</div>
 							
 							<!-- 네이버 로그인 창으로 이동 -->
 							<div id="social_login">
-								<a href="sns_login.do?type=naver"><img class="naver_login" height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a><br>
-								<a href="sns_login.do?type=kakao"><img class="kakao_login" height="50" src="resources/img/main/kakao_login.png"/></a><br>
+								<a href="sns_login_popup.do?type=naver"><img class="naver_login" height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a><br>
+								<a href="sns_login_popup.do?type=kakao"><img class="kakao_login" height="50" src="resources/img/main/kakao_login.png"/></a><br>
 							</div>
 						</div>
 						
@@ -58,4 +58,5 @@
 	</div>
 	
 </body>
+<script type="text/javascript" src="resources/js/product.js" ></script>
 </html>

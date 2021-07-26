@@ -14,7 +14,6 @@
 <link rel="stylesheet" href="resources/css/memberStyle.css">
 <link rel="stylesheet" href="resources/css/admin.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script type="text/javascript" src="resources/js/admin.js"></script>
 <title>울퉁불퉁's 관리자 - 상품 목록</title>
 </head>
 <body onload="check();">
@@ -135,3 +134,5 @@
 	</div>
 	
 </body>
+<script type="text/javascript" src="resources/js/admin.js"></script>
+</html>
