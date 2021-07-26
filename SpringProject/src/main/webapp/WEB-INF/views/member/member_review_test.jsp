@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberReviewStyle.css">
-<title>Insert title here</title>
+<title>구매 후기 작성</title>
 </head>
 <body>
 	<div class="member_review">

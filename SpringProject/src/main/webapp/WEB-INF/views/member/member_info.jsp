@@ -11,7 +11,6 @@
 	<jsp:include page="../include/header.jsp" />
 		<div class="main">
 			<c:set var="mem" value="${Cont }" />
-			
 			<div class="member_container">
 			<jsp:include page="../include/member_header.jsp"/>
 				
@@ -49,6 +48,7 @@
 										<p id="pwdinfo">비밀번호는 공백을 포함하지 않고, 영문/숫자를 사용하여 8자 이상으로 등록하세요</p>
 										<input type="password" name="mem_pwd" id="pwd_edit">
 										<br>
+										<input type="button" value="취소" id="reset_btnPWd">
 										<input type="submit" value="변경" id="submit_btnPwd">
 									</form>
 								</div>
@@ -99,7 +99,7 @@
 											-
 										<input type="text" id="phone" name="phone3" size="4" maxlength="4" value="${mem.getMem_phone().substring(9,13) }">
 										</div>
-										<input type="button" id="resest_btnP" value="취소">
+										<input type="button" id="reset_btnP" value="취소">
 										<input type="submit" id="submit_btnP" value="변경">
 									</form>
 								</div> <!-- phone_before END -->
@@ -108,11 +108,11 @@
 					</div> <!-- member_info END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
-		</div>
-		<jsp:include page="../include/footer.jsp" />
+		</div>  <!-- main END -->
+	<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/addr.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member_addr.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<!-- 주소 API 파일 로딩  -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

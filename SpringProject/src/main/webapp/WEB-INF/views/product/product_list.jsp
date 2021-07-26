@@ -11,6 +11,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="resources/css/product.css">
+<link rel="stylesheet" href="resources/css/main.css?after">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script type="text/javascript" src="resources/js/product.js"></script>
 <title>UTBT</title>
@@ -33,7 +34,12 @@ function likeCheck(product_no, index){
 	<div class="layout_container">
 		<jsp:include page="../include/header.jsp" />
 		<%-- <jsp:include page="../include/recent.jsp" /> --%>
+		<div class="about_header">
+				<span>product list</span>
+				<img src="resources/img/main/orange_bg.jpeg">
+			</div>
 			<div class="main">	
+			
 				<div class="page-wrapper">
 					<div class="category">
 						<span class="category-title">Department</span>

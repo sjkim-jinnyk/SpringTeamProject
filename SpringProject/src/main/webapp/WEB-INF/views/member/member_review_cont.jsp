@@ -4,12 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<title>Member</title>
-</head>
+<title>구매 후기 상세내역</title>
 <body>
 	<div class="layout_container">
 	<jsp:include page="../include/header.jsp" />
@@ -51,8 +46,8 @@
 					</div> <!-- member_order END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
-		</div>
-		<jsp:include page="../include/footer.jsp" />
+		</div>  <!-- main END -->
+	<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
 </html>

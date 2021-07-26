@@ -4,18 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<title>Member</title>
-</head>
+<title>구매 후기</title>
 <body>
 	<div class="layout_container">
 	<jsp:include page="../include/header.jsp" />
 		<div class="main">
 			<c:set var="mem" value="${Cont }" />
-			
 			<div class="member_container">
 			<jsp:include page="../include/member_header.jsp"/>
 				
@@ -24,7 +18,7 @@
 					<jsp:include page="../include/member_navmenu.jsp" />
 					
 					<div class="member_review">
-						<h3>구매후기</h3>
+						<h3>구매 후기</h3>
 						<form method="post" action="<%=request.getContextPath()%>/review_search.do" name="reviewForm">
 						<ul class="select_day">
 							<div class="select_button">
@@ -76,7 +70,7 @@
 											<td><a href="<%=request.getContextPath()%>/member_review_cont.do?no=${rlist[status.index].getOrder_no() }">${rlist[status.index].getReview_title() }</a></td>
 										</c:if>
 										<c:if test="${rlist[status.index].getReview_title() == null}">
-											<td><input id="review_btn" type="button" value="후기쓰기" onclick="showPopup(${rlist[status.index].getOrder_no()})">
+											<td><input id="review_btn" type="button" value="작성하기" onclick="showPopup(${rlist[status.index].getOrder_no()})">
 											
 											<%-- <input id="review_btn" type="button" value="후기쓰기" onclick="location.href='member_review_write.do?no=${rlist[status.index].getOrder_no()}'"> --%>
 											</td>
@@ -125,8 +119,8 @@
 					</div> <!-- member_order END -->
 				</div> <!-- member_content END-->
 			</div> <!-- member_container END-->
-		</div>
-		<jsp:include page="../include/footer.jsp" />
+		</div>   <!-- main END -->
+	<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member_review.js"></script>

@@ -3,7 +3,7 @@
 
 .member_container {
 	font-family:'Noto Sans KR', sans-serif;
-	margin: 50px 130px;
+	margin: 50px 0;
 	text-align: center;
 }
 
@@ -14,14 +14,29 @@
 
 /* nav_menu css */
 .nav_menu{
+	border: 1px solid #e5e5e5;
 	margin-top: 30px;
 	margin-right: 20px;
-	padding: 0 10px;
 	width: 200px;
 	height: 500px;
 }
+.nav_menu .y {
+	font-weight: bold;
+}
+.nav_menu .n {
+	font-weight: normal;
+}
 .nav_menu li {
 	padding: 20px 0;
+	border-bottom: 1px solid #e5e5e5;
+}
+.nav_menu #info_display li {
+	font-size: 16px;
+	padding: 10px 0;
+	border-bottom: 0;
+}
+.nav_menu #info_display li:hover {
+	background: #ffddae;
 }
 .nav_menu .off{
 	display: none;
@@ -31,7 +46,8 @@
 }
 
 /* member_order css */
-.member_order, .member_orderDetail, .member_coupon, .member_reviewCont, .member_review, .member_qna, .member_like, .member_info {
+.member_order, .member_orderDetail, .member_coupon, .member_reviewCont, .member_review, 
+.member_qna, .member_like, .member_info, .member_delete, .member_recent {
 	margin-left: 30px;
 	width: 100%;
 }
@@ -364,11 +380,9 @@
 .member_like #stepList .pro-name, #stepList .pro-price{
 	font-weight: bold;
 }
-/* 
-.fa-heart:before {
+.member_like #heart {
 	color: red;
 }
- */
 .member_like img{
 	width: 140px;
 	height: 125px;
@@ -427,7 +441,7 @@
 
 
 /* member_info css */
-.member_info #headName {
+.member_info #headName, .member_delete #headName{
 	padding: 0 0 20px;
 	text-align: left;
 	border-bottom: 2px solid;
@@ -455,7 +469,7 @@
 	cursor: pointer;
 	border: 1px solid #e5e5e5;
 }
-.member_info #submit_btnA, #reset_btnA, #submit_btnP, #resest_btnP, #submit_btnPwd {
+.member_info #submit_btnA, #reset_btnA, #submit_btnP, #reset_btnP, #submit_btnPwd, #reset_btnPWd {
 	background: #f1f1f1;
 	padding: 0 10px;
 	cursor: pointer;
@@ -466,14 +480,14 @@
 	background: black;
 	border: 1px solid black;
 }
-.member_info #reset_btnA:hover, #resest_btnP:hover{
+.member_info #reset_btnA:hover, #reset_btnP:hover, #reset_btnPWd:hover{
 	background: #ccc;
 	border: 1px solid #ccc;
 }
 .member_info #addr_edit_btn{
 	margin-bottom: 10px;
 }
-.member_info #addr_btn:hover, .member_info #phone_btn:hover, .member_info #submit_btnA:hover, #addr_edit_btn:hover {
+.member_info #addr_btn:hover, .member_info #phone_btn:hover, .member_info #submit_btnA:hover, #addr_edit_btn:hover, #pwd_btn:hover {
 	border: 1px solid black;
 }
 .member_info .off {
@@ -515,11 +529,89 @@
 	width: 450px;
 	display: inline-block;
 }
-/* member_recent css */
-.history img {
-	width: 250px;
+
+/* member_delete css */
+.member_delete #infoHead{
+	font-size: 20px;
+	padding: 20px 0 10px;
+}
+.member_delete #infoTitle{
+	font-weight: bold;
+	padding-top: 10px;
+}
+.member_delete .deleteInfo {
+	text-align: left;
+}
+.member_delete .agreeCheck {
+	text-align: left;
+	padding: 15px 0;
+}
+.member_delete input[id="agreeC"]:checked {
+	color: red;
+}
+.member_delete input[id="agreeC"] {
+	display: none;
+}
+.member_delete input[id="agreeC"]+label {
+	cursor: pointer;
+}
+.member_delete input[id="agreeC"]+label:before {
+	content: url("ico_chk.png");
+	margin-right: 20px;
+}
+input[id="agreeC"]:checked + label:before {
+	content: url("ico_chk_on.png");
+}
+.member_delete .deleteBox {
+	margin-top: 40px;
+	padding: 20px 10px;
+	border-top: 1px solid #666;
+}
+.deleteBox .delete_pwd {
+	display: flex;
+}
+.deleteBox .delete_pwd p {
+	padding-right: 20px;
+}
+.deleteBox .delete_pwd #pwdBox {
+	border: 1px solid #e5e5e5;
+}
+.member_delete #deleteBtn {
+	background: transparent;
+	padding: 0 10px;
+	cursor: pointer;
+	border: 1px solid ;
 }
 
+/* member_recent css */
+.member_recent h3{
+	padding: 0 0 20px;
+	text-align: left;
+	border-bottom: 2px solid;
+}
+.member_recent #allList{
+	padding-top: 25px;
+	display: flex;
+	flex-wrap: wrap;
+}
+.member_recent #allList #box{
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 20px;
+	width: 240px;
+}
+.member_recent img{
+	width: 140px;
+	height: 125px;
+	padding-left: 10px;
+}
+.member_recent input[type="submit"] {
+	font-family: "Font Awesome 5 Free";
+}
+.member_recent #noHistory {
+	padding-top: 50px;
+	text-align: center;
+}
 /* member_home css */
 
 

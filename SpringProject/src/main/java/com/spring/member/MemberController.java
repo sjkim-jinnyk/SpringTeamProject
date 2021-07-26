@@ -424,31 +424,39 @@ public class MemberController {
 	// 회원 삭제
 	@RequestMapping("member_delete_ok.do")
 	public void memberDeleteOk(HttpSession session, MemberDTO dto, @RequestParam("db_pwd") String db_pwd,
-			HttpServletResponse response) throws IOException {
+			HttpServletResponse response, @RequestParam("agreeC") int agree) throws IOException {
 		String id = (String) session.getAttribute("session_id");
 
 		System.out.println("삭제 비번 : " + dto.getMem_pwd());
 		System.out.println("삭제 db 비번 : " + db_pwd);
-
-		if (dto.getMem_pwd().equals(db_pwd)) {
-
-			response.setContentType("text/html; charset-UTF-8");
-			PrintWriter out = response.getWriter();
-
-			int check = this.dao.deleteMember(id);
-
-			if (check > 0) {
+		response.setContentType("text/html; charset-UTF-8");
+		
+		System.out.println(agree);
+		PrintWriter out = response.getWriter();
+		
+		if(agree == 1) {
+			if(dto.getMem_pwd().equals(db_pwd)) {
+				int check = this.dao.deleteMember(id);
+				
+				if(check > 0) {
+					out.println("<script>");
+					out.println("alert('성공')");
+					out.println("location.href='main.do'");
+					out.println("</script>");
+				}
+			}else {
 				out.println("<script>");
-				out.println("alert('성공')");
-				out.println("location.href='main.do'");
-				out.println("</script>");
-			} else {
-				out.println("<script>");
-				out.println("alert('실패')");
+				out.println("alert('비밀번호가 틀렸습니다. 확인해주세요.')");
 				out.println("history.back()");
 				out.println("</script>");
 			}
+		}else {
+			out.println("<script>");
+			out.println("alert('회원탈퇴 동의 후 회원탈퇴를 하실 수 있습니다.')");
+			out.println("history.back()");
+			out.println("</script>");
 		}
+		
 	}
 
 	// 문의내역 페이지
