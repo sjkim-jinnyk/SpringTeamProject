@@ -2,13 +2,15 @@ $('#pay_button').click(function() {
 	var IMP = window.IMP; // 생략해도 괜찮습니다.
 	IMP.init('imp24700315'); // 발급받은 "가맹점 식별코드"를 사용합니다.
 
-	var input_name = $("#cont").val();
-	var input_amount = $("#price").val();
 	var input_buyer_name = $("#name").val();
 	var input_buyer_tel = $("#phone").val();
-	var input_buyer_addr = $("#addr").val();
 	var input_buyer_postcode = $("#zip").val();
-
+	var input_buyer_addr = $("#addr").val();
+	var input_name = $("#cont").val();
+	var input_amount = $("#price").val();
+	
+	var form = document.getElementById("form");
+	
 	// IMP.request_pay(param, callback) 호출
 	IMP.request_pay({ // param
 		pg : 'kakaopay',
@@ -39,11 +41,14 @@ $('#pay_button').click(function() {
 
 			alert('결제 성공');
 			// 성공시 이동할 페이지
-			location.href = 'paySuccess.do';
+			location.href = "paySuccess.do";
 		} else {
 			alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+			
+			form.submit();
+			
 			// 실패시 이동할 페이지
-			location.href = "payFail.do";
+			//location.href = "payFail.do";
 		}
 	});
 

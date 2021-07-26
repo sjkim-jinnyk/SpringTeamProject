@@ -1,17 +1,25 @@
 package com.spring.member;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.spring.model.BoardDTO;
 import com.spring.model.CartDAO;
 import com.spring.model.CartDTO;
+import com.spring.model.CouponDTO;
+import com.spring.model.CouponOwnDTO;
+import com.spring.model.MemberDAO;
 import com.spring.model.MemberDTO;
 import com.spring.model.OrderDTO;
 import com.spring.model.ProductDAO;
@@ -24,6 +32,8 @@ public class PurchaseController {
 	private CartDAO cartDAO;
 	@Autowired
 	private ProductDAO productDAO;
+	@Autowired
+	private MemberDAO memberDAO;
 	
 	// 결제 페이지 진입 매핑
 	@RequestMapping("/purchase.do")
@@ -71,8 +81,20 @@ public class PurchaseController {
 		return "cart/purchase";
 	}
 	
+	@RequestMapping("/order.do")
+	public String order(HttpSession session, HttpServletRequest request) {
+		
+		System.out.println("주문성공");
+		
+		String id = request.getParameter("id");
+		System.out.println("id : " + id);
+		
+		return "cart/paySuccess";
+		
+	}
+	
 	@RequestMapping("/paySuccess.do")
-	public String paySuccess() {
+	public String paySuccess(HttpSession session, HttpServletRequest request) {
 		
 		return "cart/paySuccess";
 	}
@@ -84,7 +106,18 @@ public class PurchaseController {
 	}
 	
 	@RequestMapping("/coupon_popup.do")
-	public String coupon_popup() {
+	public String coupon_popup(HttpSession session, Model model) {
+
+		String id = (String) session.getAttribute("session_id");
+
+		List<CouponOwnDTO> codto = this.memberDAO.getCouponList(id);
+		List<CouponDTO> cdto = new ArrayList<CouponDTO>();
+
+		if (!codto.isEmpty()) {
+			cdto = this.memberDAO.getCouponInfo(codto);
+		}
+
+		model.addAttribute("CouponInfo", cdto);
 		
 		return "cart/coupon_popup";
 	}
