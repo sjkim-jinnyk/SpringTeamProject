@@ -23,14 +23,9 @@ td, th {
 			<br> <br>
 			<h1>결제</h1>
 			<br> <br>
+			<input type="hidden" id="id" value="${session_id }">
 			<form method="post" id="form"
 	      		action="<%=request.getContextPath() %>/order.do">
-				<table>
-					<tr>
-						<th><font color="blue">아이디 - 정기 결제시 필수</font></th>
-						<td><input type="text" name="id" id="id" readonly="readonly" value="${session_id }"></td>
-					</tr>
-				</table>
 				
 				<table>
 					<tr>

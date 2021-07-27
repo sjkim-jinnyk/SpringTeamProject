@@ -40,15 +40,14 @@ $('#pay_button').click(function() {
 			})*/
 
 			alert('결제 성공');
-			// 성공시 이동할 페이지
-			location.href = "paySuccess.do";
+			
+			form.submit();
+
 		} else {
 			alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
 			
-			form.submit();
-			
 			// 실패시 이동할 페이지
-			//location.href = "payFail.do";
+			location.href = "payFail.do";
 		}
 	});
 
@@ -66,6 +65,8 @@ $('#pay_button2').click(function() {
 	var input_buyer_tel = $("#phone").val();
 	var input_buyer_addr = $("#addr").val();
 	var input_buyer_postcode = $("#zip").val();
+	
+	var form = document.getElementById("form");
 
 	// IMP.request_pay(param, callback) 호출
 	IMP.request_pay({ // param
@@ -96,9 +97,9 @@ $('#pay_button2').click(function() {
 				// 가맹점 서버 결제 API 성공시 로직
 			})*/
 
-			// 성공시 이동할 페이지
 			alert('빌링키 발급 성공');
-			location.href = 'paySuccess.do';
+
+			form.submit();
 		} else {
 			alert("빌링키 발급 실패. 에러 내용: " + rsp.error_msg);
 			// 실패시 이동할 페이지
@@ -120,6 +121,8 @@ $('#pay_button_new').click(function() {
 	var input_buyer_addr = $("#new_addr").val() + $("#new_addr_detail").val();
 	var input_buyer_postcode = $("#new_zip").val();
 
+	var form = document.getElementById("form");
+	
 	// IMP.request_pay(param, callback) 호출
 	IMP.request_pay({ // param
 		pg : 'kakaopay',
@@ -149,8 +152,8 @@ $('#pay_button_new').click(function() {
 			})*/
 
 			alert('결제 성공');
-			// 성공시 이동할 페이지
-			location.href = 'paySuccess.do';
+
+			form.submit();
 		} else {
 			alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
 			// 실패시 이동할 페이지
@@ -172,6 +175,8 @@ $('#pay_button2_new').click(function() {
 	var input_buyer_tel = $("#new_phone").val();
 	var input_buyer_addr = $("#new_addr").val() + $("#new_addr_detail").val();
 	var input_buyer_postcode = $("#new_zip").val();
+	
+	var form = document.getElementById("form");
 
 	// IMP.request_pay(param, callback) 호출
 	IMP.request_pay({ // param
@@ -202,9 +207,10 @@ $('#pay_button2_new').click(function() {
 				// 가맹점 서버 결제 API 성공시 로직
 			})*/
 
-			// 성공시 이동할 페이지
+			
 			alert('빌링키 발급 성공');
-			location.href = 'paySuccess.do';
+			
+			form.submit();
 		} else {
 			alert("빌링키 발급 실패. 에러 내용: " + rsp.error_msg);
 			// 실패시 이동할 페이지

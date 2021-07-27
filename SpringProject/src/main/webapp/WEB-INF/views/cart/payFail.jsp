@@ -13,6 +13,8 @@
 		<div class="main">
 
 			<h1>결제 실패</h1>
+			
+			<a href="<%=request.getContextPath()%>/main.do">메인 화면으로 가기</a>
 
 		</div>
 		<jsp:include page="../include/footer.jsp" />

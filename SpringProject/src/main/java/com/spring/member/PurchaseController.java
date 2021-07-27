@@ -10,18 +10,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.spring.model.BoardDTO;
 import com.spring.model.CartDAO;
 import com.spring.model.CartDTO;
 import com.spring.model.CouponDTO;
 import com.spring.model.CouponOwnDTO;
 import com.spring.model.MemberDAO;
 import com.spring.model.MemberDTO;
+import com.spring.model.OrderDAO;
 import com.spring.model.OrderDTO;
+import com.spring.model.OrderDetailDTO;
 import com.spring.model.ProductDAO;
 import com.spring.model.ProductDTO;
 
@@ -34,6 +32,8 @@ public class PurchaseController {
 	private ProductDAO productDAO;
 	@Autowired
 	private MemberDAO memberDAO;
+	@Autowired
+	private OrderDAO orderDAO;
 	
 	// 결제 페이지 진입 매핑
 	@RequestMapping("/purchase.do")
@@ -86,8 +86,119 @@ public class PurchaseController {
 		
 		System.out.println("주문성공");
 		
-		String id = request.getParameter("id");
-		System.out.println("id : " + id);
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("session_mem");
+		
+		String new_name = request.getParameter("new_name");
+		System.out.println("이름 : " + new_name);
+		String new_phone = request.getParameter("new_phone");
+		
+		String temp1 = request.getParameter("new_zip");
+		int new_zip = 0;
+		if (temp1 != "") {
+			new_zip = Integer.parseInt(temp1);
+		}
+		String new_addr = request.getParameter("new_addr");
+		String new_addr_detail = request.getParameter("new_addr_detail");
+		new_addr = new_addr + new_addr_detail;
+		
+		String cont = request.getParameter("cont");
+		String temp2 = request.getParameter("coupon_no");
+		int coupon_no = 0;
+		if (temp2 != "") {
+			coupon_no = Integer.parseInt(temp2);
+		}
+		int price = Integer.parseInt(request.getParameter("price"));
+		int rdDeliverDay = Integer.parseInt(request.getParameter("rdDeliverDay"));
+		int rdDeliverTerm = Integer.parseInt(request.getParameter("rdDeliverTerm"));
+		
+		int rdAddrSetMod = Integer.parseInt(request.getParameter("rdAddrSetMod"));
+		
+		int order_no = this.orderDAO.setOrderNo();
+				
+		int check1 = 0;
+		
+		OrderDTO orderDTO = new OrderDTO();
+		orderDTO.setOrder_no(order_no);
+		orderDTO.setOrder_mem_id(memberDTO.getMem_id());
+		orderDTO.setOrder_content(cont);
+		orderDTO.setCoupon_no(coupon_no);
+		orderDTO.setOrder_price(price);
+		orderDTO.setOption_day(rdDeliverDay);
+		orderDTO.setOption_term(rdDeliverTerm);
+		if (rdAddrSetMod == 0) {
+			orderDTO.setOrder_mem_name(memberDTO.getMem_name());
+			orderDTO.setOrder_mem_phone(memberDTO.getMem_phone());
+			orderDTO.setOrder_zip(memberDTO.getMem_zip());
+			orderDTO.setOrder_addr(memberDTO.getMem_addr());
+		} else if (rdAddrSetMod == 1) {
+			orderDTO.setOrder_mem_name(new_name);
+			orderDTO.setOrder_mem_phone(new_phone);
+			orderDTO.setOrder_zip(new_zip);
+			orderDTO.setOrder_addr(new_addr);	
+		}
+		
+		check1 = this.orderDAO.insertOrder(orderDTO);
+		
+		if (check1 == 0) {
+			System.out.println("주문내역 입력 실패");
+		} else if (check1 >= 1) {
+			System.out.println("주문내역 입력 성공");
+		}
+		
+		int check2 = 0;
+		List<CartDTO> clist = this.cartDAO.getCartList(memberDTO.getMem_id());
+		
+		for (CartDTO cartDTO : clist) {
+			OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
+			orderDetailDTO.setOrder_no(order_no);
+			orderDetailDTO.setOrder_pro_no(cartDTO.getProduct_no());
+			orderDetailDTO.setOrder_pro_amount(cartDTO.getCart_amount());
+			System.out.println("주문 상세내역 : " + orderDetailDTO);
+			
+			check2 += this.orderDAO.insertOrderDetail(orderDetailDTO);
+		}
+		
+		if (check2 == 0) {
+			System.out.println("주문 상세내역 입력 실패");
+		} else if (check2 >= 1) {
+			System.out.println("주문 상세내역 입력 성공");
+		}
+		
+		int check3 =0;
+		
+		check3 = this.orderDAO.insertOrderDeliver(order_no);
+		
+		if (check3 == 0) {
+			System.out.println("주문 배송상태 입력 실패");
+		} else if (check3 >= 1) {
+			System.out.println("주문 배송상태 입력 성공");
+		}
+		
+		int check4 = 0;
+		
+		if (coupon_no != 0) {
+			CouponOwnDTO couponOwnDTO = new CouponOwnDTO();
+			couponOwnDTO.setOwn_coupon(coupon_no);
+			couponOwnDTO.setOwn_mem(memberDTO.getMem_id());
+			
+			check4 = this.orderDAO.updateCouponOwn(couponOwnDTO);
+			
+			if (check4 == 0) {
+				System.out.println("쿠폰 수정 실패");
+			} else if (check4 >= 1) {
+				System.out.println("쿠폰 수정 성공");
+			}
+		}
+		
+		int check5 = 0;
+		
+		check5 = this.orderDAO.deleteAllCart(memberDTO.getMem_id());
+		
+		if (check5 == 0) {
+			System.out.println("카트 비우기 실패");
+		} else if (check5 >= 1) {
+			System.out.println("카트 비우기 성공");
+		}
 		
 		return "cart/paySuccess";
 		
