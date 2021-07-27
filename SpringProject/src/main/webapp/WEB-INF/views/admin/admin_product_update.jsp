@@ -103,7 +103,7 @@
 						<tr>
 							<td colspan="4">
 								<button class="default-btn" type="button" onclick="location.href='admin_product_cont.do?no=${dto.getPro_no()}'">취소</button>
-								<div class="pro-btn-wrap">
+								<div>
 									<button class="pro-cont-btn update-btn" onclick="product_update.do?no=${dto.getPro_no() }">수정</button>
 								</div>
 							</td>
@@ -116,6 +116,8 @@
 					</table>
 				</form>
 			</div>
+			
+			<button onclick="location.href='#'" id="up-arrow" class="up-arrow"><img src="resources/img/main/up_arrow.png"></button>
 			
 			</div>
 			

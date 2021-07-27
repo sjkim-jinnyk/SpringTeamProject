@@ -93,7 +93,7 @@
 									<a href="admin_product_search.do?field=state&stateWord=n"><span class="not-for-sale">미판매</span></a>
 								</c:if>
 							</td>
-							<td><a href="product_cont.do?no=${dto.getPro_no() }">[click]</a></td>
+							<td><a class="click" href="product_cont.do?no=${dto.getPro_no() }">[click]</a></td>
 							<td>
 								<button class="update-btn" onclick="location.href='product_update.do?no=${dto.getPro_no()}'">수정</button>
 								<button class="delete-btn" onclick="deletePro(${dto.getPro_no()}, '${dto.getPro_name() }');">삭제</button>
@@ -114,23 +114,23 @@
 			<c:if test="${empty keyword }">
 			<div class="pagination">
 				<c:if test="${page.getPage() > page.getBlock() }">
-					<span class="page-btn"><a href="admin_product_list.do?page=1">◀◀</a></span>
-	   				<span class="page-btn"><a href="admin_product_list.do?page=${Paging.getStartBlock() - 1 }">◀</a></span>
+					<span><button class="page-btn" onclick="location.href='admin_product_list.do?page=1'">◀◀</button></span>
+	   				<span><button class="page-btn" onclick="location.href='admin_product_list.do?page=${Paging.getStartBlock() - 1 }'">◀</button></span>
 				</c:if>
 				
 				<c:forEach begin="${page.getStartBlock() }" end="${page.getEndBlock() }" var="i">
 			      <c:if test="${i == page.getPage() }">
-			         <span class="page-selected"><a href="admin_product_list.do?page=${i }">${i }</a></span>
+			         <span><button class="page-selected" onclick="location.href='admin_product_list.do?page=${i }'">${i }</button></span>
 			      </c:if>
 			      
 			      <c:if test="${i != page.getPage() }">
-			         <span class="page-btn"><a href="admin_product_list.do?page=${i }">${i }</a></span>
+			         <span><button class="page-btn" onclick="location.href='admin_product_list.do?page=${i }'">${i }</button></span>
 			      </c:if>
 			   </c:forEach>
 			   
 			   <c:if test="${page.getEndBlock() < page.getAllPage() }">
-			      <span class="page-btn"><a href="admin_product_list.do?page=${page.getEndBlock() +1 }">▶</a></span>
-			      <span class="page-btn"><a href="admin_product_list.do?page=${page.getAllPage() }">▶▶</a></span>
+			      <span><button class="page-btn" onclick="location.href='admin_product_list.do?page=${page.getEndBlock() +1 }'">▶</button></span>
+			      <span><button class="page-btn" onclick="location.href='admin_product_list.do?page=${page.getAllPage() }'">▶▶</button></span>
 			   </c:if>
 			</div>
 			</c:if>
@@ -160,7 +160,7 @@
 			</c:if>
 		
 				
-			
+			<button onclick="location.href='#'" id="up-arrow" class="up-arrow"><img src="resources/img/main/up_arrow.png"></button>
 			</div>
 			
 		</div>

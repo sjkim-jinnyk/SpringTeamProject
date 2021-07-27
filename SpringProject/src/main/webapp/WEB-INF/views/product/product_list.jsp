@@ -94,7 +94,7 @@
 					</div><%-- product-wrapper end --%>
 				</div><%-- page-wrapper end --%>
 				
-				<a href="#" id="up-arrow" class="up-arrow"><i class="far fa-caret-square-up"></i></a>
+				<button onclick="location.href='#'" id="up-arrow" class="up-arrow"><img src="resources/img/main/up_arrow.png"></button>
 				
 			</div><%-- main end --%>
 		<jsp:include page="../include/footer.jsp" />

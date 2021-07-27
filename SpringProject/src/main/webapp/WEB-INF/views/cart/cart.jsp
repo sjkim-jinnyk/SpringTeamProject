@@ -100,7 +100,7 @@
 								</div>
 								
 								<div class="pro-cancel cart-in">
-									<button onclick="location.href='cart_delete.do?no=${pList[status.index].getPro_no() }'"><i class="fas fa-times"></i></button>
+									<button type="button" onclick="location.href='cart_delete.do?no=${pList[status.index].getPro_no() }'"><i class="fas fa-times"></i></button>
 								</div>
 							</div>
 						</li>
@@ -137,7 +137,7 @@
 					</form>
 					
 				</div>
-				
+				<button onclick="location.href='#'" id="up-arrow" class="up-arrow"><img src="resources/img/main/up_arrow.png"></button>
 				
 			</div>
 		<jsp:include page="../include/footer.jsp" />

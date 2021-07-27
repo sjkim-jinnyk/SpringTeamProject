@@ -25,6 +25,21 @@ input:focus,textarea:focus,select:focus{outline: none;}
     margin: 50px auto;
 }
 
+.up-arrow {
+	display: none;
+	position: fixed;
+	bottom: 100px;
+	right: 100px;
+	color: #ABD037;	
+	outline: none;
+	border: none;
+	background-color: transparent;
+}
+
+.up-arrow img {
+	width: 50px;
+	height: 50px;
+}
 
 
 /* 관리자 - 상품관련 */
@@ -113,6 +128,13 @@ input:focus,textarea:focus,select:focus{outline: none;}
 }
 
 .update-btn, .delete-btn {
+	border: 1px solid;
+	border-radius: 5px;
+	font-size: 14px;
+	margin: 2px 1px;
+}
+
+.pro-btn-wrap .update-btn, .pro-btn-wrap .delete-btn {
 	border: 1px solid;
 	border-radius: 5px;
 	font-size: 12px;
@@ -208,6 +230,17 @@ input:focus,textarea:focus,select:focus{outline: none;}
 	width: 200px;
 }
 
+.click {
+	color: #AAA;
+}
+
+.btn-wrap {
+	display: inline-block;
+	float: right;
+}
+
+
+
 /* pagination */
 .pagination {
 	width: 100%;
@@ -217,15 +250,15 @@ input:focus,textarea:focus,select:focus{outline: none;}
 
 .pagination .page-btn {
 	padding: 5px 13px;
-	border: 1px solid #FF8F1C;
+	border: 1px solid #39373A;
 	background-color: white;
-	color: #FF8F1C;
+	color: #39373A;
 }
 
 .page-selected, .page-btn:hover {
 	padding: 5px 13px;
-	border: 1px solid #FF8F1C;
-	background-color: #FF8F1C;
+	border: 1px solid #39373A;
+	background-color: #39373A;
 	color: #FFF;
 	transition: all 0.5s;
 }
@@ -342,6 +375,13 @@ input[name='cate_name'] {
 }
 
 .default-btn {
+	border: 1px solid;
+	border-radius: 5px;
+	font-size: 14px;
+	margin: 2px 1px;
+}
+
+.pro-btn-wrap .default-btn {
 	border: 1px solid;
 	border-radius: 5px;
 	font-size: 12px;

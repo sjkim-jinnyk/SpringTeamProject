@@ -39,11 +39,11 @@
 										</div>
 									</td>
 									<td class="cate-btn">
-										<div id="btn-${status.index }">
+										<div id="btn-${status.index }" class="pro-btn-wrap">
 											<button class="update-btn" onclick="makeCate(${status.index });">수정</button> 
 											<button class="delete-btn" onclick="deleteCate(${dto.getCate_no() },'${dto.getCate_name() }');">삭제</button>
 										</div>
-										<div id="btn-update-${status.index }" style="display:none;">
+										<div id="btn-update-${status.index }" class="pro-btn-wrap" style="display:none;">
 											<button class="delete-btn" onclick="updateCate(${status.index});">등록</button> 
 											<button class="default-btn" onclick="makeCate(${status.index });">취소</button> 
 										</div>
@@ -78,8 +78,11 @@
 				</form>
 			
 			</div>
+			<button onclick="location.href='#'" id="up-arrow" class="up-arrow"><img src="resources/img/main/up_arrow.png"></button>
 		</div>
+		
 		</div>
+		
 	</div>
 </body>
 <script type="text/javascript" src="resources/js/admin.js"></script>

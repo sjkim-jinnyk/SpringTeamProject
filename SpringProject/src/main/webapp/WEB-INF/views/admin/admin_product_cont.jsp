@@ -64,7 +64,7 @@
 						<tr>
 							<td colspan="4">
 								<button class="default-btn" onclick="location.href='admin_product_list.do'">상품목록</button>
-								<div class="pro-btn-wrap">
+								<div class="btn-wrap">
 									<button class="pro-cont-btn update-btn" onclick="location.href='product_update.do?no=${dto.getPro_no() }'">수정</button>
 									<button class="pro-cont-btn delete-btn" onclick="deletePro(${dto.getPro_no()}, '${dto.getPro_name() }');">삭제</button>
 								</div>
@@ -77,7 +77,7 @@
 					</c:if>
 					</table>
 				</div>
-				
+				<button onclick="location.href='#'" id="up-arrow" class="up-arrow"><img src="resources/img/main/up_arrow.png"></button>
 			</div>
 		</div>
 	</div>

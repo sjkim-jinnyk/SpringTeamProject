@@ -91,7 +91,7 @@
 					<tr>
 						<td colspan="2">
 							<button class="default-btn" type="button" onclick="location.href='admin_product_list.do'">취소</button>
-							<div class="pro-btn-wrap">
+							<div class="btn-wrap">
 								<button class="pro-cont-btn update-btn" type="reset">초기화</button>
 								<button class="pro-cont-btn delete-btn" type="submit">등록</button>
 							</div>
@@ -102,6 +102,7 @@
 			
 			</div>
 		</div>
+		<button onclick="location.href='#'" id="up-arrow" class="up-arrow"><img src="resources/img/main/up_arrow.png"></button>
 		</div>
 	</div>
 </body>
