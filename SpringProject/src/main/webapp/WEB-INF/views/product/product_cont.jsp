@@ -275,7 +275,7 @@
 						</tr>
 						
 						<c:forEach items="${qna }" var="dto" varStatus="status">
-						<tr>
+						<tr class="qna_tr">
 							<td class="qna-state">
 								<c:if test="${!empty dto.getQnaDTO() }"><span class="state-ok">답변완료</span></c:if> 
 								<c:if test="${empty dto.getQnaDTO() }"><span class="state-no">답변대기</span></c:if> 

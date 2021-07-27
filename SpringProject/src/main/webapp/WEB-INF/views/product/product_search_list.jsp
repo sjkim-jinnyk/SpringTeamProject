@@ -33,24 +33,24 @@
 			<c:if test="${!empty List }">
 				<c:forEach items="${List }" var="dto">
 					<div class="product">
-										<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/upload/${dto.getPro_img() }"></a>
+						<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/upload/${dto.getPro_img() }"></a>
 										
-										<div class="product-info">
+						<div class="product-info">
 										
-											<c:forEach items="${dto.getPro_tags() }" var="tags">
-												<a class="cart-tag" href="search_tag.do?k=${tags }">${tags }</a> 
-											</c:forEach><br>
+							<c:forEach items="${dto.getPro_tags() }" var="tags">
+								<a class="cart-tag" href="search_tag.do?k=${tags }">${tags }</a> 
+							</c:forEach><br>
 											
-											<a class="pro-name" href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a><br>
-											<span class="pro-price">${dto.getPro_output_price() } 원</span>
+							<a class="pro-name" href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a><br>
+							<span class="pro-price">${dto.getPro_output_price() } 원</span>
 											
-											<div class="like-wrapper">
-												<c:if test="${dto.getLike_check() eq 0 }"><button class="like-btn" type="button" id="like-btn-${status.index }" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
-												<c:if test="${dto.getLike_check() > 0 }"><button type="button" id="like-btn-${status.index }" class="like-btn like-checked" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
-											</div>
+							<div class="like-wrapper">
+								<c:if test="${dto.getLike_check() eq 0 }"><button class="like-btn" type="button" id="like-btn-${status.index }" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
+								<c:if test="${dto.getLike_check() > 0 }"><button type="button" id="like-btn-${status.index }" class="like-btn like-checked" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
+							</div>
 											
-										</div>
-								</div>
+						</div>
+					</div>
 				</c:forEach>
 			</c:if>
 			<c:if test="${empty List }">

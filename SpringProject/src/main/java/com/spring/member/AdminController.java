@@ -334,7 +334,7 @@ public class AdminController {
 			model.addAttribute("field", field);
 			model.addAttribute("keyword", keyword);
 
-			return "admin/admin_product_search";
+			return "admin/admin_product_list";
 		}
 		
 		@RequestMapping("category_list.do")

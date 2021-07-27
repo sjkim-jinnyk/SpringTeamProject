@@ -304,7 +304,7 @@ product_recent
 	display: inline-block;
 	vertical-align: top;
 	padding-left: 50px;
-	width: 600px;
+	width: 550px;
 	height: 555px;
 }
 
@@ -412,7 +412,7 @@ product_recent
 	padding: 8px;
 	border-radius: 30px;
 	text-align: center;
-	width: 240px;
+	width: 220px;
 	height: 60px;
 	color: #FFF;
 	font-weight: bold;
@@ -646,6 +646,10 @@ product_recent
 	border-bottom: 1px solid #C0C0C0;
 }
 
+.qna-table tr:last-child td {
+	border-bottom: 1px solid;
+}
+
 .qna-state, .qna-writer, .qna-date {
 	text-align: center;
 }
@@ -722,7 +726,6 @@ product_recent
 	text-align: center;
 	padding: 15px 0;
 }
-
 
 /* qna 작성 팝업창 */
 .product-qna-form{
