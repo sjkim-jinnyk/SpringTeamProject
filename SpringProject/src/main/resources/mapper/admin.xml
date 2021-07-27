@@ -27,15 +27,36 @@
 		select * from member where mem_no = #{no}
 	</select>	
 	
-	<insert id="add" parameterType="com.spring.model.ProductDTO">
-		<selectKey resultType="int" keyProperty="pro_no" order="BEFORE">
-			select count(*) + 1 from product
-		</selectKey>
-		
-		insert into product values(#{pro_no}, #{pro_name}, #{pro_category}
-					, #{pro_input_price}, #{pro_output_price}, #{pro_tag}
-					, #{pro_check}, #{pro_img}, #{pro_cont})		
-	</insert>
+	
+	<select id="admin_qnaList" parameterType="com.spring.model.PageDTO"
+		resultType="com.spring.model.Admin_QNADTO">
+		<![CDATA[
+			 select * from
+				(select b.*, row_number()
+				   over(order by qna_no) rnum
+				   from qna b)
+				   where rnum >= #{startNo} and rnum <= #{endNo} 
+		]]>
+	</select>
+	
+		<select id="qnaInquiry" parameterType="int"
+			resultType="com.spring.model.Admin_QNADTO">
+		select * from qna where qna_no = #{no}
+	</select>	
+	
+		<select id="adminSearchList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.AdminDTO">
+		<![CDATA[ 
+			select * from member where mem_name like 
+			'%' || #{keyword} || '%' order by mem_no desc
+		]]>
+	</select>
+	
+	<select id="adminSearchListCount" parameterType="String" resultType="int">
+		select count(*) from member p 
+			where mem_name like '%' || #{keyword} || '%'
+	</select>
+	
+
 	
 	
 	

@@ -80,11 +80,11 @@
 							</tr>
 						</c:if>
 
+					</table>
 						<tr>
-							<td colspan="2" align="center"><input type="button"
+							<td colspan="4" align="right"><input type="button"
 								value="전체 회원 목록" onclick="location.href='admin_list.do'"></td>
 						</tr>
-					</table>
 			</div>
 			<jsp:include page="../include/footer.jsp" />
 		</div>

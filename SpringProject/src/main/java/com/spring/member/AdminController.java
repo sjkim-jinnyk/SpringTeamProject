@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.model.AdminDAO;
 import com.spring.model.AdminDTO;
+import com.spring.model.Admin_QNADTO;
 import com.spring.model.CateDTO;
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDAO;
@@ -57,7 +58,7 @@ public class AdminController {
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
 		List<AdminDTO> pagelist = this.dao.getMemberList(dto);
 
-		model.addAttribute("Page", dto);
+		model.addAttribute("page", dto);
 		model.addAttribute("List", pagelist);
 
 		return "admin/admin_member";
@@ -87,14 +88,18 @@ public class AdminController {
 			page = 1;
 		}
 		
-		rowsize = 5;
+		rowsize = 1;
 		totalRecord = this.dao.adminSearchMemberListCount(keyword);
 		
 		String field = "";		
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord, field, keyword);
-		List<AdminDTO> list = this.dao.adminSearchList(dto);
+		List<AdminDTO> member_search_list = this.dao.adminSearchList(dto);
+		
+		for (int i = 0; i < member_search_list.size(); i++) {
+			member_search_list.get(i);
+		}
 
-		model.addAttribute("searchList", list);
+		model.addAttribute("searchList", member_search_list);
 		model.addAttribute("page", dto);
 
 		return "admin/member_search";
@@ -102,11 +107,41 @@ public class AdminController {
 	}
 	
 	
+	@RequestMapping("admin_qna_list.do")
+	public String qna_list(HttpServletRequest request,HttpSession session, Model model) {
+
+		int page = 0;
+
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		} else {
+			page = 1;
+		}
+
+		rowsize = 5;
+		totalRecord = this.dao.getListCount();
+
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+		List<Admin_QNADTO> qnalist = this.dao.getQnaList(dto);
+
+		model.addAttribute("page", dto);
+		model.addAttribute("QnsList", qnalist);
+
+		return "admin/admin_qna";
+
+	}
 	
-	
-	
-	
-	
+	@RequestMapping("admin_qna_Inquiry.do")
+	public String getQnainquiry(@RequestParam("no") int qna_no, Model model) {
+		
+		// 게시글 상세내역 조회하는 메서드 호출
+		Admin_QNADTO dto = this.dao.getQnainquiry(qna_no);
+		
+		model.addAttribute("Admin_Inquiry", dto);
+		
+		return "admin/admin_qna_cont";
+		
+	}
 	
 	
 	

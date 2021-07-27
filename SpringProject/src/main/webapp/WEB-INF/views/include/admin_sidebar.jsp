@@ -44,7 +44,7 @@
 					<li><a href="#pageSubmenu" data-toggle="collapse"
 						aria-expanded="false" class="dropdown-toggle">게시판</a>
 						<ul class="collapse list-unstyled" id="pageSubmenu">
-							<li><a href="#">문의 사항</a></li>
+							<li><a href="admin_qna_list.do">문의 사항</a></li>
 							<li><a href="#">공지사항</a></li>
 						</ul></li>
 					<li><a href="<%=request.getContextPath()%>/main.do">UTBT</a></li>

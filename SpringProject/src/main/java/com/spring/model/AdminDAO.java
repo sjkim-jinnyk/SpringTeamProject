@@ -10,9 +10,10 @@ public interface AdminDAO {
 	public AdminDTO getMemberdetail(int no);	// 회원 상세 내역 호출 
 
 	public List<AdminDTO> adminSearchList(PageDTO dto); // 검색 리스트
-	public int adminSearchMemberListCount(String keyword);	// 검색 게시글
+	public int adminSearchMemberListCount(String keyword);	// 검색된 게시물 수
 		
-
+	public List<Admin_QNADTO> getQnaList(PageDTO dto);	// 질문 전체 호출
+	public Admin_QNADTO getQnainquiry(int no);	// 회원 질문 상세 내역 호출
 	
 	
 	
@@ -34,5 +35,5 @@ public interface AdminDAO {
 	
 	public int getProductSearchListCount(HashMap<String, String> hm);	// 검색된 상품 수
 	public List<ProductDTO> getProductSearchList(PageDTO dto);			// 검색된 상품 리스트
-		
+			
 }

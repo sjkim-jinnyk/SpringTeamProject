@@ -55,16 +55,17 @@ public class AdminDAOImpl implements AdminDAO{
 		return this.sqlSession.selectList("cateList");
 	}
 
-	@Override public List<AdminDTO> adminSearchList(PageDTO dto) {
+	@Override 
+	public List<AdminDTO> adminSearchList(PageDTO dto) {
 	 
-	 return this.sqlSession.selectList("searchList", dto); 
+	 return this.sqlSession.selectList("adminSearchList", dto); 
 	 }
 
 
 	@Override
 	public int adminSearchMemberListCount(String keyword) {
 		
-		return this.sqlSession.selectOne("searchListCount", keyword);
+		return this.sqlSession.selectOne("adminSearchListCount", keyword);
 	}
 
 	@Override
@@ -119,6 +120,18 @@ public class AdminDAOImpl implements AdminDAO{
 	public List<ProductDTO> getProductSearchList(PageDTO dto) {
 		// TODO Auto-generated method stub
 		return this.sqlSession.selectList("proSearchList", dto);
+	}
+
+	@Override
+	public List<Admin_QNADTO> getQnaList(PageDTO dto) {
+		
+		return this.sqlSession.selectList("admin_qnaList", dto);
+	}
+
+	@Override
+	public Admin_QNADTO getQnainquiry(int no) {
+	
+		return this.sqlSession.selectOne("qnaInquiry", no);
 	}
 
 
