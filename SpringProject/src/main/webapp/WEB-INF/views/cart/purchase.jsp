@@ -81,7 +81,7 @@ td, th {
 						<th>우편번호</th>
 						<td>
 							<input type="text" name="new_zip" id="new_zip" readonly="readonly">
-							<button onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
+							<button type="button" onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
 						</td>
 					</tr>
 	
@@ -106,7 +106,7 @@ td, th {
 						<th>쿠폰</th>
 						<td>
 							<input type="text" id="coupon_cont" readonly="readonly">
-							<button onclick="coupon_select()">쿠폰 선택</button>
+							<button type="button" onclick="coupon_select()">쿠폰 선택</button>
 							<input type="hidden" name="coupon_no" id="coupon_no">
 						</td>
 					</tr>

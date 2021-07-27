@@ -69,5 +69,5 @@ function newInfoDisplay() {
 
 // 쿠폰 선택
 function coupon_select() {
-	window.open("coupon_popup.do", "쿠폰 선택", "_blank");
+	window.open("coupon_popup.do", "쿠폰 선택", "_blank");	
 }
