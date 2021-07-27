@@ -13,7 +13,7 @@
 }
 
 /* nav_menu css */
-.nav_menu_x768 {
+.nav_menu_x768, .nav_menu_x576 {
 	display: none;
 }
 .nav_menu{
@@ -54,6 +54,9 @@
 	margin-left: 30px;
 	width: 100%;
 }
+.order_bar_x576 {
+	display: none;
+}
 .member_order #headName {
 	padding: 0 0 20px;
 	text-align: left;
@@ -69,7 +72,9 @@
 	padding: 4px 20px 0 0;
 	display: flex;
 }
-
+.member_order .select_day .select_date {
+	display: flex;
+}
 .member_order .select_day li {
 	padding: 0 10px;
 }
@@ -128,36 +133,22 @@
 	padding-top: 50px;
 	text-align: center;
 }
-.member_order .order_bar #reviewInfo,#reviewDate {
-	width: 30%;
-}
-.member_order .order_bar #review {
-	width: 40%;
-}
-.member_order .order_bar #reviewImg {
-	padding-left: 20px;
-}
-.member_order #review_btn {
-	padding: 0 25px;
-	background: transparent;
-	font-family:'Noto Sans KR', sans-serif;
-	border: 0;
-	outline: 0;
-	cursor: pointer;
-	color: blue;
-}
+
 
 /* member_orderDetail css */
 .member_orderDetail .order_detail h3{
 	padding: 0 0 20px;
 	text-align: left;
 }
+.member_orderDetail .order_deliver {
+	width: 50%;
+}
+
 .member_orderDetail .order_deliver h3 {
 	padding: 0 0 20px;
 	text-align: left;
 	border-bottom: 1px solid #ccc;
 	align-items: center;
-	width: 50%;
 }
 .member_orderDetail .order_detail ul {
 	display: flex;
@@ -170,42 +161,41 @@
 	font-weight: bold;
 	padding-right: 10px;
 }
-.order_detail .order_bar th{
+.order_detail .orderD_bar th{
 	padding: 10px;
 	border-top: 2px solid;
 	border-bottom: 1px solid #ccc;
 }
-.order_detail .order_bar td{
+.order_detail .orderD_bar td{
 	padding: 10px;
 }
-.order_detail .order_bar #orderinfo {
-	width: 40%;
+.order_detail .orderD_bar #orderinfo {
+	width: 46%;
 }
-.order_detail .order_bar #ordercoupon, #orderday, #orderprice {
-	width: 15%;
+.order_detail .orderD_bar #ordercoupon, #orderday, #orderprice {
+	width: 18%;
 }
-.order_detail .order_bar ul {
+.order_detail .orderD_bar ul {
 	display: flex;
 }
-.order_detail .order_bar img {
+.order_detail .orderD_bar img {
 	width: 100px;
 	height: 80px;
 	padding-left: 10px;
 }
-.order_detail .order_bar .proname {
-	padding: 10px 20px;
+.order_detail .orderD_bar .proname {
+	padding-left: 20px;
 	text-align: left;
 }
-.order_deliver .order_bar {
-	width: 50%;
+.order_deliver .orderD_bar {
 	margin-top: 20px;
 	text-align: left;
 }
-.order_deliver .order_bar tr{
+.order_deliver .orderD_bar tr{
 	padding: 10px;
 	border-bottom: 1px solid #ccc;
 }
-.order_deliver .order_bar td{
+.order_deliver .orderD_bar td{
 	padding: 10px;
 }
 
@@ -235,7 +225,7 @@
 }
 
 /* member_review css */
-/* 
+ 
 .member_review h3, .member_reviewCont h3{
 	padding: 0 0 20px;
 	text-align: left;
@@ -271,6 +261,9 @@
 }
 .member_review .select_button a {
 	padding: 4px 10px;
+}
+.member_review .select_day .select_date {
+	display: flex;
 }
 .member_review .select_day .on {
 	border : 1px solid black;
@@ -309,18 +302,25 @@
 	padding: 10px 20px;
 	text-align: left;
 }
-.member_reviewCont .review_bar {
-	margin-top: 20px;
-	text-align: left;
+.member_review .review_bar #reviewInfo,#reviewDate {
+	width: 30%;
 }
-.member_reviewCont .review_bar th{
-	padding: 10px;
-	border-bottom: 1px solid #ccc;
+.member_review .review_bar #review {
+	width: 40%;
 }
-.member_reviewCont .review_bar  td{
-	padding: 10px;
-	border-bottom: 1px solid #ccc;
+.member_review .review_bar #reviewImg {
+	padding-left: 20px;
 }
+.member_review #review_btn {
+	padding: 0 25px;
+	background: transparent;
+	font-family:'Noto Sans KR', sans-serif;
+	border: 0;
+	outline: 0;
+	cursor: pointer;
+	color: blue;
+}
+
 .member_reviewCont .review_bar img {
 	width: 100px;
 	height: 80px;
@@ -330,7 +330,21 @@
 	padding-top: 50px;
 	text-align: center;
 }
- */
+.member_reviewCont .review_bar {
+	padding: 20px 10px;
+}
+.member_reviewCont .review_bar th {
+	width: 15%;
+	padding: 10px 0;
+	border-bottom: 1px solid #ccc;
+}
+.member_reviewCont .review_bar td {
+	width: 85%;
+	padding: 10px 0;
+	text-align: left;
+	border-bottom: 1px solid #ccc;
+}
+
 
 /* member_review_write css */
 .review_star .off::before{
@@ -413,7 +427,7 @@
 	display: none;
 }
 
-.member_qna h3{
+.member_qna h3, .member_reviewCont h3{
 	padding: 0 0 20px;
 	text-align: left;
 	border-bottom: 2px solid;
@@ -485,7 +499,7 @@
 	cursor: pointer;
 	border: 1px solid #e5e5e5;
 }
-.member_info #submit_btnA, #reset_btnA, #submit_btnP, #reset_btnP, #submit_btnPwd, #reset_btnPWd {
+.member_info #submit_btnA, #reset_btnA, #submit_btnP, #reset_btnP, #submit_btnPwd, #reset_btnPwd {
 	background: #f1f1f1;
 	padding: 0 10px;
 	cursor: pointer;
@@ -542,14 +556,11 @@
 	font-size: 16px;
 }
 .member_info #pwd_after p{
-	margin: 0;
+	padding-bottom: 5px;
 }
 .member_info #phone_num {
 	width: 450px;
 	display: inline-block;
-}
-.member_info #pwd_after, #addr_after, #phone_after {
-	padding: 18px 0;
 }
 
 
@@ -723,7 +734,12 @@ input[id="agreeC"]:checked + label:before {
     	display: inline;
     	font-size: 15px;
     }
-    
+    th, td, p, span{
+    	font-size: 15px;
+    }
+    input[type="button"], input[type="submit"], input[type="text"], input[type="date"] {
+		font-size: 15px;
+	}
 	.nav_menu {
 		display: none;
 	}
@@ -736,48 +752,42 @@ input[id="agreeC"]:checked + label:before {
 	}
 	.nav_menu_x768 #nav_ul_x768 {
 		display: flex;
-		margin-block-start: 0;
-   		margin-block-end: 0;
+	}
+	.nav_menu_x768 #nav_ul_x768 a {
+		width: 20%;
 	}
 	.nav_menu_x768 li {
-		padding: 30px 18px;
+		padding: 30px 5px;
 		border-bottom: 0;
 	}
 	.nav_menu_x768 li:hover {
 		background: #ffddae;
 	}
     
-    .member_order .select_day #orderFirst, #orderLast {
-    	font-size: 15px;
-    }
-    .member_order {
+    .member_order, .member_review {
     	width: 90%;
     	text-align: left;
+    	padding-top: 25px;
     }
-    .member_order .select_day {
+    .member_order .select_day, .member_review .select_day {
     	display: inline-block;
     	margin: 0;
     	padding: 0 0 30px;
     }
-    .member_order .select_day li{
+    .member_order .select_day li, .member_review .select_day li{
     	padding: 0;
     }
-    .member_order .select_day .select_button {
-    	padding: 4px 0 20px;
+    .member_order .select_day .select_button, .member_review .select_day .select_button {
+    	padding: 20px 0;
     }
-    .member_order .select_day #searchBtn {
-    	position: absolute;
-    	top: 103.6%;
-    	right: 35%;
-    }
-   	.member_order .select_day #search_btn {
-    	font-size: 15px;
-    }
-    .member_order .order_bar th, .order_bar td {
-   		font-size: 15px;
+	.member_order .select_date #searchBtn, .member_review .select_day #searchBtn {
+		padding-left: 20px;
+	}
+
+    .member_order .order_bar th, .order_bar td, .member_review .review_bar th, .member_review .review_bar td {
    		text-align: center;
    	}
-   	.member_order .order_bar img {
+   	img {
    		width: 95px;
     	height: 75px;
     	padding-left: 30px;
@@ -795,14 +805,11 @@ input[id="agreeC"]:checked + label:before {
    		width: 40%;
    	}
    	
-   	.member_coupon, .member_delete, .member_qna {
+   	.member_coupon, .member_delete, .member_qna, .member_recent, .member_reviewCont, .member_info, .member_orderDetail, .member_like, .member_sns{
     	width: 90%;
     	font-size: 15px;
+    	padding-top: 25px;
     }
-    .member_coupon .coupon_bar th, .coupon_bar td, .member_qna td, .member_qna th {
-    	font-size: 15px;
-    }
-    
     .member_recent #allList #box{
 		width: 200px;
 	}
@@ -812,19 +819,129 @@ input[id="agreeC"]:checked + label:before {
 	}
 	
 	.member_info #cont, .member_info #phone_num {
-		width: 340px;
+		width: 320px;
+		display: inline-block;
 	}
 	
 	.member_info #pwd_after p {
 		width: 380px;
 	}
-	.member_info input[type="button"], .member_info input[type="submit"] {
-		font-size: 15px;
+	.member_orderDetail .order_deliver {
+		width: 100%;
 	}
 	
 }
 @media screen and (max-width : 576px) {
-  
+	.nav_menu_x768 {
+		display: none;
+	}
+	.nav_menu_x576 {
+		display: block;
+		text-align: left;
+		margin: 10px 30px;
+		padding-bottom: 20px;
+	}
+	.nav_menu_x576 li {
+		padding: 10px 0;
+	}
+	.nav_menu_x576 li:hover {
+		background: #ffddae;
+	}
+
+	.member_order .order_bar {
+		width: 90%;
+	}
+	.order_bar {
+		display: none;
+	}
+	.order_bar_x576 {
+		display: block;
+	}
+	.member_order .order_bar_x576 {
+		width: 100%;
+	}
+	.member_order .order_bar_x576 #tablecont:hover{
+		background: #ffddae;
+	}
+	.member_order .order_bar_x576 th{
+		padding: 10px;
+		border-bottom: 1px solid #ccc;
+	}
+	.member_order .order_bar_x576 td{
+		padding: 10px;
+	}
+	.member_order .order_bar_x576 #orderinfo {
+		width: 40%;
+	}
+	.member_order .order_bar_x576 #orderno, #orderdate, #orderstatus, #orderprice {
+		width: 15%;
+	}
+	.member_order .order_bar_x576 ul {
+		display: flex;
+	}
+	.member_order .order_bar_x576 img {
+		width: 100px;
+		height: 80px;
+	}
+	.member_order .order_bar_x576 .proname {
+		padding: 30px 0 30px 20px;
+	}
+	.member_order .order_bar_x576 #noHistory {
+		padding-top: 50px;
+		text-align: center;
+	}
+	.member_order .order_bar_x576 #orderno {
+   		width: 5%;
+   	}
+   	.member_order .order_bar_x576  #orderstatus, #orderdate {
+   		width: 30%;
+   	}
+   	.member_order .order_bar_x576  #orderinfo {
+   		width: 35%;
+   	}
+   	 .member_order .order_bar_x576  th, .order_bar_x576  td {
+   		font-size: 15px;
+   		text-align: center;
+   	}
+   	img {
+   		width: 85px;
+    	height: 65px;
+    	padding-left: 0;
+   	}
+   	.member_orderDetail .order_detail {
+   		width: 90%;
+   	}
+   	.member_qna .qna_bar td, .order_detail .orderD_bar td {
+   		padding: 10px 0;
+   	}
+   	.member_qna .qna_bar img {
+   		width: 85px;
+    	height: 65px;
+   	}
+   	.member_info #tag {
+		width: 150px;
+	}
+   	.on, .off{
+   		width: 308px;
+   	}
+   	.member_info #pwd_after p {
+   		width: 300px;
+   	}
+	.member_info #pwd_before #cont, #phone_before #cont {
+		display: inline-block;
+		width: 180px;
+	}
+	.member_info #addr_before #cont {
+		display: inline-block;
+		width: 180px;
+		padding-right: 8px;
+	}
+	.member_info #phone_num{
+		display: block;
+		margin-bottom: 10px;
+	}
+
+	
 }
 
 

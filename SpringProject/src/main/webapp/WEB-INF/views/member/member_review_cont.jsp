@@ -23,11 +23,11 @@
 						<table class="review_bar">
 						<c:set var="rlist" value="${ReviewCont }" />
 							<tr>
-								<th>리뷰제목</th>
+								<th>제목</th>
 								<td>${rlist.getReview_title() }</td>
 							</tr>
 							<tr>
-								<th>리뷰내용</th>
+								<th>내용</th>
 								<td>${rlist.getReview_cont() }</td>
 							</tr>
 							<tr>
@@ -36,11 +36,11 @@
 							</tr>	
 							<tr>
 								<th>별점</th>
-								<td>${rlist.getReview_star() }</td>
+								<td>${rlist.getReview_star() }점</td>
 							</tr>		
 							<tr>
 								<th>작성일</th>
-								<td>${rlist.getReview_date() }</td>
+								<td>${rlist.getReview_date().substring(0,10) }</td>
 							</tr>																									
 						</table>
 					</div> <!-- member_order END -->
