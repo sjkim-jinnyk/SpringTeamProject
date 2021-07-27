@@ -203,7 +203,9 @@ function loginCheck(){
 		alert('로그인 후 사용가능합니다.');
 		window.open("login_popup.do", "로그인", "_blank");
 		return;
-	}else {
+	} else if (${empty cList }) {
+		alert('주문 할 상품이 없습니다.');
+	} else {
 		location.href='purchase.do';
 	}
 }
