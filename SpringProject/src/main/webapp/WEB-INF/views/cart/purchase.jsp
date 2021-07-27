@@ -23,114 +23,121 @@ td, th {
 			<br> <br>
 			<h1>결제</h1>
 			<br> <br>
-			<table>
-				<tr>
-					<th><font color="blue">아이디 - 정기 결제시 필수</font></th>
-					<td><input type="text" id="id" readonly="readonly" value="${session_id }"></td>
-				</tr>
-			</table>
-			
-			<table>
-				<tr>
-					<th>배송지</th>
-					<td>
-						<span><input type="radio" name="rdAddrSetMod" checked="checked" onclick="memberInfoDisplay()">회원정보동일</span>
-						<span><input type="radio" name="rdAddrSetMod" onclick="newInfoDisplay()">새로입력</span>
-					</td>
-				</tr>
-			</table>
-			
-			<!-- 회원정보동일 -->
-			<table id="memberInfo">
-				<tr>
-					<th>이름</th>
-					<td><input type="text" id="name" readonly="readonly" value="${orderDTO.getOrder_mem_name() }"></td>
-				</tr>
-
-				<tr>
-					<th>전화번호</th>
-					<td><input type="text" id="phone" readonly="readonly" value="${orderDTO.getOrder_mem_phone() }"></td>
-				</tr>
-
-				<tr>
-					<th>우편번호</th>
-					<td><input id="zip"  type="text" readonly="readonly" value="${orderDTO.getOrder_zip() }"></td>
-				</tr>
-
-				<tr>
-					<th>주소</th>
-					<td><input id="addr" type="text" readonly="readonly" value="${orderDTO.getOrder_addr() }"></td>
-				</tr>
-			</table>
-			
-			<!-- 새로입력 -->
-			<table id="newInfo" style="display: none">
-				<tr>
-					<th>이름</th>
-					<td><input type="text" id="new_name"></td>
-				</tr>
-
-				<tr>
-					<th>전화번호</th>
-					<td><input type="text" id="new_phone"></td>
-				</tr>
-
-				<tr>
-					<th>우편번호</th>
-					<td>
-						<input id="new_zip"  type="text" readonly="readonly">
-						<button onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
-					</td>
-				</tr>
-
-				<tr>
-					<th>주소</th>
-					<td><input id="new_addr" type="text" readonly="readonly"></td>
-				</tr>
+			<form method="post" id="form"
+	      		action="<%=request.getContextPath() %>/order.do">
+				<table>
+					<tr>
+						<th><font color="blue">아이디 - 정기 결제시 필수</font></th>
+						<td><input type="text" name="id" id="id" readonly="readonly" value="${session_id }"></td>
+					</tr>
+				</table>
 				
-				<tr>
-					<th>상세주소</th>
-					<td><input id="new_addr_detail" type="text"></td>
-				</tr>
-			</table>
-			
-			<table>
-				<tr>
-					<th><font color="red">주문 상세내역 - 필수</font></th>
-					<td><input type="text" id="cont" readonly="readonly" value="${orderDTO.getOrder_content() }"></td>
-				</tr>
-
-				<tr>
-					<th>쿠폰</th>
-					<td>
-						<input type="text" id="coupon_cont" readonly="readonly">
-						<button onclick="coupon_select()">쿠폰 선택</button>
-					</td>
-				</tr>
-
-				<tr>
-					<th><font color="red">총 가격 - 필수</font></th>
-					<td><input type="text" id="price" readonly="readonly" value="${orderDTO.getOrder_price() }"></td>
-				</tr>
-
-				<tr>
-					<th>배송요일</th>
-					<td>
-						<span><input type="radio" name="rdDeliverDay" value="2" checked="checked">화</span>
-						<span><input type="radio" name="rdDeliverDay" value="4">목</span>
-					</td>
-				</tr>
-
-				<tr>
-					<th>배송주기</th>
-					<td>
-						<span><input type="radio" name="rdDeliverTerm" value="1" checked="checked">1주일</span>
-						<span><input type="radio" name="rdDeliverTerm" value="2">2주일</span>
-						<br>단건결제시 선택하지 않으셔도 됩니다.
-					</td>		
-				</tr>
-
-			</table>
+				<table>
+					<tr>
+						<th>배송지</th>
+						<td>
+							<span><input type="radio" name="rdAddrSetMod" checked="checked" onclick="memberInfoDisplay()" value="0">회원정보동일</span>
+							<span><input type="radio" name="rdAddrSetMod" onclick="newInfoDisplay()" value="1">새로입력</span>
+						</td>
+					</tr>
+				</table>
+				
+				<!-- 회원정보동일 -->
+				<table id="memberInfo">
+					<tr>
+						<th>이름</th>
+						<td><input type="text" name="name" id="name" readonly="readonly" value="${orderDTO.getOrder_mem_name() }"></td>
+					</tr>
+	
+					<tr>
+						<th>전화번호</th>
+						<td><input type="text" name="phone" id="phone" readonly="readonly" value="${orderDTO.getOrder_mem_phone() }"></td>
+					</tr>
+	
+					<tr>
+						<th>우편번호</th>
+						<td><input type="text" name="zip" id="zip" readonly="readonly" value="${orderDTO.getOrder_zip() }"></td>
+					</tr>
+	
+					<tr>
+						<th>주소</th>
+						<td><input type="text" name="addr" id="addr" readonly="readonly" value="${orderDTO.getOrder_addr() }"></td>
+					</tr>
+				</table>
+				
+				<!-- 새로입력 -->
+				<table id="newInfo" style="display: none">
+					<tr>
+						<th>이름</th>
+						<td><input type="text" name="new_name" id="new_name"></td>
+					</tr>
+	
+					<tr>
+						<th>전화번호</th>
+						<td><input type="text" name="new_phone" id="new_phone"></td>
+					</tr>
+	
+					<tr>
+						<th>우편번호</th>
+						<td>
+							<input type="text" name="new_zip" id="new_zip" readonly="readonly">
+							<button onclick="sample6_execDaumPostcode()">우편번호 찾기</button>
+						</td>
+					</tr>
+	
+					<tr>
+						<th>주소</th>
+						<td><input type="text" name="new_addr" id="new_addr" readonly="readonly"></td>
+					</tr>
+					
+					<tr>
+						<th>상세주소</th>
+						<td><input type="text" name="new_addr_detail" id="new_addr_detail"></td>
+					</tr>
+				</table>
+				
+				<table>
+					<tr>
+						<th><font color="red">주문 상세내역 - 필수</font></th>
+						<td><input type="text" name="cont" id="cont" readonly="readonly" value="${orderDTO.getOrder_content() }"></td>
+					</tr>
+	
+					<tr>
+						<th>쿠폰</th>
+						<td>
+							<input type="text" id="coupon_cont" readonly="readonly">
+							<button onclick="coupon_select()">쿠폰 선택</button>
+							<input type="hidden" name="coupon_no" id="coupon_no">
+						</td>
+					</tr>
+	
+					<tr>
+						<th><font color="red">총 가격 - 필수</font></th>
+						<td>
+							<input type="text" name="price" id="price" readonly="readonly" value="${orderDTO.getOrder_price() }">
+							<input type="hidden" id="price_before" value="${orderDTO.getOrder_price() }">
+						</td>
+					</tr>
+	
+					<tr>
+						<th>배송요일</th>
+						<td>
+							<span><input type="radio" name="rdDeliverDay" value="2" checked="checked">화</span>
+							<span><input type="radio" name="rdDeliverDay" value="4">목</span>
+						</td>
+					</tr>
+	
+					<tr>
+						<th>배송주기</th>
+						<td>
+							<span><input type="radio" name="rdDeliverTerm" value="1" checked="checked">1주일</span>
+							<span><input type="radio" name="rdDeliverTerm" value="2">2주일</span>
+							<br>단건결제시 선택하지 않으셔도 됩니다.
+						</td>		
+					</tr>
+	
+				</table>
+			</form>
 
 			<button id="pay_button">카카오 단건 결제</button>
 			<button id="pay_button2">카카오 정기 결제(구현중)</button>
