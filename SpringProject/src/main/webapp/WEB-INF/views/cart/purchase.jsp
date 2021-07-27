@@ -106,7 +106,7 @@ td, th {
 						<th>쿠폰</th>
 						<td>
 							<input type="text" id="coupon_cont" readonly="readonly">
-							<button onclick="coupon_select()">쿠폰 선택</button>
+							<button type="button" onclick="coupon_select()">쿠폰 선택</button>
 							<input type="hidden" name="coupon_no" id="coupon_no">
 						</td>
 					</tr>
