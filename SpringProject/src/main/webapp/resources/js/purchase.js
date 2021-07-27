@@ -51,20 +51,20 @@ function sample6_execDaumPostcode() {
 function memberInfoDisplay() {
 	$('#memberInfo').attr('style', "display:'';");
 	$('#newInfo').attr('style', "display:none;");
-	
+    
 	$('#pay_button').show();
-	$('#pay_button2').show();
+	//$('#pay_button2').show();
 	$('#pay_button_new').hide();
-	$('#pay_button2_new').hide();
+	//$('#pay_button2_new').hide();
 }
 function newInfoDisplay() {
-	$('#newInfo').attr('style', "display:'';");
 	$('#memberInfo').attr('style', "display:none;");
+	$('#newInfo').attr('style', "display:'';");
 	
 	$('#pay_button').hide();
-	$('#pay_button2').hide();
+	//$('#pay_button2').hide();
 	$('#pay_button_new').show();
-	$('#pay_button2_new').show();
+	//$('#pay_button2_new').show();
 }
 
 // 쿠폰 선택
