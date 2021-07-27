@@ -695,6 +695,7 @@ input[id="agreeC"]:checked + label:before {
 .member_sns #kakaoChkOn span{
 	padding-left: 80px;
 }
+
 /* member_recent css */
 .member_recent h3{
 	padding: 0 0 20px;
@@ -717,8 +718,15 @@ input[id="agreeC"]:checked + label:before {
 	height: 125px;
 	padding-left: 10px;
 }
-.member_recent input[type="submit"] {
-	font-family: "Font Awesome 5 Free";
+.member_recent .cartSubmit {
+	background: url("../img/member/cart.png") no-repeat;
+	width: 50px;
+	height: 40px;
+	border: 0;
+	cursor: pointer;
+}
+.member_recent #cartList {
+	padding: 5px 0 0 10px;
 }
 .member_recent #noHistory {
 	padding-top: 50px;
