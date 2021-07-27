@@ -144,6 +144,7 @@
 					</tr>
 	
 				</table>
+				
 			</form>
 			
 			<br>
@@ -154,6 +155,7 @@
 				
 				<button id="pay_button_new" hidden="" class="pay_button"></button>
 				<!-- <button id="pay_button2_new" hidden="" class="pay_button">카카오 정기 결제(구현중)_new</button> -->
+				
 			</div>
 		</div>
 		<jsp:include page="../include/footer.jsp" />
