@@ -199,12 +199,15 @@ function total() {
 }
 
 function loginCheck(){
+	console.log('check');
 	if('${session_id}' == ''){
 		alert('로그인 후 사용가능합니다.');
 		window.open("login_popup.do", "로그인", "_blank");
 		return;
+	}else {
+		console.log("결제진입");
+		location.href='/purchase.do';
 	}
 }
-
 </script>
 </html>
