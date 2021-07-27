@@ -82,7 +82,7 @@
 							
 							<div class="btn-wrapper">
 								<button type="submit" class="cont-btn btn-cart" formaction="add_cart.do">장바구니</button>
-								<button type="submit" class="cont-btn btn-purchase" formaction="#">구매하기</button>
+								<button type="button" class="cont-btn btn-purchase" onclick="loginCheck();">구매하기</button>
 								<c:if test="${dto.getLike_check() eq 0 }"><button class="like-btn" type="button" id="like-btn" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
 								<c:if test="${dto.getLike_check() > 0 }"><button type="button" id="like-btn" class="like-btn like-checked" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
 							</div>
@@ -429,6 +429,17 @@ function writeQna(product_no) {
 	}else {
 		alert('로그인 후 작성 가능합니다.');
 		window.open("login_popup.do", "질문글 답변하기", "_blank");
+	}
+}
+
+function loginCheck(){
+	console.log("check");
+	if('${session_id}' == ''){
+		alert('로그인 후 사용가능합니다.');
+		window.open("login_popup.do", "로그인", "_blank");
+		return;
+	}else {
+		location.href='purchase.do';
 	}
 }
 </script>
