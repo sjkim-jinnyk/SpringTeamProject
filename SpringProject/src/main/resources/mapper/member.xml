@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="couponCount" resultType="int">
-		select count(*) from coupon_own where own_mem = #{id}
+		select count(*) from coupon_own where own_mem = #{id} and own_check = 'y'
 	</select>
 	
 	<select id="reviewCount" resultType="int">
@@ -35,7 +35,7 @@
 	</select>
 	
 	<select id="couponList" resultType="com.spring.model.CouponOwnDTO">
-		select own_coupon from coupon_own where own_mem = #{id}
+		select own_coupon from coupon_own where own_mem = #{id} and own_check = 'y'
 	</select>
 	
 	<select id="couponInfo" parameterType="ArrayList" resultType="com.spring.model.CouponDTO">
