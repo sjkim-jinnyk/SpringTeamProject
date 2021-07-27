@@ -33,7 +33,7 @@
 								</li>
 							</ul>
 							
-							<table class="order_bar">
+							<table class="orderD_bar">
 								<tr>
 									<th id="orderinfo">상품정보</th><th id="ordercoupon">쿠폰할인</th>
 									<th id="orderprice">주문금액</th><th id="orderday">배송요일(주기)</th>
@@ -43,8 +43,8 @@
 										<a href="<%=request.getContextPath() %>/product_cont.do?no=${Product.getPro_no()}">
 											<ul>
 												<li><img class="img" src="resources/img/upload/${Product.getPro_img() }"></li>
-												<li class="proname">${Product.getPro_name() }<br>
-																	옵션: ${Order.getOrder_content() }</li>
+												<li class="proname">${Product.getPro_name() }<br><br>
+																	옵션: <br>${Order.getOrder_content() }</li>
 											</ul>
 										</a>
 									</td>
@@ -92,7 +92,7 @@
 						<br><br>
 						<div class="order_deliver">
 							<h3>배송지 정보</h3>
-							<table class="order_bar">
+							<table class="orderD_bar">
 								<tr>
 									<th>이름</th>
 									<td>${myPage.getMemName() }</td>

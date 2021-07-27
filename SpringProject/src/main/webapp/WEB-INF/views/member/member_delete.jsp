@@ -42,7 +42,7 @@
 								<div class="agreeCheck">
 									<input type="hidden" id="noagreeC" name="agreeC" value="0">
 									<input type="checkbox" id="agreeC" name="agreeC" value="1">
-									<label for="agreeC">회원탈퇴 유의사항을 모두 확인하였으며, 울퉁불퉁's 회원탈퇴에 동의합니다.</label>
+									<label for="agreeC">유의사항을 모두 확인하였으며, 회원탈퇴에 동의합니다.</label>
 								</div>
 							</div>
 							<input id="deleteBtn" type="submit" value="삭제">

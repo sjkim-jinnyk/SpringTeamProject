@@ -109,7 +109,7 @@
 	</delete>
 	
 	<select id="qnaList" resultType="com.spring.model.QnaDTO">
-		select * from qna where qna_writer = #{id} order by qna_no desc
+		select * from qna where qna_writer = #{id} order by qna_group desc
 	</select>
 	
 	<select id="qnaProductInfo" parameterType="int" resultType="com.spring.model.ProductDTO">
@@ -126,7 +126,7 @@
 	
 	<select id="qnaReplyList" parameterType="int" resultType="com.spring.model.QnaDTO">
 		<![CDATA[
-			select * from qna where qna_group = #{qna_no} and qna_step > 0
+			select * from qna where qna_group = #{qna_no} and qna_step > 0 
 		]]>
 	</select>
 	<select id="orderSearchList" parameterType="java.util.HashMap" resultType="com.spring.model.OrderDTO">

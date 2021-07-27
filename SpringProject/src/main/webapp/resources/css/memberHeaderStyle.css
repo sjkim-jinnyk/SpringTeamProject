@@ -4,6 +4,9 @@
 .header_title {
 	text-align: left;
 }
+.member_header_x576 {
+	display: none;
+}
 .member_header {
 	font-family:'Noto Sans KR', sans-serif;
 	font-size : 18px;
@@ -66,6 +69,37 @@
 	.my_menu li {
 		padding: 0 10px;
 	}
+	
+}
+
+@media screen and (max-width : 576px) {
+	.member_header {
+		display: none;
+	}
+	.member_header_x576 {
+		display: block;
+	}
+	.info_x576 {
+		display: flex;
+		margin: 20px 10px;
+		padding-bottom: 10px;
+	}
+	.info_x576 .user_info {
+		padding-right: 200px;
+	}
+	.info_x576 i {
+		font-size: 70px;
+	}
+	.my_menu {
+		margin: 0 10px 20px;
+		padding: 20px 0;
+		background: #ffdeae;
+		justify-content: space-between;
+	}
+	.my_menu .menu_bar {
+		padding: 0 20px;
+	}
+
 	
 }
 
