@@ -19,8 +19,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.model.AdminDAO;
 import com.spring.model.AdminDTO;
+import com.spring.model.Admin_CouponDTO;
 import com.spring.model.Admin_QNADTO;
 import com.spring.model.CateDTO;
+import com.spring.model.CouponDTO;
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDAO;
 import com.spring.model.ProductDTO;
@@ -143,8 +145,56 @@ public class AdminController {
 		
 	}
 	
+	@RequestMapping("admin_coupon_list.do")
+	public String coupon(HttpServletRequest request,HttpSession session, Model model) {
+
+		int page = 0;
+
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		} else {
+			page = 1;
+		}
+
+		rowsize = 4;
+		totalRecord = this.dao.getCouponCount();
+
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+		List<Admin_CouponDTO> admincouponlist = this.dao.getAdminCouponList(dto);
+
+		model.addAttribute("page", dto);
+		model.addAttribute("CouponList", admincouponlist);
+
+		return "admin/admin_couponlist";
+
+	}
 	
+		
+		@RequestMapping("create_coupon.do")
+		public String write(Model model) {
+			
+			
+			return "admin/admin_coupon_create";
+		}
 	
+	@RequestMapping("create_coupon_ok.do")
+	public void create_coupon(Admin_CouponDTO dto, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		int result = this.dao.Create_Coupon(dto);
+		
+		if(result > 0) {
+			out.println("<script>");
+			out.println("location.href='admin_coupon_list.do'");
+			out.println("</script>");
+		}else {
+			out.println("<script>");
+			out.println("alert('카테고리 등록 실패!')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+	}
 	
 	
 	

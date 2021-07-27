@@ -134,5 +134,24 @@ public class AdminDAOImpl implements AdminDAO{
 		return this.sqlSession.selectOne("qnaInquiry", no);
 	}
 
+	@Override
+	public int getCouponCount() {
+		
+		return this.sqlSession.selectOne("coupon_count");
+	}
+	
+	@Override
+	public List<Admin_CouponDTO> getAdminCouponList(PageDTO dto) {
+		
+		return this.sqlSession.selectList("admin_couponlist", dto);
+	}
+
+	@Override
+	public int Create_Coupon(Admin_CouponDTO dto) {
+	
+		return this.sqlSession.insert("admin_create_coupon", dto);
+	}
+
+
 
 }

@@ -39,7 +39,7 @@
 							<li><a href="product_insert.do">상품 등록</a></li>
 							<li><a href="category_list.do">카테고리 관리</a></li>
 						</ul></li>
-					<li><a href="#">쿠폰 발행</a></li>
+					<li><a href="admin_coupon_list.do">쿠폰 목록</a></li>
 
 					<li><a href="#pageSubmenu" data-toggle="collapse"
 						aria-expanded="false" class="dropdown-toggle">게시판</a>
