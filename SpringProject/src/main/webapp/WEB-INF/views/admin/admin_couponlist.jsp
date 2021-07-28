@@ -49,7 +49,7 @@
 							<tr>
 								<td>${dto.getCoupon_no() }</td>
 								<td>${dto.getCoupon_code() }</td>
-								<td>${dto.getCoupon_type() }%</td>
+								<td>${dto.getCoupon_type() }<a>%</a></td>
 								<td>${dto.getCoupon_cont() }</td>
 							</tr>
 						</c:forEach>
