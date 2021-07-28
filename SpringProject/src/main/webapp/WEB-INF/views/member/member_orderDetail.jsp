@@ -40,13 +40,15 @@
 								</tr>
 								<tr>
 									<td>
-										<a href="<%=request.getContextPath() %>/product_cont.do?no=${Product.getPro_no()}">
+										<c:forEach items="${Product }" var="pro">
+										<a href="<%=request.getContextPath() %>/product_cont.do?no=${pro.getPro_no()}">
 											<ul>
-												<li><img class="img" src="resources/img/upload/${Product.getPro_img() }"></li>
-												<li class="proname">${Product.getPro_name() }<br><br>
-																	옵션: <br>${Order.getOrder_content() }</li>
+												<li><img class="img" src="resources/img/upload/${pro.getPro_img() }"></li>
+												<li class="proname">${pro.getPro_name() }</li>
 											</ul>
 										</a>
+										<br>
+										</c:forEach>
 									</td>
 									<td>${CouponCont.getCoupon_cont() }</td>
 									<td><fmt:formatNumber value="${Order.getOrder_price() }" /> 원</td>

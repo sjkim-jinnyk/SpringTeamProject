@@ -23,7 +23,8 @@ public interface MemberDAO {
 	public List<OrderDTO> getOrderList(String id);							// 특정 회원 주문 리스트 호출 메서드
 	public List<OrderDTO> getOrderSearchList(Map map);						// 주문날짜로 주문내역 호출 
 	public OrderDTO orderDetail(int no);									// 주문번호에 해당하는 주문 상세내역 조회
-	public OrderDetailDTO orderProno(int no);								// 주문번호로 구매한 제품번호 조회
+	public List<OrderDetailDTO> orderProno(int no);								// 주문번호로 구매한 제품번호 조회
+	public ProductDTO orderProInfo(int prono);
 	
 	// coupon 
 	public List<CouponOwnDTO> getCouponList(String id);						// 특정 회원 쿠폰 리스트 호출 메서드

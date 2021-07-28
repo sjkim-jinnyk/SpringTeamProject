@@ -157,6 +157,10 @@
 		select * from ordert where order_no = #{no}
 	</select>
 	
+	<select id="orderProInfo" resultType="com.spring.model.ProductDTO">
+		select * from product where pro_no = #{prono}
+	</select>
+	
 	<select id="orderProNO" resultType="com.spring.model.OrderDetailDTO">
 		select * from order_detail where order_no = #{no}
 	</select>

@@ -156,10 +156,14 @@ public class MemberController {
 		MemberDTO dto = this.dao.getMemberInfo(id);
 
 		OrderDTO order = this.dao.orderDetail(no);
-		OrderDetailDTO prono = this.dao.orderProno(no);
+		List<OrderDetailDTO> prono = this.dao.orderProno(no);
 		CouponDTO couponCont = this.dao.couponCont(order.getCoupon_no());
 
-		ProductDTO product = this.dao.getQnaProductInfo(prono.getOrder_pro_no());
+		List<ProductDTO> product = new ArrayList<ProductDTO>();
+		for(int i=0; i<prono.size();i++) {
+			product.add(this.dao.orderProInfo(prono.get(i).getOrder_pro_no())); 
+		}
+				
 
 		model.addAttribute("Order", order);
 		model.addAttribute("Product", product);

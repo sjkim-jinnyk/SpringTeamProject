@@ -99,10 +99,18 @@ public class MemberDAOImpl implements MemberDAO{
 	
 	// 주문번호로 제품 번호 조회
 	@Override
-	public OrderDetailDTO orderProno(int no) {
+	public List<OrderDetailDTO> orderProno(int no) {
 
-		return this.sqlSession.selectOne("orderProNO", no);
+		return this.sqlSession.selectList("orderProNO", no);
 	}
+	
+	// 주문번호로 제품 번호 조회
+	@Override
+	public ProductDTO orderProInfo(int prono) {
+
+		return this.sqlSession.selectOne("orderProInfo", prono);
+	}
+		
 	// 주문번호로 주문 정보 호출 메서드(list 안 주문번호)
 	@Override
 	public List<OrderDetailDTO> getOrderDetail(List<OrderDTO> list) {
