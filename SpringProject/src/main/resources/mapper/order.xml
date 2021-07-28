@@ -6,6 +6,10 @@
  
 <mapper namespace="com.spring.model.OrderDAO">
 	
+	<select id="countOrderNo" resultType="int">
+		select count(order_no) from ordert
+	</select>
+	
 	<select id="setOrderNo" resultType="int">
 		select max(order_no) + 1 from ordert
 	</select>

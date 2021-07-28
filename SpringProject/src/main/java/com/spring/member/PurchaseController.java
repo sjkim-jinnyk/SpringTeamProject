@@ -118,8 +118,12 @@ public class PurchaseController {
 		int rdAddrSetMod = Integer.parseInt(request.getParameter("rdAddrSetMod"));
 		
 		// 주문번호 할당
-		int order_no = this.orderDAO.setOrderNo();
-		
+		int count = this.orderDAO.countOrderNo();
+		int order_no = 0;
+		if (count > 0) {
+			order_no = this.orderDAO.setOrderNo();
+		}
+
 		// 주문내역 입력
 		int check1 = 0;
 		

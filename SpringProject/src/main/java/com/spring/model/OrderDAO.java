@@ -2,6 +2,7 @@ package com.spring.model;
 
 public interface OrderDAO {
 	
+	public int countOrderNo();					// 주문 갯수 체크
 	public int setOrderNo();					// 추가할 주문번호 지정
 	public int insertOrder(OrderDTO dto);				// 주문내역 추가
 	public int insertOrderDetail(OrderDetailDTO dto);	// 주문 상세내역 추가
