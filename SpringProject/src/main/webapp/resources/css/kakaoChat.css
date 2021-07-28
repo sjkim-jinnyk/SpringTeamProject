@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.floating_button {
+	position: fixed;
+	bottom: 20px;
+	right: 15px;
+}
+
+.kakao_chat_button {
+	background: url( "../img/kakaopay/consult_large_yellow_pc.png" ) no-repeat;
+	border: none;
+	width: 128px;
+	height: 58px;
+}

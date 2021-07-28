@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/memberStyle.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
 <link rel="stylesheet" href="resources/css/include.css?after">
+<link rel="stylesheet" href="resources/css/kakaoChat.css?after">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <title>Insert title here</title>
 </head>
@@ -98,7 +99,13 @@ $(document).ready(function(){
 			
 		</div>
 		
+		<!-- 카카오톡 상담 아이콘 -->
+		<div class="floating_button">
+			<button class="kakao_chat_button" onclick="chat()"></button>
+		</div>
+		
 
 </body>
 <script type="text/javascript" src="resources/js/common.js"></script>
+<script type="text/javascript" src="resources/js/kakao.js?after"></script>
 </html>
