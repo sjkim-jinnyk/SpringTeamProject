@@ -96,7 +96,7 @@
 				</c:if>
 				<c:if test="${empty List }">
 				<tr>
-					<td>등록된 상품이 없습니다.</td>
+					<td colspan="9">등록된 상품이 없습니다.</td>
 				</tr>
 				</c:if>
 				</table>

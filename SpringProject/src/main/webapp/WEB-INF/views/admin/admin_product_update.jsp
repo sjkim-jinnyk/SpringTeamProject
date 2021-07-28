@@ -90,8 +90,10 @@
 							</td>
 						</tr>
 						<tr>
-							<th>내 용</th>
-							<td colspan="3">
+							 <th>내용</th>
+						</tr>
+						<tr>
+							<td colspan="4">
 								<textarea id="ck_editor" rows="5" cols="80" name="pro_cont">${dto.getPro_cont() }</textarea>
 								<script type="text/javascript">
 									CKEDITOR.replace('ck_editor',{

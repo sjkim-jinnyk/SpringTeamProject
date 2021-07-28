@@ -38,10 +38,8 @@
 							
 								<span class="cont-info-title">${dto.getPro_name() }</span><br>
 								<span class="cont-info-price">가격</span>
-								<span id="price" class="cont-info-price"><fmt:formatNumber value="${dto.getPro_output_price() }" /> 원</span><br>
-								<br>
+								<span id="price" class="cont-info-price"><fmt:formatNumber value="${dto.getPro_output_price() }" /> 원</span>
 								<table>
-								
 									<tr>
 										<th>택배배송</th>
 										<td>무료배송</td>
@@ -63,13 +61,10 @@
 								</table>
 							</div>
 							
-							<hr class="hr1">
-							<span>수량</span>
 							<div class="cont-amount">
-							
-								<button type="button" onclick="count('minus');" value="-"><i class="fas fa-minus"></i></button>
+								<button class="minus-btn" type="button" onclick="count('minus');" value="-"><i class="fas fa-minus"></i></button>
 								<input type="text" id="cart_amount" class="cart_amount" name="cart_amount" value="1">
-								<button type="button" onclick="count('plus');" value="+"><i class="fas fa-plus"></i></button>
+								<button class="plus-btn" type="button" onclick="count('plus');" value="+"><i class="fas fa-plus"></i></button>
 							</div>
 							
 							<div class="cont-total">
@@ -134,7 +129,10 @@
 										<span class="personal-star">
 											<c:forEach begin="1" end="${dto.getReview_star() }" ><i class="fas fa-star star-selected"></i></c:forEach><c:forEach begin="1" end="${5-dto.getReview_star() }" ><i class="fas fa-star star-deseleted"></i></c:forEach>
 										</span>&nbsp;
-										<span class="mem-id">${dto.getReview_writer().substring(0,3) }****</span> <br>
+										<span class="mem-id">
+											<c:if test="${dto.getReview_writer() ne session_id && session_id ne 'admin' }">${dto.getReview_writer().substring(0,3) }****</c:if>
+											<c:if test="${dto.getReview_writer() eq session_id || session_id eq 'admin' }">${dto.getReview_writer() }</c:if>
+										</span> <br>
 										<div id="review-${status.index }" class="review-div">
 											<div class="cont-div"><span class="review-cont"><a href="javascript:void(0);" onclick="showReview(${status.index });"><c:out value="${dto.getReview_cont() }" /></a></span></div>
 										
@@ -161,7 +159,7 @@
 						</ul>
 						</c:if>
 						<c:if test="${empty review }" >
-							<div style="text-align:center;">작성된 후기가 없습니다.</div>
+							<div style="text-align:center; font-size: 15px;">작성된 후기가 없습니다.</div>
 						</c:if>
 						
 						<hr class="hr2">
@@ -202,7 +200,10 @@
 										<span class="personal-star">
 											<c:forEach begin="1" end="${dto.getReview_star() }" ><i class="fas fa-star star-selected"></i></c:forEach><c:forEach begin="1" end="${5-dto.getReview_star() }" ><i class="fas fa-star star-deseleted"></i></c:forEach>
 										</span> &nbsp;
-										<span class="mem-id">${dto.getReview_writer().substring(0,3) }****</span> <br>
+										<span class="mem-id">
+											<c:if test="${dto.getReview_writer() ne session_id && session_id ne 'admin' }">${dto.getReview_writer().substring(0,3) }****</c:if>
+											<c:if test="${dto.getReview_writer() eq session_id || session_id eq 'admin' }">${dto.getReview_writer() }</c:if>
+										</span> <br>
 										
 										<div id="reviews-${status.index }" class="review-div">
 											<div class="cont-div"><span class="review-cont" class="review-cont"><a href="javascript:void(0);" onclick="showReview(${status.index });"><c:out value="${dto.getReview_cont() }" /></a></span></div>
@@ -288,7 +289,10 @@
 								<c:if test="${dto.getQna_writer() ne session_id && session_id ne 'admin' && dto.getQna_secret() eq 0 }"><a class="${status.index }" href="javascript:void(0);" onclick="show(${status.index});">${dto.getQna_title() }</a></c:if>
 								<c:if test="${dto.getQna_writer() ne session_id && session_id ne 'admin' && dto.getQna_secret() eq 1 }">상품관련 문의입니다. <c:if test="${dto.getQna_secret() eq 1 }"><i class="fas fa-lock"></i></c:if></c:if>
 							</td>
-							<td class="qna-writer">${dto.getQna_writer().substring(0,3) }****</td>
+							<td class="qna-writer">
+								<c:if test="${dto.getQna_writer() ne session_id && session_id ne 'admin' }">${dto.getQna_writer().substring(0,3) }****</c:if>
+								<c:if test="${dto.getQna_writer() eq session_id || session_id eq 'admin' }">${dto.getQna_writer() }</c:if>
+							</td>
 							<td class="qna-date">
 								<fmt:parseDate value="${dto.getQna_date() }" pattern="yyyy-MM-dd HH:mm:ss" var="date" />
 								<fmt:formatDate value="${date }" pattern="yyyy.MM.dd" />

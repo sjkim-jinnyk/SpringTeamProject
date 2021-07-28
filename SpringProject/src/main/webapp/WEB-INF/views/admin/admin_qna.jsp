@@ -41,8 +41,9 @@
 				
 				<table class="table table-hover">
 					<tr>
+						<th>글 번호</th>
 						<th>작성자</th>
-						<th>상품 번호</th>
+						<th>카테고리</th>
 						<th>글 제목</th>
 						<th>작성일자</th>
 					</tr>
@@ -51,8 +52,9 @@
 					<c:if test="${!empty list }">
 						<c:forEach items="${list }" var="dto">
 							<tr>
+								<td>${dto.getQna_no() }
 								<td>${dto.getQna_writer() }</td>
-								<td>${dto.getQna_pro() }</td>
+								<td>${dto.getQna_category_no() }</td>
 								<td><c:if test="${dto.getQna_step() > 0 }">ㄴ 답변 : </c:if>
 									<a href="<%=request.getContextPath() %>/admin_qna_Inquiry.do?no=${dto.getQna_no()}&page=${Paging.getPage()}">${dto.getQna_title() }</a></td>
 								<td>${dto.getQna_date().substring(0,10) }</td>
