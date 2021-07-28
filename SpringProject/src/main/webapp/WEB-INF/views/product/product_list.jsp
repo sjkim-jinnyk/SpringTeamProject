@@ -27,12 +27,12 @@
 					<div class="category">
 						<span class="category-title">Department</span>
 						<ul>
-							<li><a class="category-menu <c:if test="${page.getNo() eq no }">cate-selected</c:if>" href="product_list.do">전체 상품</a></li>
+							<li><a class="category-menu <c:if test="${page.getNo() eq 0 }">cate-selected</c:if>" href="product_list.do">전체 상품</a></li>
 						
 							<c:if test="${!empty cList }">
 								<c:forEach items="${cList }" var="dto">
 									<li><a class="category-menu 
-										<c:if test="${dto.getCate_no() eq no }">cate-selected</c:if>
+										<c:if test="${dto.getCate_no() eq page.getNo() }">cate-selected</c:if>
 									 " href="product_list.do?no=${dto.getCate_no() }">${dto.getCate_name() }</a></li>
 								</c:forEach>
 							</c:if>

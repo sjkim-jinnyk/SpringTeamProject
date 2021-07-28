@@ -55,7 +55,7 @@
 						
 						<c:if test="${empty List }">
 						<tr>
-							<td>등록된 카테고리가 없습니다.</td>
+							<td colspan="3">등록된 카테고리가 없습니다.</td>
 						</tr>
 						</c:if>
 					

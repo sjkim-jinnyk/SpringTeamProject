@@ -37,7 +37,7 @@
 								<div class="pro-check">
 									<input id="checkAll" type="checkbox" onclick="checkAll()">
 								</div>
-								
+								<div class="cart-wrap">
 								<div class="pro-cont cart-title">
 									상품 정보
 								</div>
@@ -53,7 +53,7 @@
 								<div class="pro-total cart-title">
 									합계
 								</div>
-								
+								</div>
 								<div class="pro-cancel cart-title"></div>
 							</div>
 						</li>
@@ -68,11 +68,11 @@
 						<li>
 							<div class="history" id="history-${status.index }">
 								<input id="cart-no-${status.index }" type="hidden" value="${dto.getCart_no() }">
-								
 								<div class="pro-check cart-in">								
 									<input name="check" type="checkbox" value="${dto.getCart_no() }">
 								</div>
 								
+								<div class="cart-wrap">
 								<div class="pro-cont">
 									<a href="<%=request.getContextPath()%>/product_cont.do?no=${pList[status.index].getPro_no()}"><img src="resources/img/upload/${pList[status.index].getPro_img() }"></a>
 									
@@ -85,20 +85,22 @@
 								</div>
 								
 								<div class="cart-price cart-in">
-									<fmt:formatNumber value="${pList[status.index].getPro_output_price() }" />원
+									<span class="hidden-title">가격</span><span class="price-font"><fmt:formatNumber value="${pList[status.index].getPro_output_price() }" />원</span>
 								</div>
 								
 								<div class="pro-btn cart-in">
+									<span class="hidden-title">수량</span>
 										<button type="button" onclick="count('m', ${status.index }, ${dto.getCart_no() })"><i class="fas fa-minus"></i></button>
 										<input class="cart_amount" id="cart-amount-${status.index }" name="cart_amount" value="${dto.getCart_amount() }">
 										<button type="button" onclick="count('p', ${status.index }, ${dto.getCart_no() })"><i class="fas fa-plus"></i></button>
 								</div>
 								
 								<div class="pro-total cart-in">
+									<span class="hidden-title">합계</span>
 									<input type="hidden" id="cart-price-${status.index }" value="${pList[status.index].getPro_output_price() }">
 									<span id="total-price-${status.index }"><fmt:formatNumber value="${pList[status.index].getPro_output_price() * dto.getCart_amount() }" /></span>원
 								</div>
-								
+								</div>
 								<div class="pro-cancel cart-in">
 									<button type="button" onclick="location.href='cart_delete.do?no=${pList[status.index].getPro_no() }'"><i class="fas fa-times"></i></button>
 								</div>

@@ -26,10 +26,11 @@
 			<div class="search-box">
 				<form method="post" action="product_search.do" >	
 					<i class="fas fa-search"></i>
-					<input id="search" class="search" type="search" name="k" placeholder="'${keyword }' 에 대한 통합 검색결과입니다.">
+					<input id="search" class="search" type="search" name="k" placeholder="<c:if test="${!empty List }"> '${keyword }' 에 대한 통합 검색 결과입니다.</c:if><c:if test="${empty List }"> '${keyword }' 에 해당하는 상품 검색 결과가 없습니다.</c:if>">
 				</form>
 			</div>
 			
+			<div class="product-wrapper">
 			<c:if test="${!empty List }">
 				<c:forEach items="${List }" var="dto">
 					<div class="product">
@@ -53,10 +54,7 @@
 					</div>
 				</c:forEach>
 			</c:if>
-			<c:if test="${empty List }">
-				검색된 상품이 없습니다.
-			</c:if>
-			
+			</div>
 			
 			<%-- Pagination --%>	
 			<div class="pagination">
