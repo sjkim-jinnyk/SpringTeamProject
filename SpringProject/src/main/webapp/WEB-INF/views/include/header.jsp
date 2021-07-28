@@ -59,11 +59,6 @@ function showMenu(){
 				<a href="<%=request.getContextPath()%>/about.do">ABOUT</a>
 				<a href="<%=request.getContextPath()%>/product_list.do">SHOP</a>
 				<a href="<%=request.getContextPath()%>/review_list.do">REVIEW</a>
-				
-				<c:if test="${dto.getMem_id().equals('admin') }">
-					<a href="<%=request.getContextPath() %>/admin_list.do">관리자</a>
-				</c:if>
-				
 				<a id="search-btn" href="javascript:void(0)" onclick="showSearch();">검색</a>
 				
 				<!-- <div id="drop_menu">
@@ -87,7 +82,13 @@ function showMenu(){
 					<c:set var="id" value="${session_id }"  />
 					<a href="<%=request.getContextPath()%>/member_home.do">MYPAGE</a>
 					<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
-					<span class="welcome"><span>${dto.getMem_name() }</span>님 환영합니다. </span>
+					<c:if test="${dto.getMem_id() ne 'admin' }"><span class="welcome"><span>${dto.getMem_name() }</span>님 환영합니다. </span></c:if>
+									
+				<c:if test="${dto.getMem_id().equals('admin') }">
+					<a href="<%=request.getContextPath() %>/admin_list.do"><span class="welcome"><span>관리자</span></span></a>
+				</c:if>
+				
+					
 				</c:if>
 					
 				<div id="search" style="display: none;">
@@ -104,7 +105,9 @@ function showMenu(){
 			<div id="m_menu"> <!-- 모바일 메뉴바 -->
 				<a id="menu_icon2" href="javascript:void(0)" onclick="showMenu();"><img src="resources/img/main/menu2.png"></a>
 				
-				<span class="welcome"><span>${dto.getMem_name() }</span>님 환영합니다. </span>
+				<c:if test="${!empty dto }">
+					<c:if test="${dto.getMem_id() ne 'admin' }"><span class="welcome"><span>${dto.getMem_name() }</span>님 환영합니다. </span></c:if>
+				</c:if>
 				
 				<a href="<%=request.getContextPath()%>/about.do">ABOUT</a>
 				<a href="<%=request.getContextPath()%>/product_list.do">SHOP</a>

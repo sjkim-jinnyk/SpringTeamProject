@@ -39,7 +39,8 @@
 						</ul>
 					</div>
 					
-					<div class="product-wrapper">			
+					<div class="product-wrapper">	
+					<div class="pro-wrapper">		
 						<c:if test="${!empty List }">
 							<c:forEach items="${List }" var="dto" varStatus="status">
 								<div class="product">
@@ -65,7 +66,7 @@
 						<c:if test="${empty List }">
 							상품 준비 중입니다.
 						</c:if>
-						
+						</div>
 					
 						<%-- Pagination --%>	
 						<div class="pagination">
@@ -103,9 +104,10 @@
 <script type="text/javascript">
 function likeCheck(product_no, index){
 	if('${session_id}' == ''){
-		alert('로그인 후 사용가능합니다.');
-		window.open("login_popup.do", "로그인", "_blank");
-		return;
+		if(confirm('로그인이 필요한 서비스입니다. 로그인하시겠습니까?')){
+			window.open("login_popup.do", "로그인", "_blank");
+			return;
+		}
 	}else{
 		addLikey(product_no, index);
 	}

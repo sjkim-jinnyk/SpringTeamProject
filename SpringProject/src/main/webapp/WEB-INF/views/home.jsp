@@ -26,7 +26,7 @@
 						<p class="t2">친환경 못난이 채소박스</p>
 						<p class="t3">키우는 정성은 똑같아요 </p>
 						<p class="t4">못생겨도 맛은 좋아</p>
-						<p class="p_btn">구독하기</p>
+						<p class="p_btn"><a href="product_list.do">구독하기</a></p>
 					</li>
 					<li>
 						<img src="resources/img/main/slide_img_2.jpeg">
@@ -34,7 +34,7 @@
 						<p class="t2">오븐에 구운 감자</p>
 						<p class="t3">크기가 작아도 괜찮아요</p>
 						<p class="t4">쫄깃, 촉촉하게 구운 맛있는 한입 감자</p>
-						<p class="p_btn">구매하기</p>
+						<p class="p_btn"><a href="product_list.do">구매하기</a></p>
 					</li>
 					<li>
 						<img src="resources/img/main/slide_img_3.jpeg">
@@ -42,7 +42,7 @@
 						<p class="t2">다 해먹어</p>
 						<p class="t3">한봉지 가격에 한박스를!</p>
 						<p class="t4">가성비 높은 어글리 버섯</p>
-						<p class="p_btn">구매하기</p>
+						<p class="p_btn"><a href="product_list.do">구매하기</a></p>
 					</li>
 				</ul>
 				<ul class="dot">

@@ -31,6 +31,7 @@
 			</div>
 			
 			<div class="product-wrapper">
+			<div class="search-wrapper">
 			<c:if test="${!empty List }">
 				<c:forEach items="${List }" var="dto">
 					<div class="product">
@@ -77,7 +78,7 @@
 			      <span class="page-btn"><a href="product_search.do?page=${page.getEndBlock() +1 }&k=${keyword}">▶</a></span>
 			      <span class="page-btn"><a href="product_search.do?page=${page.getAllPage() }&k=${keyword}">▶▶</a></span>
 			   </c:if>
-				
+			</div>	
 			</div>
 		
 				<button onclick="location.href='#'" id="up-arrow" class="up-arrow"><img src="resources/img/main/up_arrow.png"></button>
@@ -91,9 +92,10 @@
 <script type="text/javascript">
 function likeCheck(product_no, index){
 	if('${session_id}' == ''){
-		alert('로그인 후 사용가능합니다.');
-		window.open("login_popup.do", "로그인", "_blank");
-		return;
+		if(confirm('로그인이 필요한 서비스입니다. 로그인하시겠습니까?')){
+			window.open("login_popup.do", "로그인", "_blank");
+			return;
+		}
 	}else{
 		addLikey(product_no, index);
 	}

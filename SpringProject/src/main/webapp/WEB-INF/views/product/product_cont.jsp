@@ -425,9 +425,10 @@ function total() {
 
 function likeCheck(product_no){
 	if('${session_id}' == ''){
-		alert('로그인 후 사용가능합니다.');
-		window.open("login_popup.do", "로그인", "_blank");
-		return;
+		if(confirm('로그인이 필요한 서비스입니다. 로그인하시겠습니까?')){
+			window.open("login_popup.do", "로그인", "_blank");
+			return;
+		}
 	}else{
 		addLike(product_no);
 	}
@@ -437,17 +438,20 @@ function writeQna(product_no) {
 	if('${session_id}' != ''){
 		window.open("product_qna_write.do?no="+product_no, "질문글 작성하기", "_blank");
 	}else {
-		alert('로그인 후 작성 가능합니다.');
-		window.open("login_popup.do", "질문글 답변하기", "_blank");
+		if(confirm('로그인이 필요한 서비스입니다. 로그인하시겠습니까?')){
+			window.open("login_popup.do", "로그인", "_blank");
+			return;
+		}
 	}
 }
 
 function loginCheck(){
 	console.log("check");
 	if('${session_id}' == ''){
-		alert('로그인 후 사용가능합니다.');
+		if(confirm('로그인이 필요한 서비스입니다. 로그인하시겠습니까?')){
 		window.open("login_popup.do", "로그인", "_blank");
 		return;
+		}
 	}else {
 		location.href='purchase.do';
 	}

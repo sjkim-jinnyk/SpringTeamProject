@@ -202,9 +202,10 @@ function total() {
 
 function loginCheck(){
 	if('${session_id}' == ''){
-		alert('로그인 후 사용가능합니다.');
-		window.open("login_popup.do", "로그인", "_blank");
-		return;
+		if(confirm('로그인이 필요한 서비스입니다. 로그인하시겠습니까?')){
+			window.open("login_popup.do", "로그인", "_blank");
+			return;
+		}
 	} else if (${empty cList }) {
 		alert('주문 할 상품이 없습니다.');
 	} else {

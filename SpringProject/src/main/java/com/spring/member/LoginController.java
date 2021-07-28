@@ -300,7 +300,7 @@ public class LoginController {
 			HttpSession session) throws IOException {
 		
 		int idCheck = this.mdao.idCheck(id);
-		int pwdCheck = this.mdao.pwdCheck(pwd);
+		String pwdCheck = this.mdao.findPwd(id);
 		
 		MemberDTO login_info = this.mdao.getMemberInfo(id);
 		
@@ -308,13 +308,13 @@ public class LoginController {
 		PrintWriter out = response.getWriter();
 		
 		if(idCheck == 1) { // 아이디 맞음
-			if(pwdCheck > 0) { // 비밀번호 맞음 (같은 비번인 계정이 여러개일 수 있음)
+			if(pwd.equals(pwdCheck)) { // 비밀번호 맞음
 				// session.setAttribute("session_id", login_info);
 				session.setAttribute("session_id", login_info.getMem_id());
 				session.setAttribute("session_mem", login_info);
 				out.println("<script>");
-				out.println("opener.document.location.reload()");
-				out.println("window.close()");
+				out.println("alert('로그인 성공')");
+				out.println("location.href='main.do'");
 				out.println("</script>");
 			}else {		// 비밀번호 틀림
 				out.println("<script>");
@@ -328,7 +328,6 @@ public class LoginController {
 			out.println("location.href='join.do'");
 			out.println("</script>");
 		}
-		
 		System.out.println(idCheck+ ", " +pwdCheck);
 	}
 	

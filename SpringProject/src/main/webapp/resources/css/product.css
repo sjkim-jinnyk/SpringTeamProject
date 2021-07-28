@@ -37,15 +37,15 @@
 	margin-bottom: 10px;
 }
 
-.product-wrapper {
-	width: 1000px;
-	padding: 0 70px;
+.pro-wrapper {
+	width: 900px;
+	margin-left: 40px;
 }
-	
+
 .product {
 	position: relative;
 	display: inline-block;
-	margin: 10px 15px 20px;
+	margin: 10px 12px 20px;
 	width: 250px;
 	height: 350px;
 	text-align: center;
@@ -996,7 +996,7 @@
 }
 
 .search-box {
-	width: 94%;
+	width: 97%;
 	margin: 0 15px 30px;
 	height: 50px;
 	border: 2px solid #ABD037;
@@ -1041,6 +1041,10 @@
     .category ul li {
     	display: inline;
     	margin: 0 15px;
+    }
+    
+    .pro-wrapper, .search-wrapper {
+    	margin-left: 5px;
     }
     
     .product-wrapper {
@@ -1164,8 +1168,9 @@
 		margin: 0 10px;
 	}
 	
-	.product-wrapper {
+	.pro-wrapper, .search-wrapper {
 		margin-left: 30px;
+		width: 100%;
 	}
 	
 	.product-container {

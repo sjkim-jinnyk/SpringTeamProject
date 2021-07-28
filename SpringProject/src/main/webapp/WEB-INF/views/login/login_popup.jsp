@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="resources/css/login.css?after">
 <title>울퉁불퉁's 로그인</title>
 </head>
-<body onLoad="window.resizeTo(500, 850); window.moveTo(500,100);">
+<body onLoad="window.resizeTo(500, 880); window.moveTo(500,100);">
 
 	<div class="layout_container">
 		<div class="main">
@@ -44,7 +44,7 @@
 							
 							<!-- 네이버 로그인 창으로 이동 -->
 							<div id="social_login">
-								<a href="sns_login_popup.do?type=naver"><img class="naver_login" height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a><br>
+								<a href="sns_login_popup.do?type=naver"><img class="naver_login" src="resources/img/main/naver_login.png"/></a><br>
 								<a href="sns_login_popup.do?type=kakao"><img class="kakao_login" height="50" src="resources/img/main/kakao_login.png"/></a><br>
 							</div>
 						</div>

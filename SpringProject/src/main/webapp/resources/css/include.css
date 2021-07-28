@@ -77,7 +77,7 @@ li{
 	font-weight: 600;
 }
 
-#search{
+.menu_wrap>#search{
 	display: inline;
     margin-top: 8px;
     margin-left: 147px;
