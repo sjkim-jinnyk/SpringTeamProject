@@ -23,7 +23,6 @@
 			<h1>쿠폰적용</h1>
 		
 			<div class="member_coupon">
-				<h3>쿠폰 내역</h3>
 				<table class="coupon_bar">
 					<c:set var="clist" value="${CouponInfo }" />
 					<tr>
@@ -47,7 +46,7 @@
 					</c:if>
 					<c:if test="${empty clist }">
 						<tr>
-							<td colspan="3" id="noCoupon">등록된 쿠폰이 없습니다.</td>
+							<td colspan="3" class="no_coupon">등록된 쿠폰이 없습니다.</td>
 						</tr>
 					</c:if>
 				</table>

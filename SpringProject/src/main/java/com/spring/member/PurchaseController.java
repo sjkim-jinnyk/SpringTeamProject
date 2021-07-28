@@ -218,6 +218,12 @@ public class PurchaseController {
 		
 	}
 	
+	@RequestMapping("/paySuccess.do")
+	public String paySuccess() {
+		
+		return "cart/paySuccess";
+	}
+	
 	@RequestMapping("/payFail.do")
 	public String payFail() {
 		

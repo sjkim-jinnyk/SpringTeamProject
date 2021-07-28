@@ -26,9 +26,9 @@
 
 .main .select {
 
-    width:100px;
+    width:80px;
 
-    background-color: #f8585b;
+    background-color: #FFDDAE;
 
     border: none;
 
@@ -46,4 +46,13 @@
 
     cursor: pointer;
 
+}
+
+.main .no_coupon {
+	text-align: center;
+}
+
+.main .a_container {
+	text-align: center;
+	margin: 20px 0px;
 }
