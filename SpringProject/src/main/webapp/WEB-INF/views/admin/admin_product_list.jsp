@@ -55,7 +55,7 @@
 			<div class="admin-product">
 				<table class="admin-product-list">
 					<tr>
-						<th>상품 번호</th>
+						<th>번호</th>
 						<th>카테고리</th>
 						<th colspan="2">상품명</th>
 						<th>입고가</th>
@@ -67,8 +67,8 @@
 				<c:if test="${!empty List }">
 					<c:forEach items="${List }" var="dto" varStatus="status">
 						<tr class="pro-wrap">
-							<td>${dto.getPro_no() }</td>
-							<td><a href="admin_product_search.do?field=category&cateWord=${cList[status.index].getCate_no() }">${cList[status.index].getCate_name() }[${cList[status.index].getCate_no() }]</a></td>
+							<td class="pro-no">${dto.getPro_no() }</td>
+							<td><a href="admin_product_search.do?field=category&cateWord=${cList[status.index].getCate_no() }">${cList[status.index].getCate_name() }<br>[${cList[status.index].getCate_no() }]</a></td>
 							<td><a href="admin_product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/upload/${dto.getPro_img() }"></a></td>
 							<td class="pro_name">
 								<c:forEach items="${dto.getPro_tags() }" var="tags">
@@ -78,7 +78,7 @@
 							</td>
 							<td class="pro-price"><fmt:formatNumber value="${dto.getPro_input_price() }" /> 원</td>
 							<td class="pro-price"><fmt:formatNumber value="${dto.getPro_output_price() }" /> 원</td>
-							<td>
+							<td class="pro-state">
 								<c:if test="${dto.getPro_check() eq 'y' }">
 									<a href="admin_product_search.do?field=state&stateWord=y"><span class="for-sale">판매중</span></a>
 								</c:if>
@@ -86,7 +86,7 @@
 									<a href="admin_product_search.do?field=state&stateWord=n"><span class="not-for-sale">미판매</span></a>
 								</c:if>
 							</td>
-							<td><a class="click" href="product_cont.do?no=${dto.getPro_no() }">[click]</a></td>
+							<td class="pro-page"><a class="click" href="product_cont.do?no=${dto.getPro_no() }">[click]</a></td>
 							<td>
 								<button class="update-btn" onclick="location.href='product_update.do?no=${dto.getPro_no()}'">수정</button>
 								<button class="delete-btn" onclick="deletePro(${dto.getPro_no()}, '${dto.getPro_name() }');">삭제</button>

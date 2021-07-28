@@ -1017,6 +1017,11 @@
     appearance: none; 
 }
 
+.null {
+	height: 150px;	
+}
+
+
 /* 반응형 */
 @media ( max-width : 1200px) {
 }

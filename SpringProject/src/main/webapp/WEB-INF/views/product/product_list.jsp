@@ -19,7 +19,7 @@
 		
 			<div class="about_header">
 				<span>product list</span>
-				<img src="resources/img/main/orange_bg.jpeg">
+				<img src="resources/img/main/potato.jpg">
 			</div>
 			<div class="main">	
 			
@@ -53,7 +53,6 @@
 											
 											<a class="pro-name" href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a><br>
 											<span class="pro-price">${dto.getPro_output_price() } 원</span>
-											
 											<div class="like-wrapper">
 												<c:if test="${dto.getLike_check() eq 0 }"><button class="like-btn" type="button" id="like-btn-${status.index }" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
 												<c:if test="${dto.getLike_check() > 0 }"><button type="button" id="like-btn-${status.index }" class="like-btn like-checked" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>

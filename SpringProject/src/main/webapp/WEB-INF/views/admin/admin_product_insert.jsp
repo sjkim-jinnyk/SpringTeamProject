@@ -68,7 +68,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>상품 대표 이미지</th>
+						<th>대표<br>이미지</th>
 						<td>
 							<div class="ima-container">
 								<img id="preview" src=""><br>

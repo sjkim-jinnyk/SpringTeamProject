@@ -18,7 +18,7 @@
 			<div class="main">			
 				
 				<div class="product_cont">
-				
+
 				<%-- 상단 제품 소개 및 주문 --%>
 				<c:set var="dto" value="${cont }" />
 				<c:if test="${!empty cont }">
@@ -78,8 +78,8 @@
 							<div class="btn-wrapper">
 								<button type="submit" class="cont-btn btn-cart" formaction="add_cart.do">장바구니</button>
 								<button type="button" class="cont-btn btn-purchase" onclick="loginCheck();">구매하기</button>
-								<c:if test="${dto.getLike_check() eq 0 }"><button class="like-btn" type="button" id="like-btn" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
-								<c:if test="${dto.getLike_check() > 0 }"><button type="button" id="like-btn" class="like-btn like-checked" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
+								<c:if test="${likeCheck eq 0 }"><button class="like-btn" type="button" id="like-btn" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
+								<c:if test="${likeCheck > 0 }"><button type="button" id="like-btn" class="like-btn like-checked" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
 							</div>
 							</form>
 						</div><%-- cont-info end --%>

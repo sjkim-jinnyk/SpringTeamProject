@@ -64,7 +64,7 @@
 							<td colspan="2"></td>
 						</tr>
 						<tr>
-							<th>상품 대표이미지</th>
+							<th>대표<br>이미지</th>
 							<td colspan="3">
 								<div class="img-container">
 								<img id="preview" src="resources/img/upload/${dto.getPro_img() }"><br>
@@ -75,13 +75,11 @@
 						</tr>
 						<tr>
 							<th>입고가</th>
-							<td><input type="text" name="pro_input_price" value="${dto.getPro_input_price() }"> 원 </td>
-							<td colspan="2"></td>
+							<td colspan="3"><input type="text" name="pro_input_price" value="${dto.getPro_input_price() }"> 원 </td>
 						</tr>
 						<tr>
 							<th>출고가</th>
-							<td><input type="text" name="pro_output_price" value="${dto.getPro_output_price() }"> 원 </td>
-							<td colspan="2"></td>
+							<td colspan="3"><input type="text" name="pro_output_price" value="${dto.getPro_output_price() }"> 원 </td>
 						</tr>
 						<tr>
 							<th>태그</th>
@@ -105,7 +103,7 @@
 						<tr>
 							<td colspan="4">
 								<button class="default-btn" type="button" onclick="location.href='admin_product_cont.do?no=${dto.getPro_no()}'">취소</button>
-								<div>
+								<div class="btn-wrap">
 									<button class="pro-cont-btn update-btn" onclick="product_update.do?no=${dto.getPro_no() }">수정</button>
 								</div>
 							</td>

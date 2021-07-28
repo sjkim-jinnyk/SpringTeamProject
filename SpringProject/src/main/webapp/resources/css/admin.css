@@ -1,24 +1,5 @@
 input:focus,textarea:focus,select:focus{outline: none;}
 
-/* 반응형 */
-@media ( max-width : 1200px) {
-    .main {
-        width: 890px;
-    }
-}
-
-@media ( max-width : 768px) {
-    .main {
-        width: 720px;
-    }
-}
-
-@media ( max-width : 576px) {
-    .main {
-        width: 540px;
-    }
-}
-
 .main {
 	width: 890px;
     padding: 0 10px;
@@ -52,7 +33,7 @@ input:focus,textarea:focus,select:focus{outline: none;}
 
 .admin-product {
 	display: inline-block;
-	width: 870px;
+	width: 100%;
 	margin: 0 auto;
 	clear: both;
 }
@@ -418,4 +399,80 @@ input[name='cate_name'] {
 
 .info {
 	color: #C0C0C0;
+}
+
+/* 반응형 */
+@media ( max-width : 1200px) {
+    .main {
+        width: 890px;
+    }
+}
+
+@media ( max-width : 768px) {
+    .main {
+        width: 720px;
+    }
+    
+    .pro_name {
+    	width: 20%;
+    }
+    
+    .pro-state {
+    	width: 8%;
+    }
+    
+    /* category */
+    input[name='cate_name'] {
+    	width: 500px;
+    }
+    
+}
+
+@media ( max-width : 576px) {
+    .main {
+        width: 540px;
+    }
+    
+    .pro-no {
+    	width: 5%;
+    }
+    
+    .admin-product-list {
+    	font-size: 12px;
+    }
+    
+    .admin-product-list img {
+    	width: 40px;
+    	height: 40px;
+    }
+    
+    .pro-wrap .update-btn, .pro-wrap .delete-btn, .for-sale, .not-for-sale, .pro-tag {
+		font-size: 10px;
+	}
+	
+	.for-sale, .not-for-sale {
+		padding: 0;
+	}
+	
+	.pro-page {
+		width: 4%;
+	}
+	
+	.admin-pro-cont input[type='text'], .admin-pro-cont select {
+		width: 160px;
+	}
+	
+	/* category */
+    input[name='cate_name'] {
+    	width: 350px;
+    }
+    
+    .pro-btn-wrap .default-btn {
+    	font-size: 10px;
+    }
+    
+    .new-category th {
+    	width: 13%;
+    }
+    
 }

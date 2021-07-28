@@ -140,7 +140,7 @@
 					
 				</div>
 				<button onclick="location.href='#'" id="up-arrow" class="up-arrow"><img src="resources/img/main/up_arrow.png"></button>
-				
+				<div class="null"></div>
 			</div>
 		<jsp:include page="../include/footer.jsp" />
 	</div>
