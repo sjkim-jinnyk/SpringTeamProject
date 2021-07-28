@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,18 +28,13 @@
 
 		<!-- Page Content  -->
 		<div id="content" class="p-4 p-md-5 pt-5">
-
-			<div class="main">
-				<div class="row">
-					<div class="col-md-12">
-					
-					</div>
-				</div>
-
-				<div class="amdin-title">공지사항</div>
-
-				<!-- 내용 시작 -->
-
+		
+		<div class="main">	
+			
+			<div class="amdin-title">공지사항</div>
+			
+		<!-- 내용 시작 -->
+				
 			</div>
 		</div>
 	</div>
