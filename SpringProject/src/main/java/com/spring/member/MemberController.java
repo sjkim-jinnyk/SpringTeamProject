@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.model.CouponDTO;
 import com.spring.model.CouponOwnDTO;
@@ -35,6 +36,7 @@ import com.spring.model.ProductRecentDTO;
 import com.spring.model.QnaCategoryDTO;
 import com.spring.model.QnaDTO;
 import com.spring.model.ReviewDTO;
+import com.spring.model.UploadBO;
 
 @Controller
 public class MemberController {
@@ -44,6 +46,9 @@ public class MemberController {
 
 	@Autowired
 	private ProductRecentDAO prdao;
+	
+	@Autowired
+	private UploadBO upload;
 
 	@RequestMapping("test.do")
 	public String test(Model model) {
@@ -255,24 +260,33 @@ public class MemberController {
 
 	@RequestMapping("member_review_wrtie_ok.do")
 	public void review_write_ok(ReviewDTO dto, @RequestParam("order_no") int order_no,
-			@RequestParam("review_star") int review_star, HttpServletResponse response) throws IOException {
+			@RequestParam("review_star") int review_star, HttpServletResponse response, MultipartHttpServletRequest mRequest) throws IOException {
 
 		response.setContentType("text/html; charset-UTF-8");
 
 		PrintWriter out = response.getWriter();
 
-		int check = this.dao.updateReview(dto);
+		HashMap hm = upload.fileUpload(mRequest);
+		boolean isUpload = (Boolean) hm.get("isUpload");
+		String fileName = String.valueOf(hm.get("fileName"));
+		
+		if(isUpload) {
+			
+			dto.setReview_img(fileName);
+			
+			int check = this.dao.updateReview(dto);
 
-		if (check > 0) {
-			out.println("<script>");
-			out.println("alert('리뷰 등록 성공')");
-			out.println("location.href='member_review_cont.do?no=" + order_no + "'");
-			out.println("</script>");
-		} else {
-			out.println("<script>");
-			out.println("alert('리뷰 등록 실패')");
-			out.println("history.back()");
-			out.println("</script>");
+			if (check > 0) {
+				out.println("<script>");
+				out.println("alert('리뷰 등록 성공')");
+				out.println("location.href='member_review_cont.do?no=" + order_no + "'");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('리뷰 등록 실패')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
 		}
 	}
 

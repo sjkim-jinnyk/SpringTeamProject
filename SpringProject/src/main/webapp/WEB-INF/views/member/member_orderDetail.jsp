@@ -50,42 +50,18 @@
 									</td>
 									<td>${CouponCont.getCoupon_cont() }</td>
 									<td><fmt:formatNumber value="${Order.getOrder_price() }" /> 원</td>
-									<c:if test="${Order.getOption_day() == 0 && Order.getOption_term() == 0}">
-										<td>월(1주)</td>
-									</c:if>
-									<c:if test="${Order.getOption_day() == 0 && Order.getOption_term() == 1}">
-										<td>월(2주)</td>
-									</c:if>
-									<c:if test="${Order.getOption_day() == 1 && Order.getOption_term() == 0}">
+									<c:if test="${Order.getOption_day() == 2 && Order.getOption_term() == 1}">
 										<td>화(1주)</td>
 									</c:if>
-									<c:if test="${Order.getOption_day() == 1 && Order.getOption_term() == 1}">
+									<c:if test="${Order.getOption_day() == 2 && Order.getOption_term() == 2}">
 										<td>화(2주)</td>
 									</c:if>								
-									<c:if test="${Order.getOption_day() == 2 && Order.getOption_term() == 0}">
-										<td>수(1주)</td>
-									</c:if>
-									<c:if test="${Order.getOption_day() == 2 && Order.getOption_term() == 1}">
-										<td>수(2주)</td>
-									</c:if>								
-									<c:if test="${Order.getOption_day() == 3 && Order.getOption_term() == 0}">
+									<c:if test="${Order.getOption_day() == 4 && Order.getOption_term() == 1}">
 										<td>목(1주)</td>
 									</c:if>
-									<c:if test="${Order.getOption_day() == 3 && Order.getOption_term() == 1}">
+									<c:if test="${Order.getOption_day() == 4 && Order.getOption_term() == 2}">
 										<td>목(2주)</td>
-									</c:if>								
-									<c:if test="${Order.getOption_day() == 4 && Order.getOption_term() == 0}">
-										<td>금(1주)</td>
-									</c:if>
-									<c:if test="${Order.getOption_day() == 4 && Order.getOption_term() == 1}">
-										<td>금(2주)</td>
-									</c:if>
-									<c:if test="${Order.getOption_day() == 5 && Order.getOption_term() == 0}">
-										<td>토(1주)</td>
-									</c:if>
-									<c:if test="${Order.getOption_day() == 5 && Order.getOption_term() == 0}">
-										<td>토(2주)</td>
-									</c:if>								
+									</c:if>								 
 								</tr>
 							</table>
 						</div> <!-- order_detail END -->

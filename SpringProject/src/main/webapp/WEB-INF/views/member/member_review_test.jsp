@@ -33,8 +33,8 @@
 				</ul>
 				<div class="review_img">
 					<label for="review_file" id="qna_file_name">사진선택</label>
-					<input type="file" id="review_file" name="review_file" accept=".jpg, .jpeg, .png">
-					<p class="fileGuide"> * 첨부가능 파일종류 : jpg, png, jpeg (용량 20MB) </p>
+					<input type="file" id="review_file" name="review_img" accept=".jpg, .jpeg, .png" onchange="readImg(this);">
+					<p class="fileGuide"> * 첨부가능 파일종류 : jpg, png, jpeg (최대 10MB) </p>
 				</div>
 				<div class="review_text">
 					<ul>

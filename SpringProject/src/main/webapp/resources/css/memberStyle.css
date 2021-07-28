@@ -444,7 +444,7 @@
 	border-bottom: 1px solid #ccc;
 }
 .member_qna .qna_bar td{
-	padding: 10px;
+	padding: 20px 10px;
 }
 .member_qna .qna_bar #qnainfo, #qnatitle{
 	width: 30%;
@@ -467,8 +467,9 @@
 	padding-top: 50px;
 	text-align: center;
 }
-.member_qna .on td {
-	padding-top: 20px 0;
+
+.member_qna .on {
+	background: #f1f1f1;
 }
 
 /* member_info css */
@@ -742,6 +743,12 @@ input[id="agreeC"]:checked + label:before {
     	display: inline;
     	font-size: 15px;
     }
+     .member_container img {
+   		width: 95px;
+    	height: 75px;
+    	padding-left: 30px;
+   	}
+   	
     th, td, p, span{
     	font-size: 15px;
     }
@@ -795,11 +802,7 @@ input[id="agreeC"]:checked + label:before {
     .member_order .order_bar th, .order_bar td, .member_review .review_bar th, .member_review .review_bar td {
    		text-align: center;
    	}
-   	img {
-   		width: 95px;
-    	height: 75px;
-    	padding-left: 30px;
-   	}
+   	
    	.member_order .order_bar #orderno {
    		width: 5%;
    	}
@@ -843,6 +846,11 @@ input[id="agreeC"]:checked + label:before {
 	.nav_menu_x768 {
 		display: none;
 	}
+	.member_container img {
+   		width: 85px;
+    	height: 65px;
+    	padding-left: 0;
+   	}
 	.nav_menu_x576 {
 		display: block;
 		text-align: left;

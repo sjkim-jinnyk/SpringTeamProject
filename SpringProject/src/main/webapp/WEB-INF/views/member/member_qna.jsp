@@ -47,7 +47,7 @@
 								</tr>
 								<c:if test="${reply[status.index].getQna_group() ==dto.getQna_group() }">
 									<tr id="qna_reply${status.index}"class="on off">
-										<td>${reply[status.index].getQna_writer() }</td>
+										<td>${reply[status.index].getQna_writer() } 답변</td>
 										<td align="left">${reply[status.index].getQna_cont() }</td>
 										<td> </td>
 										<td>${reply[status.index].getQna_date().substring(0,10) }</td>
