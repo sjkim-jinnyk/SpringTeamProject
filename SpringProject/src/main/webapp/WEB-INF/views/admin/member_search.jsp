@@ -31,13 +31,13 @@
 
 		<!-- Page Content  -->
 		<div id="content" class="p-4 p-md-5 pt-5">
+		
 			<div align="center">
-				<hr width="50%" color="red">
-				<h3>회원 목록</h3>
-				<hr width="50%" color="red">
-				<br> <br>
+				
+				<h3>회원 목록</h3>				
+				<br>
 
-				<table border="1" cellspacing="0" width="500">
+				<table class="table table-hover">
 					<tr>
 						<th>회원성명</th>
 						<th>전화번호</th>
@@ -70,27 +70,27 @@
 					<%-- Pagination --%>
 					<div class="pagination">
 						<c:if test="${page.getPage() > page.getBlock() }">
-							<a href="product_search.do?page=1&keyword=${keyword}">◀◀</a>
+							<a href="admin_search.do?page=1&keyword=${keyword}">◀◀</a>
 							<a
-								href="product_search.do?page=${Paging.getStartBlock() - 1 }&keyword=${keyword}">◀</a>
+								href="admin_search..do?page=${Paging.getStartBlock() - 1 }&keyword=${keyword}">◀</a>
 						</c:if>
 
 						<c:forEach begin="${page.getStartBlock() }"
 							end="${page.getEndBlock() }" var="i">
 							<c:if test="${i == page.getPage() }">
-								<b><a href="product_search.do?page=${i }&keyword=${keyword}">${i }</a></b>
+								<b><a href="admin_search..do?page=${i }&keyword=${keyword}">${i }</a></b>
 							</c:if>
 
 							<c:if test="${i != page.getPage() }">
-								<a href="product_search.do?page=${i }&keyword=${keyword}">${i }</a>
+								<a href="admin_search..do?page=${i }&keyword=${keyword}">${i }</a>
 							</c:if>
 						</c:forEach>
 
 						<c:if test="${page.getEndBlock() < page.getAllPage() }">
 							<a
-								href="product_search.do?page=${page.getEndBlock() +1 }&keyword=${keyword}">▶</a>
+								href="admin_search..do?page=${page.getEndBlock() +1 }&keyword=${keyword}">▶</a>
 							<a
-								href="product_search.do?page=${page.getAllPage() }&keyword=${keyword}">▶▶</a>
+								href="admin_search..do?page=${page.getAllPage() }&keyword=${keyword}">▶▶</a>
 						</c:if>
 
 					</div>
@@ -101,10 +101,6 @@
 					</tr>
 				</table>
 				<br> <br>
-
-
-
-
 				<jsp:include page="../include/footer.jsp" />
 			</div>
 		</div>

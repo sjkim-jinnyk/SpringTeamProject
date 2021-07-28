@@ -78,8 +78,10 @@
 						</td>
 					</tr>
 					<tr>
-						<th>상품 설명</th>
-						<td>
+						<th colspan="2">상품 설명</th>
+					</tr>
+					<tr>
+						<td colspan="2">
 							<textarea id="ck_editor" rows="5" cols="80" name="pro_cont"></textarea>
 							<script type="text/javascript">
 								CKEDITOR.replace('ck_editor',{

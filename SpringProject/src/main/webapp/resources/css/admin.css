@@ -134,11 +134,8 @@ input:focus,textarea:focus,select:focus{outline: none;}
 	margin: 2px 1px;
 }
 
-.pro-btn-wrap .update-btn, .pro-btn-wrap .delete-btn {
-	border: 1px solid;
-	border-radius: 5px;
+.pro-wrap .update-btn, .pro-wrap .delete-btn {
 	font-size: 12px;
-	margin: 2px 1px;
 }
 
 .update-btn {
@@ -248,7 +245,17 @@ input:focus,textarea:focus,select:focus{outline: none;}
 	text-align: center;	
 }
 
-.pagination .page-btn {
+.pagination a {
+	padding: 0 5px;
+	font-size: 15px;
+}
+
+.pagination a .page-selected {
+	font-weight: bold;
+	background-color: #39373A; 
+}
+
+/* .pagination .page-btn {
 	padding: 5px 13px;
 	border: 1px solid #39373A;
 	background-color: white;
@@ -261,7 +268,7 @@ input:focus,textarea:focus,select:focus{outline: none;}
 	background-color: #39373A;
 	color: #FFF;
 	transition: all 0.5s;
-}
+} */
 
 /* 검색창 */
 .search {

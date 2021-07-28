@@ -7,13 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-<link rel="stylesheet" href="resources/css/style.css">
-<link rel="stylesheet" href="resources/css/bootstarp.main.css">
-<link rel="stylesheet" href="resources/css/include.css">
-<link rel="stylesheet" href="resources/css/memberStyle.css">
-<link rel="stylesheet" href="resources/css/admin.css?after">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <title>울퉁불퉁's 관리자 - 상품 목록</title>
 </head>
@@ -114,23 +107,23 @@
 			<c:if test="${empty keyword }">
 			<div class="pagination">
 				<c:if test="${page.getPage() > page.getBlock() }">
-					<span><button class="page-btn" onclick="location.href='admin_product_list.do?page=1'">◀◀</button></span>
-	   				<span><button class="page-btn" onclick="location.href='admin_product_list.do?page=${Paging.getStartBlock() - 1 }'">◀</button></span>
+					<a href="admin_product_list.do?page=1">◀◀</a>
+	   				<a href="admin_product_list.do?page=${Paging.getStartBlock() - 1 }">◀</a>
 				</c:if>
 				
 				<c:forEach begin="${page.getStartBlock() }" end="${page.getEndBlock() }" var="i">
 			      <c:if test="${i == page.getPage() }">
-			         <span><button class="page-selected" onclick="location.href='admin_product_list.do?page=${i }'">${i }</button></span>
+			         <b><a href="admin_product_list.do?page=${i }">${i }</a></b>
 			      </c:if>
 			      
 			      <c:if test="${i != page.getPage() }">
-			         <span><button class="page-btn" onclick="location.href='admin_product_list.do?page=${i }'">${i }</button></span>
+			        <a href="admin_product_list.do?page=${i }">${i }</a>
 			      </c:if>
 			   </c:forEach>
 			   
 			   <c:if test="${page.getEndBlock() < page.getAllPage() }">
-			      <span><button class="page-btn" onclick="location.href='admin_product_list.do?page=${page.getEndBlock() +1 }'">▶</button></span>
-			      <span><button class="page-btn" onclick="location.href='admin_product_list.do?page=${page.getAllPage() }'">▶▶</button></span>
+			      <a href="admin_product_list.do?page=${page.getEndBlock() +1 }">▶</a>
+			      <a href="admin_product_list.do?page=${page.getAllPage() }">▶▶</a>
 			   </c:if>
 			</div>
 			</c:if>
