@@ -112,3 +112,23 @@ span .guide{
 	color: #FF8F1C;
     font-weight: 600;
 }
+
+img.naver_login, img.kakao_login{
+	margin-bottom: 20px;
+    width: 196px;
+    height: auto;;
+}
+
+#social_login>a.sns_btn {
+    font-size: 15px;
+    color: gray;
+}
+
+@media screen and (max-width : 768px) { 
+
+}
+
+@media screen and (max-width : 576px) {
+  
+}    
+   

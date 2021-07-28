@@ -9,8 +9,8 @@ li{
 }
 
 .header {
-	width: 1000px;
-	height: 120px;
+	width: 1100px;
+	height: 130px;
 	display: flex;
 	flex: auto;
 	justify-content: space-between;
@@ -21,11 +21,13 @@ li{
 .site_logo{
 	width: auto;
 	height: 100px;
-	padding: 10px 0 0 30px;
+	padding: 12px 0 0 60px;
+    top: 0;
+    position: absolute;
 }
 
 .menu_wrap{
-	padding-top: 45px;
+	padding-top: 52px;
 }
 
 .menu_wrap a, #drop_menu span{
@@ -33,8 +35,12 @@ li{
 	text-decoration: none;
 	font-size: 17px;
 	margin-right: 40px;
+	font-weight: 600;
 }
 
+.menu_wrap a :hover{
+	color: #FF8F1C;
+}
 
 #drop_menu{
 	display: inline-block;
@@ -66,9 +72,41 @@ li{
 	margin-left: 0;
 }
 
+.welcome>span{
+	color: #FF8F1C;
+	font-weight: 600;
+}
+
+#search{
+	display: inline;
+    margin-top: 8px;
+    margin-left: 147px;
+}
+
+#search>form{
+	display: inline;
+	width: 260px;
+    text-align: center;
+}
+
+input.key {
+	border: solid 1px lightgray;
+    width: 220px;
+}
+
+input.s_btn{
+    border: 0;
+    width: 60px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: orange;
+    color: white;
+    margin-left: 6px;
+}
+
 .footer {
 	width: 100%;
-	background-color: orange;
+	background-color: #FF8F1C;
 	padding: 50px 0 70px 0;
 	margin-top: 100px;
 }
@@ -77,7 +115,7 @@ li{
 	display: flex;
 	flex: auto;
 	justify-content: space-between;
-	width: 1000px;
+	width: 90%;
 	margin: 0 auto;
 }
 
@@ -101,4 +139,219 @@ li{
     margin-left: 10px;
     border-radius: 13px;
     padding: 9px;
+}
+
+#menu_icon, #m_menu{
+	display: none;
+}
+
+@media screen and (max-width : 768px) { 
+	.body{
+		margin: 0;
+	}
+	
+	li{
+		text-decoration: none;
+	}
+	
+	.header {
+		width: 720px;
+		height: 130px;
+		display: flex;
+		flex: auto;
+		justify-content: space-between;
+		position:relative;
+		margin: 0 auto;
+	}
+	
+	.site_logo{
+		width: auto;
+		height: 100px;
+		padding: 12px 0 0 60px;
+	    top: 0;
+	    position: absolute;
+	}
+	
+	.menu_wrap{
+		width: 70%;
+	    padding-top: 32px;
+	    line-height: 2;
+	}
+	
+	.menu_wrap a, #drop_menu span{
+		color: black;
+		text-decoration: none;
+		font-size: 17px;
+		margin-right: 40px;
+		font-weight: 600;
+	}
+	
+	.menu_wrap a :hover{
+		color: #FF8F1C;
+	}
+	
+	#drop_menu{
+		display: inline-block;
+		position: relative;
+	}
+	
+	#drop_menu span{
+		display: block;
+		cursor: pointer;
+	}
+	
+	#drop_menu ul{
+		display: none;
+		float: left;
+		position: absolute;
+		width: 173px;
+		line-height: 2;
+		background-color: white;
+		padding: 30px 0 20px 33px;
+		left: -33px;
+		z-index: 1;
+	}
+	
+	#drop_menu ul li{
+		list-style: none;
+	}
+	
+	#drop_menu ul li a{
+		margin-left: 0;
+	}
+	
+	.welcome>span{
+		color: #FF8F1C;
+		font-weight: 600;
+	}
+	
+	div#search{
+		display: inline;
+	}
+	
+	#search>form{
+		width: 120px;
+	}
+	
+	input.key {
+		border: solid 1px lightgray;
+	    width: 130px;
+	}
+	
+	input.s_btn{
+	    border: 0;
+	    width: 60px;
+	    height: 30px;
+	    border-radius: 15px;
+	    background-color: orange;
+	    color: white;
+	    margin-left: 6px;
+	}
+	
+	.footer {
+		background-color: #FF8F1C;
+		padding: 50px 0 70px 0;
+		margin-top: 100px;
+	}
+	
+	.footer_wrap{
+		display: flex;
+		flex: auto;
+		justify-content: space-between;
+		width: 90%;
+		margin: 0 auto;
+	}
+	
+	.footer .left {
+		width: 73%;
+	    font-size: 16px;
+	    padding-left: 20px;
+	}
+	
+	.footer .left .info {
+		color: white;
+		line-height: 30px;
+	}
+	
+	.sns_group{
+		display: flex;
+	}
+	
+	.sns_group .icon {
+	    background-color: white;
+	    width: 25px;
+	    height: 25px;
+	    margin-left: 10px;
+	    border-radius: 13px;
+	    padding: 9px;
+	}
+	
+	#menu_icon, #m_menu{
+		display: none;
+	}
+}
+
+@media screen and (max-width : 576px) {
+  	.header {
+		width: 100%;
+  	}
+  	
+  	.menu_wrap{
+		display: none;
+	}
+	
+	#menu_icon, #menu_icon2{
+		display: block;
+	    position: fixed;
+ 	    right: 0;
+	}
+	
+	#menu_icon>img{
+	    width: 42px;
+	    height: 35px;
+	    margin: 40px;
+	}
+	
+	#menu_icon2>img{
+	    width: 42px;
+	    height: 35px;
+	    margin: 40px;
+	}
+	
+	#menu_icon2{
+		margin: 0;
+	}
+	
+	#m_menu{
+ 	    display: none;
+	    background-color: orange;
+	    z-index: 1;
+	    height: 650px;
+	    width: 100%;
+	    padding: 30px 100px 10px 10px;
+	}
+	
+	#m_menu>a, #m_menu>form, #m_menu .welcome{
+		display: block;
+	    color: white;
+	    font-size: 25px;
+	    margin: 25px;
+	}
+	
+	.welcome>span {
+    	color: white;
+	}
+	
+	input.key {
+	    width: 290px;
+	    height: 42px;
+	}
+	
+	input.s_btn {
+	    border: 2px solid white;
+	    width: 80px;
+	    height: 50px;
+	    border-radius: 25px;
+	    margin-left: 6px;
+	}
 }

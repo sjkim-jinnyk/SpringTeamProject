@@ -63,7 +63,7 @@ public class Member2Controller {
 			HttpSession session) throws IOException {
 		
 		int idCheck = this.dao.idCheck(id);
-		int pwdCheck = this.dao.pwdCheck(pwd);
+		String pwdCheck = this.dao.findPwd(id);
 		
 		MemberDTO login_info = this.dao.getMemberInfo(id);
 		
@@ -71,7 +71,7 @@ public class Member2Controller {
 		PrintWriter out = response.getWriter();
 		
 		if(idCheck == 1) { // 아이디 맞음
-			if(pwdCheck > 0) { // 비밀번호 맞음 (같은 비번인 계정이 여러개일 수 있음)
+			if(pwd.equals(pwdCheck)) { // 비밀번호 맞음
 				// session.setAttribute("session_id", login_info);
 				session.setAttribute("session_id", login_info.getMem_id());
 				session.setAttribute("session_mem", login_info);

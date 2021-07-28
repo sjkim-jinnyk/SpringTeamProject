@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="resources/css/CommonStyle.css">
 <link rel="stylesheet" href="resources/css/main.css?after">
 <title>ABOUT</title>
 </head>

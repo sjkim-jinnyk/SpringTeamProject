@@ -29,12 +29,9 @@
 						onclick="location.href='find_pwd.do'">	
 					<input type="button" value="로그인하기" class="login_btn"
 						onclick="location.href='login.do'">	
-					<input type="button" value="회원가입" class="login_btn"
-						onclick="location.href='join.do'">	
 				</div>
 				
 			</div>
-			
 			
 		</div>
 		

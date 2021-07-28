@@ -5,22 +5,33 @@ body{
 }
 
 .review_header{
-	background-color: skyblue;
 	width: 100%;
 	height: 500px;
+	position: relative;
+	overflow: hidden;
 }
 
 .review_title{
-	width: 1200px;
+	position: absolute;
+	top: 0;
+	width: 1100px;
 	margin: 0 auto;
-	padding: 90px 0;
-	padding-left: 10%;
+	padding: 119px 0;
+	padding-left: 15%;
 	color: white;
 }
 
 .review_header p {
 	font-size: 90px;
-	margin: 0;
+    margin: 0;
+    font-weight: 400;
+    text-shadow: 1px 2px 10px black;
+}
+
+img.header_bg{
+	width: 100%;
+    height: auto;
+    filter: brightness(0.9);
 }
 
 .review_wrap{
@@ -44,10 +55,29 @@ body{
 
 .review_guide .left{
 	margin: 0 20px 0 0;
+	
 }
 
 .review_guide .right{
 	margin: 0 0 0 20px;
+}
+
+.left>div, .right>div{
+	margin-bottom: 20px;
+}
+
+p.title{
+	font-weight: 700;
+    font-size: 19px;
+}
+
+p.notice{
+    font-size: 14px;
+    color: gray;
+}
+
+p>span{
+	color: #FF8F1C;
 }
 
 .review_wrap .block_group{
@@ -69,8 +99,8 @@ body{
 }
 
 .pro_img{
-	width: 220px;
-	height: 260px;
+    width: 230px;
+    height: 230px;
 }
 
 .below, .under{
@@ -100,6 +130,7 @@ span.star{
 span.cont{
 	left: 10px;
 	top: 15px;
+	font-weight: 600;
 }
 
 span.writer{
@@ -142,4 +173,97 @@ span.writer{
 	height: 1px;
     background-color: gray;
     margin-bottom: 30px;
+}
+
+.pagination {
+	margin: 30px 0;
+	text-align: center;	
+}
+
+.page-btn {
+	padding: 5px 13px;
+	border: 1px solid #FF8F1C;
+	background-color: #FFF;
+	color: #FF8F1C;
+}
+
+.page-selected, .page-btn:hover {
+	padding: 5px 13px;
+	border: 1px solid #FF8F1C;
+	background-color: #FF8F1C;
+	color: #FFF;
+	transition: all 0.5s;
+}
+
+@media screen and (max-width : 768px) { 
+	.review_header{
+		height: 430px;
+	}
+	
+	.review_title{
+		width: 90%;
+		padding: 100px 0 0 10%;
+	}
+	
+	.review_header p {
+		font-size: 77px;
+	}
+	
+	img.header_bg{
+		width: auto;
+  	 	height: 100%;
+	}
+	
+	.review_wrap{
+	    width: 90%;
+	}
+	
+	.review_wrap .block_group{
+		width: 90%;
+	    height: 1350px;
+	    grid-template-columns: repeat(2, 230px);
+	    grid-template-rows: repeat(2, 350px);
+	    grid-gap: 20px 20px;
+	    margin: 0 5%;
+	}
+	
+}
+	
+
+@media screen and (max-width : 576px) {
+	.review_wrap{
+	    width: 90%;
+	}
+  
+   .review_header{
+		height: 310px;
+	}
+	
+	.review_title{
+		padding: 80px 0 0 10%;
+	}
+	
+	.review_header p {
+		font-size: 53px;
+	}
+	
+	img.header_bg{
+		width: auto;
+  	 	height: 100%;
+	}
+	
+	.review_guide{
+		display: block;
+		border-bottom: solid 1px;
+		margin: 80px 0;
+	}
+	.review_guide .left, .review_guide .right {
+		width: 100%;
+		border-top: solid 1px;
+		padding: 20px;
+	}
+	
+	.review_guide .right {
+	    margin: 0;
+	}
 }
