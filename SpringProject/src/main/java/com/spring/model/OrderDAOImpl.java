@@ -13,7 +13,7 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public int countOrderNo() {
 		
-		return this.sqlSession.selectOne("채ㅕㅜㅅOrderNo");
+		return this.sqlSession.selectOne("countOrderNo");
 	}
 	
 	@Override
@@ -33,6 +33,24 @@ public class OrderDAOImpl implements OrderDAO {
 		
 		return this.sqlSession.insert("insertOrderDetail", dto);
 	}
+	
+	@Override
+	public int countReviewNo() {
+		
+		return this.sqlSession.selectOne("countReviewNo");
+	}
+
+	@Override
+	public int setReviewNo() {
+		
+		return this.sqlSession.selectOne("setReviewNo");
+	}
+	
+	@Override
+	public int insertReview(ReviewDTO dto) {
+		
+		return this.sqlSession.insert("insertReview", dto);
+	}
 
 	@Override
 	public int insertOrderDeliver(int order_no) {
@@ -51,6 +69,10 @@ public class OrderDAOImpl implements OrderDAO {
 		
 		return this.sqlSession.update("updateCouponOwn", dto);
 	}
+
+	
+
+	
 
 	
 	

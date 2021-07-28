@@ -23,6 +23,18 @@
 		insert into order_detail values(#{order_no}, #{order_pro_no}, #{order_pro_amount})
 	</insert>
 	
+	<select id="countReviewNo" resultType="int">
+		select count(review_no) from review
+	</select>
+	
+	<select id="setReviewNo" resultType="int">
+		select max(review_no) + 1 from review
+	</select>
+	
+	<insert id="insertReview" parameterType="com.spring.model.ReviewDTO">
+		insert into review values(#{review_no}, #{review_pro}, null, #{review_writer}, null, null, default, default, sysdate, #{order_no})
+	</insert>
+	
 	<insert id="insertOrderDeliver" parameterType="int">
 		insert into order_deliver values(#{order_no}, sysdate, 0, 0)
 	</insert>

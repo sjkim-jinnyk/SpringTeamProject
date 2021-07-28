@@ -22,6 +22,8 @@ import com.spring.model.OrderDTO;
 import com.spring.model.OrderDetailDTO;
 import com.spring.model.ProductDAO;
 import com.spring.model.ProductDTO;
+import com.spring.model.ReviewDAO;
+import com.spring.model.ReviewDTO;
 
 @Controller
 public class PurchaseController {
@@ -119,7 +121,7 @@ public class PurchaseController {
 		
 		// 주문번호 할당
 		int count = this.orderDAO.countOrderNo();
-		int order_no = 0;
+		int order_no = 1;
 		if (count > 0) {
 			order_no = this.orderDAO.setOrderNo();
 		}
@@ -155,25 +157,46 @@ public class PurchaseController {
 			System.out.println("주문내역 입력 성공");
 		}
 		
-		// 주문 상세내역 입력
+		// 리뷰번호 할당
+		int rcount = this.orderDAO.countReviewNo();
+		int review_no = 1;
+		if (rcount > 0) {
+			review_no = this.orderDAO.setReviewNo();
+		}
+				
+		// 주문 상세내역, 리뷰 입력
 		int check2 = 0;
 		List<CartDTO> clist = this.cartDAO.getCartList(memberDTO.getMem_id());
 		
 		for (CartDTO cartDTO : clist) {
+			// 주문내역 DTO
 			OrderDetailDTO orderDetailDTO = new OrderDetailDTO();
 			orderDetailDTO.setOrder_no(order_no);
 			orderDetailDTO.setOrder_pro_no(cartDTO.getProduct_no());
 			orderDetailDTO.setOrder_pro_amount(cartDTO.getCart_amount());
 			System.out.println("주문 상세내역 : " + orderDetailDTO);
 			
+			// 리뷰 DTO
+			ReviewDTO reviewDTO = new ReviewDTO();
+			reviewDTO.setReview_no(review_no);
+			reviewDTO.setReview_pro(cartDTO.getProduct_no());
+			reviewDTO.setReview_writer(memberDTO.getMem_id());
+			reviewDTO.setOrder_no(order_no);
+			
+			// DB에 입력
 			check2 += this.orderDAO.insertOrderDetail(orderDetailDTO);
+			check2 += this.orderDAO.insertReview(reviewDTO);
+			
+			// 리뷰번호 증가
+			review_no += 1;
 		}
 		
 		if (check2 == 0) {
-			System.out.println("주문 상세내역 입력 실패");
+			System.out.println("주문 상세내역, 리뷰 입력 실패");
 		} else if (check2 >= 1) {
-			System.out.println("주문 상세내역 입력 성공");
+			System.out.println("주문 상세내역, 리뷰 입력 성공");
 		}
+		
 		
 		// 주문 배송상태 입력
 		int check3 =0;
