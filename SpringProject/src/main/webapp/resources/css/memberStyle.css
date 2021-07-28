@@ -302,10 +302,10 @@
 	padding: 10px 20px;
 	text-align: left;
 }
-.member_review .review_bar #reviewInfo,#reviewDate {
-	width: 30%;
+.member_review .review_bar #reviewDate {
+	width: 20%;
 }
-.member_review .review_bar #review {
+.member_review .review_bar #reviewInfo, #review {
 	width: 40%;
 }
 .member_review .review_bar #reviewImg {
@@ -345,44 +345,6 @@
 	border-bottom: 1px solid #ccc;
 }
 
-
-/* member_review_write css */
-.review_star .off::before{
-	content: url("../img/member/star_empty.png");
-	color: white;
-}
-.review_star .on::after{
-	content: url("../img/member/star_full.png");
-}
-
-.member_review .review_info, .review_content, .review_btn {
-	text-align: left;
-}
-.member_review .review_info {
-	padding: 20px 0;
-	color: #777777;
-}
-.review_content .review_img {
-	padding-bottom: 20px;
-}
-.review_content .review_star, .review_text ul {
-	display: flex;
-}
-.review_content #reviewTag {
-	padding-right: 20px;
-}
-.review_content ul {
-	padding-bottom: 20px;
-}
-.review_text #review_title {
-	border: 1px solid #e5e5e5;
-	width: 500px;
-}
-.review_text #review_cont {
-	border: 1px solid #e5e5e5;
-	height: 200px;
-	width: 700px;
-}
 
 /* member_productLike css */
 .member_like h3{
@@ -444,7 +406,7 @@
 	border-bottom: 1px solid #ccc;
 }
 .member_qna .qna_bar td{
-	padding: 10px;
+	padding: 20px 10px;
 }
 .member_qna .qna_bar #qnainfo, #qnatitle{
 	width: 30%;
@@ -467,8 +429,9 @@
 	padding-top: 50px;
 	text-align: center;
 }
-.member_qna .on td {
-	padding-top: 20px 0;
+
+.member_qna .on {
+	background: #f1f1f1;
 }
 
 /* member_info css */
@@ -617,6 +580,21 @@ input[id="agreeC"]:checked + label:before {
 	border: 1px solid ;
 }
 
+.memberInfoDel {
+	font-size: 30px;
+	padding: 100px;
+	font-family:'Noto Sans KR', sans-serif;
+	text-align: center;
+}
+
+.memberInfoDel .goMain_btn {
+	background: transparent;
+	margin-top: 20px;
+	padding: 5px 10px;
+	cursor: pointer;
+	border: 1px solid ;
+}
+
 /* member_sns css */
 .member_sns .snsBlock{
 	margin-top: 80px;
@@ -732,7 +710,7 @@ input[id="agreeC"]:checked + label:before {
 	padding-top: 50px;
 	text-align: center;
 }
-/* member_home css */
+
 
 
 /* 반응형 */
@@ -742,6 +720,12 @@ input[id="agreeC"]:checked + label:before {
     	display: inline;
     	font-size: 15px;
     }
+     .member_container img {
+   		width: 95px;
+    	height: 75px;
+    	padding-left: 30px;
+   	}
+   	
     th, td, p, span{
     	font-size: 15px;
     }
@@ -795,11 +779,7 @@ input[id="agreeC"]:checked + label:before {
     .member_order .order_bar th, .order_bar td, .member_review .review_bar th, .member_review .review_bar td {
    		text-align: center;
    	}
-   	img {
-   		width: 95px;
-    	height: 75px;
-    	padding-left: 30px;
-   	}
+   	
    	.member_order .order_bar #orderno {
    		width: 5%;
    	}
@@ -843,6 +823,11 @@ input[id="agreeC"]:checked + label:before {
 	.nav_menu_x768 {
 		display: none;
 	}
+	.member_container img {
+   		width: 85px;
+    	height: 65px;
+    	padding-left: 0;
+   	}
 	.nav_menu_x576 {
 		display: block;
 		text-align: left;
@@ -910,11 +895,6 @@ input[id="agreeC"]:checked + label:before {
    	 .member_order .order_bar_x576  th, .order_bar_x576  td {
    		font-size: 15px;
    		text-align: center;
-   	}
-   	img {
-   		width: 85px;
-    	height: 65px;
-    	padding-left: 0;
    	}
    	.member_orderDetail .order_detail {
    		width: 90%;

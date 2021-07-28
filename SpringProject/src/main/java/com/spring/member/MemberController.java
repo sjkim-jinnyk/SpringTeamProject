@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.model.CouponDTO;
 import com.spring.model.CouponOwnDTO;
@@ -35,6 +36,7 @@ import com.spring.model.ProductRecentDTO;
 import com.spring.model.QnaCategoryDTO;
 import com.spring.model.QnaDTO;
 import com.spring.model.ReviewDTO;
+import com.spring.model.UploadBO;
 
 @Controller
 public class MemberController {
@@ -44,6 +46,9 @@ public class MemberController {
 
 	@Autowired
 	private ProductRecentDAO prdao;
+	
+	@Autowired
+	private UploadBO upload;
 
 	@RequestMapping("test.do")
 	public String test(Model model) {
@@ -108,7 +113,7 @@ public class MemberController {
 		model.addAttribute("Order", odto);
 		model.addAttribute("Deliver", oddto);
 		model.addAttribute("Detail", proinfo);
-
+		
 		return "member/member_home";
 	}
 
@@ -151,10 +156,14 @@ public class MemberController {
 		MemberDTO dto = this.dao.getMemberInfo(id);
 
 		OrderDTO order = this.dao.orderDetail(no);
-		OrderDetailDTO prono = this.dao.orderProno(no);
+		List<OrderDetailDTO> prono = this.dao.orderProno(no);
 		CouponDTO couponCont = this.dao.couponCont(order.getCoupon_no());
 
-		ProductDTO product = this.dao.getQnaProductInfo(prono.getOrder_pro_no());
+		List<ProductDTO> product = new ArrayList<ProductDTO>();
+		for(int i=0; i<prono.size();i++) {
+			product.add(this.dao.orderProInfo(prono.get(i).getOrder_pro_no())); 
+		}
+				
 
 		model.addAttribute("Order", order);
 		model.addAttribute("Product", product);
@@ -255,24 +264,34 @@ public class MemberController {
 
 	@RequestMapping("member_review_wrtie_ok.do")
 	public void review_write_ok(ReviewDTO dto, @RequestParam("order_no") int order_no,
-			@RequestParam("review_star") int review_star, HttpServletResponse response) throws IOException {
+			@RequestParam("review_star") int review_star, HttpServletResponse response, MultipartHttpServletRequest mRequest) throws IOException {
 
 		response.setContentType("text/html; charset-UTF-8");
 
 		PrintWriter out = response.getWriter();
 
-		int check = this.dao.updateReview(dto);
+		HashMap hm = upload.fileUpload(mRequest);
+		boolean isUpload = (Boolean) hm.get("isUpload");
+		String fileName = String.valueOf(hm.get("fileName"));
+		
+		System.out.println("fileName : " +fileName);
+		if(isUpload) {
+			dto.setReview_img(fileName);
+			System.out.println("이미지: "+ dto.getReview_img());
+			int check = this.dao.updateReview(dto);
 
-		if (check > 0) {
-			out.println("<script>");
-			out.println("alert('리뷰 등록 성공')");
-			out.println("location.href='member_review_cont.do?no=" + order_no + "'");
-			out.println("</script>");
-		} else {
-			out.println("<script>");
-			out.println("alert('리뷰 등록 실패')");
-			out.println("history.back()");
-			out.println("</script>");
+			if (check > 0) {
+				out.println("<script>");
+				out.println("alert('리뷰가 성공적으로 작성되었습니다.')");
+				out.println("opener.document.location.reload()");
+				out.println("window.close()");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('리뷰 등록 실패')");
+				out.println("history.back()");
+				out.println("</script>");
+			}
 		}
 	}
 
@@ -427,21 +446,17 @@ public class MemberController {
 			HttpServletResponse response, @RequestParam("agreeC") int agree) throws IOException {
 		String id = (String) session.getAttribute("session_id");
 
-		System.out.println("삭제 비번 : " + dto.getMem_pwd());
-		System.out.println("삭제 db 비번 : " + db_pwd);
 		response.setContentType("text/html; charset-UTF-8");
 		
-		System.out.println(agree);
 		PrintWriter out = response.getWriter();
-		
 		if(agree == 1) {
 			if(dto.getMem_pwd().equals(db_pwd)) {
 				int check = this.dao.deleteMember(id);
 				
 				if(check > 0) {
+					session.invalidate();
 					out.println("<script>");
-					out.println("alert('성공')");
-					out.println("location.href='main.do'");
+					out.println("location.href='member_delete_okpage.do'");
 					out.println("</script>");
 				}
 			}else {
@@ -458,7 +473,11 @@ public class MemberController {
 		}
 		
 	}
-
+	@RequestMapping("member_delete_okpage.do")
+	public String deleteok() {
+		
+		return "member/member_deleteOK";
+	}
 	// 문의내역 페이지
 	@RequestMapping("member_qna.do")
 	public String memberQnA(HttpSession session, Model model) {

@@ -63,7 +63,7 @@
 											<td>XXX</td>
 										</c:if>
 										<c:if test="${olist.getOrder_no() == rlist[status.index].getOrder_no()}">
-											<td>${olist.getOrder_date() }</td>
+											<td>${olist.getOrder_date().substring(0,10) }</td>
 										</c:if>
 										<c:if test="${olist.getOrder_no() != rlist[status.index].getOrder_no()}">
 											<td>X</td>

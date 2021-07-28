@@ -57,7 +57,7 @@
 									<td>
 										<ul>
 											<li><img src="resources/img/upload/${Detail[status.index].getPro_img() }"></li>
-											<li class="proname">${Detail[status.index].getPro_name() }</li>
+											<li class="proname">${dto.getOrder_content() }</li>
 										</ul>
 									</td>
 									<td>${dto.getOrder_date().substring(0,10) }</td>
@@ -100,7 +100,7 @@
 									<td>
 										<ul>
 											<li class="img"><img src="resources/img/upload/${Detail[status.index].getPro_img() }"></li>
-											<li class="proname">${Detail[status.index].getPro_name() }</li>
+											<li class="proname">${dto.getOrder_content() }</li>
 										</ul>
 									</td>
 									<td>${dto.getOrder_date().substring(0,10) }</td>
@@ -141,7 +141,7 @@
 									<td>
 										<ul>
 											<li><img src="resources/img/upload/${Detail[status.index].getPro_img() }"></li>
-											<li class="proname">${Detail[status.index].getPro_name() }</li>
+											<li class="proname">${dto.getOrder_content() }</li>
 										</ul>
 									</td>
 									<td>${dto.getOrder_date().substring(0,10) }</td>
