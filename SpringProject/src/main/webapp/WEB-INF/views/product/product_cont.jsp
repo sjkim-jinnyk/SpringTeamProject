@@ -275,7 +275,7 @@
 						</tr>
 						
 						<c:forEach items="${qna }" var="dto" varStatus="status">
-						<tr>
+						<tr class="qna_tr">
 							<td class="qna-state">
 								<c:if test="${!empty dto.getQnaDTO() }"><span class="state-ok">답변완료</span></c:if> 
 								<c:if test="${empty dto.getQnaDTO() }"><span class="state-no">답변대기</span></c:if> 
@@ -379,6 +379,7 @@
 					</div>
 				</div>
 				</div>
+				<button onclick="location.href='#'" id="up-arrow" class="up-arrow"><img src="resources/img/main/up_arrow.png"></button>
 				</div><%-- product-cont end --%>
 			</div>
 		<jsp:include page="../include/footer.jsp" />

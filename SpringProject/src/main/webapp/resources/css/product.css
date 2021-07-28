@@ -1,14 +1,6 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400&display=swap');
 
-.up-arrow {
-	position: fixed;
-	bottom: 100px;
-	right: 100px;
-	font-size: 30px;
-	color: #FF8F1C;
-}
-
 /* product_list */
 .page-wrapper {
 	display: inline-flex;
@@ -188,91 +180,6 @@
 }
 
 
-/* 
-product_recent
-.history-title {
-	display: inline-block;
-	text-align: left;
-	font-weight: bold;
-	margin: 100px auto 50px;
-	font-size: 30px;
-	margin: 30px;
-	color: black;
-}
-
-.cart-size {
-	font-weight: normal;
-}
-
-.history-wrap hr {
-	background-color: #CCC;
-	margin-right: 30px;
-	margin-left: 30px;
-}
-
-.history-wrap ul {
-	padding-left: 0;
-	margin-right: 30px;
-	margin-left: 30px;
-	list-style: none;
-}
-
-.history-wrap ul li {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	padding-bottom: 10px;
-	border-bottom: solid 1px #CCC;
-}
-
-.history {
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
-
-.history img {
-	width: 100px;
-	height: 100px;
-	display: inline-block;
-}
-
-.pro-content {
-	display: inline-block;
-	vertical-align: top;
-	margin-left: 50px;
-	width: 600px;
-}
-
-.pro-content a {
-	text-decoration: none;
-	color: black;
-	font-size: 20px;
-	font-weight: bold;
-}
-
-.pro-content span {
-	font-size: 13px;
-	color: #CCC;
-}
-
-.cart-price {
-	display: inline-block;
-	vertical-align: top;
-}
-
-.pro-btn {
-	margin-left: 20px;
-	display: inline-block;
-	vertical-align: top;
-}
-
-.pro-cancel {
-	display: inline-block;
-	float: right;
-	vertical-align: middle;
-}
-
- */
-
 /* product_cont */
 .product-cont {
 	margin: 100px auto 50px;
@@ -304,7 +211,7 @@ product_recent
 	display: inline-block;
 	vertical-align: top;
 	padding-left: 50px;
-	width: 600px;
+	width: 550px;
 	height: 555px;
 }
 
@@ -412,7 +319,7 @@ product_recent
 	padding: 8px;
 	border-radius: 30px;
 	text-align: center;
-	width: 240px;
+	width: 220px;
 	height: 60px;
 	color: #FFF;
 	font-weight: bold;
@@ -453,7 +360,6 @@ product_recent
 
 .hr1 {
 	border: 1px inset #F5F5F5;
-	margin-bottom: 20px;
 }
 
 
@@ -463,7 +369,6 @@ product_recent
 }
 
 .product-content {
-	padding: 50px 0;
 	text-align: center;
 	border-bottom-color: #F5F5F5;
 }
@@ -479,6 +384,7 @@ product_recent
 }
 
 .content-detail {
+	padding-top: 50px;
 	padding-bottom: 150px;
 	display: block;
 	width: 1000px;
@@ -497,6 +403,13 @@ product_recent
 
 .hr2 {
 	margin: 10px 0 10px;	
+}
+
+#content-bar {
+	position: sticky;
+	padding-top: 10px;
+	top: 0px;
+	background-color: #FFF;
 }
 
 
@@ -646,6 +559,10 @@ product_recent
 	border-bottom: 1px solid #C0C0C0;
 }
 
+.qna-table tr:last-child td {
+	border-bottom: 1px solid;
+}
+
 .qna-state, .qna-writer, .qna-date {
 	text-align: center;
 }
@@ -722,7 +639,6 @@ product_recent
 	text-align: center;
 	padding: 15px 0;
 }
-
 
 /* qna 작성 팝업창 */
 .product-qna-form{

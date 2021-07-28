@@ -19,7 +19,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.model.AdminDAO;
 import com.spring.model.AdminDTO;
+import com.spring.model.Admin_CouponDTO;
+import com.spring.model.Admin_QNADTO;
 import com.spring.model.CateDTO;
+import com.spring.model.CouponDTO;
 import com.spring.model.PageDTO;
 import com.spring.model.ProductDAO;
 import com.spring.model.ProductDTO;
@@ -57,7 +60,7 @@ public class AdminController {
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
 		List<AdminDTO> pagelist = this.dao.getMemberList(dto);
 
-		model.addAttribute("Page", dto);
+		model.addAttribute("page", dto);
 		model.addAttribute("List", pagelist);
 
 		return "admin/admin_member";
@@ -87,14 +90,18 @@ public class AdminController {
 			page = 1;
 		}
 		
-		rowsize = 5;
+		rowsize = 1;
 		totalRecord = this.dao.adminSearchMemberListCount(keyword);
 		
 		String field = "";		
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord, field, keyword);
-		List<AdminDTO> list = this.dao.adminSearchList(dto);
+		List<AdminDTO> member_search_list = this.dao.adminSearchList(dto);
+		
+		for (int i = 0; i < member_search_list.size(); i++) {
+			member_search_list.get(i);
+		}
 
-		model.addAttribute("searchList", list);
+		model.addAttribute("searchList", member_search_list);
 		model.addAttribute("page", dto);
 
 		return "admin/member_search";
@@ -102,14 +109,92 @@ public class AdminController {
 	}
 	
 	
+	@RequestMapping("admin_qna_list.do")
+	public String qna_list(HttpServletRequest request,HttpSession session, Model model) {
+
+		int page = 0;
+
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		} else {
+			page = 1;
+		}
+
+		rowsize = 5;
+		totalRecord = this.dao.getListCount();
+
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+		List<Admin_QNADTO> qnalist = this.dao.getQnaList(dto);
+
+		model.addAttribute("page", dto);
+		model.addAttribute("QnsList", qnalist);
+
+		return "admin/admin_qna";
+
+	}
 	
+	@RequestMapping("admin_qna_Inquiry.do")
+	public String getQnainquiry(@RequestParam("no") int qna_no, Model model) {
+		
+		// 게시글 상세내역 조회하는 메서드 호출
+		Admin_QNADTO dto = this.dao.getQnainquiry(qna_no);
+		
+		model.addAttribute("Admin_Inquiry", dto);
+		
+		return "admin/admin_qna_cont";
+		
+	}
 	
+	@RequestMapping("admin_coupon_list.do")
+	public String coupon(HttpServletRequest request,HttpSession session, Model model) {
+
+		int page = 0;
+
+		if (request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		} else {
+			page = 1;
+		}
+
+		rowsize = 4;
+		totalRecord = this.dao.getCouponCount();
+
+		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
+		List<Admin_CouponDTO> admincouponlist = this.dao.getAdminCouponList(dto);
+
+		model.addAttribute("page", dto);
+		model.addAttribute("CouponList", admincouponlist);
+
+		return "admin/admin_couponlist";
+
+	}
 	
+		
+		@RequestMapping("create_coupon.do")
+		public String write(Model model) {
+			
+			
+			return "admin/admin_coupon_create";
+		}
 	
-	
-	
-	
-	
+	@RequestMapping("create_coupon_ok.do")
+	public void create_coupon(Admin_CouponDTO dto, HttpServletResponse response) throws IOException {
+		response.setContentType("text/html; UTF-8");
+		PrintWriter out = response.getWriter();
+		
+		int result = this.dao.Create_Coupon(dto);
+		
+		if(result > 0) {
+			out.println("<script>");
+			out.println("location.href='admin_coupon_list.do'");
+			out.println("</script>");
+		}else {
+			out.println("<script>");
+			out.println("alert('카테고리 등록 실패!')");
+			out.println("history.back()");
+			out.println("</script>");
+		}
+	}
 	
 	
 	
@@ -334,7 +419,7 @@ public class AdminController {
 			model.addAttribute("field", field);
 			model.addAttribute("keyword", keyword);
 
-			return "admin/admin_product_search";
+			return "admin/admin_product_list";
 		}
 		
 		@RequestMapping("category_list.do")

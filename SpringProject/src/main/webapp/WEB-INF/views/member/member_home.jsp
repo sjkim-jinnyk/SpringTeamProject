@@ -33,13 +33,15 @@
 								<li><a id="threeMonth" class="off" href="#none">3개월</a></li>
 								<li><a id="allDay" class="on" href="#none">전체 시기</a></li>
 							</div>
-							<li>
-								<input type="date" id="orderFirst" name="orderFirst" value="${map.get('first') }"> - 
-				    			<input type="date" id="orderLast" name="orderLast" value="${map.get('last') }">
-							</li>
-							<li id="searchBtn">
-								<input id="search_btn" type="submit" value="검색">
-							</li>
+							<div class="select_date">
+								<li>
+									<input type="date" id="orderFirst" name="orderFirst" value="${map.get('first') }"> - 
+					    			<input type="date" id="orderLast" name="orderLast" value="${map.get('last') }">
+								</li>
+								<li id="searchBtn">
+									<input id="search_btn" type="submit" value="검색">
+								</li>
+							</div>
 						</ul>  
 						
 						</form>
@@ -103,6 +105,88 @@
 									</td>
 									<td>${dto.getOrder_date().substring(0,10) }</td>
 									<td><fmt:formatNumber value="${dto.getOrder_price() }" /> 원</td>
+										<c:forEach items="${DeliverS }" var="del">
+											<c:if test="${dto.getOrder_no() == del.getOrder_no()}">
+													<c:if test="${del.getDeliver_status() == 0 }">
+													<td>
+														배송 준비 중
+													</td>
+												</c:if>
+												<c:if test="${del.getDeliver_status() == 1 }">
+													<td>
+														배송중
+													</td>
+												</c:if>	
+												<c:if test="${del.getDeliver_status()  == 2 }">
+													<td>
+														배송완료
+													</td>
+												</c:if> 
+											</c:if>
+										</c:forEach>
+									</tr>
+								</c:forEach>
+							</c:if>
+						</table>
+						<!-- 576px -->
+						<table class="order_bar_x576">
+							<tr>
+								<th id="orderno">주문번호</th><th id="orderinfo">상품정보</th><th id="orderdate">주문일자</th>
+								<th id="orderstatus">주문상태</th>
+							</tr>
+							<c:if test="${!empty Order}">
+								<c:forEach items="${Order }" var="dto" varStatus="status">
+								<tr id="tablecont">
+									<td><a href="<%=request.getContextPath()%>/order_detail.do?no=${dto.getOrder_no() }">${dto.getOrder_no() }</a></td>
+									<td>
+										<ul>
+											<li><img src="resources/img/upload/${Detail[status.index].getPro_img() }"></li>
+											<li class="proname">${Detail[status.index].getPro_name() }</li>
+										</ul>
+									</td>
+									<td>${dto.getOrder_date().substring(0,10) }</td>
+									<c:if test="${!empty Deliver }">
+										<c:forEach items="${Deliver }" var="del">
+											<c:if test="${dto.getOrder_no() == del.getOrder_no()}">
+													<c:if test="${del.getDeliver_status() == 0 }">
+													<td>
+														배송 준비 중
+													</td>
+												</c:if>
+												<c:if test="${del.getDeliver_status() == 1 }">
+													<td>
+														배송중
+													</td>
+												</c:if>	
+												<c:if test="${del.getDeliver_status()  == 2 }">
+													<td>
+														배송완료
+													</td>
+												</c:if> 
+											</c:if>
+										</c:forEach>
+									</c:if>
+									</tr>
+								</c:forEach>
+							</c:if>
+							<c:if test="${empty Order && empty OrderSearchList}">
+								<tr>
+									<td colspan="4" id="noHistory">
+										주문 내역이 없습니다.
+									</td>
+								</tr>
+							</c:if>
+							<c:if test="${!empty OrderSearchList }">
+								<c:forEach items="${OrderSearchList }" var="dto" varStatus="status">
+								<tr id="tablecont">
+									<td><a href="<%=request.getContextPath()%>/order_detail.do?no=${dto.getOrder_no() }">${dto.getOrder_no() }</a></td>
+									<td>
+										<ul>
+											<li class="img"><img src="resources/img/upload/${Detail[status.index].getPro_img() }"></li>
+											<li class="proname">${Detail[status.index].getPro_name() }</li>
+										</ul>
+									</td>
+									<td>${dto.getOrder_date().substring(0,10) }</td>
 										<c:forEach items="${DeliverS }" var="del">
 											<c:if test="${dto.getOrder_no() == del.getOrder_no()}">
 													<c:if test="${del.getDeliver_status() == 0 }">
