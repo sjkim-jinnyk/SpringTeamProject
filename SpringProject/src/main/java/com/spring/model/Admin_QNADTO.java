@@ -16,5 +16,6 @@ public class Admin_QNADTO {
 	private String qna_category_no;
 	private String qna_date;
 	private int qna_group;
+	private int qna_step;
 	
 }

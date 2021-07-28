@@ -28,74 +28,82 @@
 
 		<!-- Page Content  -->
 		<div id="content" class="p-4 p-md-5 pt-5">
-		
-		<div class="main">
-		
-		<div class="amdin-title">쿠폰 관리</div>
 
-			<div align="center">
+			<div class="main">
 
-				<table class="table table-hover">
-					<tr>
-						<th>쿠폰 번호</th>
-						<th>쿠폰 코드</th>
-						<th>쿠폰 할인률</th>
-						<th>쿠폰 상세내용</th>
-					</tr>
+				<div class="amdin-title">쿠폰 관리</div>
 
-					<c:set var="list" value="${CouponList }" />
-					<c:if test="${!empty list }">
-						<c:forEach items="${list }" var="dto">
-							<tr>
-								<td>${dto.getCoupon_no() }</td>
-								<td>${dto.getCoupon_code() }</td>
-								<td>${dto.getCoupon_type() }<a>%</a></td>
-								<td>${dto.getCoupon_cont() }</td>
-							</tr>
-						</c:forEach>
-					</c:if>
+				<div align="center">
+					<div class="row">
+						<div class="col-md-12">
+							<table class="table table-hover">
+								<tr>
+									<th>쿠폰 번호</th>
+									<th>쿠폰 코드</th>
+									<th>쿠폰 할인률</th>
+									<th>쿠폰 상세내용</th>
+								</tr>
 
-					<c:if test="${empty list }">
-						<tr>
-							<td colspan="4" align="center">
-								<h3>발행된 쿠폰이 없습니다</h3>
-							</td>
-						</tr>
-					</c:if>
-					<tr>
-						<td colspan="4" align="right"><input type="button" class="default-btn"
-							value="쿠폰발행" onclick="location.href='create_coupon.do'"></td>
-					</tr>
-				</table>
-				<br>
+								<c:set var="list" value="${CouponList }" />
+								<c:if test="${!empty list }">
+									<c:forEach items="${list }" var="dto">
+										<tr>
+											<td>${dto.getCoupon_no() }</td>
+											<td>${dto.getCoupon_code() }</td>
+											<td>${dto.getCoupon_type() }<a>%</a></td>
+											<td>${dto.getCoupon_cont() }</td>
+										</tr>
+									</c:forEach>
+								</c:if>
 
-				<%-- Pagination --%>
-				<div class="pagination">
-					<c:if test="${page.getPage() > page.getBlock() }">
-						<a href="admin_coupon_list.do?page=1">◀◀</a>
-						<a href="admin_coupon_list.do?page=${Paging.getStartBlock() - 1 }">◀</a>
-					</c:if>
+								<c:if test="${empty list }">
+									<tr>
+										<td colspan="4" align="center">
+											<h3>발행된 쿠폰이 없습니다</h3>
+										</td>
+									</tr>
+								</c:if>
+								<tr>
+									<td colspan="4" align="right"><input type="button"
+										class="default-btn" value="쿠폰발행"
+										onclick="location.href='create_coupon.do'"></td>
+								</tr>
+							</table>
+							<br>
+						</div>
+					</div>
 
-					<c:forEach begin="${page.getStartBlock() }"
-						end="${page.getEndBlock() }" var="i">
-						<c:if test="${i == page.getPage() }">
-							<b><a href="admin_coupon_list.do?page=${i }">${i }</a></b>
-						</c:if>
+					<div class="row">
+						<div class="col-md-12">
+							<%-- Pagination --%>
+							<div class="pagination">
+								<c:if test="${page.getPage() > page.getBlock() }">
+									<a href="admin_coupon_list.do?page=1">◀◀</a>
+									<a
+										href="admin_coupon_list.do?page=${Paging.getStartBlock() - 1 }">◀</a>
+								</c:if>
 
-						<c:if test="${i != page.getPage() }">
-							<a href="admin_coupon_list.do?page=${i }">${i }</a>
-						</c:if>
-					</c:forEach>
+								<c:forEach begin="${page.getStartBlock() }"
+									end="${page.getEndBlock() }" var="i">
+									<c:if test="${i == page.getPage() }">
+										<b><a href="admin_coupon_list.do?page=${i }">${i }</a></b>
+									</c:if>
 
-					<c:if test="${page.getEndBlock() < page.getAllPage() }">
-						<a href="admin_coupon_list.do?page=${page.getEndBlock() +1 }">▶</a>
-						<a href="admin_coupon_list.do?page=${page.getAllPage() }">▶▶</a>
-					</c:if>
+									<c:if test="${i != page.getPage() }">
+										<a href="admin_coupon_list.do?page=${i }">${i }</a>
+									</c:if>
+								</c:forEach>
+
+								<c:if test="${page.getEndBlock() < page.getAllPage() }">
+									<a href="admin_coupon_list.do?page=${page.getEndBlock() +1 }">▶</a>
+									<a href="admin_coupon_list.do?page=${page.getAllPage() }">▶▶</a>
+								</c:if>
+							</div>
+						</div>
+					</div>
 				</div>
-
 			</div>
 		</div>
-		</div>
-		</div>
+	</div>
 </body>
 </html>
