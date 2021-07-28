@@ -33,11 +33,6 @@ public class Member2DAOImpl implements Member2DAO {
 	}
 
 	@Override
-	public int pwdCheck(String pwd) {
-		return this.sqlSession.selectOne("pwdCheck", pwd);
-	}
-
-	@Override
 	public String findId(String phone) {
 		return this.sqlSession.selectOne("findId", phone);
 	}

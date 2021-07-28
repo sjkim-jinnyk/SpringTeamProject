@@ -25,10 +25,6 @@
 		select count(*) from member where mem_id = #{mem_id}
 	</select>
 	
-	<select id="pwdCheck" parameterType="com.spring.model.MemberDTO" resultType="int">
-		select count(*) from member where mem_pwd = #{mem_pwd}
-	</select>
-	
 	<select id="findId" parameterType="String" resultType="String">
 		select mem_id from member where mem_phone = #{mem_phone}
 	</select>
