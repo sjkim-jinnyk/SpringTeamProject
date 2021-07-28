@@ -445,21 +445,17 @@ public class MemberController {
 			HttpServletResponse response, @RequestParam("agreeC") int agree) throws IOException {
 		String id = (String) session.getAttribute("session_id");
 
-		System.out.println("삭제 비번 : " + dto.getMem_pwd());
-		System.out.println("삭제 db 비번 : " + db_pwd);
 		response.setContentType("text/html; charset-UTF-8");
 		
-		System.out.println(agree);
 		PrintWriter out = response.getWriter();
-		
 		if(agree == 1) {
 			if(dto.getMem_pwd().equals(db_pwd)) {
 				int check = this.dao.deleteMember(id);
 				
 				if(check > 0) {
+					session.invalidate();
 					out.println("<script>");
-					out.println("alert('성공')");
-					out.println("location.href='main.do'");
+					out.println("location.href='member_delete_okpage.do'");
 					out.println("</script>");
 				}
 			}else {
@@ -476,7 +472,11 @@ public class MemberController {
 		}
 		
 	}
-
+	@RequestMapping("member_delete_okpage.do")
+	public String deleteok() {
+		
+		return "member/member_deleteOK";
+	}
 	// 문의내역 페이지
 	@RequestMapping("member_qna.do")
 	public String memberQnA(HttpSession session, Model model) {
