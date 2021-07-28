@@ -111,6 +111,7 @@
 							<input type="text" id="coupon_cont" readonly="readonly" 
 								onclick="coupon_select()" placeholder="쿠폰 선택">
 							<input type="hidden" name="coupon_no" id="coupon_no">
+							<input type="hidden" name="coupon_type" id="coupon_type">
 						</td>
 					</tr>
 	
