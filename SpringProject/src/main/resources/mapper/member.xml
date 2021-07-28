@@ -64,7 +64,6 @@
 		where pro_no in 
 		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.order_pro_no}</foreach>
 		</if>
-		order by pro_no desc
 	</select>
 	
 	<select id="reviewList" resultType="com.spring.model.ReviewDTO">
@@ -76,7 +75,7 @@
 	</select>
 	
 	<update id="updateReview" parameterType="com.spring.model.ReviewDTO">
-		update review set review_title = #{review_title}, review_cont = #{review_cont}, review_star = #{review_star}, review_date = sysdate
+		update review set review_title = #{review_title}, review_img = #{review_img}, review_cont = #{review_cont}, review_star = #{review_star}, review_date = sysdate
 		where order_no = #{order_no}
 	</update>
 	

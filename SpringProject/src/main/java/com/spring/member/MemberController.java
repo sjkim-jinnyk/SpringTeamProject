@@ -113,7 +113,7 @@ public class MemberController {
 		model.addAttribute("Order", odto);
 		model.addAttribute("Deliver", oddto);
 		model.addAttribute("Detail", proinfo);
-
+		
 		return "member/member_home";
 	}
 
@@ -274,16 +274,17 @@ public class MemberController {
 		boolean isUpload = (Boolean) hm.get("isUpload");
 		String fileName = String.valueOf(hm.get("fileName"));
 		
+		System.out.println("fileName : " +fileName);
 		if(isUpload) {
-			
 			dto.setReview_img(fileName);
-			
+			System.out.println("이미지: "+ dto.getReview_img());
 			int check = this.dao.updateReview(dto);
 
 			if (check > 0) {
 				out.println("<script>");
-				out.println("alert('리뷰 등록 성공')");
-				out.println("location.href='member_review_cont.do?no=" + order_no + "'");
+				out.println("alert('리뷰가 성공적으로 작성되었습니다.')");
+				out.println("opener.document.location.reload()");
+				out.println("window.close()");
 				out.println("</script>");
 			} else {
 				out.println("<script>");
