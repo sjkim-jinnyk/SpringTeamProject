@@ -80,7 +80,6 @@ function addLikey(product_no, index){
 	});
 }
 
-
 // cart
 
 function resetCart() {

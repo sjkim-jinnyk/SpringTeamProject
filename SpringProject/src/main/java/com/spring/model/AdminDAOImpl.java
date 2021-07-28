@@ -55,16 +55,17 @@ public class AdminDAOImpl implements AdminDAO{
 		return this.sqlSession.selectList("cateList");
 	}
 
-	@Override public List<AdminDTO> adminSearchList(PageDTO dto) {
+	@Override 
+	public List<AdminDTO> adminSearchList(PageDTO dto) {
 	 
-	 return this.sqlSession.selectList("searchList", dto); 
+	 return this.sqlSession.selectList("adminSearchList", dto); 
 	 }
 
 
 	@Override
 	public int adminSearchMemberListCount(String keyword) {
 		
-		return this.sqlSession.selectOne("searchListCount", keyword);
+		return this.sqlSession.selectOne("adminSearchListCount", keyword);
 	}
 
 	@Override
@@ -120,6 +121,37 @@ public class AdminDAOImpl implements AdminDAO{
 		// TODO Auto-generated method stub
 		return this.sqlSession.selectList("proSearchList", dto);
 	}
+
+	@Override
+	public List<Admin_QNADTO> getQnaList(PageDTO dto) {
+		
+		return this.sqlSession.selectList("admin_qnaList", dto);
+	}
+
+	@Override
+	public Admin_QNADTO getQnainquiry(int no) {
+	
+		return this.sqlSession.selectOne("qnaInquiry", no);
+	}
+
+	@Override
+	public int getCouponCount() {
+		
+		return this.sqlSession.selectOne("coupon_count");
+	}
+	
+	@Override
+	public List<Admin_CouponDTO> getAdminCouponList(PageDTO dto) {
+		
+		return this.sqlSession.selectList("admin_couponlist", dto);
+	}
+
+	@Override
+	public int Create_Coupon(Admin_CouponDTO dto) {
+	
+		return this.sqlSession.insert("admin_create_coupon", dto);
+	}
+
 
 
 }

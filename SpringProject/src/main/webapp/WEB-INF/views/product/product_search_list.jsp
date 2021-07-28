@@ -15,7 +15,7 @@
 <body>
 	<div class="layout_container">
 		<jsp:include page="../include/header.jsp" />
-		
+		 
 			<div class="about_header">
 				<span>SEARCH PRODUCT</span>
 				<img src="resources/img/main/orange_bg.jpeg">
@@ -26,37 +26,35 @@
 			<div class="search-box">
 				<form method="post" action="product_search.do" >	
 					<i class="fas fa-search"></i>
-					<input id="search" class="search" type="search" name="k" placeholder="'${keyword }' 에 대한 통합 검색결과입니다.">
+					<input id="search" class="search" type="search" name="k" placeholder="<c:if test="${!empty List }"> '${keyword }' 에 대한 통합 검색 결과입니다.</c:if><c:if test="${empty List }"> '${keyword }' 에 해당하는 상품 검색 결과가 없습니다.</c:if>">
 				</form>
 			</div>
 			
+			<div class="product-wrapper">
 			<c:if test="${!empty List }">
 				<c:forEach items="${List }" var="dto">
 					<div class="product">
-										<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/upload/${dto.getPro_img() }"></a>
+						<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/upload/${dto.getPro_img() }"></a>
 										
-										<div class="product-info">
+						<div class="product-info">
 										
-											<c:forEach items="${dto.getPro_tags() }" var="tags">
-												<a class="cart-tag" href="search_tag.do?k=${tags }">${tags }</a> 
-											</c:forEach><br>
+							<c:forEach items="${dto.getPro_tags() }" var="tags">
+								<a class="cart-tag" href="search_tag.do?k=${tags }">${tags }</a> 
+							</c:forEach><br>
 											
-											<a class="pro-name" href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a><br>
-											<span class="pro-price">${dto.getPro_output_price() } 원</span>
+							<a class="pro-name" href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}">${dto.getPro_name() }</a><br>
+							<span class="pro-price">${dto.getPro_output_price() } 원</span>
 											
-											<div class="like-wrapper">
-												<c:if test="${dto.getLike_check() eq 0 }"><button class="like-btn" type="button" id="like-btn-${status.index }" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
-												<c:if test="${dto.getLike_check() > 0 }"><button type="button" id="like-btn-${status.index }" class="like-btn like-checked" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
-											</div>
+							<div class="like-wrapper">
+								<c:if test="${dto.getLike_check() eq 0 }"><button class="like-btn" type="button" id="like-btn-${status.index }" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
+								<c:if test="${dto.getLike_check() > 0 }"><button type="button" id="like-btn-${status.index }" class="like-btn like-checked" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
+							</div>
 											
-										</div>
-								</div>
+						</div>
+					</div>
 				</c:forEach>
 			</c:if>
-			<c:if test="${empty List }">
-				검색된 상품이 없습니다.
-			</c:if>
-			
+			</div>
 			
 			<%-- Pagination --%>	
 			<div class="pagination">
@@ -82,7 +80,7 @@
 				
 			</div>
 		
-				
+				<button onclick="location.href='#'" id="up-arrow" class="up-arrow"><img src="resources/img/main/up_arrow.png"></button>
 			
 			</div>
 		<jsp:include page="../include/footer.jsp" />

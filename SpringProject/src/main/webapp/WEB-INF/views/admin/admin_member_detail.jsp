@@ -32,6 +32,10 @@
 
 		<!-- Page Content  -->
 		<div id="content" class="p-4 p-md-5 pt-5">
+		
+			<div class="main">	
+			
+			<div class="amdin-title">회원 관리</div>
 
 			<!-- 내용 시작 -->
 			<div align="center">
@@ -80,13 +84,13 @@
 							</tr>
 						</c:if>
 
+					</table>
 						<tr>
-							<td colspan="2" align="center"><input type="button"
+							<td colspan="4" align="right"><input type="button" class="default-btn"
 								value="전체 회원 목록" onclick="location.href='admin_list.do'"></td>
 						</tr>
-					</table>
 			</div>
-			<jsp:include page="../include/footer.jsp" />
+			</div>
 		</div>
 	</div>
 

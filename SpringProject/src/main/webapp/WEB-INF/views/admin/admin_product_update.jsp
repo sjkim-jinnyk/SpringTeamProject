@@ -7,14 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-<link rel="stylesheet" href="resources/css/style.css">
-<link rel="stylesheet" href="resources/css/bootstarp.main.css">
-<link rel="stylesheet" href="resources/css/include.css">
-<link rel="stylesheet" href="resources/css/memberStyle.css">
-<link rel="stylesheet" href="resources/css/admin.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="resources/css/bootstrap-tagsinput.css">
 <title>울퉁불퉁's 관리자 - 상품 수정</title>
 </head>
 <script type="text/javascript" src="resources/ckeditor/ckeditor.js"></script>
@@ -27,11 +20,13 @@
 		<div id="content" class="p-4 p-md-5 pt-5">
 		
 			<div class="main">	
+			
+			<div class="amdin-title">상품 수정</div>
 	
 			<div class="admin-product-cont">
 				<form method="post" action="product_update_ok.do" enctype="multipart/form-data">
 					<input type="hidden" name="pro_no" value="${dto.getPro_no() }">
-					<table>
+					<table class="admin-pro-cont">
 					<c:if test="${!empty dto }">
 						<tr>
 							<th>상품번호</th>
@@ -65,40 +60,40 @@
 						</tr>
 						<tr>
 							<th>상품명</th>
-							<td><input name="pro_name" value="${dto.getPro_name() }"></td>
+							<td><input type="text" name="pro_name" value="${dto.getPro_name() }"></td>
 							<td colspan="2"></td>
 						</tr>
 						<tr>
 							<th>상품 대표이미지</th>
-							<td>
+							<td colspan="3">
 								<div class="img-container">
 								<img id="preview" src="resources/img/upload/${dto.getPro_img() }"><br>
 								<input id="upload" type="file" name="pro_imgs" accept=".jpg, .jpeg, .png" onchange="readImg(this);"> 
 								<p class="fileGuide"> * 첨부가능 파일종류 : jpg, png, jpeg (최대 10MB) </p>
 							</div>
 							</td>
-							<td colspan="2"></td>
 						</tr>
 						<tr>
 							<th>입고가</th>
-							<td><input name="pro_input_price" value="${dto.getPro_input_price() }"> 원 </td>
+							<td><input type="text" name="pro_input_price" value="${dto.getPro_input_price() }"> 원 </td>
 							<td colspan="2"></td>
 						</tr>
 						<tr>
 							<th>출고가</th>
-							<td><input name="pro_output_price" value="${dto.getPro_output_price() }"> 원 </td>
+							<td><input type="text" name="pro_output_price" value="${dto.getPro_output_price() }"> 원 </td>
 							<td colspan="2"></td>
 						</tr>
 						<tr>
 							<th>태그</th>
-							<td>
-								<input type="text" name="pro_tag" value="${dto.getPro_tag() }">
+							<td colspan="3">
+								<input name="pro_tag" data-role="tagsinput" value="${dto.getPro_tag() }">
 							</td>
-							
 						</tr>
 						<tr>
-							<th>내 용</th>
-							<td colspan="3">
+							 <th>내용</th>
+						</tr>
+						<tr>
+							<td colspan="4">
 								<textarea id="ck_editor" rows="5" cols="80" name="pro_cont">${dto.getPro_cont() }</textarea>
 								<script type="text/javascript">
 									CKEDITOR.replace('ck_editor',{
@@ -109,8 +104,10 @@
 						</tr>
 						<tr>
 							<td colspan="4">
-								<button type="button" onclick="location.href='admin_product_cont.do?no=${dto.getPro_no()}'">취소</button>
-								<button onclick="product_update.do?no=${dto.getPro_no() }">수정</button>
+								<button class="default-btn" type="button" onclick="location.href='admin_product_cont.do?no=${dto.getPro_no()}'">취소</button>
+								<div>
+									<button class="pro-cont-btn update-btn" onclick="product_update.do?no=${dto.getPro_no() }">수정</button>
+								</div>
 							</td>
 						</tr>
 					</c:if>
@@ -122,11 +119,13 @@
 				</form>
 			</div>
 			
+			<button onclick="location.href='#'" id="up-arrow" class="up-arrow"><img src="resources/img/main/up_arrow.png"></button>
+			
 			</div>
 			
 		</div>
 	</div>
 	
 </body>
-<script type="text/javascript" src="resources/js/admin.js"></script>
+<script type="text/javascript" src="resources/js/bootstrap-tagsinput.js"></script>
 </html>

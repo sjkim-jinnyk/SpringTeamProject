@@ -19,7 +19,7 @@
 	</select>
 	
 	<select id="couponCount" resultType="int">
-		select count(*) from coupon_own where own_mem = #{id}
+		select count(*) from coupon_own where own_mem = #{id} and own_check = 'y'
 	</select>
 	
 	<select id="reviewCount" resultType="int">
@@ -35,7 +35,7 @@
 	</select>
 	
 	<select id="couponList" resultType="com.spring.model.CouponOwnDTO">
-		select own_coupon from coupon_own where own_mem = #{id}
+		select own_coupon from coupon_own where own_mem = #{id} and own_check = 'y'
 	</select>
 	
 	<select id="couponInfo" parameterType="ArrayList" resultType="com.spring.model.CouponDTO">
@@ -109,7 +109,7 @@
 	</delete>
 	
 	<select id="qnaList" resultType="com.spring.model.QnaDTO">
-		select * from qna where qna_writer = #{id} order by qna_no desc
+		select * from qna where qna_writer = #{id} order by qna_group desc
 	</select>
 	
 	<select id="qnaProductInfo" parameterType="int" resultType="com.spring.model.ProductDTO">
@@ -126,7 +126,7 @@
 	
 	<select id="qnaReplyList" parameterType="int" resultType="com.spring.model.QnaDTO">
 		<![CDATA[
-			select * from qna where qna_group = #{qna_no} and qna_step > 0
+			select * from qna where qna_group = #{qna_no} and qna_step > 0 
 		]]>
 	</select>
 	<select id="orderSearchList" parameterType="java.util.HashMap" resultType="com.spring.model.OrderDTO">

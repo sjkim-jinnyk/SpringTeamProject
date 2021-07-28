@@ -475,6 +475,7 @@ public class MemberController {
 			plist.add(this.dao.getQnaProductInfo(list.get(i).getQna_pro()));
 			qclist.add(this.dao.getQnaCateList(list.get(i).getQna_category_no()));
 		}
+		System.out.println("qna : " + list);
 		System.out.println("reply : " + reply);
 		model.addAttribute("qnaList", list);
 		model.addAttribute("reply", reply);

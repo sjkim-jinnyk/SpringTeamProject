@@ -39,8 +39,8 @@
 										<li>
 											<fmt:formatNumber value="${dto.getProductDTO().getPro_output_price() }" /> 원
 										</li>
-										<li>
-											<input type="submit" value="&#xf07a" formaction="add_cart.do">
+										<li id="cartList">
+											<input type="submit" value="" formaction="add_cart.do" class="cartSubmit">
 										</li>
 									</ul>
 								</form>

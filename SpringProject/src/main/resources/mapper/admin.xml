@@ -21,109 +21,182 @@
 				   where rnum >= #{startNo} and rnum <= #{endNo} 
 		]]>
 	</select>
-	
+
 	<select id="admincont" parameterType="int"
-			resultType="com.spring.model.AdminDTO">
+		resultType="com.spring.model.AdminDTO">
 		select * from member where mem_no = #{no}
-	</select>	
-	
-	<insert id="add" parameterType="com.spring.model.ProductDTO">
-		<selectKey resultType="int" keyProperty="pro_no" order="BEFORE">
-			select count(*) + 1 from product
-		</selectKey>
-		
-		insert into product values(#{pro_no}, #{pro_name}, #{pro_category}
-					, #{pro_input_price}, #{pro_output_price}, #{pro_tag}
-					, #{pro_check}, #{pro_img}, #{pro_cont})		
-	</insert>
-	
-	
-	
-	
-	
-	
-	
-	
-	<!-- :::::::::::::::::::::: 관리자 상품관련 :::::::::::::::::::::: -->
-	
-	<select id="cateList" resultType="com.spring.model.CateDTO">
-		select * from cate order by cate_no
 	</select>
-	
+
+
+	<select id="admin_qnaList"
+		parameterType="com.spring.model.PageDTO"
+		resultType="com.spring.model.Admin_QNADTO">
+		<![CDATA[
+			 select * from
+				(select b.*, row_number()
+				   over(order by qna_group desc, qna_step) rnum
+				   from qna b)
+				   where rnum >= #{startNo} and rnum <= #{endNo} 
+		]]>
+	</select>
+
+	<select id="qnaInquiry" parameterType="int"
+		resultType="com.spring.model.Admin_QNADTO">
+		select * from qna where qna_no = #{no}
+	</select>
+
+	<select id="adminSearchList"
+		parameterType="com.spring.model.PageDTO"
+		resultType="com.spring.model.AdminDTO">
+		<![CDATA[ 
+			select * from member where mem_name like 
+			'%' || #{keyword} || '%' order by mem_no desc
+		]]>
+	</select>
+
+	<select id="adminSearchListCount" parameterType="String"
+		resultType="int">
+		select count(*) from member p
+		where mem_name like '%' ||
+		#{keyword} || '%'
+	</select>
+
+
+	<select id="coupon_count" resultType="int">
+		select count(*) from coupon
+	</select>
+
+	<select id="admin_couponlist"
+		parameterType="com.spring.model.PageDTO"
+		resultType="com.spring.model.Admin_CouponDTO">
+		<![CDATA[
+			 select * from
+				(select b.*, row_number()
+				   over(order by coupon_no) rnum
+				   from coupon b)
+				   where rnum >= #{startNo} and rnum <= #{endNo} 
+		]]>
+	</select>
+
+	<insert id="admin_create_coupon">
+		<selectKey keyProperty="coupon_no" resultType="int"
+			order="BEFORE">
+			select max(coupon_no) + 1 from coupon
+		</selectKey>
+		insert into coupon values(#{coupon_no,jdbcType=NUMERIC}, #{coupon_code,jdbcType=NUMERIC}, #{coupon_type,jdbcType=NUMERIC},
+		#{coupon_cont,jdbcType=NUMERIC})
+	</insert>
+
+
+
+
+
+	<!-- :::::::::::::::::::::: 관리자 상품관련 :::::::::::::::::::::: -->
+
+	<select id="cateList" resultType="com.spring.model.CateDTO">
+		select * from cate order by
+		cate_no
+	</select>
+
 	<insert id="insertCate">
-		<selectKey keyProperty="cate_no" resultType="int" order="BEFORE">
+		<selectKey keyProperty="cate_no" resultType="int"
+			order="BEFORE">
 			select max(cate_no)+1 from cate
 		</selectKey>
 		insert into cate values(#{cate_no}, #{cate_name})
 	</insert>
-	
+
 	<update id="updateCate">
-		update cate set cate_name = #{cate_name} where cate_no = #{cate_no}
+		update cate set cate_name = #{cate_name} where
+		cate_no = #{cate_no}
 	</update>
-	
+
 	<delete id="deleteCate">
 		delete from cate where cate_no = #{no}
 	</delete>
-	
-	
-	
+
+
+
 	<select id="proAllListCount" resultType="int">
-		select count(*) from product
+		select count(*) from
+		product
 	</select>
-	
-	<select id="proAllList" parameterType="com.spring.model.PageDTO" resultType="com.spring.model.ProductDTO">
+
+	<select id="proAllList" parameterType="com.spring.model.PageDTO"
+		resultType="com.spring.model.ProductDTO">
 		<![CDATA[ 
 			select * from (select p.*, row_number() over(order by pro_no desc) rnum from product p)
 			where rnum >= #{startNo} and rnum <= #{endNo}
 		]]>
 	</select>
-	
+
 	<select id="productCate" resultType="com.spring.model.CateDTO">
-		select * from cate where cate_no = #{no}
+		select * from cate where
+		cate_no = #{no}
 	</select>
-	
+
 	<insert id="insertProduct">
-		<selectKey keyProperty="pro_no" resultType="int" order="BEFORE">
+		<selectKey keyProperty="pro_no" resultType="int"
+			order="BEFORE">
 			select max(pro_no) + 1 from product
 		</selectKey>
-		insert into product values(#{pro_no}, #{pro_name}, #{pro_category}, #{pro_input_price}, #{pro_output_price}, #{pro_tag}, #{pro_check}, #{pro_img}, #{pro_cont})
+		insert into product values(#{pro_no}, #{pro_name}, #{pro_category},
+		#{pro_input_price}, #{pro_output_price}, #{pro_tag}, #{pro_check},
+		#{pro_img}, #{pro_cont})
 	</insert>
-	
+
 	<update id="updateProduct">
-		update product set pro_name = #{pro_name}, pro_category = #{pro_category}, pro_input_price = #{pro_input_price}, pro_output_price = #{pro_output_price}, pro_tag = #{pro_tag}, pro_check = #{pro_check}, pro_img = #{pro_img}, pro_cont = #{pro_cont} 
+		update product set pro_name = #{pro_name},
+		pro_category = #{pro_category}, pro_input_price = #{pro_input_price},
+		pro_output_price = #{pro_output_price}, pro_tag = #{pro_tag},
+		pro_check = #{pro_check}, pro_img = #{pro_img}, pro_cont = #{pro_cont}
 		where pro_no = #{pro_no}
 	</update>
-	
+
 	<update id="updateProductNoImg">
-		update product set pro_name = #{pro_name}, pro_category = #{pro_category}, pro_input_price = #{pro_input_price}, pro_output_price = #{pro_output_price}, pro_tag = #{pro_tag}, pro_check = #{pro_check}, pro_cont = #{pro_cont} 
-		where pro_no = #{pro_no}
+		update product set pro_name = #{pro_name},
+		pro_category = #{pro_category}, pro_input_price = #{pro_input_price},
+		pro_output_price = #{pro_output_price}, pro_tag = #{pro_tag},
+		pro_check = #{pro_check}, pro_cont = #{pro_cont}
+		where pro_no =
+		#{pro_no}
 	</update>
-	
+
 	<delete id="deleteProduct">
 		delete from product where pro_no = #{no}
 	</delete>
-	
+
 	<select id="proSearchListCount" resultType="int">
-		select count(*) from product 
-		<if test='field.equals("tag")'> <![CDATA[where pro_tag like  '%' || #{keyword} || '%' ]]> </if>
-		<if test='field.equals("name")'>where pro_name like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
-		<if test='field.equals("category")'>where pro_category like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
-		<if test='field.equals("state")'>where pro_check like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
+		select count(*) from product
+		<if test='field.equals("tag")'> <![CDATA[where pro_tag like  '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test='field.equals("name")'>where
+			pro_name like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
+		<if test='field.equals("category")'>where
+			pro_category like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
+		<if test='field.equals("state")'>where
+			pro_check like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
 	</select>
-	
-	<select id="proSearchList" resultType="com.spring.model.ProductDTO">
-		select * from (select p.*, row_number() over(order by pro_no desc) rnum from product p
-		<if test='field.equals("tag")'> <![CDATA[where pro_tag like  '%' || #{keyword} || '%' ]]> </if>
-		<if test='field.equals("name")'>where pro_name like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
-		<if test='field.equals("category")'>where pro_category like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
-		<if test='field.equals("state")'>where pro_check like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
+
+	<select id="proSearchList"
+		resultType="com.spring.model.ProductDTO">
+		select * from (select p.*, row_number() over(order by pro_no desc)
+		rnum from product p
+		<if test='field.equals("tag")'> <![CDATA[where pro_tag like  '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test='field.equals("name")'>where
+			pro_name like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
+		<if test='field.equals("category")'>where
+			pro_category like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
+		<if test='field.equals("state")'>where
+			pro_check like <![CDATA[ '%' || #{keyword} || '%' ]]></if>
 		) 
 		<![CDATA[  where rnum >= #{startNo} and rnum <= #{endNo} ]]>
-		
+
 	</select>
-	
-	
+
+
 	<!-- :::::::::::::::::::::: 관리자 상품관련 end :::::::::::::::::::::: -->
-	
+
 </mapper>
   

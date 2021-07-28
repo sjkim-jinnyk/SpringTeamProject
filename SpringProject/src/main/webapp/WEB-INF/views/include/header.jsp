@@ -150,4 +150,5 @@ function showMenu(){
 		
 
 </body>
+<script type="text/javascript" src="resources/js/common.js"></script>
 </html>

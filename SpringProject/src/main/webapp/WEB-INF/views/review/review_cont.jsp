@@ -42,6 +42,8 @@
 		
 	</div>
 	
+	<button onclick="location.href='#'" id="up-arrow" class="up-arrow"><img src="resources/img/main/up_arrow.png"></button>
+	
 	<jsp:include page="../include/footer.jsp" />
 	
 </body>

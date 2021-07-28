@@ -17,7 +17,7 @@
 				<div class="member_content">
 					<jsp:include page="../include/member_navmenu.jsp" />
 					
-					<div class="member_order">
+					<div class="member_review">
 						<h3 id="headName">구매 후기</h3>
 						<form method="post" action="<%=request.getContextPath()%>/review_search.do" name="reviewForm">
 						<ul class="select_day">
@@ -27,16 +27,18 @@
 								<li><a id="threeMonth" class="off" href="#none">3개월</a></li>
 								<li><a id="allDay" class="on" href="#none">전체 시기</a></li>
 							</div>
-							<li>
-								<input type="date" id="orderFirst" name="orderFirst" value="${map.get('first') }"> - 
-				    			<input type="date" id="orderLast" name="orderLast" value="${map.get('last') }">
-							</li>
-							<li id="searchBtn">
-								<input id="search_btn" type="submit" value="검색">
-							</li>
+							<div class="select_date">
+								<li>
+									<input type="date" id="orderFirst" name="orderFirst" value="${map.get('first') }"> - 
+					    			<input type="date" id="orderLast" name="orderLast" value="${map.get('last') }">
+								</li>
+								<li id="searchBtn">
+									<input id="search_btn" type="submit" value="검색">
+								</li>
+							</div>
 						</ul>  
 						</form>
-						<table class="order_bar">
+						<table class="review_bar">
 						<c:set var="plist" value="${ProductInfo }"/>
 						<c:set var="odlist" value="${OrderDetail }"/> 
 						<c:set var="olist" value="${OrderInfo }"/> 
