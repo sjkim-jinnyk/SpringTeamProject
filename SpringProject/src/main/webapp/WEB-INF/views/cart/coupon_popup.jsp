@@ -7,17 +7,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/css/CommonStyle.css">
-<link rel="stylesheet" href="resources/css/coupon.css">
+<link rel="stylesheet" href="resources/css/coupon.css?after">
 <script type="text/javascript">
 	function use_coupon(cont, type, no) {
 		opener.document.getElementById("coupon_cont").value = cont;
 		opener.document.getElementById("price").value = opener.document.getElementById("price_before").value * (100 - type) / 100;
 		opener.document.getElementById("coupon_no").value = no;
+		opener.document.getElementById("coupon_type").value = type;
 		window.close();
 	}
 </script>
 </head>
-<body onLoad="window.resizeTo(500, 850); window.moveTo(500,100);">
+<body onLoad="window.resizeTo(740, 850); window.moveTo(500,100);">
 	<div class="layout_container">
 		<div class="main">
 			<h1>쿠폰적용</h1>
@@ -29,6 +30,7 @@
 						<th>쿠폰번호</th>
 						<th>쿠폰코드</th>
 						<th>할인내용</th>
+						<th> </th>
 					</tr>
 					<c:if test="${!empty clist }">
 						<c:forEach items="${clist }" var="list">
@@ -46,7 +48,7 @@
 					</c:if>
 					<c:if test="${empty clist }">
 						<tr>
-							<td colspan="3" class="no_coupon">등록된 쿠폰이 없습니다.</td>
+							<td colspan="4" class="no_coupon">등록된 쿠폰이 없습니다.</td>
 						</tr>
 					</c:if>
 				</table>

@@ -223,3 +223,6 @@ $('#pay_button_new').click(function() {
 //정기결제 취소
 
 //카카오 플친 1:1 상담
+function chat() {
+	window.open("http://pf.kakao.com/_Vxcbrs/chat", "1:1 채팅", "_blank");	 
+}
