@@ -81,7 +81,7 @@
 	<insert id="admin_create_coupon">
 		<selectKey keyProperty="coupon_no" resultType="int"
 			order="BEFORE">
-			select max(coupon_no) + 1 from coupon
+			select nvl(max(coupon_no)+1,1) from coupon
 		</selectKey>
 		insert into coupon values(#{coupon_no,jdbcType=NUMERIC}, #{coupon_code,jdbcType=NUMERIC}, #{coupon_type,jdbcType=NUMERIC},
 		#{coupon_cont,jdbcType=NUMERIC})
@@ -101,7 +101,7 @@
 	<insert id="insertCate">
 		<selectKey keyProperty="cate_no" resultType="int"
 			order="BEFORE">
-			select max(cate_no)+1 from cate
+			select nvl(max(cate_no)+1,1) from cate
 		</selectKey>
 		insert into cate values(#{cate_no}, #{cate_name})
 	</insert>
@@ -138,7 +138,7 @@
 	<insert id="insertProduct">
 		<selectKey keyProperty="pro_no" resultType="int"
 			order="BEFORE">
-			select max(pro_no) + 1 from product
+			select nvl(max(pro_no)+1,1) from product
 		</selectKey>
 		insert into product values(#{pro_no}, #{pro_name}, #{pro_category},
 		#{pro_input_price}, #{pro_output_price}, #{pro_tag}, #{pro_check},

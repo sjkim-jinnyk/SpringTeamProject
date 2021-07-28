@@ -21,7 +21,7 @@
 			
 			<div class="about_header">
 				<span>CART</span>
-				<img src="resources/img/main/orange_bg.jpeg">
+				<img src="resources/img/main/green.jpg">
 			</div>
 			
 			<div class="main">			
@@ -91,7 +91,7 @@
 								<div class="pro-btn cart-in">
 									<span class="hidden-title">수량</span>
 										<button type="button" onclick="count('m', ${status.index }, ${dto.getCart_no() })"><i class="fas fa-minus"></i></button>
-										<input class="cart_amount" id="cart-amount-${status.index }" name="cart_amount" value="${dto.getCart_amount() }">
+										<input class="cart_amount" id="cart-amount-${status.index }" name="cart_amount" value="${dto.getCart_amount() }" onchange="setAmount(${status.index }, ${dto.getCart_no() });">
 										<button type="button" onclick="count('p', ${status.index }, ${dto.getCart_no() })"><i class="fas fa-plus"></i></button>
 								</div>
 								
@@ -177,7 +177,7 @@ function count(type, index, no) {
 					return false;
 				}else {
 					console.log('data', data);
-					alert('에이젝스 실패');
+					alert('통신 오류');
 				}
 			},
 			error:function(request,status,error){
@@ -211,5 +211,33 @@ function loginCheck(){
 		location.href='purchase.do';
 	}
 }
+
+function setAmount(index, no) {
+	let n_amount = $('#cart-amount-'+index).val();
+	let price = parseInt($('#cart-price-'+index).val());
+	
+	if(n_amount < 1) {
+		n_amount = 1;
+		$('#cart-amount-'+index).val(n_amount);
+	}
+	 
+	$.ajax({
+		type: 'post',
+		url: 'cart_amount_nset.do',
+		data: {'no' : no, 'amount' : n_amount },
+		success: function(data) {
+			if(data == 1) {
+				$('#total-price-'+index).text(String(n_amount*price).replace(/(.)(?=(\d{3})+$)/g,'$1,'));
+				total();
+				return false;
+			}else {
+				alert('통신 오류');
+			}
+		},
+		error:function(request,status,error){
+	    alert('code:'+request.status+'\n'+'message:'+request.responseamount+'\n'+'error:'+error);}
+	});		
+}
+
 </script>
 </html>

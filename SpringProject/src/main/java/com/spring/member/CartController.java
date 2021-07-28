@@ -237,4 +237,22 @@ public class CartController {
 		
 		return result;
 	}
+	
+	@RequestMapping("cart_amount_nset.do")
+	@ResponseBody
+	public int cart_amount_nset(HttpServletRequest request) {
+		
+		int cart_no = Integer.parseInt(request.getParameter("no").trim());
+		int cart_amount = Integer.parseInt(request.getParameter("amount").trim());
+		
+		HashMap<String, Integer> hm = new HashMap<String, Integer>();
+		hm.put("cart_no", cart_no);
+		hm.put("cart_amount", cart_amount);
+		
+		int result = 0;
+		
+		result = (dao.setCartAmount(hm) > 0) ? 1 : 0; 	
+		
+		return result;
+	}
 }

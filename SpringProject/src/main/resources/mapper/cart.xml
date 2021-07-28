@@ -21,7 +21,7 @@
 	
 	<insert id="addCart" parameterType="com.spring.model.CartDTO">
 		<selectKey resultType="int" keyProperty="cart_no" order="BEFORE">
-			select max(cart_no) + 1 from cart
+			select nvl(max(cart_no)+1,1) from cart
 		</selectKey>
 		
 		insert into cart values(#{cart_no}, #{user_id}, #{product_no}, #{cart_amount})
@@ -60,5 +60,8 @@
 		<foreach collection="array" item="item" open="(" close=")" separator=",">#{item}</foreach>	
 	</delete>
 	
+	<update id="setCartAmount">
+		update cart set cart_amount = #{cart_amount} where cart_no = #{cart_no}
+	</update>
 	
 </mapper>

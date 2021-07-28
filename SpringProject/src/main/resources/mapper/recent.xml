@@ -43,7 +43,7 @@
 	
 	<insert id="addRecent" parameterType="com.spring.model.ProductRecentDTO">
 		<selectKey resultType="int" keyProperty="recent_no" order="BEFORE">
-			select max(recent_no)+1 from product_recent
+			select nvl(max(recent_no)+1,1) from product_recent
 		</selectKey>
 		insert into product_recent values(#{recent_no}, #{recent_mem}, #{recent_product}, sysdate)
 	</insert>

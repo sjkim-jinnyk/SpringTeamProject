@@ -14,8 +14,9 @@ public interface CartDAO {
 	public int resetCart(String id); 	// 장바구니 비우기
 	public int emptyCheck(String id);	// 장바구니가 비어있는지 확인
 	public int deleteCart(CartDTO dto);	// 장바구니 상품 삭제
-	public int plusCartAmount(int no);
-	public int minusCartAmount(int no);
-	public int deleteCartSelected(String[] checked);
+	public int plusCartAmount(int no);	// 장바구니 수량 1개 증가
+	public int minusCartAmount(int no);	// 장바구니 수량 1개 감소
+	public int deleteCartSelected(String[] checked);	// 선택된 상품 삭제
+	public int setCartAmount(HashMap<String, Integer> hm);	// 장바구니 수량 증가 
 
 }

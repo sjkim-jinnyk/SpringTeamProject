@@ -63,7 +63,7 @@
 							
 							<div class="cont-amount">
 								<button class="minus-btn" type="button" onclick="count('minus');" value="-"><i class="fas fa-minus"></i></button>
-								<input type="text" id="cart_amount" class="cart_amount" name="cart_amount" value="1">
+								<input type="text" id="cart_amount" class="cart_amount" name="cart_amount" value="1" onchange="total();">
 								<button class="plus-btn" type="button" onclick="count('plus');" value="+"><i class="fas fa-plus"></i></button>
 							</div>
 							
@@ -412,6 +412,11 @@ function total() {
 	 
 	let price = <%=dto.getPro_output_price() %>;
 	let amount = document.getElementById('cart_amount').value;
+	
+	if(amount < 1) {
+		amount = 1;
+		document.getElementById('cart_amount').value = amount;
+	}
 	let total = String(parseInt(price) * parseInt(amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,');
 
 	document.getElementById('total-price').innerText = total;

@@ -18,8 +18,8 @@
 		<jsp:include page="../include/header.jsp" />
 		
 			<div class="about_header">
-				<span>product list</span>
-				<img src="resources/img/main/potato.jpg">
+				<span>PRODUCT LIST</span>
+				<img src="resources/img/main/fruit.jpg">
 			</div>
 			<div class="main">	
 			

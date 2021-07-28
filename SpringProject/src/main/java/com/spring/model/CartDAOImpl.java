@@ -1,5 +1,6 @@
 package com.spring.model;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -77,6 +78,12 @@ public class CartDAOImpl implements CartDAO {
 	public int deleteCartSelected(String[] checked) {
 		
 		return this.sqlSession.delete("deleteCartSelected", checked);
+	}
+
+	@Override
+	public int setCartAmount(HashMap<String, Integer> hm) {
+
+		return this.sqlSession.update("setCartAmount", hm);
 	}
 	
 

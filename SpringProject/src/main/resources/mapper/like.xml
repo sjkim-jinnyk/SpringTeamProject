@@ -18,7 +18,7 @@
 	
 	<insert id="addLike" parameterType="com.spring.model.ProductLikeDTO">
 		<selectKey keyProperty="like_no" resultType="int" order="BEFORE">
-			select max(like_no)+1 from product_like
+			select nvl(max(like_no)+1,1) from product_like
 		</selectKey>
 		insert into product_like values(#{like_no}, #{like_mem}, #{like_product}, sysdate)
 	</insert>
