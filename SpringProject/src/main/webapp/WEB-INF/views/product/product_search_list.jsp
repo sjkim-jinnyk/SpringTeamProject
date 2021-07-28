@@ -15,7 +15,7 @@
 <body>
 	<div class="layout_container">
 		<jsp:include page="../include/header.jsp" />
-		
+		 
 			<div class="about_header">
 				<span>SEARCH PRODUCT</span>
 				<img src="resources/img/main/orange_bg.jpeg">
