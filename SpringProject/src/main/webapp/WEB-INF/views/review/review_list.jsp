@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="resources/css/review.css">
+<link rel="stylesheet" href="resources/css/CommonStyle.css">
+<link rel="stylesheet" href="resources/css/review.css?after">
 <title>리뷰</title>
 </head>
 <body>
@@ -14,7 +15,11 @@
 	<jsp:include page="../include/header.jsp" />
 	
 	<div class="review_header">
-		<div class="review_title"><p>실구매자 분들의</p><p>솔직한 상품후기</p></div>
+		<img class="header_bg" src="resources/img/review/vege_bg2.jpeg">
+		<div class="review_title">
+			<p>실구매자 분들의</p>
+			<p>솔직한 상품후기</p>
+		</div>
 	</div>
 	
 	<div class="layout_container">
@@ -25,20 +30,29 @@
 			
 				<div class="review_guide">
 					<div class="left">
-						<p class="title">후기 작성시 포인트 지급</p>
-						<p>사진 후기 작성 시</p>
-						<p><span>150Point 적립</span></p>
-						<p>텍스트 후기 작성 시</p>
-						<p><span>50Point 적립</span></p>
-						<p class="notice">(유의사항) 지급된 포인트는 발급일로부터 1년간1만원 이상 구매시 사용 가능, 네이버페이 결제시 포인트는 네이버페이 정책에 따름</p>
+						<div><p class="title">후기 작성시 포인트 지급</p></div>
+						<div>
+							<p>사진 후기 작성 시</p>
+							<p><span>150Point 적립</span></p>
+						</div>
+						<div>
+							<p>텍스트 후기 작성 시</p>
+							<p><span>50Point 적립</span></p>
+						</div>
+						<div><p class="notice">(유의사항) 지급된 포인트는 발급일로부터 1년간1만원 이상 구매시 사용 가능, 
+								네이버페이 결제시 포인트는 네이버페이 정책에 따름</p></div>
 					</div>
 					<div class="right">
-						<p class="title">인스타그램 후기 작성시 추가 적립금</p>
-						<p>인스타그램, 블로그에 후기 남기고 URL 남기면</p>
-						<p>매월 10분씩 선정해서 1,000포인트 추가 적립</p>
-						<p>1. 인스타그램 <span>@freshugly 계정 팔로우</span></p>
-						<p>2. <span>#프레시어글리 #못생겨도맛은좋아</span> 태그하고 후기 작성</p>
-						<p>3. 리뷰 게시판에 후기와 함께 SNS 게시물 주소 남기기</p>
+						<div><p class="title">인스타그램 후기 작성시 추가 적립금</p></div>
+						<div>
+							<p>인스타그램, 블로그에 후기 남기고 URL 남기면</p>
+							<p>매월 10분씩 선정해서 1,000포인트 추가 적립</p>
+						</div>
+						<div>
+							<p>1. 인스타그램 <span>@utbt_shop 계정 팔로우</span></p>
+							<p>2. <span>#울퉁불퉁's #못생겨도맛은좋아</span> 태그하고 후기 작성</p>
+							<p>3. 리뷰 게시판에 후기와 함께 SNS 게시물 주소 남기기</p>
+						</div>
 					</div>
 				</div>
 			
@@ -62,11 +76,11 @@
 									
 								</div>
 								<div class="under">
-									<c:if test="${dto.getReview_cont().length() > 15 }">
-										<span class="cont">내용: ${dto.getReview_cont().substring(0,15) } ...</span>
+									<c:if test="${dto.getReview_cont().length() > 13 }">
+										<span class="cont">내용: ${dto.getReview_cont().substring(0,13) } ...</span>
 									</c:if>
 									
-									<c:if test="${dto.getReview_cont().length() < 15 }">
+									<c:if test="${dto.getReview_cont().length() < 13 }">
 										<span class="cont">내용: ${dto.getReview_cont() }</span>
 									</c:if>
 									

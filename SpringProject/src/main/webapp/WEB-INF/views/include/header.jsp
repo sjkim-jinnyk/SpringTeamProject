@@ -35,15 +35,13 @@ $(document).mouseup(function(e){
 	}
 });
 
-$(document).ready(function(){ 
-	$("#toggle_btn").mouseover(function(){ 
-		if($("#hidden_list").is(":visible")){ 
-			$("#hidden_list").slideUp(); 
-		}else{ 
-			$("#hidden_list").slideDown(); 
-		} 
-	}); 
-});
+function showMenu(){
+	if(document.getElementById('m_menu').style.display == 'block'){
+		document.getElementById('m_menu').style.display = 'none';
+	}else {
+		document.getElementById('m_menu').style.display = 'block';
+	}
+}
 
 </script>
 <body>
@@ -51,49 +49,101 @@ $(document).ready(function(){
 		
 		<div class="header_desktop header">
 			
+			<c:set var="dto" value="${session_mem }"/>
+			
 			<a href="<%=request.getContextPath()%>/main.do">
 				<img class="site_logo" src="resources/img/main/logo.png">
 			</a>
 			
 			<div class="menu_wrap">
+				<a href="<%=request.getContextPath()%>/about.do">ABOUT</a>
+				<a href="<%=request.getContextPath()%>/product_list.do">SHOP</a>
+				<a href="<%=request.getContextPath()%>/review_list.do">REVIEW</a>
 				
-					<a href="<%=request.getContextPath()%>/about.do">ABOUT</a>
-					<a href="<%=request.getContextPath()%>/product_list.do">SHOP</a>
-					<a href="<%=request.getContextPath()%>/review_list.do">REVIEW</a>
+				<c:if test="${dto.getMem_id().equals('admin') }">
 					<a href="<%=request.getContextPath() %>/admin_list.do">관리자</a>
+				</c:if>
+				
+				<a id="search-btn" href="javascript:void(0)" onclick="showSearch();">검색</a>
+				
+				<!-- <div id="drop_menu">
+					<span id="toggle_btn">고객센터</span>
+					<ul id="hidden_list">
+						<li><a href="#">자주하는 질문</a></li>
+						<li><a href="#">1:1 문의</a></li>
+						<li><a href="#">공지사항</a></li>
+					</ul>
+				</div> -->
+				
+				
+				<c:if test="${empty dto }">
+					<a href="<%=request.getContextPath()%>/login.do">LOGIN</a>
+					<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
+				</c:if>
+				
+				<c:if test="${!empty dto }">
+					<input type="hidden" name="id" value="${dto.getMem_id() }">
+					<a href="<%=request.getContextPath()%>/logout.do">LOGOUT</a>
+					<c:set var="id" value="${session_id }"  />
+					<a href="<%=request.getContextPath()%>/member_home.do">MYPAGE</a>
+					<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
+					<span class="welcome"><span>${dto.getMem_name() }</span>님 환영합니다. </span>
+				</c:if>
 					
-					<a id="search-btn" href="javascript:void(0)" onclick="showSearch();">검색</a>
-					<div id="search" style="display: none;">
-						<form method="post" action="product_search.do" >			
-								<input type="search" name="k" placeholder="${keyword }">
-								<input type="submit" value="검색"> 
-						</form>
-					</div>
+				<div id="search" style="display: none;">
+					<form method="post" action="product_search.do" >			
+							<input type="search" name="k" class="key" placeholder="${keyword }">
+							<input type="submit" class="s_btn" value="검색"> 
+					</form>
+				</div>
 					
-					<c:set var="dto" value="${session_mem }"/>
+			</div>
+			
+			<a id="menu_icon" href="javascript:void(0)" onclick="showMenu();"><img src="resources/img/main/menu.png"></a>
+			
+			<div id="m_menu"> <!-- 모바일 메뉴바 -->
+				<a id="menu_icon2" href="javascript:void(0)" onclick="showMenu();"><img src="resources/img/main/menu2.png"></a>
+				
+				<span class="welcome"><span>${dto.getMem_name() }</span>님 환영합니다. </span>
+				
+				<a href="<%=request.getContextPath()%>/about.do">ABOUT</a>
+				<a href="<%=request.getContextPath()%>/product_list.do">SHOP</a>
+				<a href="<%=request.getContextPath()%>/review_list.do">REVIEW</a>
+				
+				<c:if test="${dto.getMem_id().equals('admin') }">
+					<a href="<%=request.getContextPath() %>/admin_list.do">관리자</a>
+				</c:if>
+				
+				<a id="search-btn" href="javascript:void(0)" onclick="showSearch();">검색</a>
+				
+				<!-- <div id="drop_menu">
+					<span id="toggle_btn">고객센터</span>
+					<ul id="hidden_list">
+						<li><a href="#">자주하는 질문</a></li>
+						<li><a href="#">1:1 문의</a></li>
+						<li><a href="#">공지사항</a></li>
+					</ul>
+				</div> -->
+				
+				
+				<c:if test="${empty dto }">
+					<a href="<%=request.getContextPath()%>/login.do">LOGIN</a>
+					<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
+				</c:if>
+				
+				<c:if test="${!empty dto }">
+					<input type="hidden" name="id" value="${dto.getMem_id() }">
+					<a href="<%=request.getContextPath()%>/logout.do">LOGOUT</a>
+					<c:set var="id" value="${session_id }"  />
+					<a href="<%=request.getContextPath()%>/member_home.do">MYPAGE</a>
+					<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
+				</c:if>
 					
-					<c:if test="${empty dto }">
-						<a href="<%=request.getContextPath()%>/login.do">LOGIN</a>
-						<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
-					</c:if>
+				<form id="m_search" method="post" action="product_search.do" >			
+					<input type="search" name="k" class="key" placeholder="${keyword }">
+					<input type="submit" class="s_btn" value="검색"> 
+				</form>
 					
-					<c:if test="${!empty dto }">
-						<input type="hidden" name="id" value="${dto.getMem_id() }">
-						<a href="<%=request.getContextPath()%>/logout.do">LOGOUT</a>
-						<c:set var="id" value="${session_id }"  />
-						<a href="<%=request.getContextPath()%>/member_home.do">MYPAGE</a>
-						<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
-						${dto.getMem_name() }님 환영합니다. 
-					</c:if>
-					
-					<div id="drop_menu">
-						<span id="toggle_btn">고객센터</span>
-						<ul id="hidden_list">
-							<li><a href="#">자주하는 질문</a></li>
-							<li><a href="#">1:1 문의</a></li>
-							<li><a href="#">공지사항</a></li>
-						</ul>
-					</div>
 			</div>
 			
 		</div>
