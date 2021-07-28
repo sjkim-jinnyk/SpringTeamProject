@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="resources/css/coupon.css">
 </head>
 <body>
 
@@ -14,8 +15,9 @@
 
 			<h1>결제 성공</h1>
 			
-			<a href="<%=request.getContextPath()%>/main.do">메인 화면으로 가기</a>
-
+			<div class="a_container">
+				<a href="<%=request.getContextPath()%>/main.do">메인 화면으로 가기</a>
+			</div>
 		</div>
 		<jsp:include page="../include/footer.jsp" />
 	</div>

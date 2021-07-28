@@ -11,6 +11,12 @@ public class OrderDAOImpl implements OrderDAO {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
+	public int countOrderNo() {
+		
+		return this.sqlSession.selectOne("countOrderNo");
+	}
+	
+	@Override
 	public int setOrderNo() {
 		
 		return this.sqlSession.selectOne("setOrderNo");
@@ -26,6 +32,24 @@ public class OrderDAOImpl implements OrderDAO {
 	public int insertOrderDetail(OrderDetailDTO dto) {
 		
 		return this.sqlSession.insert("insertOrderDetail", dto);
+	}
+	
+	@Override
+	public int countReviewNo() {
+		
+		return this.sqlSession.selectOne("countReviewNo");
+	}
+
+	@Override
+	public int setReviewNo() {
+		
+		return this.sqlSession.selectOne("setReviewNo");
+	}
+	
+	@Override
+	public int insertReview(ReviewDTO dto) {
+		
+		return this.sqlSession.insert("insertReview", dto);
 	}
 
 	@Override
@@ -45,5 +69,11 @@ public class OrderDAOImpl implements OrderDAO {
 		
 		return this.sqlSession.update("updateCouponOwn", dto);
 	}
+
+	
+
+	
+
+	
 	
 }
