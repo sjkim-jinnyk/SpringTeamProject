@@ -13,7 +13,7 @@
 	
 	<insert id="snsJoin" parameterType="com.spring.model.MemberDTO">
 		<selectKey resultType="int" keyProperty="mem_no" order="BEFORE">
-			select count(*)+1 from member
+			select max(mem_no) + 1 from member
 		</selectKey>
 		insert into member values(#{mem_no}, #{mem_id}, #{mem_pwd}, #{mem_name}, 
 		#{mem_phone}, #{mem_zip}, #{mem_addr}, 0, sysdate, #{mem_sns_type}, #{mem_sns_id})

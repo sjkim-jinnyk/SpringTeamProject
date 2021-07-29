@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="resources/css/bootstrap-tagsinput.css">
 <title>울퉁불퉁's 관리자 - 상품 등록</title>
 </head>
-<script type="text/javascript" src="resources/ckeditor/ckeditor.js"></script>
 <body>
 
 	<div class="wrapper d-flex align-items-stretch">
@@ -84,11 +83,10 @@
 								<td colspan="2">
 									<textarea id="ck_editor" rows="5" cols="80" name="pro_cont"></textarea>
 									<script type="text/javascript">
-										CKEDITOR.replace('ck_editor',{
-										    filebrowserUploadUrl : "<%=request.getContextPath()%>
-															/imageUpload.do"
-																			});
-									</script>
+									CKEDITOR.replace('ck_editor',{
+									    filebrowserUploadUrl : "<%=request.getContextPath() %>/imageUpload.do"
+									});
+								</script>
 							</td>
 							</tr>
 							<tr>
@@ -113,4 +111,5 @@
 	</div>
 </body>
 <script type="text/javascript" src="resources/js/bootstrap-tagsinput.js"></script>
+<script type="text/javascript" src="resources/ckeditor/ckeditor.js"></script>
 </html>

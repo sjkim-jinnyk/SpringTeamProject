@@ -93,7 +93,7 @@
 	
 	<insert id="proQnaAns" parameterType="com.spring.model.QnaDTO">
 		<selectKey keyProperty="qna_no" resultType="int" order="BEFORE">
-			select max(qna_no)+1 from qna
+			select nvl(max(qna_no)+1,1) from qna
 		</selectKey>
 		insert into qna values(#{qna_no}, #{qna_writer}, #{qna_pro}, #{qna_title}, #{qna_cont}, null, #{qna_category_no}, sysdate, #{qna_group}, (select max(qna_step)+1 from qna where qna_group = #{qna_group}), #{qna_secret})
 	</insert>

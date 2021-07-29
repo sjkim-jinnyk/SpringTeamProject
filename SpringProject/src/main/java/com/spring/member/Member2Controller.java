@@ -38,6 +38,9 @@ public class Member2Controller {
 		PrintWriter out = response.getWriter();
 		
 		if(check > 0) {
+			
+			this.dao.getCoupon(dto.getMem_id());
+			
 			out.println("<script>");
 			out.println("alert('가입 완료')");
 			out.println("location.href='main.do'");

@@ -12,4 +12,5 @@ public interface Member2DAO {
 	public String findPwd(String id);
 	public MemberDTO id_overlap(MemberDTO dto);
 	public MemberDTO phone_overlap(MemberDTO dto);
+	public void getCoupon(String id);
 }

@@ -52,4 +52,9 @@ public class Member2DAOImpl implements Member2DAO {
 		return this.sqlSession.selectOne("phone_overlap", dto);
 	}
 
+	@Override
+	public void getCoupon(String id) {
+		this.sqlSession.insert("getCoupon", id);
+	}
+
 }

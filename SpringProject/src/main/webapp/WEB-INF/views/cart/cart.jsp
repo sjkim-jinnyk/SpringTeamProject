@@ -197,7 +197,7 @@ function total() {
 		total_price += parseInt(prc) * parseInt(amt);
 	}
 	
-	$('#total-price').text(String(total_price).replace(/(.)(?=(\d{3})+$)/g,'$1,'));
+	$('#total-price').text(String(total_price).replace(/(.)(?=(\d{3})+$)/g,'$1,')+"원");
 }
 
 function loginCheck(){

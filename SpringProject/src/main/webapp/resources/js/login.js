@@ -69,6 +69,20 @@ function submitCheck(){
 	joinForm.submit();
 }
 
+function submitCheckSNS(){
+	var phoneReg = /(01[016789])-\d{4}-\d{4}/g;
+	
+	if(!phoneReg.test(joinForm.mem_phone.value)) {
+		alert("전화번호를 형식에 맞게 입력해주세요.");
+		joinForm.mem_phone.focus();
+		return;
+	}
+	
+	joinForm.method = "post";
+	joinForm.action = "/member/sns_join_ok.do";
+	joinForm.submit();
+}
+
 function phoneCheck(){
 	var phoneReg = /(01[016789])-\d{4}-\d{4}/g;
 	

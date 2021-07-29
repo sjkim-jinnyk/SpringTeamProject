@@ -153,6 +153,7 @@ public class LoginController {
 		PrintWriter out = response.getWriter();
 
 		if (check > 0) {
+			this.mdao.getCoupon(dto.getMem_id());
 			out.println("<script>");
 			out.println("alert('가입 완료')");
 			out.println("location.href='main.do'");

@@ -67,7 +67,8 @@
 					</div>
 						
 					<div class="btn_wrap">
-						<input type="submit" class="login_btn" id="submit" value="가입하기" onclick="submitCheck()">
+						<c:if test="${empty sns_type }"><input type="submit" class="login_btn" id="submit" value="가입하기" onclick="submitCheck()"></c:if>
+						<c:if test="${!empty sns_type }"><input type="submit" class="login_btn" id="submit" value="가입하기" onclick="submitCheckSNS()"></c:if>
 					</div>	
 					
 					

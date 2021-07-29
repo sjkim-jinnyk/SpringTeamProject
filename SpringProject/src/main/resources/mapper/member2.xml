@@ -15,7 +15,7 @@
 	
 	<insert id="memberAdd" parameterType="com.spring.model.MemberDTO">
 		<selectKey resultType="int" keyProperty="mem_no" order="BEFORE">
-			select count(*)+1 from member
+			select nvl(max(mem_no)+1,0) from member
 		</selectKey>
 		insert into member values(#{mem_no}, #{mem_id}, #{mem_pwd}, #{mem_name}, 
 		#{mem_phone}, #{mem_zip}, #{mem_addr}, 0, sysdate, null, null)
@@ -42,5 +42,9 @@
 		resultType="com.spring.model.MemberDTO">
 		select mem_phone from member where mem_phone = #{mem_phone}
 	</select>
+	
+	<insert id="getCoupon">
+		insert into coupon_own values(135, #{id}, 'y')
+	</insert>
 	
 </mapper>

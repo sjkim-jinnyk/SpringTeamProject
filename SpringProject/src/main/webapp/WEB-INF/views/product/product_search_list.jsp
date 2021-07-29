@@ -33,7 +33,7 @@
 			<div class="product-wrapper">
 			<div class="search-wrapper">
 			<c:if test="${!empty List }">
-				<c:forEach items="${List }" var="dto">
+				<c:forEach items="${List }" var="dto" varStatus="status">
 					<div class="product">
 						<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getPro_no()}"><img src="resources/img/upload/${dto.getPro_img() }"></a>
 										
@@ -47,8 +47,8 @@
 							<span class="pro-price">${dto.getPro_output_price() } 원</span>
 											
 							<div class="like-wrapper">
-								<c:if test="${dto.getLike_check() eq 0 }"><button class="like-btn" type="button" id="like-btn-${status.index }" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
-								<c:if test="${dto.getLike_check() > 0 }"><button type="button" id="like-btn-${status.index }" class="like-btn like-checked" onclick="likeCheck(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
+								<c:if test="${dto.getLike_check() eq 0 }"><button class="like-btn" type="button" id="like-btn-${status.index }" onclick="addLikey(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
+								<c:if test="${dto.getLike_check() > 0 }"><button type="button" id="like-btn-${status.index }" class="like-btn like-checked" onclick="addLikey(${dto.getPro_no() }, ${status.index })"><i class="fas fa-heart"></i></button></c:if>
 							</div>
 											
 						</div>

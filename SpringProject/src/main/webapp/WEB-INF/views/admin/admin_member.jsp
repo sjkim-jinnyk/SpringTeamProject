@@ -47,7 +47,7 @@
 								<c:set var="list" value="${List }" />
 								<c:if test="${!empty list }">
 									<c:forEach items="${list }" var="dto">
-										<c:if test="${dto.getMem_id() ne 'guest' || dto.getMem_id() ne 'admin' }">
+										<c:if test="${dto.getMem_id() ne 'guest' && dto.getMem_id() ne 'admin' }">
 										<tr>
 											<td><a href="<%=request.getContextPath() %>/admin_detail.do?no=${dto.getMem_no()}&page=${Paging.getPage()}">
 													${dto.getMem_id() }</a></td>
