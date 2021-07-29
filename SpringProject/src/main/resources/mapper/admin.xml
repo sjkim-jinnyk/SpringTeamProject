@@ -16,7 +16,7 @@
 		<![CDATA[
 			 select * from
 				(select b.*, row_number()
-				   over(order by mem_no) rnum
+				   over(order by mem_regdate desc) rnum
 				   from member b)
 				   where rnum >= #{startNo} and rnum <= #{endNo} 
 		]]>
@@ -50,7 +50,7 @@
 		resultType="com.spring.model.AdminDTO">
 		<![CDATA[ 
 			select * from member where mem_name like 
-			'%' || #{keyword} || '%' order by mem_no desc
+			'%' || #{keyword} || '%' order by mem_regdate desc
 		]]>
 	</select>
 
@@ -58,7 +58,7 @@
 		resultType="int">
 		select count(*) from member p
 		where mem_name like '%' ||
-		#{keyword} || '%'
+		#{keyword} || '%' order by mem_regdate desc
 	</select>
 
 
