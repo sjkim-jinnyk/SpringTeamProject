@@ -62,7 +62,9 @@
 		select * from product 
 		<if test="!list.isEmpty()">
 		where pro_no in 
-		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item.order_pro_no}</foreach>
+		<foreach collection="list" item="item" open="(" close=")" separator=",">#{item}</foreach>
+		order by case pro_no
+		<foreach collection="list" item="item" separator=" " index="index"> when #{item} then #{index}</foreach> end
 		</if>
 	</select>
 	

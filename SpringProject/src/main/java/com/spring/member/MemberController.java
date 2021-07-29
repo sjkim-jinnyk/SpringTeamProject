@@ -83,10 +83,22 @@ public class MemberController {
 		List<ProductDTO> proinfo = new ArrayList<ProductDTO>();
 
 		List<OrderDTO> odto = this.dao.getOrderList(id); // id에 해당하는 주문 정보
-		if (odto != null) {
-			List<OrderDetailDTO> detail = this.dao.getOrderDetail(odto);
-			proinfo = this.dao.getProductInfo(detail);
-		}
+		/*
+		 * if (odto != null) { List<OrderDetailDTO> detail =
+		 * this.dao.getOrderDetail(odto); System.out.println("elxpd" + detail);
+		 * 
+		 * proinfo = this.dao.getProductInfo(detail); }
+		 */
+		List<Integer> proList = new ArrayList<Integer>();
+        if (odto != null) {
+            List<OrderDetailDTO> detail = this.dao.getOrderDetail(odto);
+            for(int i=0; i<detail.size(); i++) {
+                 proList.add(detail.get(i).getOrder_pro_no());
+            }
+            System.out.println(proList);
+            proinfo = this.dao.getProductInfo(proList);
+           
+        }
 
 		MyPageHeader mypage = new MyPageHeader();
 		mypage.setPoint(mdto.getMem_point());
@@ -113,7 +125,8 @@ public class MemberController {
 		model.addAttribute("Order", odto);
 		model.addAttribute("Deliver", oddto);
 		model.addAttribute("Detail", proinfo);
-		
+		System.out.println("주문 : " + odto);
+		System.out.println("디테일 : " + proinfo);
 		return "member/member_home";
 	}
 
@@ -132,8 +145,16 @@ public class MemberController {
 
 		List<OrderDTO> olist = this.dao.getOrderSearchList(map);
 		List<OrderDetailDTO> detail = this.dao.getOrderDetail(olist);
-		List<ProductDTO> proinfo = this.dao.getProductInfo(detail);
-
+		//List<ProductDTO> proinfo = this.dao.getProductInfo(detail);
+		List<ProductDTO> proinfo = new ArrayList<ProductDTO>();
+		List<Integer> proList = new ArrayList<Integer>();
+        for(int i=0; i<detail.size(); i++) {
+        	proList.add(detail.get(i).getOrder_pro_no());
+        }
+        proinfo = this.dao.getProductInfo(proList);
+           
+		
+		
 		List<OrderDeliverDTO> oddto = this.dao.getOrderDeliverList(); // 배송 정보
 		List<OrderDeliverDTO> oddto_search = this.dao.getOrderDeliverList(); // 배송 정보
 
@@ -201,15 +222,22 @@ public class MemberController {
 
 		List<OrderDetailDTO> oddto = this.dao.getOrderDetail(odto); // Order 테이블의 주문번호로 주문상세내역 찾기
 
-		List<ProductDTO> pdto = this.dao.getProductInfo(oddto); // 주문상세내역의 제품번호로 제품 정보 찾기
-
+		List<ProductDTO> pdto = new ArrayList<ProductDTO>();
+		
+		List<Integer> proList = new ArrayList<Integer>();
+        for(int i=0; i<oddto.size(); i++) {
+        	proList.add(oddto.get(i).getOrder_pro_no());
+        }
+        pdto = this.dao.getProductInfo(proList);
 		List<ReviewDTO> rdto = this.dao.getReviewList(id); // id에 해당하는 리뷰 정보 찾기
 
 		model.addAttribute("ProductInfo", pdto);
 		model.addAttribute("OrderDetail", oddto);
 		model.addAttribute("OrderInfo", odto);
 		model.addAttribute("ReviewList", rdto);
-
+		System.out.println("order" + odto);
+		System.out.println("디테일" + oddto);
+		System.out.println("product" + pdto);
 		return "member/member_review";
 	}
 
@@ -229,7 +257,13 @@ public class MemberController {
 		List<ReviewDTO> review = this.dao.getReviewSearchList(map);
 		List<OrderDetailDTO> oddto = this.dao.getOrderDetail_review(review); // 리뷰 테이블의 주문번호로 주문상세내역 찾기
 
-		List<ProductDTO> pdto = this.dao.getProductInfo(oddto); // 주문상세내역의 제품번호로 제품 정보 찾기
+		List<ProductDTO> pdto = new ArrayList<ProductDTO>();
+		
+		List<Integer> proList = new ArrayList<Integer>();
+        for(int i=0; i<oddto.size(); i++) {
+        	proList.add(oddto.get(i).getOrder_pro_no());
+        }
+        pdto = this.dao.getProductInfo(proList);
 
 		model.addAttribute("ProductInfo_s", pdto);
 		model.addAttribute("OrderDetail_s", oddto);
