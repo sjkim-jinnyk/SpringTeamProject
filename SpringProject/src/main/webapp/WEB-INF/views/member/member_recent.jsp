@@ -12,7 +12,7 @@
 		<div class="main">
 			<div class="member_container">
 			<jsp:include page="../include/member_header.jsp"/>
-				
+				 
 				<!-- member_content -->
 				<div class="member_content">
 					<jsp:include page="../include/member_navmenu.jsp" />
