@@ -97,7 +97,7 @@
 								</c:if>
 							</div>
 
-							<form method="post"
+							<form method="post" 
 								action="<%=request.getContextPath()%>/member_search.do">
 								<select name="field">
 									<option value="name">회원성명</option>
