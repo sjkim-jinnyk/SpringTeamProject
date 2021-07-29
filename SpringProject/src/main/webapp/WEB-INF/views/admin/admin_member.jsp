@@ -31,7 +31,7 @@
 			<div class="main">
 
 				<div class="amdin-title">회원 관리</div>
-
+ 
 				<div align="center">
 					<div class="row">
 						<div class="col-md-12">
