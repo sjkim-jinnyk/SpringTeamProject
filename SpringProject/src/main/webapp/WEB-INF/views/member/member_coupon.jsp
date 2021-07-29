@@ -22,17 +22,16 @@
 						<table class="coupon_bar">
 						<c:set var="clist" value="${CouponInfo }"/>
 							<tr>
-									<th id="num">쿠폰번호</th><th id="name">쿠폰명</th><th id="money">할인금액</th><th id="range">적용범위</th>
+									<th id="num">쿠폰번호</th><th id="name">쿠폰명</th><th id="range">적용범위</th>
 							</tr>
 							<c:if test="${!empty clist }">
 								<c:forEach items="${clist }" var="list">
 									<tr>
 										<td>${list.getCoupon_no() }</td>
 										<td>${list.getCoupon_code() }</td>
-										<td>${list.getCoupon_type() }</td>
 										<td>${list.getCoupon_cont() }</td>
 									</tr>
-								</c:forEach>
+								</c:forEach> 
 							</c:if>
 							<c:if test="${empty clist }">
 								<tr>
