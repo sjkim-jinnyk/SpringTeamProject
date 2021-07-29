@@ -77,7 +77,7 @@
 							
 							<div class="btn-wrapper">
 								<button type="submit" class="cont-btn btn-cart" formaction="add_cart.do">장바구니</button>
-								<button type="button" class="cont-btn btn-purchase" onclick="loginCheck();">구매하기</button>
+								<button type="button" class="cont-btn btn-purchase" onclick="loginCheck(${dto.getPro_no() });">구매하기</button>
 								<c:if test="${likeCheck eq 0 }"><button class="like-btn" type="button" id="like-btn" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
 								<c:if test="${likeCheck > 0 }"><button type="button" id="like-btn" class="like-btn like-checked" onclick="likeCheck(${dto.getPro_no() })"><i class="fas fa-heart"></i></button></c:if>
 							</div>
@@ -91,7 +91,7 @@
 				<div class="content-wrapper">
 					<div id="content-bar" class="product-content">
 						<span class="content-category"><a href="#content-detail">상품 설명</a></span>
-						<span class="content-category"><a href="#review">후기</a><c:if test="${rtotal > 0 }">(${rtotal })</c:if></span>
+						<span class="content-category"><a href="#cont-review">후기</a><c:if test="${rtotal > 0 }">(${rtotal })</c:if></span>
 						<span class="content-category"><a href="#qna">Q&A</a><c:if test="${rtotal > 0 }">(${qtotal })</c:if></span>
 						<hr class="hr1">
 					</div>
@@ -103,7 +103,7 @@
 				</c:if>
 				
 				<%-- 리뷰 --%>
-				<div id="review" class="cont-reivew">
+				<div id="cont-review" class="cont-reivew">
 					<span class="table-title">후기</span>
 					
 					<c:if test="${!empty review }">
@@ -231,7 +231,7 @@
 						</ul>
 						</c:if>
 						<c:if test="${empty photo }">
-							<div style="text-align:center;">작성된 후기가 없습니다.</div>
+							<div  style="text-align:center; font-size: 15px;">작성된 후기가 없습니다.</div>
 						</c:if>
 						
 						<hr class="hr2">
@@ -350,7 +350,7 @@
 						
 						<c:if test="${empty qna }">
 							<tr>
-								<td class="no-qna">작성된 질문이 없습니다.</td>
+								<td class="no-qna" style="text-align:center; font-size: 15px;">작성된 질문이 없습니다.</td>
 							</tr>
 						</c:if>
 						
@@ -445,7 +445,7 @@ function writeQna(product_no) {
 	}
 }
 
-function loginCheck(){
+function loginCheck(no){
 	console.log("check");
 	if('${session_id}' == ''){
 		if(confirm('로그인이 필요한 서비스입니다. 로그인하시겠습니까?')){
@@ -453,7 +453,8 @@ function loginCheck(){
 		return;
 		}
 	}else {
-		location.href='purchase.do';
+		let amt = document.getElementById('cart_amount').value;
+		location.href='add_cart.do?product_no='+no+'&cart_amount='+amt;
 	}
 }
 </script>

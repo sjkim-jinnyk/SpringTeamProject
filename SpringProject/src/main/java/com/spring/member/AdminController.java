@@ -54,7 +54,7 @@ public class AdminController {
 			page = 1;
 		}
 
-		rowsize = 5;
+		rowsize = 10;
 		totalRecord = this.dao.getListCount();
 
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
@@ -90,7 +90,7 @@ public class AdminController {
 			page = 1;
 		}
 		
-		rowsize = 1;
+		rowsize = 10;
 		totalRecord = this.dao.adminSearchMemberListCount(keyword);
 		
 		String field = "";		
@@ -120,7 +120,7 @@ public class AdminController {
 			page = 1;
 		}
 
-		rowsize = 5;
+		rowsize = 10;
 		totalRecord = this.dao.getListCount();
 
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);
@@ -156,7 +156,7 @@ public class AdminController {
 			page = 1;
 		}
 
-		rowsize = 4;
+		rowsize = 10;
 		totalRecord = this.dao.getCouponCount();
 
 		PageDTO dto = new PageDTO(page, rowsize, totalRecord);

@@ -45,7 +45,7 @@
 					<br>
 					
 
-					<table border="1" cellspacing="0" width="700">
+					<table cellspacing="0" width="700" class="admin-pro-cont">
 						<tr>
 							<th>작성자</th>
 							<td>${dto.getQna_writer() }</td>
@@ -66,7 +66,7 @@
 
 						<tr>
 							<th>글내용</th>
-							<td>${dto.getQna_cont() }</td>
+							<td><span style="white-space:pre-line;"><c:out value="${dto.getQna_cont() }" /></span></td>
 						</tr>
 						</c:if>
 
@@ -81,7 +81,7 @@
 					</table>
 						<tr>
 							<td colspan="4" align="right">
-							<input type="button" value="전체 문의 목록" onclick="location.href='admin_qna_list.do'">
+							<input class="default-btn" type="button" value="전체 문의 목록" onclick="location.href='admin_qna_list.do'">
 							
 							</td>
 						</tr>

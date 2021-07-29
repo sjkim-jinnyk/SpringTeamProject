@@ -52,7 +52,7 @@
 					<c:if test="${!empty list }">
 						<c:forEach items="${list }" var="dto">
 							<tr>
-								<td>${dto.getQna_no() }
+								<td><c:if test="${dto.getQna_writer() ne 'admin' }">${dto.getQna_no() }</c:if></td>
 								<td>${dto.getQna_writer() }</td>
 								<td>${dto.getQna_category_no() }</td>
 								<td><c:if test="${dto.getQna_step() > 0 }">ㄴ 답변 : </c:if>
@@ -67,7 +67,7 @@
 				<%-- Pagination --%>
 				<div class="pagination">
 					<c:if test="${page.getPage() > page.getBlock() }">
-						<a href="admin_qna_list.do?page=1">◀◀</a>
+						<a class="" href="admin_qna_list.do?page=1">◀◀</a>
 						<a href="admin_qna_list.do?page=${Paging.getStartBlock() - 1 }">◀</a>
 					</c:if>
 

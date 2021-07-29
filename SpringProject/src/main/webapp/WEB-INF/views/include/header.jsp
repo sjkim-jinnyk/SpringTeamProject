@@ -81,7 +81,7 @@ function showMenu(){
 					<input type="hidden" name="id" value="${dto.getMem_id() }">
 					<a href="<%=request.getContextPath()%>/logout.do">LOGOUT</a>
 					<c:set var="id" value="${session_id }"  />
-					<a href="<%=request.getContextPath()%>/member_home.do">MYPAGE</a>
+					<c:if test="${dto.getMem_id() ne 'admin' }"><a href="<%=request.getContextPath()%>/member_home.do">MYPAGE</a></c:if>
 					<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
 					<c:if test="${dto.getMem_id() ne 'admin' }"><span class="welcome"><span>${dto.getMem_name() }</span>님 환영합니다. </span></c:if>
 									
@@ -139,7 +139,7 @@ function showMenu(){
 					<input type="hidden" name="id" value="${dto.getMem_id() }">
 					<a href="<%=request.getContextPath()%>/logout.do">LOGOUT</a>
 					<c:set var="id" value="${session_id }"  />
-					<a href="<%=request.getContextPath()%>/member_home.do">MYPAGE</a>
+					<c:if test="${dto.getMem_id() ne 'admin' }"><a href="<%=request.getContextPath()%>/member_home.do">MYPAGE</a></c:if>
 					<a href="<%=request.getContextPath()%>/cart.do">장바구니</a>
 				</c:if>
 					

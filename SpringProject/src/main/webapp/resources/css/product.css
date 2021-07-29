@@ -426,6 +426,7 @@
 
 /* product_cont - review */
 .review {
+	font-size: 15px;
 	padding: 10px;
 }
 
@@ -562,12 +563,14 @@
 }
 
 .qna-table tr th {
+	font-size: 15px;
 	font-weight: bold;
 	padding: 10px 5px;
 	border-top: 1px solid;
 }
 
 .qna-table tr td {
+	font-size: 15px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	border-top: 1px solid;
@@ -637,8 +640,11 @@
 }
 
 .qna-btn {
-	display: flex-row;
 	float: right;
+}
+
+.qna-btn button {
+	font-size: 15px;
 }
 
 .answer-tag {
