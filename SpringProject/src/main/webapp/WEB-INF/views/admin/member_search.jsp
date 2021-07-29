@@ -34,8 +34,9 @@
 
 			<div align="center">
 
-				<h3>회원 목록</h3>
-				<br>
+				<div class="main">	
+			
+				<div class="amdin-title">회원 목록</div>
 				<div class="row">
 					<div class="col-md-12">
 						<table class="table table-hover">
@@ -98,14 +99,14 @@
 							</div>
 
 							<tr>
-								<td colspan="4" align="right"><input type="button"
+								<td colspan="4" align="right"><input type="button" class="default-btn"
 									value="회원목록" onclick="location.href='admin_list.do'"></td>
 							</tr>
 						</table>
 						<br> <br>
 					</div>
 				</div>
-				<jsp:include page="../include/footer.jsp" />
+			</div>
 			</div>
 		</div>
 	</div>

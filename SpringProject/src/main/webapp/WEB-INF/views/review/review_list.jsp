@@ -84,7 +84,7 @@
 										<span class="cont">내용: ${dto.getReview_cont() }</span>
 									</c:if>
 									
-									<span class="writer">고객명: ${dto.getReview_writer() }</span>
+									<span class="writer">고객명: ${dto.getReview_writer().substring(0,3) }***</span>
 								</div>
 							</div>
 							

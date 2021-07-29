@@ -1,4 +1,5 @@
 input:focus,textarea:focus,select:focus{outline: none;}
+html{scroll-behavior: smooth;}
 
 .main {
 	width: 890px;

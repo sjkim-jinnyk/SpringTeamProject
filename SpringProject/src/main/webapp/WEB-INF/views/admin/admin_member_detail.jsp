@@ -66,11 +66,6 @@
 						</tr>
 
 						<tr>
-							<th>적립금</th>
-							<td><fmt:formatNumber value="${dto.getMem_point() }" />포인트</td>
-						</tr>
-
-						<tr>
 							<th>가입일자</th>
 							<td>${dto.getMem_regdate() }</td>
 						</tr>

@@ -131,6 +131,8 @@ span.cont{
 	left: 10px;
 	top: 15px;
 	font-weight: 600;
+	text-overflow: ellipsis;
+	white-space: pre-wrap;
 }
 
 span.writer{

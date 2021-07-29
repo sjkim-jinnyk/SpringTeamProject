@@ -53,14 +53,14 @@
 					<div class="row">
 						<div class="label">우편번호 *</div>
 						<div class="zip">
-							<input type="text" name="mem_zip" class="joinTxt" id="sample4_postcode">
-							<input type="button" class="zip_btn" value="검색하기" required="required" onclick="sample4_execDaumPostcode()">
+							<input type="text" name="mem_zip" class="joinTxt" id="sample6_postcode">
+							<input type="button" class="zip_btn" value="검색하기" required="required" onclick="sample6_execDaumPostcode()">
 						</div>
 					</div>
 					<div class="row">
 						<div class="label">주소 *</div>
 						<!-- <input type="text" name="mem_addr" required="required"> -->
-						<input type="text" class="joinTxt" id="sample4_roadAddress" 
+						<input type="text" class="joinTxt" id="sample6_address" 
 							name="mem_addr" size="40" required="required">
 						<span id="guide" style="color:#999;display:none"></span>
 					
@@ -71,7 +71,7 @@
 						<c:if test="${!empty sns_type }"><input type="submit" class="login_btn" id="submit" value="가입하기" onclick="submitCheckSNS()"></c:if>
 					</div>	
 					
-					
+					<div id="sample6_detailAddress"></div>
 				</form>
 			
 			</div>			
@@ -82,8 +82,10 @@
 		
 	</div>
 	
+</body>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/member_addr.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<!-- 주소 API 파일 로딩  -->
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	
-</body>
 </html>

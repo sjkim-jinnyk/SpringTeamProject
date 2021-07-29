@@ -72,7 +72,7 @@
 		<![CDATA[
 			 select * from
 				(select b.*, row_number()
-				   over(order by coupon_no) rnum
+				   over(order by coupon_no desc) rnum
 				   from coupon b)
 				   where rnum >= #{startNo} and rnum <= #{endNo} 
 		]]>

@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="resources/css/bootstrap-tagsinput.css">
 <title>울퉁불퉁's 관리자 - 상품 등록</title>
 </head>
+<script type="text/javascript" src="resources/ckeditor/ckeditor.js"></script>
 <body>
 
 	<div class="wrapper d-flex align-items-stretch">
@@ -111,5 +112,4 @@
 	</div>
 </body>
 <script type="text/javascript" src="resources/js/bootstrap-tagsinput.js"></script>
-<script type="text/javascript" src="resources/ckeditor/ckeditor.js"></script>
 </html>
