@@ -16,7 +16,7 @@
 			<h1>결제 성공</h1>
 			
 			<div class="a_container">
-				<a href="<%=request.getContextPath()%>/main.do">메인 화면으로 가기</a>
+				<a href="<%=request.getContextPath()%>/member_home.do">주문내역 확인하기</a>
 			</div>
 		</div>
 		<jsp:include page="../include/footer.jsp" />
