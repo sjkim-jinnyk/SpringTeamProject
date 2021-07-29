@@ -22,10 +22,9 @@
 						<c:if test="${!empty list }">
 						<ul id="allList">
 							<c:forEach items="${list }" var="dto">
-							
 								<li id="box">
 								<form method="post">
-								<input type="hidden" name="product_no" value="${dto.getProductDTO().getPro_no() }">
+									<input type="hidden" name="product_no" value="${dto.getProductDTO().getPro_no() }">
 									<a href="<%=request.getContextPath() %>/product_cont.do?no=${dto.getProductDTO().getPro_no()}">
 										<img src="resources/img/upload/${dto.getProductDTO().getPro_img() }">
 									</a>

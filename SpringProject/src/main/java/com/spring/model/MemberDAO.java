@@ -9,7 +9,7 @@ public interface MemberDAO {
 	public List<MemberDTO> getMemberList();									// 전체 회원 리스트 호출 메서드
 	
 	public List<OrderDetailDTO> getOrderDetail(List<OrderDTO> list); 		// 주문번호로 주문 정보 호출 메서드
-	public List<ProductDTO> getProductInfo(List<OrderDetailDTO> list);		// 주문번호로 제품 정보 호출 메서드
+	public List<ProductDTO> getProductInfo(List<Integer> list);		// 주문번호로 제품 정보 호출 메서드
 	public List<OrderDetailDTO> getOrderDetail_review(List<ReviewDTO> list);// 주문번호로 제품 정보 호출 메서드
 	
 	// mypage home_header

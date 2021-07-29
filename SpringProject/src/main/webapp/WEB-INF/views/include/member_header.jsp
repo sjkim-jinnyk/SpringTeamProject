@@ -24,12 +24,6 @@
 			</li>
 		</ul>
 		<ul class="my_menu">
-			<li>
-				<ul class="menu_bar">
-					<li>적립금 </li>
-					<li id="menu_cont"><fmt:formatNumber value="${dto.getPoint() }" /></li>
-				</ul>
-			</li>
 			<a href="<%=request.getContextPath() %>/member_coupon.do?id=${dto.getMemId() }">
 				<li>
 					<ul class="menu_bar">
@@ -67,12 +61,6 @@
 			<li><a href="<%=request.getContextPath()%>/member_info.do?id=${dto.getMemId() }"><i class="fas fa-user-circle"></i></a></li>
 		</ul>
 		<ul class="my_menu">
-			<li>
-				<ul class="menu_bar">
-					<li>적립금 </li>
-					<li id="menu_cont"><fmt:formatNumber value="${dto.getPoint() }" /></li>
-				</ul>
-			</li>
 			<a href="<%=request.getContextPath() %>/member_coupon.do?id=${dto.getMemId() }">
 				<li>
 					<ul class="menu_bar">

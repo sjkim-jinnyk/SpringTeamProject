@@ -120,7 +120,7 @@ public class MemberDAOImpl implements MemberDAO{
 
 	// 주문번호로 제품 정보 호출 메서드
 	@Override
-	public List<ProductDTO> getProductInfo(List<OrderDetailDTO> list) {
+	public List<ProductDTO> getProductInfo(List<Integer> list) {
 
 		return this.sqlSession.selectList("productInfo", list);
 	}
