@@ -25,7 +25,7 @@
 <img width="492" alt="그림1" src="https://user-images.githubusercontent.com/85085844/131287903-1cbdcf25-ab5c-4e7e-8e20-c5e53dc6cc3d.png">
 
 
-Other : [울퉁불퉁's 화면구성]
+Other : [울퉁불퉁's 화면구성](https://github.com/csooy38/SpringTeamProject/issues/1)
 
 ---
 
