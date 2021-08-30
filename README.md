@@ -22,7 +22,8 @@
 
 ### DEMO IMAGE
 
-![메인 첫번째]("https://user-images.githubusercontent.com/85085844/131287586-730a17f1-6fbd-44da-b3b6-643da8ede24a.png")
+<img width="492" alt="그림1" src="https://user-images.githubusercontent.com/85085844/131287903-1cbdcf25-ab5c-4e7e-8e20-c5e53dc6cc3d.png">
+
 
 Other : [울퉁불퉁's 화면구성]
 
