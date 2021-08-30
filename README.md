@@ -32,7 +32,7 @@ Other : [울퉁불퉁's 화면구성]
 
 팀원별 활동 내역 및 이슈정리
 
-Notion 정리 :  [정리 및 이슈내용] (https://www.notion.so/d68a403fa9194347b38dbcdcf268a7eb?v=df27f3f2380940f1aa7d8730b73316e1)
+Notion 정리 :  [정리 및 이슈내용](https://www.notion.so/d68a403fa9194347b38dbcdcf268a7eb?v=df27f3f2380940f1aa7d8730b73316e1)
 
 Notion 작업 목록 :  [각 파트별 분담 및 작업 내용](https://www.notion.so/bdc872cd08524b979f467ed4ac88c443)
 
